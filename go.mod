@@ -1,4 +1,4 @@
-module github.com/prazd/ton_research
+module github.com/button-tech/ton-grams-testnet
 
 require (
 	github.com/anvie/port-scanner v0.0.0-20180225151059-8159197d3770
