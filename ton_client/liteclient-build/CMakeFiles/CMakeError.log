@@ -1,0 +1,143 @@
+Performing C++ SOURCE FILE Test HAVE_ARM64_CRC32C failed with the following output:
+Change Dir: /root/liteclient-build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_f7401/fast"
+/usr/bin/make -f CMakeFiles/cmTC_f7401.dir/build.make CMakeFiles/cmTC_f7401.dir/build
+make[1]: Entering directory '/root/liteclient-build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_f7401.dir/src.cxx.o
+/usr/bin/c++    -Wall -Wextra -Werror -fno-exceptions -fno-rtti -DHAVE_ARM64_CRC32C  -march=armv8-a+crc+crypto -fPIE   -o CMakeFiles/cmTC_f7401.dir/src.cxx.o -c /root/liteclient-build/CMakeFiles/CMakeTmp/src.cxx
+cc1plus: error: bad value (‘armv8-a+crc+crypto’) for ‘-march=’ switch
+cc1plus: note: valid arguments to ‘-march=’ switch are: nocona core2 nehalem corei7 westmere sandybridge corei7-avx ivybridge core-avx-i haswell core-avx2 broadwell skylake skylake-avx512 bonnell atom silvermont slm knl x86-64 eden-x2 nano nano-1000 nano-2000 nano-3000 nano-x2 eden-x4 nano-x4 k8 k8-sse3 opteron opteron-sse3 athlon64 athlon64-sse3 athlon-fx amdfam10 barcelona bdver1 bdver2 bdver3 bdver4 znver1 btver1 btver2
+CMakeFiles/cmTC_f7401.dir/build.make:65: recipe for target 'CMakeFiles/cmTC_f7401.dir/src.cxx.o' failed
+make[1]: *** [CMakeFiles/cmTC_f7401.dir/src.cxx.o] Error 1
+make[1]: Leaving directory '/root/liteclient-build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_f7401/fast' failed
+make: *** [cmTC_f7401/fast] Error 2
+
+Source file was:
+
+#include <arm_acle.h>
+#include <arm_neon.h>
+
+int main() {
+  __crc32cb(0, 0); __crc32ch(0, 0); __crc32cw(0, 0); __crc32cd(0, 0);
+  vmull_p64(0, 0);
+  return 0;
+}
+
+Performing C++ SOURCE FILE Test HAVE_STRONG_GETAUXVAL failed with the following output:
+Change Dir: /root/liteclient-build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_4cc21/fast"
+/usr/bin/make -f CMakeFiles/cmTC_4cc21.dir/build.make CMakeFiles/cmTC_4cc21.dir/build
+make[1]: Entering directory '/root/liteclient-build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_4cc21.dir/src.cxx.o
+/usr/bin/c++    -Wall -Wextra -Werror -fno-exceptions -fno-rtti -DHAVE_STRONG_GETAUXVAL -fPIE   -o CMakeFiles/cmTC_4cc21.dir/src.cxx.o -c /root/liteclient-build/CMakeFiles/CMakeTmp/src.cxx
+/root/liteclient-build/CMakeFiles/CMakeTmp/src.cxx:2:10: fatal error: arm_acle.h: No such file or directory
+ #include <arm_acle.h>
+          ^~~~~~~~~~~~
+compilation terminated.
+CMakeFiles/cmTC_4cc21.dir/build.make:65: recipe for target 'CMakeFiles/cmTC_4cc21.dir/src.cxx.o' failed
+make[1]: *** [CMakeFiles/cmTC_4cc21.dir/src.cxx.o] Error 1
+make[1]: Leaving directory '/root/liteclient-build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_4cc21/fast' failed
+make: *** [cmTC_4cc21/fast] Error 2
+
+Source file was:
+
+#include <arm_acle.h>
+#include <arm_neon.h>
+#include <sys/auxv.h>
+
+int main() {
+  getauxval(AT_HWCAP);
+  return 0;
+}
+
+Determining if the pthread_create exist failed with the following output:
+Change Dir: /root/liteclient-build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_b61eb/fast"
+/usr/bin/make -f CMakeFiles/cmTC_b61eb.dir/build.make CMakeFiles/cmTC_b61eb.dir/build
+make[1]: Entering directory '/root/liteclient-build/CMakeFiles/CMakeTmp'
+Building C object CMakeFiles/cmTC_b61eb.dir/CheckSymbolExists.c.o
+/usr/bin/cc   -fPIE   -o CMakeFiles/cmTC_b61eb.dir/CheckSymbolExists.c.o   -c /root/liteclient-build/CMakeFiles/CMakeTmp/CheckSymbolExists.c
+Linking C executable cmTC_b61eb
+/usr/bin/cmake -E cmake_link_script CMakeFiles/cmTC_b61eb.dir/link.txt --verbose=1
+/usr/bin/cc      -rdynamic CMakeFiles/cmTC_b61eb.dir/CheckSymbolExists.c.o  -o cmTC_b61eb 
+CMakeFiles/cmTC_b61eb.dir/CheckSymbolExists.c.o: In function `main':
+CheckSymbolExists.c:(.text+0x1b): undefined reference to `pthread_create'
+collect2: error: ld returned 1 exit status
+CMakeFiles/cmTC_b61eb.dir/build.make:97: recipe for target 'cmTC_b61eb' failed
+make[1]: *** [cmTC_b61eb] Error 1
+make[1]: Leaving directory '/root/liteclient-build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_b61eb/fast' failed
+make: *** [cmTC_b61eb/fast] Error 2
+
+File /root/liteclient-build/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <pthread.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef pthread_create
+  return ((int*)(&pthread_create))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Performing C++ SOURCE FILE Test HAVE_CXX_FLAG_QUNUSED_ARGUMENTS failed with the following output:
+Change Dir: /root/liteclient-build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_1f7d0/fast"
+/usr/bin/make -f CMakeFiles/cmTC_1f7d0.dir/build.make CMakeFiles/cmTC_1f7d0.dir/build
+make[1]: Entering directory '/root/liteclient-build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_1f7d0.dir/src.cxx.o
+/usr/bin/c++    -march=native -pthread -std=c++14 -fno-omit-frame-pointer -ffunction-sections -fdata-sections -Wall -Wextra -Wimplicit-fallthrough=2 -Wpointer-arith -Wcast-qual -Wsign-compare -Wduplicated-branches -Wduplicated-cond -Walloc-zero -Wlogical-op -Wno-tautological-compare -Wpointer-arith -Wvla -Wnon-virtual-dtor -Wno-unused-parameter -Wconversion -Wno-sign-conversion -DHAVE_CXX_FLAG_QUNUSED_ARGUMENTS  -Qunused-arguments -fPIE   -Qunused-arguments -o CMakeFiles/cmTC_1f7d0.dir/src.cxx.o -c /root/liteclient-build/CMakeFiles/CMakeTmp/src.cxx
+c++: error: unrecognized command line option '-Qunused-arguments'; did you mean '-Wunused-parameter'?
+c++: error: unrecognized command line option '-Qunused-arguments'; did you mean '-Wunused-parameter'?
+CMakeFiles/cmTC_1f7d0.dir/build.make:65: recipe for target 'CMakeFiles/cmTC_1f7d0.dir/src.cxx.o' failed
+make[1]: *** [CMakeFiles/cmTC_1f7d0.dir/src.cxx.o] Error 1
+make[1]: Leaving directory '/root/liteclient-build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_1f7d0/fast' failed
+make: *** [cmTC_1f7d0/fast] Error 2
+
+Source file was:
+int main() { return 0; }
+Performing C++ SOURCE FILE Test HAVE_CXX_FLAG_WUNUSED_PRIVATE_FIELD failed with the following output:
+Change Dir: /root/liteclient-build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_10fa5/fast"
+/usr/bin/make -f CMakeFiles/cmTC_10fa5.dir/build.make CMakeFiles/cmTC_10fa5.dir/build
+make[1]: Entering directory '/root/liteclient-build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_10fa5.dir/src.cxx.o
+/usr/bin/c++    -march=native -pthread -std=c++14 -fno-omit-frame-pointer -ffunction-sections -fdata-sections -Wall -Wextra -Wimplicit-fallthrough=2 -Wpointer-arith -Wcast-qual -Wsign-compare -Wduplicated-branches -Wduplicated-cond -Walloc-zero -Wlogical-op -Wno-tautological-compare -Wpointer-arith -Wvla -Wnon-virtual-dtor -Wno-unused-parameter -Wconversion -Wno-sign-conversion -DHAVE_CXX_FLAG_WUNUSED_PRIVATE_FIELD  -Wno-unused-private-field -fPIE   -Wunused-private-field -o CMakeFiles/cmTC_10fa5.dir/src.cxx.o -c /root/liteclient-build/CMakeFiles/CMakeTmp/src.cxx
+c++: error: unrecognized command line option '-Wunused-private-field'; did you mean '-Wunused-parameter'?
+CMakeFiles/cmTC_10fa5.dir/build.make:65: recipe for target 'CMakeFiles/cmTC_10fa5.dir/src.cxx.o' failed
+make[1]: *** [CMakeFiles/cmTC_10fa5.dir/src.cxx.o] Error 1
+make[1]: Leaving directory '/root/liteclient-build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_10fa5/fast' failed
+make: *** [cmTC_10fa5/fast] Error 2
+
+Source file was:
+int main() { return 0; }
+Performing C++ SOURCE FILE Test HAVE_CXX_FLAG_WREDUNDANT_MOVE failed with the following output:
+Change Dir: /root/liteclient-build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTC_7355b/fast"
+/usr/bin/make -f CMakeFiles/cmTC_7355b.dir/build.make CMakeFiles/cmTC_7355b.dir/build
+make[1]: Entering directory '/root/liteclient-build/CMakeFiles/CMakeTmp'
+Building CXX object CMakeFiles/cmTC_7355b.dir/src.cxx.o
+/usr/bin/c++    -march=native -pthread -std=c++14 -fno-omit-frame-pointer -ffunction-sections -fdata-sections -Wall -Wextra -Wimplicit-fallthrough=2 -Wpointer-arith -Wcast-qual -Wsign-compare -Wduplicated-branches -Wduplicated-cond -Walloc-zero -Wlogical-op -Wno-tautological-compare -Wpointer-arith -Wvla -Wnon-virtual-dtor -Wno-unused-parameter -Wconversion -Wno-sign-conversion -DHAVE_CXX_FLAG_WREDUNDANT_MOVE  -Wno-redundant-move -fPIE   -Wredundant-move -o CMakeFiles/cmTC_7355b.dir/src.cxx.o -c /root/liteclient-build/CMakeFiles/CMakeTmp/src.cxx
+c++: error: unrecognized command line option '-Wredundant-move'; did you mean '-Wredundant-decls'?
+CMakeFiles/cmTC_7355b.dir/build.make:65: recipe for target 'CMakeFiles/cmTC_7355b.dir/src.cxx.o' failed
+make[1]: *** [CMakeFiles/cmTC_7355b.dir/src.cxx.o] Error 1
+make[1]: Leaving directory '/root/liteclient-build/CMakeFiles/CMakeTmp'
+Makefile:126: recipe for target 'cmTC_7355b/fast' failed
+make: *** [cmTC_7355b/fast] Error 2
+
+Source file was:
+int main() { return 0; }
