@@ -87,7 +87,7 @@ func main() {
 	r := gin.New()
 
 	rr, err := roundrobin.New([]*url.URL{
-		{Host: "67.207.74.182"},
+		// Add addresses
 	})
 	if err != nil {
 		log.Println(err)
