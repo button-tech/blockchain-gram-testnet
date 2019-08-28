@@ -11,7 +11,7 @@ Build and run
 
 # docker build -f Dockerfile.worker -r username/imagename .
 
-# sudo docker run -v /mnt/filedir/masterchain:/app/wrappers/scripts/masterchain -v /mnt/filedir/basechain:/app/wrappers/scripts/basechain -e WORKDIR=/app/wrappers/scripts -e API=.. -p 80:80 -d --name v10 username/imagename .
+# sudo docker run -v /mnt/filedir/masterchain:/app/wrappers/scripts/masterchain -v /mnt/filedir/basechain:/app/wrappers/scripts/basechain -e WORKDIR=/app/wrappers/scripts -e API=.. -d -p 80:80 username/imagename .
 
 ```
 
