@@ -53,7 +53,7 @@ var (
 	api         = os.Getenv("API")
 	generateUrl = api + "/account/new"
 	//sendUrl     = api + "/transaction/create"
-	header      = req.Header{
+	header = req.Header{
 		"Content-Type": "application/json",
 	}
 )
