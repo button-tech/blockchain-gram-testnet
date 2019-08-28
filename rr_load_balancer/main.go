@@ -98,9 +98,7 @@ func main() {
 
 		host := rr.Next()
 
-		url := UrlGen(c.Request.URL.Query().Get("network"), "getBalance", host.Host, c.Param("address"))
-
-		resp, err := req.Get(url)
+		resp, err := req.Get(UrlGen(c.Request.URL.Query().Get("network"), "getBalance", host.Host, c.Param("address")))
 		if err != nil {
 			c.JSON(500, err.Error())
 			return
@@ -113,9 +111,7 @@ func main() {
 
 		host := rr.Next()
 
-		url := UrlGen(c.Request.URL.Query().Get("network"), "getAccount", host.Host, c.Param("catalog"))
-
-		resp, err := req.Get(url)
+		resp, err := req.Get(UrlGen(c.Request.URL.Query().Get("network"), "getAccount", host.Host, c.Param("catalog")))
 		if err != nil {
 			c.JSON(500, err.Error())
 			return
@@ -139,9 +135,7 @@ func main() {
 	r.GET("/getPublicKeyFile/:catalog", func(c *gin.Context) {
 		host := rr.Next()
 
-		url := UrlGen(c.Request.URL.Query().Get("network"), "getPublicKeyFile", host.Host, c.Param("catalog"))
-
-		resp, err := req.Get(url)
+		resp, err := req.Get(UrlGen(c.Request.URL.Query().Get("network"), "getPublicKeyFile", host.Host, c.Param("catalog")))
 		if err != nil {
 			c.JSON(500, err.Error())
 			return
@@ -153,9 +147,7 @@ func main() {
 	r.GET("/getPrivateKeyFile/:catalog", func(c *gin.Context) {
 		host := rr.Next()
 
-		url := UrlGen(c.Request.URL.Query().Get("network"), "getPrivateKeyFile", host.Host, c.Param("catalog"))
-
-		resp, err := req.Get(url)
+		resp, err := req.Get(UrlGen(c.Request.URL.Query().Get("network"), "getPrivateKeyFile", host.Host, c.Param("catalog")))
 		if err != nil {
 			c.JSON(500, err.Error())
 			return
@@ -167,9 +159,7 @@ func main() {
 	r.GET("/getLastTxHash/:address", func(c *gin.Context) {
 		host := rr.Next()
 
-		url := UrlGen(c.Request.URL.Query().Get("network"), "getLastTxHash", host.Host, c.Param("address"))
-
-		resp, err := req.Get(url)
+		resp, err := req.Get(UrlGen(c.Request.URL.Query().Get("network"), "getLastTxHash", host.Host, c.Param("address")))
 		if err != nil {
 			c.JSON(500, err.Error())
 			return
