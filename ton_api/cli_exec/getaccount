@@ -1,0 +1,16 @@
+#!/usr/bin/expect -f
+
+set timeout -1
+
+set workdir [lindex $argv 0];
+set network [lindex $argv 1];
+set address [lindex $argv 2];
+
+spawn $workdir/liteclient-build/lite-client/lite-client -C $workdir/liteclient-build/ton-lite-client-test1.config.json
+sleep 1
+expect ""
+send -- "getaccount $network:$address\r"
+sleep 1
+expect ">"
+send \x03
+expect eof

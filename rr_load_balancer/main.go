@@ -1,0 +1,211 @@
+package main
+
+import (
+	"log"
+	"net/url"
+	"os"
+	"sync"
+	"time"
+
+	"github.com/anvie/port-scanner"
+	"github.com/gin-gonic/gin"
+	"github.com/hlts2/round-robin"
+	"github.com/imroc/req"
+)
+
+type TonServer struct {
+	sync.RWMutex
+	Status bool
+	Time   string
+}
+
+func (t *TonServer) Set(status bool, time string) {
+	t.Lock()
+	t.Status = status
+	t.Time = time
+	t.Unlock()
+}
+
+func (t *TonServer) Get() (bool, string) {
+	t.RLock()
+	defer t.RUnlock()
+	return t.Status, t.Time
+}
+
+var T TonServer
+
+func UrlGen(network, request, host, address string) string {
+
+	if len(network) == 0 {
+		return host + "/" + request + "/" + address
+	}
+
+	return host + "/" + request + "/" + address + "?network=" + network
+}
+
+func tonServerChecker(ip string, port int) {
+
+	ps := portscanner.NewPortScanner(ip, 1*time.Second, 1)
+
+	log.Println("Start healthCheck!")
+
+	for {
+
+		isAlive := ps.IsOpen(port)
+
+		dt := time.Now()
+
+		if !isAlive {
+
+			time.Sleep(time.Second * 10)
+
+			secondCheck := ps.IsOpen(port)
+
+			dt = time.Now()
+
+			T.Set(secondCheck, dt.Format("01-02-2006T15:04:05"))
+
+			log.Println("TON off!")
+
+			time.Sleep(time.Minute * 1)
+
+			continue
+		}
+
+		T.Set(isAlive, dt.Format("01-02-2006T15:04:05"))
+
+		time.Sleep(1 * time.Minute)
+	}
+}
+
+func init() {
+	go tonServerChecker("67.207.74.182", 4924)
+}
+
+func main() {
+
+	r := gin.New()
+
+	rr, err := roundrobin.New([]*url.URL{
+		// list of hosts
+	})
+	if err != nil {
+		log.Println(err)
+		os.Exit(1)
+	}
+
+	r.GET("/getBalance/:address", func(c *gin.Context) {
+
+		host := rr.Next()
+
+		url := UrlGen(c.Request.URL.Query().Get("network"), "getBalance", host.Host, c.Param("address"))
+
+		resp, err := req.Get(url)
+		if err != nil {
+			c.JSON(500, err.Error())
+			return
+		}
+
+		c.Data(resp.Response().StatusCode, "application/json", resp.Bytes())
+	})
+
+	r.GET("/getAccount/:catalog", func(c *gin.Context) {
+
+		host := rr.Next()
+
+		url := UrlGen(c.Request.URL.Query().Get("network"), "getAccount", host.Host, c.Param("catalog"))
+
+		resp, err := req.Get(url)
+		if err != nil {
+			c.JSON(500, err.Error())
+			return
+		}
+
+		c.Data(resp.Response().StatusCode, "application/json", resp.Bytes())
+	})
+
+	r.GET("/healthCheck", func(c *gin.Context) {
+		lastTimeCheck, status := T.Get()
+
+		data := struct {
+			Up            bool   `json:"up"`
+			LastTimeCheck string `json:"lastTimeCheck"`
+		}{lastTimeCheck, status}
+
+		c.JSON(200, data)
+
+	})
+
+	r.GET("/getPublicKeyFile/:catalog", func(c *gin.Context) {
+		host := rr.Next()
+
+		url := UrlGen(c.Request.URL.Query().Get("network"), "getPublicKeyFile", host.Host, c.Param("catalog"))
+
+		resp, err := req.Get(url)
+		if err != nil {
+			c.JSON(500, err.Error())
+			return
+		}
+
+		c.Data(resp.Response().StatusCode, "application/octet-stream", resp.Bytes())
+	})
+
+	r.GET("/getPrivateKeyFile/:catalog", func(c *gin.Context) {
+		host := rr.Next()
+
+		url := UrlGen(c.Request.URL.Query().Get("network"), "getPrivateKeyFile", host.Host, c.Param("catalog"))
+
+		resp, err := req.Get(url)
+		if err != nil {
+			c.JSON(500, err.Error())
+			return
+		}
+
+		c.Data(resp.Response().StatusCode, "application/octet-stream", resp.Bytes())
+	})
+
+	r.GET("/getLastTxHash/:address", func(c *gin.Context) {
+		host := rr.Next()
+
+		url := UrlGen(c.Request.URL.Query().Get("network"), "getLastTxHash", host.Host, c.Param("address"))
+
+		resp, err := req.Get(url)
+		if err != nil {
+			c.JSON(500, err.Error())
+			return
+		}
+
+		c.Data(resp.Response().StatusCode, "application/json", resp.Bytes())
+	})
+
+	r.GET("/generateAccount/:network/:userId", func(c *gin.Context) {
+		host := rr.Next()
+
+		resp, err := req.Get(host.Host + "/generateAccount/" + c.Param("network") + "/" + c.Param("userId"))
+		if err != nil {
+			c.JSON(500, err.Error())
+			return
+		}
+
+		c.Data(resp.Response().StatusCode, "application/json", resp.Bytes())
+	})
+
+	r.POST("/send", func(c *gin.Context) {
+
+		host := rr.Next()
+
+		header := req.Header{
+			"Content-Type": "application/json",
+		}
+
+		resp, err := req.Post(host.Host+"/send", header, c.Request.Body)
+		if err != nil {
+			c.JSON(500, err.Error())
+			return
+		}
+
+		c.Data(resp.Response().StatusCode, "application/json", resp.Bytes())
+	})
+
+	r.Run(":80")
+}

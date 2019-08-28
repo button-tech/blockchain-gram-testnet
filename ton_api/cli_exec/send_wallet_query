@@ -1,0 +1,15 @@
+#!/usr/bin/expect -f
+
+set timeout -1
+
+set workdir [lindex $argv 0];
+set address [lindex $argv 1];
+set network [lindex $argv 2];
+
+spawn $workdir/liteclient-build/lite-client/lite-client -C $workdir/liteclient-build/ton-lite-client-test1.config.json
+sleep 1
+expect ""
+send -- "sendfile $workdir/$network/$address/$address-wallet.boc\r"
+sleep 1
+send \x03
+expect eof
