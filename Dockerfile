@@ -33,4 +33,4 @@ RUN wget https://test.ton.org/ton-lite-client-test1.config.json
 
 WORKDIR /app/ton_api
 
-CMD ["/app/ton_api/main"]
+CMD ["/app/wrappers/main"]

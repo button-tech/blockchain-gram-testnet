@@ -13,26 +13,26 @@ import (
 	"github.com/imroc/req"
 )
 
-type TonServer struct {
+type TonTestnet struct {
 	sync.RWMutex
 	Status bool
 	Time   string
 }
 
-func (t *TonServer) Set(status bool, time string) {
+func (t *TonTestnet) Set(status bool, time string) {
 	t.Lock()
 	t.Status = status
 	t.Time = time
 	t.Unlock()
 }
 
-func (t *TonServer) Get() (bool, string) {
+func (t *TonTestnet) Get() (bool, string) {
 	t.RLock()
 	defer t.RUnlock()
 	return t.Status, t.Time
 }
 
-var T TonServer
+var T TonTestnet
 
 func UrlGen(network, request, host, address string) string {
 
@@ -43,7 +43,7 @@ func UrlGen(network, request, host, address string) string {
 	return host + "/" + request + "/" + address + "?network=" + network
 }
 
-func tonServerChecker(ip string, port int) {
+func tonTestnetChecker(ip string, port int) {
 
 	ps := portscanner.NewPortScanner(ip, 1*time.Second, 1)
 
@@ -79,7 +79,7 @@ func tonServerChecker(ip string, port int) {
 }
 
 func init() {
-	go tonServerChecker("67.207.74.182", 4924)
+	go tonTestnetChecker("67.207.74.182", 4924)
 }
 
 func main() {
@@ -87,7 +87,7 @@ func main() {
 	r := gin.New()
 
 	rr, err := roundrobin.New([]*url.URL{
-		// list of hosts
+		{Host: "67.207.74.182"},
 	})
 	if err != nil {
 		log.Println(err)
