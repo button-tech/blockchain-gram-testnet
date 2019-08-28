@@ -32,7 +32,12 @@ func (t *TonTestnet) Get() (bool, string) {
 	return t.Status, t.Time
 }
 
-var T TonTestnet
+var (
+	T          TonTestnet
+	jsonHeader = req.Header{
+		"Content-Type": "application/json",
+	}
+)
 
 func UrlGen(network, request, host, address string) string {
 
@@ -121,6 +126,7 @@ func main() {
 	})
 
 	r.GET("/healthCheck", func(c *gin.Context) {
+
 		lastTimeCheck, status := T.Get()
 
 		data := struct {
@@ -133,6 +139,7 @@ func main() {
 	})
 
 	r.GET("/getPublicKeyFile/:catalog", func(c *gin.Context) {
+
 		host := rr.Next()
 
 		resp, err := req.Get(UrlGen(c.Request.URL.Query().Get("network"), "getPublicKeyFile", host.Host, c.Param("catalog")))
@@ -145,6 +152,7 @@ func main() {
 	})
 
 	r.GET("/getPrivateKeyFile/:catalog", func(c *gin.Context) {
+
 		host := rr.Next()
 
 		resp, err := req.Get(UrlGen(c.Request.URL.Query().Get("network"), "getPrivateKeyFile", host.Host, c.Param("catalog")))
@@ -157,6 +165,7 @@ func main() {
 	})
 
 	r.GET("/getLastTxHash/:address", func(c *gin.Context) {
+
 		host := rr.Next()
 
 		resp, err := req.Get(UrlGen(c.Request.URL.Query().Get("network"), "getLastTxHash", host.Host, c.Param("address")))
@@ -168,10 +177,11 @@ func main() {
 		c.Data(resp.Response().StatusCode, "application/json", resp.Bytes())
 	})
 
-	r.GET("/generateAccount/:network/:userId", func(c *gin.Context) {
+	r.POST("/generateAccount", func(c *gin.Context) {
+
 		host := rr.Next()
 
-		resp, err := req.Get(host.Host + "/generateAccount/" + c.Param("network") + "/" + c.Param("userId"))
+		resp, err := req.Post(host.Host+"/generateAccount", jsonHeader, c.Request.Body)
 		if err != nil {
 			c.JSON(500, err.Error())
 			return
@@ -184,11 +194,7 @@ func main() {
 
 		host := rr.Next()
 
-		header := req.Header{
-			"Content-Type": "application/json",
-		}
-
-		resp, err := req.Post(host.Host+"/send", header, c.Request.Body)
+		resp, err := req.Post(host.Host+"/send", jsonHeader, c.Request.Body)
 		if err != nil {
 			c.JSON(500, err.Error())
 			return
@@ -197,5 +203,8 @@ func main() {
 		c.Data(resp.Response().StatusCode, "application/json", resp.Bytes())
 	})
 
-	r.Run(":80")
+	if err := r.Run(":80"); err != nil {
+		log.Println(err)
+		os.Exit(1)
+	}
 }

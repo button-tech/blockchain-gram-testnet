@@ -10,7 +10,7 @@ import (
 	"io"
 	"net/http"
 	"strconv"
-
+	"log"
 	"github.com/gin-gonic/gin"
 
 	"github.com/imroc/req"
@@ -46,62 +46,59 @@ type GeneratedAccount struct {
 	UserId     int64  `json:"userId"`
 	Chain      string `json:"chain"`
 	Success    bool   `json:"success"`
+	NetworkId  string `json:"networkId"`
+	WebHookUrl string `json:"webHookUrl"`
 }
 
 var (
-	workdir     = os.Getenv("WORKDIR")
-	api         = os.Getenv("API")
-	generateUrl = api + "/account/new"
-	header = req.Header{
+	workdir = os.Getenv("WORKDIR")
+	header  = req.Header{
 		"Content-Type": "application/json",
 	}
 )
 
-func generateAccount(param string, userId int64) {
+func generateAccount(p GeneratedAccount) {
 
-	var data GeneratedAccount
-
-	cmd := exec.Command(workdir+"/addr_gen.py", param)
+	cmd := exec.Command(workdir+"/addr_gen.py", p.NetworkId)
 
 	stdout, err := cmd.Output()
 	if err != nil {
-		data.Success = false
-		jsonValue, _ := json.Marshal(data)
-		req.Post(generateUrl, header, jsonValue)
+		p.Success = false
+		jsonValue, _ := json.Marshal(p)
+		req.Post(p.WebHookUrl, header, jsonValue)
 		return
 	}
 
 	if string(stdout) == "error\n" {
-		data.Success = false
-		jsonValue, _ := json.Marshal(data)
-		req.Post(generateUrl, header, jsonValue)
+		p.Success = false
+		jsonValue, _ := json.Marshal(p)
+		req.Post(p.WebHookUrl, header, jsonValue)
 		return
 	}
 
 	results := strings.TrimSuffix(string(stdout), "\n")
 	results = strings.Replace(results, "'", "\"", -1)
 
-	err = json.Unmarshal([]byte(results), &data)
+	err = json.Unmarshal([]byte(results), &p)
 	if err != nil {
-		data.Success = false
-		jsonValue, _ := json.Marshal(data)
-		req.Post(generateUrl, header, jsonValue)
+		p.Success = false
+		jsonValue, _ := json.Marshal(p)
+		req.Post(p.WebHookUrl, header, jsonValue)
 		return
 	}
 
-	data.Success = true
-	data.UserId = userId
+	p.Success = true
 
-	switch param {
+	switch p.NetworkId {
 	case "0":
-		data.Chain = "base"
+		p.Chain = "base"
 	case "-1":
-		data.Chain = "master"
+		p.Chain = "master"
 	}
 
-	jsonValue, _ := json.Marshal(data)
+	jsonValue, _ := json.Marshal(p)
 
-	req.Post(generateUrl, header, jsonValue)
+	req.Post(p.WebHookUrl, header, jsonValue)
 }
 
 func sendGrams(p TxParams) {
@@ -298,26 +295,16 @@ func main() {
 		c.JSON(200, gin.H{"nanograms": balance})
 	})
 
-	r.GET("/generateAccount/:network/:userId", func(c *gin.Context) {
+	r.POST("/generateAccount", func(c *gin.Context) {
+		var p GeneratedAccount
 
-		userId, err := strconv.ParseInt(c.Param("userId"), 10, 64)
+		err := c.BindJSON(&p)
 		if err != nil {
-			c.JSON(404, "bad request")
+			c.JSON(500, err)
 			return
 		}
 
-		var param string
-
-		if c.Param("network") == "masterchain" {
-			param = "-1"
-		} else if c.Param("network") == "basechain" {
-			param = "0"
-		} else {
-			c.JSON(400, gin.H{"error": "bad request"})
-			return
-		}
-
-		go generateAccount(param, userId)
+		go generateAccount(p)
 
 		c.JSON(200, "ok")
 	})
@@ -365,5 +352,8 @@ func main() {
 
 	})
 
-	r.Run(":80")
+	if err := r.Run(":80"); err != nil{
+		log.Println(err)
+		os.Exit(1)
+	}
 }
