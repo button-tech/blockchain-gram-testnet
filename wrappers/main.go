@@ -8,9 +8,10 @@ import (
 	"strings"
 
 	"io"
+	"log"
 	"net/http"
 	"strconv"
-	"log"
+
 	"github.com/gin-gonic/gin"
 
 	"github.com/imroc/req"
@@ -99,6 +100,38 @@ func generateAccount(p GeneratedAccount) {
 	jsonValue, _ := json.Marshal(p)
 
 	req.Post(p.WebHookUrl, header, jsonValue)
+}
+
+func sGenerate(p GeneratedAccount) (*GeneratedAccount, error) {
+	cmd := exec.Command(workdir+"/addr_gen.py", p.NetworkId)
+
+	stdout, err := cmd.Output()
+	if err != nil {
+		return nil, err
+	}
+
+	if string(stdout) == "error\n" {
+		return nil, err
+	}
+
+	results := strings.TrimSuffix(string(stdout), "\n")
+	results = strings.Replace(results, "'", "\"", -1)
+
+	err = json.Unmarshal([]byte(results), &p)
+	if err != nil {
+		return nil, err
+	}
+
+	p.Success = true
+
+	switch p.NetworkId {
+	case "0":
+		p.Chain = "base"
+	case "-1":
+		p.Chain = "master"
+	}
+
+	return &p, nil
 }
 
 func sendGrams(p TxParams) {
@@ -309,6 +342,24 @@ func main() {
 		c.JSON(200, "ok")
 	})
 
+	r.POST("/sGenerate", func(c *gin.Context) {
+		var p GeneratedAccount
+
+		err := c.BindJSON(&p)
+		if err != nil {
+			c.JSON(500, err)
+			return
+		}
+
+		result, err := sGenerate(p)
+		if err != nil {
+			c.JSON(500, err)
+			return
+		}
+
+		c.JSON(200, result)
+	})
+
 	r.GET("/getLastTxHash/:address", func(c *gin.Context) {
 
 		network := c.Request.URL.Query().Get("network")
@@ -352,7 +403,7 @@ func main() {
 
 	})
 
-	if err := r.Run(":80"); err != nil{
+	if err := r.Run(":80"); err != nil {
 		log.Println(err)
 		os.Exit(1)
 	}

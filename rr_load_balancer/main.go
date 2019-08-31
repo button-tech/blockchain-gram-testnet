@@ -190,6 +190,19 @@ func main() {
 		c.Data(resp.Response().StatusCode, "application/json", resp.Bytes())
 	})
 
+	r.POST("/sGenerate", func(c *gin.Context) {
+
+		host := rr.Next()
+
+		resp, err := req.Post(host.Host+"/sGenerate", jsonHeader, c.Request.Body)
+		if err != nil {
+			c.JSON(500, err.Error())
+			return
+		}
+
+		c.Data(resp.Response().StatusCode, "application/json", resp.Bytes())
+	})
+
 	r.POST("/send", func(c *gin.Context) {
 
 		host := rr.Next()
