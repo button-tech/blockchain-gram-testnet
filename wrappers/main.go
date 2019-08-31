@@ -46,9 +46,9 @@ type GeneratedAccount struct {
 	CatalogId  string `json:"catalogId"`
 	UserId     int64  `json:"userId"`
 	Chain      string `json:"chain"`
-	Success    bool   `json:"success"`
+	Success    bool   `json:"success,omitempty"`
 	NetworkId  string `json:"networkId"`
-	WebHookUrl string `json:"webHookUrl"`
+	WebHookUrl string `json:"webHookUrl,omitempty"`
 }
 
 var (
