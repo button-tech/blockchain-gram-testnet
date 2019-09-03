@@ -23,14 +23,15 @@ Result<int32> tl_constructor_from_string(ton_api::Hashable *object, const std::s
     {"hashable.bytes", 118742546},
     {"hashable.pair", -941266795},
     {"hashable.vector", -550190227},
-    {"hashable.validatorSessionOldRound", 1479622531},
-    {"hashable.validatorSessionRoundAttempt", -555220893},
+    {"hashable.validatorSessionOldRound", 1200318377},
+    {"hashable.validatorSessionRoundAttempt", 1276247981},
     {"hashable.validatorSessionRound", 897011683},
     {"hashable.blockSignature", 937530018},
     {"hashable.sentBlock", -1111911125},
     {"hashable.sentBlockEmpty", -1628289361},
     {"hashable.vote", -1363203131},
     {"hashable.blockCandidate", 195670285},
+    {"hashable.blockVoteCandidate", -821202971},
     {"hashable.blockCandidateAttempt", 1063025931},
     {"hashable.cntVector", 187199288},
     {"hashable.cntSortedVector", 2073445977},
@@ -102,6 +103,17 @@ Result<int32> tl_constructor_from_string(ton_api::adnl_Message *object, const st
     {"adnl.message.query", -1265895046},
     {"adnl.message.answer", 262964246},
     {"adnl.message.part", -45798087}
+  };
+  auto it = m.find(str);
+  if (it == m.end()) {
+    return Status::Error(str + "Unknown class");
+  }
+  return it->second;
+}
+Result<int32> tl_constructor_from_string(ton_api::adnl_Proxy *object, const std::string &str) {
+  static const std::unordered_map<Slice, int32, SliceHash> m = {
+    {"adnl.proxy.none", -90551726},
+    {"adnl.proxy.fast", 554536094}
   };
   auto it = m.find(str);
   if (it == m.end()) {
@@ -256,6 +268,17 @@ Result<int32> tl_constructor_from_string(ton_api::dht_config_Local *object, cons
   }
   return it->second;
 }
+Result<int32> tl_constructor_from_string(ton_api::engine_Addr *object, const std::string &str) {
+  static const std::unordered_map<Slice, int32, SliceHash> m = {
+    {"engine.addr", -281993236},
+    {"engine.addrProxy", -1965071031}
+  };
+  auto it = m.find(str);
+  if (it == m.end()) {
+    return Status::Error(str + "Unknown class");
+  }
+  return it->second;
+}
 Result<int32> tl_constructor_from_string(ton_api::fec_Type *object, const std::string &str) {
   static const std::unordered_map<Slice, int32, SliceHash> m = {
     {"fec.raptorQ", -1953257504},
@@ -309,7 +332,7 @@ Result<int32> tl_constructor_from_string(ton_api::overlay_Certificate *object, c
 Result<int32> tl_constructor_from_string(ton_api::rldp_Message *object, const std::string &str) {
   static const std::unordered_map<Slice, int32, SliceHash> m = {
     {"rldp.message", 2098973982},
-    {"rldp.query", -1478977815},
+    {"rldp.query", -1971761815},
     {"rldp.answer", -1543742461}
   };
   auto it = m.find(str);
@@ -342,21 +365,10 @@ Result<int32> tl_constructor_from_string(ton_api::tcp_Message *object, const std
   }
   return it->second;
 }
-Result<int32> tl_constructor_from_string(ton_api::test0_MasterchainBlockExtra *object, const std::string &str) {
+Result<int32> tl_constructor_from_string(ton_api::ton_BlockId *object, const std::string &str) {
   static const std::unordered_map<Slice, int32, SliceHash> m = {
-    {"test0.masterchainBlockExtra.empty", -1793623372},
-    {"test0.masterchainBlockExtra.extra", -2070859848}
-  };
-  auto it = m.find(str);
-  if (it == m.end()) {
-    return Status::Error(str + "Unknown class");
-  }
-  return it->second;
-}
-Result<int32> tl_constructor_from_string(ton_api::test0_MasterchainStateExtra *object, const std::string &str) {
-  static const std::unordered_map<Slice, int32, SliceHash> m = {
-    {"test0.masterchainStateExtra.empty", -1491361123},
-    {"test0.masterchainStateExtra.extra", -1205072155}
+    {"ton.blockId", -989106576},
+    {"ton.blockIdApprove", 768887369}
   };
   auto it = m.find(str);
   if (it == m.end()) {
@@ -447,10 +459,11 @@ Result<int32> tl_constructor_from_string(ton_api::validatorSession_Message *obje
 Result<int32> tl_constructor_from_string(ton_api::validatorSession_round_Message *object, const std::string &str) {
   static const std::unordered_map<Slice, int32, SliceHash> m = {
     {"validatorSession.message.submittedBlock", 309732534},
-    {"validatorSession.message.approvedBlock", 1571844585},
+    {"validatorSession.message.approvedBlock", 77968769},
     {"validatorSession.message.rejectedBlock", -1786229141},
     {"validatorSession.message.commit", -1408065803},
     {"validatorSession.message.vote", -1707978297},
+    {"validatorSession.message.voteFor", 1643183663},
     {"validatorSession.message.precommit", -1470843566},
     {"validatorSession.message.empty", 1243619241}
   };
@@ -469,14 +482,15 @@ Result<int32> tl_constructor_from_string(ton_api::Object *object, const std::str
     {"hashable.bytes", 118742546},
     {"hashable.pair", -941266795},
     {"hashable.vector", -550190227},
-    {"hashable.validatorSessionOldRound", 1479622531},
-    {"hashable.validatorSessionRoundAttempt", -555220893},
+    {"hashable.validatorSessionOldRound", 1200318377},
+    {"hashable.validatorSessionRoundAttempt", 1276247981},
     {"hashable.validatorSessionRound", 897011683},
     {"hashable.blockSignature", 937530018},
     {"hashable.sentBlock", -1111911125},
     {"hashable.sentBlockEmpty", -1628289361},
     {"hashable.vote", -1363203131},
     {"hashable.blockCandidate", 195670285},
+    {"hashable.blockVoteCandidate", -821202971},
     {"hashable.blockCandidateAttempt", 1063025931},
     {"hashable.cntVector", 187199288},
     {"hashable.cntSortedVector", 2073445977},
@@ -507,6 +521,10 @@ Result<int32> tl_constructor_from_string(ton_api::Object *object, const std::str
     {"adnl.node", 1800802949},
     {"adnl.nodes", -1576412330},
     {"adnl.packetContents", -784151159},
+    {"adnl.proxy.none", -90551726},
+    {"adnl.proxy.fast", 554536094},
+    {"adnl.proxyToFastHash", -574752674},
+    {"adnl.proxyToFast", -1259462186},
     {"adnl.config.global", -1099988784},
     {"adnl.db.node.key", -979114962},
     {"adnl.db.node.value", 1415390983},
@@ -531,14 +549,14 @@ Result<int32> tl_constructor_from_string(ton_api::Object *object, const std::str
     {"config.global", -198795310},
     {"config.local", 2023657820},
     {"control.config.local", 1964895469},
-    {"db.candidate", 329181652},
+    {"db.candidate", 1708747482},
     {"db.block.info", 1254549287},
     {"db.block.archivedInfo", 543128145},
     {"db.blockdb.key.lru", 1354536506},
     {"db.blockdb.key.value", 2136461683},
     {"db.blockdb.lru", -1055500877},
     {"db.blockdb.value", -1299266515},
-    {"db.candidate.id", -562931756},
+    {"db.candidate.id", 935375495},
     {"db.celldb.value", -435153856},
     {"db.celldb.key.value", 1538341155},
     {"db.filedb.key.empty", 2080319307},
@@ -592,20 +610,23 @@ Result<int32> tl_constructor_from_string(ton_api::Object *object, const std::str
     {"dht.db.bucket", -1281557908},
     {"dht.db.key.bucket", -1553420724},
     {"dummyworkchain0.config.global", -631148845},
-    {"engine.addr", -1740086985},
+    {"engine.addr", -281993236},
+    {"engine.addrProxy", -1965071031},
     {"engine.adnl", 1658283344},
     {"engine.controlInterface", 830566315},
     {"engine.controlProcess", 1790986263},
     {"engine.dht", 1575613178},
-    {"engine.fullNode", 274327986},
     {"engine.gc", -1078093701},
     {"engine.liteServer", -1150251266},
     {"engine.validator", 307036396},
     {"engine.validatorAdnlAddress", -750434882},
     {"engine.validatorTempKey", 1581962974},
+    {"engine.adnlProxy.config", 1848000769},
+    {"engine.adnlProxy.port", -117344950},
     {"engine.dht.config", -197295930},
-    {"engine.validator.config", 1480644694},
+    {"engine.validator.config", -1061804008},
     {"engine.validator.controlQueryError", 1999018527},
+    {"engine.validator.jsonConfig", 321753611},
     {"engine.validator.keyHash", -1027168946},
     {"engine.validator.oneStat", -1533527315},
     {"engine.validator.signature", -76791000},
@@ -616,7 +637,7 @@ Result<int32> tl_constructor_from_string(ton_api::Object *object, const std::str
     {"fec.roundRobin", 854927588},
     {"fec.online", 19359244},
     {"id.config.local", -1834367090},
-    {"liteclient.config.global", -909718307},
+    {"liteclient.config.global", 143507704},
     {"liteserver.desc", -1001806732},
     {"liteserver.config.local", 1182002063},
     {"liteserver.config.random.local", 2093565243},
@@ -642,7 +663,7 @@ Result<int32> tl_constructor_from_string(ton_api::Object *object, const std::str
     {"overlay.db.nodes", -712454630},
     {"overlay.node.toSign", 64530657},
     {"rldp.message", 2098973982},
-    {"rldp.query", -1478977815},
+    {"rldp.query", -1971761815},
     {"rldp.answer", -1543742461},
     {"rldp.messagePart", 408691404},
     {"rldp.confirm", -175973288},
@@ -651,23 +672,8 @@ Result<int32> tl_constructor_from_string(ton_api::Object *object, const std::str
     {"tcp.authentificationNonce", -480425290},
     {"tcp.authentificationComplete", -139616602},
     {"tcp.pong", -597034237},
-    {"test0.proof", 240739136},
-    {"test0.proofLink", 198411810},
-    {"test0.shardchain.block", 168970719},
-    {"test0.shardchain.state", -1819502437},
-    {"test.validatorSession.block", -1418990707},
-    {"test0.blockSignatures", -1512447916},
-    {"test0.extMessage", -424680397},
-    {"test0.masterchainBlockExtra.empty", -1793623372},
-    {"test0.masterchainBlockExtra.extra", -2070859848},
-    {"test0.masterchainStateExtra.empty", -1491361123},
-    {"test0.masterchainStateExtra.extra", -1205072155},
-    {"test0.topShardBlockDescription", 723951200},
-    {"test0.validatorSessionId", -1695860169},
-    {"test0.validatorSet", -1877581587},
-    {"test0.validatorSetItem", 408501132},
-    {"test0.masterchain.shardInfo", 262681349},
     {"ton.blockId", -989106576},
+    {"ton.blockIdApprove", 768887369},
     {"tonNode.blockDescriptionEmpty", -2088456555},
     {"tonNode.blockDescription", 1185009800},
     {"tonNode.blockId", -1211256473},
@@ -689,25 +695,26 @@ Result<int32> tl_constructor_from_string(ton_api::Object *object, const std::str
     {"tonNode.preparedProofLink", 1040134797},
     {"tonNode.preparedState", 928762733},
     {"tonNode.notFoundState", 842598993},
-    {"tonNode.sessionId", -880136334},
+    {"tonNode.sessionId", 2056402618},
     {"tonNode.shardPublicOverlayId", 1302254377},
     {"tonNode.zeroStateIdExt", 494024110},
-    {"validator.config.global", 1136592817},
+    {"validator.config.global", -2038562966},
     {"validator.config.local", 1716256616},
     {"validator.config.random.local", 1501795426},
     {"validatorSession.blockUpdate", -1836855753},
     {"validatorSession.candidate", 2100525125},
     {"validatorSession.candidateId", 436135276},
-    {"validatorSession.id", -22534276},
+    {"validatorSession.config", -1235092029},
     {"validatorSession.message.startSession", -1767807279},
     {"validatorSession.message.finishSession", -879025437},
     {"validatorSession.pong", -590989459},
     {"validatorSession.round.id", 2477989},
     {"validatorSession.message.submittedBlock", 309732534},
-    {"validatorSession.message.approvedBlock", 1571844585},
+    {"validatorSession.message.approvedBlock", 77968769},
     {"validatorSession.message.rejectedBlock", -1786229141},
     {"validatorSession.message.commit", -1408065803},
     {"validatorSession.message.vote", -1707978297},
+    {"validatorSession.message.voteFor", 1643183663},
     {"validatorSession.message.precommit", -1470843566},
     {"validatorSession.message.empty", 1243619241},
     {"validatorSession.candidate.id", -1126743751}
@@ -726,35 +733,38 @@ Result<int32> tl_constructor_from_string(ton_api::Function *object, const std::s
     {"catchain.getDifference", -798175528},
     {"dht.findNode", 1826803307},
     {"dht.findValue", -1370791919},
-    {"dht.getSignedAddressList", 960283782},
+    {"dht.getSignedAddressList", -1451669267},
     {"dht.ping", -873775336},
     {"dht.query", 2102593385},
     {"dht.store", 882065938},
     {"engine.validator.addAdnlId", -310029141},
+    {"engine.validator.addControlInterface", 881587196},
+    {"engine.validator.addControlProcess", 1524692816},
     {"engine.validator.addDhtId", -183755124},
     {"engine.validator.addListeningPort", -362051147},
-    {"engine.validator.addProxy", -928278296},
+    {"engine.validator.addLiteserver", -259387577},
+    {"engine.validator.addProxy", -151178251},
     {"engine.validator.addValidatorAdnlAddress", -624187774},
     {"engine.validator.addValidatorPermanentKey", 1925653418},
     {"engine.validator.addValidatorTempKey", -1926009038},
-    {"engine.validator.changePassword", 2123920564},
+    {"engine.validator.changeFullNodeAdnlAddress", -1094268539},
     {"engine.validator.controlQuery", -1535722048},
-    {"engine.validator.delAdnlId", 1513520476},
+    {"engine.validator.delAdnlId", 691696882},
+    {"engine.validator.delDhtId", -2063770818},
     {"engine.validator.delListeningPort", 828094543},
-    {"engine.validator.delProxy", -1614543923},
-    {"engine.validator.delValidatorAdnlAddress", -658732960},
+    {"engine.validator.delProxy", 1970850941},
+    {"engine.validator.delValidatorAdnlAddress", -150453414},
     {"engine.validator.delValidatorPermanentKey", 390777082},
-    {"engine.validator.delValidatorTempKey", 737279708},
+    {"engine.validator.delValidatorTempKey", -1595481903},
     {"engine.validator.exportPrivateKey", -864911288},
     {"engine.validator.exportPublicKey", 1647618233},
     {"engine.validator.generateKeyPair", -349872005},
-    {"engine.validator.getConfig", -665383871},
+    {"engine.validator.getConfig", 1504518693},
     {"engine.validator.getStats", 1389740817},
     {"engine.validator.getTime", -515850543},
-    {"engine.validator.importLocalKey", 202835227},
     {"engine.validator.importPrivateKey", 360741575},
-    {"engine.validator.setPassword", -989159111},
-    {"engine.validator.sign", -187292451},
+    {"engine.validator.setVerbosity", -1316856190},
+    {"engine.validator.sign", 451549736},
     {"getTestObject", 197109379},
     {"overlay.getBroadcast", 758510240},
     {"overlay.getBroadcastList", 1109141562},
@@ -869,6 +879,12 @@ Status from_json(ton_api::hashable_validatorSessionOldRound &to, JsonObject &fro
       TRY_STATUS(from_json(to.signatures_, value));
     }
   }
+  {
+    TRY_RESULT(value, get_json_object_field(from, "approve_signatures", JsonValue::Type::Null, true));
+    if (value.type() != JsonValue::Type::Null) {
+      TRY_STATUS(from_json(to.approve_signatures_, value));
+    }
+  }
   return Status::OK();
 }
 Status from_json(ton_api::hashable_validatorSessionRoundAttempt &to, JsonObject &from) {
@@ -888,6 +904,18 @@ Status from_json(ton_api::hashable_validatorSessionRoundAttempt &to, JsonObject 
     TRY_RESULT(value, get_json_object_field(from, "precommitted", JsonValue::Type::Null, true));
     if (value.type() != JsonValue::Type::Null) {
       TRY_STATUS(from_json(to.precommitted_, value));
+    }
+  }
+  {
+    TRY_RESULT(value, get_json_object_field(from, "vote_for_inited", JsonValue::Type::Null, true));
+    if (value.type() != JsonValue::Type::Null) {
+      TRY_STATUS(from_json(to.vote_for_inited_, value));
+    }
+  }
+  {
+    TRY_RESULT(value, get_json_object_field(from, "vote_for", JsonValue::Type::Null, true));
+    if (value.type() != JsonValue::Type::Null) {
+      TRY_STATUS(from_json(to.vote_for_, value));
     }
   }
   return Status::OK();
@@ -998,6 +1026,21 @@ Status from_json(ton_api::hashable_vote &to, JsonObject &from) {
   return Status::OK();
 }
 Status from_json(ton_api::hashable_blockCandidate &to, JsonObject &from) {
+  {
+    TRY_RESULT(value, get_json_object_field(from, "block", JsonValue::Type::Null, true));
+    if (value.type() != JsonValue::Type::Null) {
+      TRY_STATUS(from_json(to.block_, value));
+    }
+  }
+  {
+    TRY_RESULT(value, get_json_object_field(from, "approved", JsonValue::Type::Null, true));
+    if (value.type() != JsonValue::Type::Null) {
+      TRY_STATUS(from_json(to.approved_, value));
+    }
+  }
+  return Status::OK();
+}
+Status from_json(ton_api::hashable_blockVoteCandidate &to, JsonObject &from) {
   {
     TRY_RESULT(value, get_json_object_field(from, "block", JsonValue::Type::Null, true));
     if (value.type() != JsonValue::Type::Null) {
@@ -1486,6 +1529,78 @@ Status from_json(ton_api::adnl_packetContents &to, JsonObject &from) {
   }
   return Status::OK();
 }
+Status from_json(ton_api::adnl_proxy_none &to, JsonObject &from) {
+  return Status::OK();
+}
+Status from_json(ton_api::adnl_proxy_fast &to, JsonObject &from) {
+  {
+    TRY_RESULT(value, get_json_object_field(from, "shared_secret", JsonValue::Type::Null, true));
+    if (value.type() != JsonValue::Type::Null) {
+      TRY_STATUS(from_json_bytes(to.shared_secret_, value));
+    }
+  }
+  return Status::OK();
+}
+Status from_json(ton_api::adnl_proxyToFastHash &to, JsonObject &from) {
+  {
+    TRY_RESULT(value, get_json_object_field(from, "ip", JsonValue::Type::Null, true));
+    if (value.type() != JsonValue::Type::Null) {
+      TRY_STATUS(from_json(to.ip_, value));
+    }
+  }
+  {
+    TRY_RESULT(value, get_json_object_field(from, "port", JsonValue::Type::Null, true));
+    if (value.type() != JsonValue::Type::Null) {
+      TRY_STATUS(from_json(to.port_, value));
+    }
+  }
+  {
+    TRY_RESULT(value, get_json_object_field(from, "date", JsonValue::Type::Null, true));
+    if (value.type() != JsonValue::Type::Null) {
+      TRY_STATUS(from_json(to.date_, value));
+    }
+  }
+  {
+    TRY_RESULT(value, get_json_object_field(from, "data_hash", JsonValue::Type::Null, true));
+    if (value.type() != JsonValue::Type::Null) {
+      TRY_STATUS(from_json(to.data_hash_, value));
+    }
+  }
+  {
+    TRY_RESULT(value, get_json_object_field(from, "shared_secret", JsonValue::Type::Null, true));
+    if (value.type() != JsonValue::Type::Null) {
+      TRY_STATUS(from_json(to.shared_secret_, value));
+    }
+  }
+  return Status::OK();
+}
+Status from_json(ton_api::adnl_proxyToFast &to, JsonObject &from) {
+  {
+    TRY_RESULT(value, get_json_object_field(from, "ip", JsonValue::Type::Null, true));
+    if (value.type() != JsonValue::Type::Null) {
+      TRY_STATUS(from_json(to.ip_, value));
+    }
+  }
+  {
+    TRY_RESULT(value, get_json_object_field(from, "port", JsonValue::Type::Null, true));
+    if (value.type() != JsonValue::Type::Null) {
+      TRY_STATUS(from_json(to.port_, value));
+    }
+  }
+  {
+    TRY_RESULT(value, get_json_object_field(from, "date", JsonValue::Type::Null, true));
+    if (value.type() != JsonValue::Type::Null) {
+      TRY_STATUS(from_json(to.date_, value));
+    }
+  }
+  {
+    TRY_RESULT(value, get_json_object_field(from, "signature", JsonValue::Type::Null, true));
+    if (value.type() != JsonValue::Type::Null) {
+      TRY_STATUS(from_json(to.signature_, value));
+    }
+  }
+  return Status::OK();
+}
 Status from_json(ton_api::adnl_config_global &to, JsonObject &from) {
   {
     TRY_RESULT(value, get_json_object_field(from, "static_nodes", JsonValue::Type::Null, true));
@@ -1854,6 +1969,12 @@ Status from_json(ton_api::control_config_local &to, JsonObject &from) {
 }
 Status from_json(ton_api::db_candidate &to, JsonObject &from) {
   {
+    TRY_RESULT(value, get_json_object_field(from, "source", JsonValue::Type::Null, true));
+    if (value.type() != JsonValue::Type::Null) {
+      TRY_STATUS(from_json(to.source_, value));
+    }
+  }
+  {
     TRY_RESULT(value, get_json_object_field(from, "id", JsonValue::Type::Null, true));
     if (value.type() != JsonValue::Type::Null) {
       TRY_STATUS(from_json(to.id_, value));
@@ -2006,6 +2127,12 @@ Status from_json(ton_api::db_blockdb_value &to, JsonObject &from) {
   return Status::OK();
 }
 Status from_json(ton_api::db_candidate_id &to, JsonObject &from) {
+  {
+    TRY_RESULT(value, get_json_object_field(from, "source", JsonValue::Type::Null, true));
+    if (value.type() != JsonValue::Type::Null) {
+      TRY_STATUS(from_json(to.source_, value));
+    }
+  }
   {
     TRY_RESULT(value, get_json_object_field(from, "id", JsonValue::Type::Null, true));
     if (value.type() != JsonValue::Type::Null) {
@@ -2649,9 +2776,48 @@ Status from_json(ton_api::engine_addr &to, JsonObject &from) {
     }
   }
   {
-    TRY_RESULT(value, get_json_object_field(from, "is_proxy", JsonValue::Type::Null, true));
+    TRY_RESULT(value, get_json_object_field(from, "categories", JsonValue::Type::Null, true));
     if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.is_proxy_, value));
+      TRY_STATUS(from_json(to.categories_, value));
+    }
+  }
+  {
+    TRY_RESULT(value, get_json_object_field(from, "priority_categories", JsonValue::Type::Null, true));
+    if (value.type() != JsonValue::Type::Null) {
+      TRY_STATUS(from_json(to.priority_categories_, value));
+    }
+  }
+  return Status::OK();
+}
+Status from_json(ton_api::engine_addrProxy &to, JsonObject &from) {
+  {
+    TRY_RESULT(value, get_json_object_field(from, "in_ip", JsonValue::Type::Null, true));
+    if (value.type() != JsonValue::Type::Null) {
+      TRY_STATUS(from_json(to.in_ip_, value));
+    }
+  }
+  {
+    TRY_RESULT(value, get_json_object_field(from, "in_port", JsonValue::Type::Null, true));
+    if (value.type() != JsonValue::Type::Null) {
+      TRY_STATUS(from_json(to.in_port_, value));
+    }
+  }
+  {
+    TRY_RESULT(value, get_json_object_field(from, "out_ip", JsonValue::Type::Null, true));
+    if (value.type() != JsonValue::Type::Null) {
+      TRY_STATUS(from_json(to.out_ip_, value));
+    }
+  }
+  {
+    TRY_RESULT(value, get_json_object_field(from, "out_port", JsonValue::Type::Null, true));
+    if (value.type() != JsonValue::Type::Null) {
+      TRY_STATUS(from_json(to.out_port_, value));
+    }
+  }
+  {
+    TRY_RESULT(value, get_json_object_field(from, "proxy_type", JsonValue::Type::Null, true));
+    if (value.type() != JsonValue::Type::Null) {
+      TRY_STATUS(from_json(to.proxy_type_, value));
     }
   }
   {
@@ -2724,27 +2890,6 @@ Status from_json(ton_api::engine_dht &to, JsonObject &from) {
     TRY_RESULT(value, get_json_object_field(from, "id", JsonValue::Type::Null, true));
     if (value.type() != JsonValue::Type::Null) {
       TRY_STATUS(from_json(to.id_, value));
-    }
-  }
-  return Status::OK();
-}
-Status from_json(ton_api::engine_fullNode &to, JsonObject &from) {
-  {
-    TRY_RESULT(value, get_json_object_field(from, "id", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.id_, value));
-    }
-  }
-  {
-    TRY_RESULT(value, get_json_object_field(from, "adnl", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.adnl_, value));
-    }
-  }
-  {
-    TRY_RESULT(value, get_json_object_field(from, "expire_at", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.expire_at_, value));
     }
   }
   return Status::OK();
@@ -2830,6 +2975,48 @@ Status from_json(ton_api::engine_validatorTempKey &to, JsonObject &from) {
   }
   return Status::OK();
 }
+Status from_json(ton_api::engine_adnlProxy_config &to, JsonObject &from) {
+  {
+    TRY_RESULT(value, get_json_object_field(from, "ports", JsonValue::Type::Null, true));
+    if (value.type() != JsonValue::Type::Null) {
+      TRY_STATUS(from_json(to.ports_, value));
+    }
+  }
+  return Status::OK();
+}
+Status from_json(ton_api::engine_adnlProxy_port &to, JsonObject &from) {
+  {
+    TRY_RESULT(value, get_json_object_field(from, "in_port", JsonValue::Type::Null, true));
+    if (value.type() != JsonValue::Type::Null) {
+      TRY_STATUS(from_json(to.in_port_, value));
+    }
+  }
+  {
+    TRY_RESULT(value, get_json_object_field(from, "out_port", JsonValue::Type::Null, true));
+    if (value.type() != JsonValue::Type::Null) {
+      TRY_STATUS(from_json(to.out_port_, value));
+    }
+  }
+  {
+    TRY_RESULT(value, get_json_object_field(from, "dst_ip", JsonValue::Type::Null, true));
+    if (value.type() != JsonValue::Type::Null) {
+      TRY_STATUS(from_json(to.dst_ip_, value));
+    }
+  }
+  {
+    TRY_RESULT(value, get_json_object_field(from, "dst_port", JsonValue::Type::Null, true));
+    if (value.type() != JsonValue::Type::Null) {
+      TRY_STATUS(from_json(to.dst_port_, value));
+    }
+  }
+  {
+    TRY_RESULT(value, get_json_object_field(from, "proxy_type", JsonValue::Type::Null, true));
+    if (value.type() != JsonValue::Type::Null) {
+      TRY_STATUS(from_json(to.proxy_type_, value));
+    }
+  }
+  return Status::OK();
+}
 Status from_json(ton_api::engine_dht_config &to, JsonObject &from) {
   {
     TRY_RESULT(value, get_json_object_field(from, "dht", JsonValue::Type::Null, true));
@@ -2846,6 +3033,12 @@ Status from_json(ton_api::engine_dht_config &to, JsonObject &from) {
   return Status::OK();
 }
 Status from_json(ton_api::engine_validator_config &to, JsonObject &from) {
+  {
+    TRY_RESULT(value, get_json_object_field(from, "out_port", JsonValue::Type::Null, true));
+    if (value.type() != JsonValue::Type::Null) {
+      TRY_STATUS(from_json(to.out_port_, value));
+    }
+  }
   {
     TRY_RESULT(value, get_json_object_field(from, "addrs", JsonValue::Type::Null, true));
     if (value.type() != JsonValue::Type::Null) {
@@ -2865,15 +3058,15 @@ Status from_json(ton_api::engine_validator_config &to, JsonObject &from) {
     }
   }
   {
-    TRY_RESULT(value, get_json_object_field(from, "fullnode", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.fullnode_, value));
-    }
-  }
-  {
     TRY_RESULT(value, get_json_object_field(from, "validators", JsonValue::Type::Null, true));
     if (value.type() != JsonValue::Type::Null) {
       TRY_STATUS(from_json(to.validators_, value));
+    }
+  }
+  {
+    TRY_RESULT(value, get_json_object_field(from, "fullnode", JsonValue::Type::Null, true));
+    if (value.type() != JsonValue::Type::Null) {
+      TRY_STATUS(from_json(to.fullnode_, value));
     }
   }
   {
@@ -2907,6 +3100,15 @@ Status from_json(ton_api::engine_validator_controlQueryError &to, JsonObject &fr
     TRY_RESULT(value, get_json_object_field(from, "message", JsonValue::Type::Null, true));
     if (value.type() != JsonValue::Type::Null) {
       TRY_STATUS(from_json(to.message_, value));
+    }
+  }
+  return Status::OK();
+}
+Status from_json(ton_api::engine_validator_jsonConfig &to, JsonObject &from) {
+  {
+    TRY_RESULT(value, get_json_object_field(from, "data", JsonValue::Type::Null, true));
+    if (value.type() != JsonValue::Type::Null) {
+      TRY_STATUS(from_json(to.data_, value));
     }
   }
   return Status::OK();
@@ -3042,6 +3244,12 @@ Status from_json(ton_api::liteclient_config_global &to, JsonObject &from) {
     TRY_RESULT(value, get_json_object_field(from, "liteservers", JsonValue::Type::Null, true));
     if (value.type() != JsonValue::Type::Null) {
       TRY_STATUS(from_json(to.liteservers_, value));
+    }
+  }
+  {
+    TRY_RESULT(value, get_json_object_field(from, "validator", JsonValue::Type::Null, true));
+    if (value.type() != JsonValue::Type::Null) {
+      TRY_STATUS(from_json(to.validator_, value));
     }
   }
   return Status::OK();
@@ -3531,6 +3739,12 @@ Status from_json(ton_api::rldp_query &to, JsonObject &from) {
     }
   }
   {
+    TRY_RESULT(value, get_json_object_field(from, "max_answer_size", JsonValue::Type::Null, true));
+    if (value.type() != JsonValue::Type::Null) {
+      TRY_STATUS(from_json(to.max_answer_size_, value));
+    }
+  }
+  {
     TRY_RESULT(value, get_json_object_field(from, "timeout", JsonValue::Type::Null, true));
     if (value.type() != JsonValue::Type::Null) {
       TRY_STATUS(from_json(to.timeout_, value));
@@ -3676,427 +3890,22 @@ Status from_json(ton_api::tcp_pong &to, JsonObject &from) {
   }
   return Status::OK();
 }
-Status from_json(ton_api::test0_proof &to, JsonObject &from) {
-  {
-    TRY_RESULT(value, get_json_object_field(from, "link", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.link_, value));
-    }
-  }
-  {
-    TRY_RESULT(value, get_json_object_field(from, "catchain_seqno", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.catchain_seqno_, value));
-    }
-  }
-  {
-    TRY_RESULT(value, get_json_object_field(from, "validator_set_hash", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.validator_set_hash_, value));
-    }
-  }
-  {
-    TRY_RESULT(value, get_json_object_field(from, "signatures", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.signatures_, value));
-    }
-  }
-  return Status::OK();
-}
-Status from_json(ton_api::test0_proofLink &to, JsonObject &from) {
-  {
-    TRY_RESULT(value, get_json_object_field(from, "id", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.id_, value));
-    }
-  }
-  {
-    TRY_RESULT(value, get_json_object_field(from, "prev", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.prev_, value));
-    }
-  }
-  {
-    TRY_RESULT(value, get_json_object_field(from, "state", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.state_, value));
-    }
-  }
-  {
-    TRY_RESULT(value, get_json_object_field(from, "split", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.split_, value));
-    }
-  }
-  return Status::OK();
-}
-Status from_json(ton_api::test0_shardchain_block &to, JsonObject &from) {
-  {
-    TRY_RESULT(value, get_json_object_field(from, "workchain", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.workchain_, value));
-    }
-  }
-  {
-    TRY_RESULT(value, get_json_object_field(from, "shard", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.shard_, value));
-    }
-  }
-  {
-    TRY_RESULT(value, get_json_object_field(from, "seqno", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.seqno_, value));
-    }
-  }
-  {
-    TRY_RESULT(value, get_json_object_field(from, "prev", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.prev_, value));
-    }
-  }
-  {
-    TRY_RESULT(value, get_json_object_field(from, "split", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.split_, value));
-    }
-  }
-  {
-    TRY_RESULT(value, get_json_object_field(from, "ts", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.ts_, value));
-    }
-  }
-  {
-    TRY_RESULT(value, get_json_object_field(from, "state", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.state_, value));
-    }
-  }
-  {
-    TRY_RESULT(value, get_json_object_field(from, "catchain_seqno", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.catchain_seqno_, value));
-    }
-  }
-  {
-    TRY_RESULT(value, get_json_object_field(from, "validator_set_hash", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.validator_set_hash_, value));
-    }
-  }
-  {
-    TRY_RESULT(value, get_json_object_field(from, "pad", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json_bytes(to.pad_, value));
-    }
-  }
-  {
-    TRY_RESULT(value, get_json_object_field(from, "extra", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.extra_, value));
-    }
-  }
-  return Status::OK();
-}
-Status from_json(ton_api::test0_shardchain_state &to, JsonObject &from) {
-  {
-    TRY_RESULT(value, get_json_object_field(from, "workchain", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.workchain_, value));
-    }
-  }
-  {
-    TRY_RESULT(value, get_json_object_field(from, "shard", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.shard_, value));
-    }
-  }
-  {
-    TRY_RESULT(value, get_json_object_field(from, "seqno", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.seqno_, value));
-    }
-  }
-  {
-    TRY_RESULT(value, get_json_object_field(from, "ts", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.ts_, value));
-    }
-  }
-  {
-    TRY_RESULT(value, get_json_object_field(from, "split", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.split_, value));
-    }
-  }
-  {
-    TRY_RESULT(value, get_json_object_field(from, "extra", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.extra_, value));
-    }
-  }
-  return Status::OK();
-}
-Status from_json(ton_api::test_validatorSession_block &to, JsonObject &from) {
-  {
-    TRY_RESULT(value, get_json_object_field(from, "root_hash", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.root_hash_, value));
-    }
-  }
-  {
-    TRY_RESULT(value, get_json_object_field(from, "height", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.height_, value));
-    }
-  }
-  {
-    TRY_RESULT(value, get_json_object_field(from, "data", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json_bytes(to.data_, value));
-    }
-  }
-  return Status::OK();
-}
-Status from_json(ton_api::test0_blockSignatures &to, JsonObject &from) {
-  {
-    TRY_RESULT(value, get_json_object_field(from, "signatures", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.signatures_, value));
-    }
-  }
-  return Status::OK();
-}
-Status from_json(ton_api::test0_extMessage &to, JsonObject &from) {
-  {
-    TRY_RESULT(value, get_json_object_field(from, "workchain", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.workchain_, value));
-    }
-  }
-  {
-    TRY_RESULT(value, get_json_object_field(from, "shard", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.shard_, value));
-    }
-  }
-  {
-    TRY_RESULT(value, get_json_object_field(from, "data", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json_bytes(to.data_, value));
-    }
-  }
-  return Status::OK();
-}
-Status from_json(ton_api::test0_masterchainBlockExtra_empty &to, JsonObject &from) {
-  return Status::OK();
-}
-Status from_json(ton_api::test0_masterchainBlockExtra_extra &to, JsonObject &from) {
-  {
-    TRY_RESULT(value, get_json_object_field(from, "randseed", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.randseed_, value));
-    }
-  }
-  {
-    TRY_RESULT(value, get_json_object_field(from, "rotate", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.rotate_, value));
-    }
-  }
-  {
-    TRY_RESULT(value, get_json_object_field(from, "shards", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.shards_, value));
-    }
-  }
-  return Status::OK();
-}
-Status from_json(ton_api::test0_masterchainStateExtra_empty &to, JsonObject &from) {
-  return Status::OK();
-}
-Status from_json(ton_api::test0_masterchainStateExtra_extra &to, JsonObject &from) {
-  {
-    TRY_RESULT(value, get_json_object_field(from, "validator_ts", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.validator_ts_, value));
-    }
-  }
-  {
-    TRY_RESULT(value, get_json_object_field(from, "validator_randseed", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.validator_randseed_, value));
-    }
-  }
-  {
-    TRY_RESULT(value, get_json_object_field(from, "next_randseed", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.next_randseed_, value));
-    }
-  }
-  {
-    TRY_RESULT(value, get_json_object_field(from, "next_rotate_at", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.next_rotate_at_, value));
-    }
-  }
-  {
-    TRY_RESULT(value, get_json_object_field(from, "prev_blocks", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.prev_blocks_, value));
-    }
-  }
-  {
-    TRY_RESULT(value, get_json_object_field(from, "shards", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.shards_, value));
-    }
-  }
-  {
-    TRY_RESULT(value, get_json_object_field(from, "pool", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.pool_, value));
-    }
-  }
-  return Status::OK();
-}
-Status from_json(ton_api::test0_topShardBlockDescription &to, JsonObject &from) {
-  {
-    TRY_RESULT(value, get_json_object_field(from, "block_id", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.block_id_, value));
-    }
-  }
-  {
-    TRY_RESULT(value, get_json_object_field(from, "after_split", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.after_split_, value));
-    }
-  }
-  {
-    TRY_RESULT(value, get_json_object_field(from, "after_merge", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.after_merge_, value));
-    }
-  }
-  {
-    TRY_RESULT(value, get_json_object_field(from, "before_split", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.before_split_, value));
-    }
-  }
-  {
-    TRY_RESULT(value, get_json_object_field(from, "catchain_seqno", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.catchain_seqno_, value));
-    }
-  }
-  {
-    TRY_RESULT(value, get_json_object_field(from, "validator_set_hash", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.validator_set_hash_, value));
-    }
-  }
-  {
-    TRY_RESULT(value, get_json_object_field(from, "signatures", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json_bytes(to.signatures_, value));
-    }
-  }
-  return Status::OK();
-}
-Status from_json(ton_api::test0_validatorSessionId &to, JsonObject &from) {
-  {
-    TRY_RESULT(value, get_json_object_field(from, "workchain", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.workchain_, value));
-    }
-  }
-  {
-    TRY_RESULT(value, get_json_object_field(from, "shard", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.shard_, value));
-    }
-  }
-  {
-    TRY_RESULT(value, get_json_object_field(from, "shard_from", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.shard_from_, value));
-    }
-  }
-  {
-    TRY_RESULT(value, get_json_object_field(from, "ts", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.ts_, value));
-    }
-  }
-  return Status::OK();
-}
-Status from_json(ton_api::test0_validatorSet &to, JsonObject &from) {
-  {
-    TRY_RESULT(value, get_json_object_field(from, "ts", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.ts_, value));
-    }
-  }
-  {
-    TRY_RESULT(value, get_json_object_field(from, "validators", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.validators_, value));
-    }
-  }
-  return Status::OK();
-}
-Status from_json(ton_api::test0_validatorSetItem &to, JsonObject &from) {
-  {
-    TRY_RESULT(value, get_json_object_field(from, "id", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.id_, value));
-    }
-  }
-  {
-    TRY_RESULT(value, get_json_object_field(from, "weight", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.weight_, value));
-    }
-  }
-  return Status::OK();
-}
-Status from_json(ton_api::test0_masterchain_shardInfo &to, JsonObject &from) {
-  {
-    TRY_RESULT(value, get_json_object_field(from, "last_block", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.last_block_, value));
-    }
-  }
-  {
-    TRY_RESULT(value, get_json_object_field(from, "before_merge", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.before_merge_, value));
-    }
-  }
-  {
-    TRY_RESULT(value, get_json_object_field(from, "before_split", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.before_split_, value));
-    }
-  }
-  {
-    TRY_RESULT(value, get_json_object_field(from, "after_merge", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.after_merge_, value));
-    }
-  }
-  {
-    TRY_RESULT(value, get_json_object_field(from, "after_split", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.after_split_, value));
-    }
-  }
-  return Status::OK();
-}
 Status from_json(ton_api::ton_blockId &to, JsonObject &from) {
+  {
+    TRY_RESULT(value, get_json_object_field(from, "root_cell_hash", JsonValue::Type::Null, true));
+    if (value.type() != JsonValue::Type::Null) {
+      TRY_STATUS(from_json(to.root_cell_hash_, value));
+    }
+  }
+  {
+    TRY_RESULT(value, get_json_object_field(from, "file_hash", JsonValue::Type::Null, true));
+    if (value.type() != JsonValue::Type::Null) {
+      TRY_STATUS(from_json(to.file_hash_, value));
+    }
+  }
+  return Status::OK();
+}
+Status from_json(ton_api::ton_blockIdApprove &to, JsonObject &from) {
   {
     TRY_RESULT(value, get_json_object_field(from, "root_cell_hash", JsonValue::Type::Null, true));
     if (value.type() != JsonValue::Type::Null) {
@@ -4362,15 +4171,15 @@ Status from_json(ton_api::tonNode_sessionId &to, JsonObject &from) {
     }
   }
   {
-    TRY_RESULT(value, get_json_object_field(from, "utime_from", JsonValue::Type::Null, true));
+    TRY_RESULT(value, get_json_object_field(from, "cc_seqno", JsonValue::Type::Null, true));
     if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.utime_from_, value));
+      TRY_STATUS(from_json(to.cc_seqno_, value));
     }
   }
   {
-    TRY_RESULT(value, get_json_object_field(from, "utime_to", JsonValue::Type::Null, true));
+    TRY_RESULT(value, get_json_object_field(from, "opts_hash", JsonValue::Type::Null, true));
     if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.utime_to_, value));
+      TRY_STATUS(from_json(to.opts_hash_, value));
     }
   }
   return Status::OK();
@@ -4428,6 +4237,12 @@ Status from_json(ton_api::validator_config_global &to, JsonObject &from) {
     TRY_RESULT(value, get_json_object_field(from, "init_block", JsonValue::Type::Null, true));
     if (value.type() != JsonValue::Type::Null) {
       TRY_STATUS(from_json(to.init_block_, value));
+    }
+  }
+  {
+    TRY_RESULT(value, get_json_object_field(from, "hardforks", JsonValue::Type::Null, true));
+    if (value.type() != JsonValue::Type::Null) {
+      TRY_STATUS(from_json(to.hardforks_, value));
     }
   }
   return Status::OK();
@@ -4531,29 +4346,53 @@ Status from_json(ton_api::validatorSession_candidateId &to, JsonObject &from) {
   }
   return Status::OK();
 }
-Status from_json(ton_api::validatorSession_id &to, JsonObject &from) {
+Status from_json(ton_api::validatorSession_config &to, JsonObject &from) {
   {
-    TRY_RESULT(value, get_json_object_field(from, "slice", JsonValue::Type::Null, true));
+    TRY_RESULT(value, get_json_object_field(from, "catchain_idle_timeout", JsonValue::Type::Null, true));
     if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.slice_, value));
+      TRY_STATUS(from_json(to.catchain_idle_timeout_, value));
     }
   }
   {
-    TRY_RESULT(value, get_json_object_field(from, "start_time", JsonValue::Type::Null, true));
+    TRY_RESULT(value, get_json_object_field(from, "catchain_max_deps", JsonValue::Type::Null, true));
     if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.start_time_, value));
+      TRY_STATUS(from_json(to.catchain_max_deps_, value));
     }
   }
   {
-    TRY_RESULT(value, get_json_object_field(from, "end_time", JsonValue::Type::Null, true));
+    TRY_RESULT(value, get_json_object_field(from, "round_candidates", JsonValue::Type::Null, true));
     if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.end_time_, value));
+      TRY_STATUS(from_json(to.round_candidates_, value));
     }
   }
   {
-    TRY_RESULT(value, get_json_object_field(from, "participants", JsonValue::Type::Null, true));
+    TRY_RESULT(value, get_json_object_field(from, "next_candidate_delay", JsonValue::Type::Null, true));
     if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.participants_, value));
+      TRY_STATUS(from_json(to.next_candidate_delay_, value));
+    }
+  }
+  {
+    TRY_RESULT(value, get_json_object_field(from, "round_attempt_duration", JsonValue::Type::Null, true));
+    if (value.type() != JsonValue::Type::Null) {
+      TRY_STATUS(from_json(to.round_attempt_duration_, value));
+    }
+  }
+  {
+    TRY_RESULT(value, get_json_object_field(from, "max_round_attempts", JsonValue::Type::Null, true));
+    if (value.type() != JsonValue::Type::Null) {
+      TRY_STATUS(from_json(to.max_round_attempts_, value));
+    }
+  }
+  {
+    TRY_RESULT(value, get_json_object_field(from, "max_block_size", JsonValue::Type::Null, true));
+    if (value.type() != JsonValue::Type::Null) {
+      TRY_STATUS(from_json(to.max_block_size_, value));
+    }
+  }
+  {
+    TRY_RESULT(value, get_json_object_field(from, "max_collated_data_size", JsonValue::Type::Null, true));
+    if (value.type() != JsonValue::Type::Null) {
+      TRY_STATUS(from_json(to.max_collated_data_size_, value));
     }
   }
   return Status::OK();
@@ -4640,6 +4479,12 @@ Status from_json(ton_api::validatorSession_message_approvedBlock &to, JsonObject
       TRY_STATUS(from_json(to.candidate_, value));
     }
   }
+  {
+    TRY_RESULT(value, get_json_object_field(from, "signature", JsonValue::Type::Null, true));
+    if (value.type() != JsonValue::Type::Null) {
+      TRY_STATUS(from_json_bytes(to.signature_, value));
+    }
+  }
   return Status::OK();
 }
 Status from_json(ton_api::validatorSession_message_rejectedBlock &to, JsonObject &from) {
@@ -4685,6 +4530,27 @@ Status from_json(ton_api::validatorSession_message_commit &to, JsonObject &from)
   return Status::OK();
 }
 Status from_json(ton_api::validatorSession_message_vote &to, JsonObject &from) {
+  {
+    TRY_RESULT(value, get_json_object_field(from, "round", JsonValue::Type::Null, true));
+    if (value.type() != JsonValue::Type::Null) {
+      TRY_STATUS(from_json(to.round_, value));
+    }
+  }
+  {
+    TRY_RESULT(value, get_json_object_field(from, "attempt", JsonValue::Type::Null, true));
+    if (value.type() != JsonValue::Type::Null) {
+      TRY_STATUS(from_json(to.attempt_, value));
+    }
+  }
+  {
+    TRY_RESULT(value, get_json_object_field(from, "candidate", JsonValue::Type::Null, true));
+    if (value.type() != JsonValue::Type::Null) {
+      TRY_STATUS(from_json(to.candidate_, value));
+    }
+  }
+  return Status::OK();
+}
+Status from_json(ton_api::validatorSession_message_voteFor &to, JsonObject &from) {
   {
     TRY_RESULT(value, get_json_object_field(from, "round", JsonValue::Type::Null, true));
     if (value.type() != JsonValue::Type::Null) {
@@ -4879,6 +4745,48 @@ Status from_json(ton_api::engine_validator_addAdnlId &to, JsonObject &from) {
   }
   return Status::OK();
 }
+Status from_json(ton_api::engine_validator_addControlInterface &to, JsonObject &from) {
+  {
+    TRY_RESULT(value, get_json_object_field(from, "key_hash", JsonValue::Type::Null, true));
+    if (value.type() != JsonValue::Type::Null) {
+      TRY_STATUS(from_json(to.key_hash_, value));
+    }
+  }
+  {
+    TRY_RESULT(value, get_json_object_field(from, "port", JsonValue::Type::Null, true));
+    if (value.type() != JsonValue::Type::Null) {
+      TRY_STATUS(from_json(to.port_, value));
+    }
+  }
+  return Status::OK();
+}
+Status from_json(ton_api::engine_validator_addControlProcess &to, JsonObject &from) {
+  {
+    TRY_RESULT(value, get_json_object_field(from, "key_hash", JsonValue::Type::Null, true));
+    if (value.type() != JsonValue::Type::Null) {
+      TRY_STATUS(from_json(to.key_hash_, value));
+    }
+  }
+  {
+    TRY_RESULT(value, get_json_object_field(from, "port", JsonValue::Type::Null, true));
+    if (value.type() != JsonValue::Type::Null) {
+      TRY_STATUS(from_json(to.port_, value));
+    }
+  }
+  {
+    TRY_RESULT(value, get_json_object_field(from, "peer_key", JsonValue::Type::Null, true));
+    if (value.type() != JsonValue::Type::Null) {
+      TRY_STATUS(from_json(to.peer_key_, value));
+    }
+  }
+  {
+    TRY_RESULT(value, get_json_object_field(from, "permissions", JsonValue::Type::Null, true));
+    if (value.type() != JsonValue::Type::Null) {
+      TRY_STATUS(from_json(to.permissions_, value));
+    }
+  }
+  return Status::OK();
+}
 Status from_json(ton_api::engine_validator_addDhtId &to, JsonObject &from) {
   {
     TRY_RESULT(value, get_json_object_field(from, "key_hash", JsonValue::Type::Null, true));
@@ -4915,11 +4823,11 @@ Status from_json(ton_api::engine_validator_addListeningPort &to, JsonObject &fro
   }
   return Status::OK();
 }
-Status from_json(ton_api::engine_validator_addProxy &to, JsonObject &from) {
+Status from_json(ton_api::engine_validator_addLiteserver &to, JsonObject &from) {
   {
-    TRY_RESULT(value, get_json_object_field(from, "ip", JsonValue::Type::Null, true));
+    TRY_RESULT(value, get_json_object_field(from, "key_hash", JsonValue::Type::Null, true));
     if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.ip_, value));
+      TRY_STATUS(from_json(to.key_hash_, value));
     }
   }
   {
@@ -4928,10 +4836,49 @@ Status from_json(ton_api::engine_validator_addProxy &to, JsonObject &from) {
       TRY_STATUS(from_json(to.port_, value));
     }
   }
+  return Status::OK();
+}
+Status from_json(ton_api::engine_validator_addProxy &to, JsonObject &from) {
+  {
+    TRY_RESULT(value, get_json_object_field(from, "in_ip", JsonValue::Type::Null, true));
+    if (value.type() != JsonValue::Type::Null) {
+      TRY_STATUS(from_json(to.in_ip_, value));
+    }
+  }
+  {
+    TRY_RESULT(value, get_json_object_field(from, "in_port", JsonValue::Type::Null, true));
+    if (value.type() != JsonValue::Type::Null) {
+      TRY_STATUS(from_json(to.in_port_, value));
+    }
+  }
+  {
+    TRY_RESULT(value, get_json_object_field(from, "out_ip", JsonValue::Type::Null, true));
+    if (value.type() != JsonValue::Type::Null) {
+      TRY_STATUS(from_json(to.out_ip_, value));
+    }
+  }
+  {
+    TRY_RESULT(value, get_json_object_field(from, "out_port", JsonValue::Type::Null, true));
+    if (value.type() != JsonValue::Type::Null) {
+      TRY_STATUS(from_json(to.out_port_, value));
+    }
+  }
+  {
+    TRY_RESULT(value, get_json_object_field(from, "proxy", JsonValue::Type::Null, true));
+    if (value.type() != JsonValue::Type::Null) {
+      TRY_STATUS(from_json(to.proxy_, value));
+    }
+  }
   {
     TRY_RESULT(value, get_json_object_field(from, "categories", JsonValue::Type::Null, true));
     if (value.type() != JsonValue::Type::Null) {
       TRY_STATUS(from_json(to.categories_, value));
+    }
+  }
+  {
+    TRY_RESULT(value, get_json_object_field(from, "priority_categories", JsonValue::Type::Null, true));
+    if (value.type() != JsonValue::Type::Null) {
+      TRY_STATUS(from_json(to.priority_categories_, value));
     }
   }
   return Status::OK();
@@ -4993,17 +4940,11 @@ Status from_json(ton_api::engine_validator_addValidatorTempKey &to, JsonObject &
   }
   return Status::OK();
 }
-Status from_json(ton_api::engine_validator_changePassword &to, JsonObject &from) {
+Status from_json(ton_api::engine_validator_changeFullNodeAdnlAddress &to, JsonObject &from) {
   {
-    TRY_RESULT(value, get_json_object_field(from, "old_password", JsonValue::Type::Null, true));
+    TRY_RESULT(value, get_json_object_field(from, "adnl_id", JsonValue::Type::Null, true));
     if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json_bytes(to.old_password_, value));
-    }
-  }
-  {
-    TRY_RESULT(value, get_json_object_field(from, "new_password", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json_bytes(to.new_password_, value));
+      TRY_STATUS(from_json(to.adnl_id_, value));
     }
   }
   return Status::OK();
@@ -5018,6 +4959,21 @@ Status from_json(ton_api::engine_validator_controlQuery &to, JsonObject &from) {
   return Status::OK();
 }
 Status from_json(ton_api::engine_validator_delAdnlId &to, JsonObject &from) {
+  {
+    TRY_RESULT(value, get_json_object_field(from, "key_hash", JsonValue::Type::Null, true));
+    if (value.type() != JsonValue::Type::Null) {
+      TRY_STATUS(from_json(to.key_hash_, value));
+    }
+  }
+  return Status::OK();
+}
+Status from_json(ton_api::engine_validator_delDhtId &to, JsonObject &from) {
+  {
+    TRY_RESULT(value, get_json_object_field(from, "key_hash", JsonValue::Type::Null, true));
+    if (value.type() != JsonValue::Type::Null) {
+      TRY_STATUS(from_json(to.key_hash_, value));
+    }
+  }
   return Status::OK();
 }
 Status from_json(ton_api::engine_validator_delListeningPort &to, JsonObject &from) {
@@ -5049,15 +5005,15 @@ Status from_json(ton_api::engine_validator_delListeningPort &to, JsonObject &fro
 }
 Status from_json(ton_api::engine_validator_delProxy &to, JsonObject &from) {
   {
-    TRY_RESULT(value, get_json_object_field(from, "ip", JsonValue::Type::Null, true));
+    TRY_RESULT(value, get_json_object_field(from, "out_ip", JsonValue::Type::Null, true));
     if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.ip_, value));
+      TRY_STATUS(from_json(to.out_ip_, value));
     }
   }
   {
-    TRY_RESULT(value, get_json_object_field(from, "port", JsonValue::Type::Null, true));
+    TRY_RESULT(value, get_json_object_field(from, "out_port", JsonValue::Type::Null, true));
     if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.port_, value));
+      TRY_STATUS(from_json(to.out_port_, value));
     }
   }
   {
@@ -5066,9 +5022,21 @@ Status from_json(ton_api::engine_validator_delProxy &to, JsonObject &from) {
       TRY_STATUS(from_json(to.categories_, value));
     }
   }
+  {
+    TRY_RESULT(value, get_json_object_field(from, "priority_categories", JsonValue::Type::Null, true));
+    if (value.type() != JsonValue::Type::Null) {
+      TRY_STATUS(from_json(to.priority_categories_, value));
+    }
+  }
   return Status::OK();
 }
 Status from_json(ton_api::engine_validator_delValidatorAdnlAddress &to, JsonObject &from) {
+  {
+    TRY_RESULT(value, get_json_object_field(from, "permanent_key_hash", JsonValue::Type::Null, true));
+    if (value.type() != JsonValue::Type::Null) {
+      TRY_STATUS(from_json(to.permanent_key_hash_, value));
+    }
+  }
   {
     TRY_RESULT(value, get_json_object_field(from, "key_hash", JsonValue::Type::Null, true));
     if (value.type() != JsonValue::Type::Null) {
@@ -5087,6 +5055,12 @@ Status from_json(ton_api::engine_validator_delValidatorPermanentKey &to, JsonObj
   return Status::OK();
 }
 Status from_json(ton_api::engine_validator_delValidatorTempKey &to, JsonObject &from) {
+  {
+    TRY_RESULT(value, get_json_object_field(from, "permanent_key_hash", JsonValue::Type::Null, true));
+    if (value.type() != JsonValue::Type::Null) {
+      TRY_STATUS(from_json(to.permanent_key_hash_, value));
+    }
+  }
   {
     TRY_RESULT(value, get_json_object_field(from, "key_hash", JsonValue::Type::Null, true));
     if (value.type() != JsonValue::Type::Null) {
@@ -5125,15 +5099,6 @@ Status from_json(ton_api::engine_validator_getStats &to, JsonObject &from) {
 Status from_json(ton_api::engine_validator_getTime &to, JsonObject &from) {
   return Status::OK();
 }
-Status from_json(ton_api::engine_validator_importLocalKey &to, JsonObject &from) {
-  {
-    TRY_RESULT(value, get_json_object_field(from, "key_hash", JsonValue::Type::Null, true));
-    if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json(to.key_hash_, value));
-    }
-  }
-  return Status::OK();
-}
 Status from_json(ton_api::engine_validator_importPrivateKey &to, JsonObject &from) {
   {
     TRY_RESULT(value, get_json_object_field(from, "key", JsonValue::Type::Null, true));
@@ -5143,16 +5108,22 @@ Status from_json(ton_api::engine_validator_importPrivateKey &to, JsonObject &fro
   }
   return Status::OK();
 }
-Status from_json(ton_api::engine_validator_setPassword &to, JsonObject &from) {
+Status from_json(ton_api::engine_validator_setVerbosity &to, JsonObject &from) {
   {
-    TRY_RESULT(value, get_json_object_field(from, "password", JsonValue::Type::Null, true));
+    TRY_RESULT(value, get_json_object_field(from, "verbosity", JsonValue::Type::Null, true));
     if (value.type() != JsonValue::Type::Null) {
-      TRY_STATUS(from_json_bytes(to.password_, value));
+      TRY_STATUS(from_json(to.verbosity_, value));
     }
   }
   return Status::OK();
 }
 Status from_json(ton_api::engine_validator_sign &to, JsonObject &from) {
+  {
+    TRY_RESULT(value, get_json_object_field(from, "key_hash", JsonValue::Type::Null, true));
+    if (value.type() != JsonValue::Type::Null) {
+      TRY_STATUS(from_json(to.key_hash_, value));
+    }
+  }
   {
     TRY_RESULT(value, get_json_object_field(from, "data", JsonValue::Type::Null, true));
     if (value.type() != JsonValue::Type::Null) {
@@ -5401,6 +5372,7 @@ void to_json(JsonValueScope &jv, const ton_api::hashable_validatorSessionOldRoun
   jo << ctie("seqno", ToJson(object.seqno_));
   jo << ctie("block", ToJson(object.block_));
   jo << ctie("signatures", ToJson(object.signatures_));
+  jo << ctie("approve_signatures", ToJson(object.approve_signatures_));
 }
 void to_json(JsonValueScope &jv, const ton_api::hashable_validatorSessionRoundAttempt &object) {
   auto jo = jv.enter_object();
@@ -5408,6 +5380,8 @@ void to_json(JsonValueScope &jv, const ton_api::hashable_validatorSessionRoundAt
   jo << ctie("seqno", ToJson(object.seqno_));
   jo << ctie("votes", ToJson(object.votes_));
   jo << ctie("precommitted", ToJson(object.precommitted_));
+  jo << ctie("vote_for_inited", ToJson(object.vote_for_inited_));
+  jo << ctie("vote_for", ToJson(object.vote_for_));
 }
 void to_json(JsonValueScope &jv, const ton_api::hashable_validatorSessionRound &object) {
   auto jo = jv.enter_object();
@@ -5447,6 +5421,12 @@ void to_json(JsonValueScope &jv, const ton_api::hashable_vote &object) {
 void to_json(JsonValueScope &jv, const ton_api::hashable_blockCandidate &object) {
   auto jo = jv.enter_object();
   jo << ctie("@type", "hashable.blockCandidate");
+  jo << ctie("block", ToJson(object.block_));
+  jo << ctie("approved", ToJson(object.approved_));
+}
+void to_json(JsonValueScope &jv, const ton_api::hashable_blockVoteCandidate &object) {
+  auto jo = jv.enter_object();
+  jo << ctie("@type", "hashable.blockVoteCandidate");
   jo << ctie("block", ToJson(object.block_));
   jo << ctie("approved", ToJson(object.approved_));
 }
@@ -5665,6 +5645,35 @@ void to_json(JsonValueScope &jv, const ton_api::adnl_packetContents &object) {
   jo << ctie("signature", ToJson(JsonBytes{object.signature_}));
   jo << ctie("rand2", ToJson(JsonBytes{object.rand2_}));
 }
+void to_json(JsonValueScope &jv, const ton_api::adnl_Proxy &object) {
+  ton_api::downcast_call(const_cast<ton_api::adnl_Proxy &>(object), [&jv](const auto &object) { to_json(jv, object); });
+}
+void to_json(JsonValueScope &jv, const ton_api::adnl_proxy_none &object) {
+  auto jo = jv.enter_object();
+  jo << ctie("@type", "adnl.proxy.none");
+}
+void to_json(JsonValueScope &jv, const ton_api::adnl_proxy_fast &object) {
+  auto jo = jv.enter_object();
+  jo << ctie("@type", "adnl.proxy.fast");
+  jo << ctie("shared_secret", ToJson(JsonBytes{object.shared_secret_}));
+}
+void to_json(JsonValueScope &jv, const ton_api::adnl_proxyToFastHash &object) {
+  auto jo = jv.enter_object();
+  jo << ctie("@type", "adnl.proxyToFastHash");
+  jo << ctie("ip", ToJson(object.ip_));
+  jo << ctie("port", ToJson(object.port_));
+  jo << ctie("date", ToJson(object.date_));
+  jo << ctie("data_hash", ToJson(object.data_hash_));
+  jo << ctie("shared_secret", ToJson(object.shared_secret_));
+}
+void to_json(JsonValueScope &jv, const ton_api::adnl_proxyToFast &object) {
+  auto jo = jv.enter_object();
+  jo << ctie("@type", "adnl.proxyToFast");
+  jo << ctie("ip", ToJson(object.ip_));
+  jo << ctie("port", ToJson(object.port_));
+  jo << ctie("date", ToJson(object.date_));
+  jo << ctie("signature", ToJson(object.signature_));
+}
 void to_json(JsonValueScope &jv, const ton_api::adnl_config_global &object) {
   auto jo = jv.enter_object();
   jo << ctie("@type", "adnl.config.global");
@@ -5856,6 +5865,9 @@ void to_json(JsonValueScope &jv, const ton_api::control_config_local &object) {
 void to_json(JsonValueScope &jv, const ton_api::db_candidate &object) {
   auto jo = jv.enter_object();
   jo << ctie("@type", "db.candidate");
+  if (object.source_) {
+    jo << ctie("source", ToJson(object.source_));
+  }
   if (object.id_) {
     jo << ctie("id", ToJson(object.id_));
   }
@@ -5940,6 +5952,9 @@ void to_json(JsonValueScope &jv, const ton_api::db_blockdb_value &object) {
 void to_json(JsonValueScope &jv, const ton_api::db_candidate_id &object) {
   auto jo = jv.enter_object();
   jo << ctie("@type", "db.candidate.id");
+  if (object.source_) {
+    jo << ctie("source", ToJson(object.source_));
+  }
   if (object.id_) {
     jo << ctie("id", ToJson(object.id_));
   }
@@ -6312,12 +6327,27 @@ void to_json(JsonValueScope &jv, const ton_api::dummyworkchain0_config_global &o
   jo << ctie("@type", "dummyworkchain0.config.global");
   jo << ctie("zero_state_hash", ToJson(object.zero_state_hash_));
 }
+void to_json(JsonValueScope &jv, const ton_api::engine_Addr &object) {
+  ton_api::downcast_call(const_cast<ton_api::engine_Addr &>(object), [&jv](const auto &object) { to_json(jv, object); });
+}
 void to_json(JsonValueScope &jv, const ton_api::engine_addr &object) {
   auto jo = jv.enter_object();
   jo << ctie("@type", "engine.addr");
   jo << ctie("ip", ToJson(object.ip_));
   jo << ctie("port", ToJson(object.port_));
-  jo << ctie("is_proxy", ToJson(object.is_proxy_));
+  jo << ctie("categories", ToJson(object.categories_));
+  jo << ctie("priority_categories", ToJson(object.priority_categories_));
+}
+void to_json(JsonValueScope &jv, const ton_api::engine_addrProxy &object) {
+  auto jo = jv.enter_object();
+  jo << ctie("@type", "engine.addrProxy");
+  jo << ctie("in_ip", ToJson(object.in_ip_));
+  jo << ctie("in_port", ToJson(object.in_port_));
+  jo << ctie("out_ip", ToJson(object.out_ip_));
+  jo << ctie("out_port", ToJson(object.out_port_));
+  if (object.proxy_type_) {
+    jo << ctie("proxy_type", ToJson(object.proxy_type_));
+  }
   jo << ctie("categories", ToJson(object.categories_));
   jo << ctie("priority_categories", ToJson(object.priority_categories_));
 }
@@ -6344,13 +6374,6 @@ void to_json(JsonValueScope &jv, const ton_api::engine_dht &object) {
   auto jo = jv.enter_object();
   jo << ctie("@type", "engine.dht");
   jo << ctie("id", ToJson(object.id_));
-}
-void to_json(JsonValueScope &jv, const ton_api::engine_fullNode &object) {
-  auto jo = jv.enter_object();
-  jo << ctie("@type", "engine.fullNode");
-  jo << ctie("id", ToJson(object.id_));
-  jo << ctie("adnl", ToJson(object.adnl_));
-  jo << ctie("expire_at", ToJson(object.expire_at_));
 }
 void to_json(JsonValueScope &jv, const ton_api::engine_gc &object) {
   auto jo = jv.enter_object();
@@ -6383,6 +6406,22 @@ void to_json(JsonValueScope &jv, const ton_api::engine_validatorTempKey &object)
   jo << ctie("key", ToJson(object.key_));
   jo << ctie("expire_at", ToJson(object.expire_at_));
 }
+void to_json(JsonValueScope &jv, const ton_api::engine_adnlProxy_config &object) {
+  auto jo = jv.enter_object();
+  jo << ctie("@type", "engine.adnlProxy.config");
+  jo << ctie("ports", ToJson(object.ports_));
+}
+void to_json(JsonValueScope &jv, const ton_api::engine_adnlProxy_port &object) {
+  auto jo = jv.enter_object();
+  jo << ctie("@type", "engine.adnlProxy.port");
+  jo << ctie("in_port", ToJson(object.in_port_));
+  jo << ctie("out_port", ToJson(object.out_port_));
+  jo << ctie("dst_ip", ToJson(object.dst_ip_));
+  jo << ctie("dst_port", ToJson(object.dst_port_));
+  if (object.proxy_type_) {
+    jo << ctie("proxy_type", ToJson(object.proxy_type_));
+  }
+}
 void to_json(JsonValueScope &jv, const ton_api::engine_dht_config &object) {
   auto jo = jv.enter_object();
   jo << ctie("@type", "engine.dht.config");
@@ -6394,13 +6433,12 @@ void to_json(JsonValueScope &jv, const ton_api::engine_dht_config &object) {
 void to_json(JsonValueScope &jv, const ton_api::engine_validator_config &object) {
   auto jo = jv.enter_object();
   jo << ctie("@type", "engine.validator.config");
+  jo << ctie("out_port", ToJson(object.out_port_));
   jo << ctie("addrs", ToJson(object.addrs_));
   jo << ctie("adnl", ToJson(object.adnl_));
   jo << ctie("dht", ToJson(object.dht_));
-  if (object.fullnode_) {
-    jo << ctie("fullnode", ToJson(object.fullnode_));
-  }
   jo << ctie("validators", ToJson(object.validators_));
+  jo << ctie("fullnode", ToJson(object.fullnode_));
   jo << ctie("liteservers", ToJson(object.liteservers_));
   jo << ctie("control", ToJson(object.control_));
   if (object.gc_) {
@@ -6412,6 +6450,11 @@ void to_json(JsonValueScope &jv, const ton_api::engine_validator_controlQueryErr
   jo << ctie("@type", "engine.validator.controlQueryError");
   jo << ctie("code", ToJson(object.code_));
   jo << ctie("message", ToJson(object.message_));
+}
+void to_json(JsonValueScope &jv, const ton_api::engine_validator_jsonConfig &object) {
+  auto jo = jv.enter_object();
+  jo << ctie("@type", "engine.validator.jsonConfig");
+  jo << ctie("data", ToJson(object.data_));
 }
 void to_json(JsonValueScope &jv, const ton_api::engine_validator_keyHash &object) {
   auto jo = jv.enter_object();
@@ -6478,6 +6521,9 @@ void to_json(JsonValueScope &jv, const ton_api::liteclient_config_global &object
   auto jo = jv.enter_object();
   jo << ctie("@type", "liteclient.config.global");
   jo << ctie("liteservers", ToJson(object.liteservers_));
+  if (object.validator_) {
+    jo << ctie("validator", ToJson(object.validator_));
+  }
 }
 void to_json(JsonValueScope &jv, const ton_api::liteserver_desc &object) {
   auto jo = jv.enter_object();
@@ -6688,6 +6734,7 @@ void to_json(JsonValueScope &jv, const ton_api::rldp_query &object) {
   auto jo = jv.enter_object();
   jo << ctie("@type", "rldp.query");
   jo << ctie("query_id", ToJson(object.query_id_));
+  jo << ctie("max_answer_size", ToJson(JsonInt64{object.max_answer_size_}));
   jo << ctie("timeout", ToJson(object.timeout_));
   jo << ctie("data", ToJson(JsonBytes{object.data_}));
 }
@@ -6751,155 +6798,18 @@ void to_json(JsonValueScope &jv, const ton_api::tcp_pong &object) {
   jo << ctie("@type", "tcp.pong");
   jo << ctie("random_id", ToJson(JsonInt64{object.random_id_}));
 }
-void to_json(JsonValueScope &jv, const ton_api::test0_proof &object) {
-  auto jo = jv.enter_object();
-  jo << ctie("@type", "test0.proof");
-  if (object.link_) {
-    jo << ctie("link", ToJson(object.link_));
-  }
-  jo << ctie("catchain_seqno", ToJson(object.catchain_seqno_));
-  jo << ctie("validator_set_hash", ToJson(object.validator_set_hash_));
-  if (object.signatures_) {
-    jo << ctie("signatures", ToJson(object.signatures_));
-  }
-}
-void to_json(JsonValueScope &jv, const ton_api::test0_proofLink &object) {
-  auto jo = jv.enter_object();
-  jo << ctie("@type", "test0.proofLink");
-  if (object.id_) {
-    jo << ctie("id", ToJson(object.id_));
-  }
-  jo << ctie("prev", ToJson(object.prev_));
-  jo << ctie("state", ToJson(object.state_));
-  jo << ctie("split", ToJson(object.split_));
-}
-void to_json(JsonValueScope &jv, const ton_api::test0_shardchain_block &object) {
-  auto jo = jv.enter_object();
-  jo << ctie("@type", "test0.shardchain.block");
-  jo << ctie("workchain", ToJson(object.workchain_));
-  jo << ctie("shard", ToJson(JsonInt64{object.shard_}));
-  jo << ctie("seqno", ToJson(object.seqno_));
-  jo << ctie("prev", ToJson(object.prev_));
-  jo << ctie("split", ToJson(object.split_));
-  jo << ctie("ts", ToJson(object.ts_));
-  jo << ctie("state", ToJson(object.state_));
-  jo << ctie("catchain_seqno", ToJson(object.catchain_seqno_));
-  jo << ctie("validator_set_hash", ToJson(object.validator_set_hash_));
-  jo << ctie("pad", ToJson(JsonBytes{object.pad_}));
-  if (object.extra_) {
-    jo << ctie("extra", ToJson(object.extra_));
-  }
-}
-void to_json(JsonValueScope &jv, const ton_api::test0_shardchain_state &object) {
-  auto jo = jv.enter_object();
-  jo << ctie("@type", "test0.shardchain.state");
-  jo << ctie("workchain", ToJson(object.workchain_));
-  jo << ctie("shard", ToJson(JsonInt64{object.shard_}));
-  jo << ctie("seqno", ToJson(object.seqno_));
-  jo << ctie("ts", ToJson(object.ts_));
-  jo << ctie("split", ToJson(object.split_));
-  if (object.extra_) {
-    jo << ctie("extra", ToJson(object.extra_));
-  }
-}
-void to_json(JsonValueScope &jv, const ton_api::test_validatorSession_block &object) {
-  auto jo = jv.enter_object();
-  jo << ctie("@type", "test.validatorSession.block");
-  jo << ctie("root_hash", ToJson(object.root_hash_));
-  jo << ctie("height", ToJson(JsonInt64{object.height_}));
-  jo << ctie("data", ToJson(JsonBytes{object.data_}));
-}
-void to_json(JsonValueScope &jv, const ton_api::test0_blockSignatures &object) {
-  auto jo = jv.enter_object();
-  jo << ctie("@type", "test0.blockSignatures");
-  jo << ctie("signatures", ToJson(object.signatures_));
-}
-void to_json(JsonValueScope &jv, const ton_api::test0_extMessage &object) {
-  auto jo = jv.enter_object();
-  jo << ctie("@type", "test0.extMessage");
-  jo << ctie("workchain", ToJson(object.workchain_));
-  jo << ctie("shard", ToJson(JsonInt64{object.shard_}));
-  jo << ctie("data", ToJson(JsonBytes{object.data_}));
-}
-void to_json(JsonValueScope &jv, const ton_api::test0_MasterchainBlockExtra &object) {
-  ton_api::downcast_call(const_cast<ton_api::test0_MasterchainBlockExtra &>(object), [&jv](const auto &object) { to_json(jv, object); });
-}
-void to_json(JsonValueScope &jv, const ton_api::test0_masterchainBlockExtra_empty &object) {
-  auto jo = jv.enter_object();
-  jo << ctie("@type", "test0.masterchainBlockExtra.empty");
-}
-void to_json(JsonValueScope &jv, const ton_api::test0_masterchainBlockExtra_extra &object) {
-  auto jo = jv.enter_object();
-  jo << ctie("@type", "test0.masterchainBlockExtra.extra");
-  jo << ctie("randseed", ToJson(object.randseed_));
-  jo << ctie("rotate", ToJson(object.rotate_));
-  jo << ctie("shards", ToJson(object.shards_));
-}
-void to_json(JsonValueScope &jv, const ton_api::test0_MasterchainStateExtra &object) {
-  ton_api::downcast_call(const_cast<ton_api::test0_MasterchainStateExtra &>(object), [&jv](const auto &object) { to_json(jv, object); });
-}
-void to_json(JsonValueScope &jv, const ton_api::test0_masterchainStateExtra_empty &object) {
-  auto jo = jv.enter_object();
-  jo << ctie("@type", "test0.masterchainStateExtra.empty");
-}
-void to_json(JsonValueScope &jv, const ton_api::test0_masterchainStateExtra_extra &object) {
-  auto jo = jv.enter_object();
-  jo << ctie("@type", "test0.masterchainStateExtra.extra");
-  jo << ctie("validator_ts", ToJson(object.validator_ts_));
-  jo << ctie("validator_randseed", ToJson(object.validator_randseed_));
-  jo << ctie("next_randseed", ToJson(object.next_randseed_));
-  jo << ctie("next_rotate_at", ToJson(object.next_rotate_at_));
-  jo << ctie("prev_blocks", ToJson(object.prev_blocks_));
-  jo << ctie("shards", ToJson(object.shards_));
-  jo << ctie("pool", ToJson(object.pool_));
-}
-void to_json(JsonValueScope &jv, const ton_api::test0_topShardBlockDescription &object) {
-  auto jo = jv.enter_object();
-  jo << ctie("@type", "test0.topShardBlockDescription");
-  if (object.block_id_) {
-    jo << ctie("block_id", ToJson(object.block_id_));
-  }
-  jo << ctie("after_split", ToJson(object.after_split_));
-  jo << ctie("after_merge", ToJson(object.after_merge_));
-  jo << ctie("before_split", ToJson(object.before_split_));
-  jo << ctie("catchain_seqno", ToJson(object.catchain_seqno_));
-  jo << ctie("validator_set_hash", ToJson(object.validator_set_hash_));
-  jo << ctie("signatures", ToJson(JsonBytes{object.signatures_}));
-}
-void to_json(JsonValueScope &jv, const ton_api::test0_validatorSessionId &object) {
-  auto jo = jv.enter_object();
-  jo << ctie("@type", "test0.validatorSessionId");
-  jo << ctie("workchain", ToJson(object.workchain_));
-  jo << ctie("shard", ToJson(JsonInt64{object.shard_}));
-  jo << ctie("shard_from", ToJson(JsonInt64{object.shard_from_}));
-  jo << ctie("ts", ToJson(object.ts_));
-}
-void to_json(JsonValueScope &jv, const ton_api::test0_validatorSet &object) {
-  auto jo = jv.enter_object();
-  jo << ctie("@type", "test0.validatorSet");
-  jo << ctie("ts", ToJson(object.ts_));
-  jo << ctie("validators", ToJson(object.validators_));
-}
-void to_json(JsonValueScope &jv, const ton_api::test0_validatorSetItem &object) {
-  auto jo = jv.enter_object();
-  jo << ctie("@type", "test0.validatorSetItem");
-  jo << ctie("id", ToJson(object.id_));
-  jo << ctie("weight", ToJson(JsonInt64{object.weight_}));
-}
-void to_json(JsonValueScope &jv, const ton_api::test0_masterchain_shardInfo &object) {
-  auto jo = jv.enter_object();
-  jo << ctie("@type", "test0.masterchain.shardInfo");
-  if (object.last_block_) {
-    jo << ctie("last_block", ToJson(object.last_block_));
-  }
-  jo << ctie("before_merge", ToJson(object.before_merge_));
-  jo << ctie("before_split", ToJson(object.before_split_));
-  jo << ctie("after_merge", ToJson(object.after_merge_));
-  jo << ctie("after_split", ToJson(object.after_split_));
+void to_json(JsonValueScope &jv, const ton_api::ton_BlockId &object) {
+  ton_api::downcast_call(const_cast<ton_api::ton_BlockId &>(object), [&jv](const auto &object) { to_json(jv, object); });
 }
 void to_json(JsonValueScope &jv, const ton_api::ton_blockId &object) {
   auto jo = jv.enter_object();
   jo << ctie("@type", "ton.blockId");
+  jo << ctie("root_cell_hash", ToJson(object.root_cell_hash_));
+  jo << ctie("file_hash", ToJson(object.file_hash_));
+}
+void to_json(JsonValueScope &jv, const ton_api::ton_blockIdApprove &object) {
+  auto jo = jv.enter_object();
+  jo << ctie("@type", "ton.blockIdApprove");
   jo << ctie("root_cell_hash", ToJson(object.root_cell_hash_));
   jo << ctie("file_hash", ToJson(object.file_hash_));
 }
@@ -7048,8 +6958,8 @@ void to_json(JsonValueScope &jv, const ton_api::tonNode_sessionId &object) {
   jo << ctie("@type", "tonNode.sessionId");
   jo << ctie("workchain", ToJson(object.workchain_));
   jo << ctie("shard", ToJson(JsonInt64{object.shard_}));
-  jo << ctie("utime_from", ToJson(object.utime_from_));
-  jo << ctie("utime_to", ToJson(object.utime_to_));
+  jo << ctie("cc_seqno", ToJson(object.cc_seqno_));
+  jo << ctie("opts_hash", ToJson(object.opts_hash_));
 }
 void to_json(JsonValueScope &jv, const ton_api::tonNode_shardPublicOverlayId &object) {
   auto jo = jv.enter_object();
@@ -7074,6 +6984,7 @@ void to_json(JsonValueScope &jv, const ton_api::validator_config_global &object)
   if (object.init_block_) {
     jo << ctie("init_block", ToJson(object.init_block_));
   }
+  jo << ctie("hardforks", ToJson(object.hardforks_));
 }
 void to_json(JsonValueScope &jv, const ton_api::validator_config_Local &object) {
   ton_api::downcast_call(const_cast<ton_api::validator_config_Local &>(object), [&jv](const auto &object) { to_json(jv, object); });
@@ -7116,13 +7027,17 @@ void to_json(JsonValueScope &jv, const ton_api::validatorSession_candidateId &ob
   jo << ctie("file_hash", ToJson(object.file_hash_));
   jo << ctie("collated_data_file_hash", ToJson(object.collated_data_file_hash_));
 }
-void to_json(JsonValueScope &jv, const ton_api::validatorSession_id &object) {
+void to_json(JsonValueScope &jv, const ton_api::validatorSession_config &object) {
   auto jo = jv.enter_object();
-  jo << ctie("@type", "validatorSession.id");
-  jo << ctie("slice", ToJson(object.slice_));
-  jo << ctie("start_time", ToJson(object.start_time_));
-  jo << ctie("end_time", ToJson(object.end_time_));
-  jo << ctie("participants", ToJson(object.participants_));
+  jo << ctie("@type", "validatorSession.config");
+  jo << ctie("catchain_idle_timeout", ToJson(object.catchain_idle_timeout_));
+  jo << ctie("catchain_max_deps", ToJson(object.catchain_max_deps_));
+  jo << ctie("round_candidates", ToJson(object.round_candidates_));
+  jo << ctie("next_candidate_delay", ToJson(object.next_candidate_delay_));
+  jo << ctie("round_attempt_duration", ToJson(object.round_attempt_duration_));
+  jo << ctie("max_round_attempts", ToJson(object.max_round_attempts_));
+  jo << ctie("max_block_size", ToJson(object.max_block_size_));
+  jo << ctie("max_collated_data_size", ToJson(object.max_collated_data_size_));
 }
 void to_json(JsonValueScope &jv, const ton_api::validatorSession_Message &object) {
   ton_api::downcast_call(const_cast<ton_api::validatorSession_Message &>(object), [&jv](const auto &object) { to_json(jv, object); });
@@ -7164,6 +7079,7 @@ void to_json(JsonValueScope &jv, const ton_api::validatorSession_message_approve
   jo << ctie("@type", "validatorSession.message.approvedBlock");
   jo << ctie("round", ToJson(object.round_));
   jo << ctie("candidate", ToJson(object.candidate_));
+  jo << ctie("signature", ToJson(JsonBytes{object.signature_}));
 }
 void to_json(JsonValueScope &jv, const ton_api::validatorSession_message_rejectedBlock &object) {
   auto jo = jv.enter_object();
@@ -7182,6 +7098,13 @@ void to_json(JsonValueScope &jv, const ton_api::validatorSession_message_commit 
 void to_json(JsonValueScope &jv, const ton_api::validatorSession_message_vote &object) {
   auto jo = jv.enter_object();
   jo << ctie("@type", "validatorSession.message.vote");
+  jo << ctie("round", ToJson(object.round_));
+  jo << ctie("attempt", ToJson(object.attempt_));
+  jo << ctie("candidate", ToJson(object.candidate_));
+}
+void to_json(JsonValueScope &jv, const ton_api::validatorSession_message_voteFor &object) {
+  auto jo = jv.enter_object();
+  jo << ctie("@type", "validatorSession.message.voteFor");
   jo << ctie("round", ToJson(object.round_));
   jo << ctie("attempt", ToJson(object.attempt_));
   jo << ctie("candidate", ToJson(object.candidate_));
@@ -7268,6 +7191,20 @@ void to_json(JsonValueScope &jv, const ton_api::engine_validator_addAdnlId &obje
   jo << ctie("key_hash", ToJson(object.key_hash_));
   jo << ctie("category", ToJson(object.category_));
 }
+void to_json(JsonValueScope &jv, const ton_api::engine_validator_addControlInterface &object) {
+  auto jo = jv.enter_object();
+  jo << ctie("@type", "engine.validator.addControlInterface");
+  jo << ctie("key_hash", ToJson(object.key_hash_));
+  jo << ctie("port", ToJson(object.port_));
+}
+void to_json(JsonValueScope &jv, const ton_api::engine_validator_addControlProcess &object) {
+  auto jo = jv.enter_object();
+  jo << ctie("@type", "engine.validator.addControlProcess");
+  jo << ctie("key_hash", ToJson(object.key_hash_));
+  jo << ctie("port", ToJson(object.port_));
+  jo << ctie("peer_key", ToJson(object.peer_key_));
+  jo << ctie("permissions", ToJson(object.permissions_));
+}
 void to_json(JsonValueScope &jv, const ton_api::engine_validator_addDhtId &object) {
   auto jo = jv.enter_object();
   jo << ctie("@type", "engine.validator.addDhtId");
@@ -7281,12 +7218,24 @@ void to_json(JsonValueScope &jv, const ton_api::engine_validator_addListeningPor
   jo << ctie("categories", ToJson(object.categories_));
   jo << ctie("priority_categories", ToJson(object.priority_categories_));
 }
+void to_json(JsonValueScope &jv, const ton_api::engine_validator_addLiteserver &object) {
+  auto jo = jv.enter_object();
+  jo << ctie("@type", "engine.validator.addLiteserver");
+  jo << ctie("key_hash", ToJson(object.key_hash_));
+  jo << ctie("port", ToJson(object.port_));
+}
 void to_json(JsonValueScope &jv, const ton_api::engine_validator_addProxy &object) {
   auto jo = jv.enter_object();
   jo << ctie("@type", "engine.validator.addProxy");
-  jo << ctie("ip", ToJson(object.ip_));
-  jo << ctie("port", ToJson(object.port_));
+  jo << ctie("in_ip", ToJson(object.in_ip_));
+  jo << ctie("in_port", ToJson(object.in_port_));
+  jo << ctie("out_ip", ToJson(object.out_ip_));
+  jo << ctie("out_port", ToJson(object.out_port_));
+  if (object.proxy_) {
+    jo << ctie("proxy", ToJson(object.proxy_));
+  }
   jo << ctie("categories", ToJson(object.categories_));
+  jo << ctie("priority_categories", ToJson(object.priority_categories_));
 }
 void to_json(JsonValueScope &jv, const ton_api::engine_validator_addValidatorAdnlAddress &object) {
   auto jo = jv.enter_object();
@@ -7308,11 +7257,10 @@ void to_json(JsonValueScope &jv, const ton_api::engine_validator_addValidatorTem
   jo << ctie("key_hash", ToJson(object.key_hash_));
   jo << ctie("ttl", ToJson(object.ttl_));
 }
-void to_json(JsonValueScope &jv, const ton_api::engine_validator_changePassword &object) {
+void to_json(JsonValueScope &jv, const ton_api::engine_validator_changeFullNodeAdnlAddress &object) {
   auto jo = jv.enter_object();
-  jo << ctie("@type", "engine.validator.changePassword");
-  jo << ctie("old_password", ToJson(JsonBytes{object.old_password_}));
-  jo << ctie("new_password", ToJson(JsonBytes{object.new_password_}));
+  jo << ctie("@type", "engine.validator.changeFullNodeAdnlAddress");
+  jo << ctie("adnl_id", ToJson(object.adnl_id_));
 }
 void to_json(JsonValueScope &jv, const ton_api::engine_validator_controlQuery &object) {
   auto jo = jv.enter_object();
@@ -7322,6 +7270,12 @@ void to_json(JsonValueScope &jv, const ton_api::engine_validator_controlQuery &o
 void to_json(JsonValueScope &jv, const ton_api::engine_validator_delAdnlId &object) {
   auto jo = jv.enter_object();
   jo << ctie("@type", "engine.validator.delAdnlId");
+  jo << ctie("key_hash", ToJson(object.key_hash_));
+}
+void to_json(JsonValueScope &jv, const ton_api::engine_validator_delDhtId &object) {
+  auto jo = jv.enter_object();
+  jo << ctie("@type", "engine.validator.delDhtId");
+  jo << ctie("key_hash", ToJson(object.key_hash_));
 }
 void to_json(JsonValueScope &jv, const ton_api::engine_validator_delListeningPort &object) {
   auto jo = jv.enter_object();
@@ -7334,13 +7288,15 @@ void to_json(JsonValueScope &jv, const ton_api::engine_validator_delListeningPor
 void to_json(JsonValueScope &jv, const ton_api::engine_validator_delProxy &object) {
   auto jo = jv.enter_object();
   jo << ctie("@type", "engine.validator.delProxy");
-  jo << ctie("ip", ToJson(object.ip_));
-  jo << ctie("port", ToJson(object.port_));
+  jo << ctie("out_ip", ToJson(object.out_ip_));
+  jo << ctie("out_port", ToJson(object.out_port_));
   jo << ctie("categories", ToJson(object.categories_));
+  jo << ctie("priority_categories", ToJson(object.priority_categories_));
 }
 void to_json(JsonValueScope &jv, const ton_api::engine_validator_delValidatorAdnlAddress &object) {
   auto jo = jv.enter_object();
   jo << ctie("@type", "engine.validator.delValidatorAdnlAddress");
+  jo << ctie("permanent_key_hash", ToJson(object.permanent_key_hash_));
   jo << ctie("key_hash", ToJson(object.key_hash_));
 }
 void to_json(JsonValueScope &jv, const ton_api::engine_validator_delValidatorPermanentKey &object) {
@@ -7351,6 +7307,7 @@ void to_json(JsonValueScope &jv, const ton_api::engine_validator_delValidatorPer
 void to_json(JsonValueScope &jv, const ton_api::engine_validator_delValidatorTempKey &object) {
   auto jo = jv.enter_object();
   jo << ctie("@type", "engine.validator.delValidatorTempKey");
+  jo << ctie("permanent_key_hash", ToJson(object.permanent_key_hash_));
   jo << ctie("key_hash", ToJson(object.key_hash_));
 }
 void to_json(JsonValueScope &jv, const ton_api::engine_validator_exportPrivateKey &object) {
@@ -7379,11 +7336,6 @@ void to_json(JsonValueScope &jv, const ton_api::engine_validator_getTime &object
   auto jo = jv.enter_object();
   jo << ctie("@type", "engine.validator.getTime");
 }
-void to_json(JsonValueScope &jv, const ton_api::engine_validator_importLocalKey &object) {
-  auto jo = jv.enter_object();
-  jo << ctie("@type", "engine.validator.importLocalKey");
-  jo << ctie("key_hash", ToJson(object.key_hash_));
-}
 void to_json(JsonValueScope &jv, const ton_api::engine_validator_importPrivateKey &object) {
   auto jo = jv.enter_object();
   jo << ctie("@type", "engine.validator.importPrivateKey");
@@ -7391,14 +7343,15 @@ void to_json(JsonValueScope &jv, const ton_api::engine_validator_importPrivateKe
     jo << ctie("key", ToJson(object.key_));
   }
 }
-void to_json(JsonValueScope &jv, const ton_api::engine_validator_setPassword &object) {
+void to_json(JsonValueScope &jv, const ton_api::engine_validator_setVerbosity &object) {
   auto jo = jv.enter_object();
-  jo << ctie("@type", "engine.validator.setPassword");
-  jo << ctie("password", ToJson(JsonBytes{object.password_}));
+  jo << ctie("@type", "engine.validator.setVerbosity");
+  jo << ctie("verbosity", ToJson(object.verbosity_));
 }
 void to_json(JsonValueScope &jv, const ton_api::engine_validator_sign &object) {
   auto jo = jv.enter_object();
   jo << ctie("@type", "engine.validator.sign");
+  jo << ctie("key_hash", ToJson(object.key_hash_));
   jo << ctie("data", ToJson(JsonBytes{object.data_}));
 }
 void to_json(JsonValueScope &jv, const ton_api::getTestObject &object) {

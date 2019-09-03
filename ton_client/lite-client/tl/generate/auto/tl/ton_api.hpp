@@ -59,6 +59,9 @@ bool downcast_call(Object &obj, const T &func) {
     case hashable_blockCandidate::ID:
       func(static_cast<hashable_blockCandidate &>(obj));
       return true;
+    case hashable_blockVoteCandidate::ID:
+      func(static_cast<hashable_blockVoteCandidate &>(obj));
+      return true;
     case hashable_blockCandidateAttempt::ID:
       func(static_cast<hashable_blockCandidateAttempt &>(obj));
       return true;
@@ -148,6 +151,18 @@ bool downcast_call(Object &obj, const T &func) {
       return true;
     case adnl_packetContents::ID:
       func(static_cast<adnl_packetContents &>(obj));
+      return true;
+    case adnl_proxy_none::ID:
+      func(static_cast<adnl_proxy_none &>(obj));
+      return true;
+    case adnl_proxy_fast::ID:
+      func(static_cast<adnl_proxy_fast &>(obj));
+      return true;
+    case adnl_proxyToFastHash::ID:
+      func(static_cast<adnl_proxyToFastHash &>(obj));
+      return true;
+    case adnl_proxyToFast::ID:
+      func(static_cast<adnl_proxyToFast &>(obj));
       return true;
     case adnl_config_global::ID:
       func(static_cast<adnl_config_global &>(obj));
@@ -407,6 +422,9 @@ bool downcast_call(Object &obj, const T &func) {
     case engine_addr::ID:
       func(static_cast<engine_addr &>(obj));
       return true;
+    case engine_addrProxy::ID:
+      func(static_cast<engine_addrProxy &>(obj));
+      return true;
     case engine_adnl::ID:
       func(static_cast<engine_adnl &>(obj));
       return true;
@@ -418,9 +436,6 @@ bool downcast_call(Object &obj, const T &func) {
       return true;
     case engine_dht::ID:
       func(static_cast<engine_dht &>(obj));
-      return true;
-    case engine_fullNode::ID:
-      func(static_cast<engine_fullNode &>(obj));
       return true;
     case engine_gc::ID:
       func(static_cast<engine_gc &>(obj));
@@ -437,6 +452,12 @@ bool downcast_call(Object &obj, const T &func) {
     case engine_validatorTempKey::ID:
       func(static_cast<engine_validatorTempKey &>(obj));
       return true;
+    case engine_adnlProxy_config::ID:
+      func(static_cast<engine_adnlProxy_config &>(obj));
+      return true;
+    case engine_adnlProxy_port::ID:
+      func(static_cast<engine_adnlProxy_port &>(obj));
+      return true;
     case engine_dht_config::ID:
       func(static_cast<engine_dht_config &>(obj));
       return true;
@@ -445,6 +466,9 @@ bool downcast_call(Object &obj, const T &func) {
       return true;
     case engine_validator_controlQueryError::ID:
       func(static_cast<engine_validator_controlQueryError &>(obj));
+      return true;
+    case engine_validator_jsonConfig::ID:
+      func(static_cast<engine_validator_jsonConfig &>(obj));
       return true;
     case engine_validator_keyHash::ID:
       func(static_cast<engine_validator_keyHash &>(obj));
@@ -581,56 +605,11 @@ bool downcast_call(Object &obj, const T &func) {
     case tcp_pong::ID:
       func(static_cast<tcp_pong &>(obj));
       return true;
-    case test0_proof::ID:
-      func(static_cast<test0_proof &>(obj));
-      return true;
-    case test0_proofLink::ID:
-      func(static_cast<test0_proofLink &>(obj));
-      return true;
-    case test0_shardchain_block::ID:
-      func(static_cast<test0_shardchain_block &>(obj));
-      return true;
-    case test0_shardchain_state::ID:
-      func(static_cast<test0_shardchain_state &>(obj));
-      return true;
-    case test_validatorSession_block::ID:
-      func(static_cast<test_validatorSession_block &>(obj));
-      return true;
-    case test0_blockSignatures::ID:
-      func(static_cast<test0_blockSignatures &>(obj));
-      return true;
-    case test0_extMessage::ID:
-      func(static_cast<test0_extMessage &>(obj));
-      return true;
-    case test0_masterchainBlockExtra_empty::ID:
-      func(static_cast<test0_masterchainBlockExtra_empty &>(obj));
-      return true;
-    case test0_masterchainBlockExtra_extra::ID:
-      func(static_cast<test0_masterchainBlockExtra_extra &>(obj));
-      return true;
-    case test0_masterchainStateExtra_empty::ID:
-      func(static_cast<test0_masterchainStateExtra_empty &>(obj));
-      return true;
-    case test0_masterchainStateExtra_extra::ID:
-      func(static_cast<test0_masterchainStateExtra_extra &>(obj));
-      return true;
-    case test0_topShardBlockDescription::ID:
-      func(static_cast<test0_topShardBlockDescription &>(obj));
-      return true;
-    case test0_validatorSessionId::ID:
-      func(static_cast<test0_validatorSessionId &>(obj));
-      return true;
-    case test0_validatorSet::ID:
-      func(static_cast<test0_validatorSet &>(obj));
-      return true;
-    case test0_validatorSetItem::ID:
-      func(static_cast<test0_validatorSetItem &>(obj));
-      return true;
-    case test0_masterchain_shardInfo::ID:
-      func(static_cast<test0_masterchain_shardInfo &>(obj));
-      return true;
     case ton_blockId::ID:
       func(static_cast<ton_blockId &>(obj));
+      return true;
+    case ton_blockIdApprove::ID:
+      func(static_cast<ton_blockIdApprove &>(obj));
       return true;
     case tonNode_blockDescriptionEmpty::ID:
       func(static_cast<tonNode_blockDescriptionEmpty &>(obj));
@@ -722,8 +701,8 @@ bool downcast_call(Object &obj, const T &func) {
     case validatorSession_candidateId::ID:
       func(static_cast<validatorSession_candidateId &>(obj));
       return true;
-    case validatorSession_id::ID:
-      func(static_cast<validatorSession_id &>(obj));
+    case validatorSession_config::ID:
+      func(static_cast<validatorSession_config &>(obj));
       return true;
     case validatorSession_message_startSession::ID:
       func(static_cast<validatorSession_message_startSession &>(obj));
@@ -751,6 +730,9 @@ bool downcast_call(Object &obj, const T &func) {
       return true;
     case validatorSession_message_vote::ID:
       func(static_cast<validatorSession_message_vote &>(obj));
+      return true;
+    case validatorSession_message_voteFor::ID:
+      func(static_cast<validatorSession_message_voteFor &>(obj));
       return true;
     case validatorSession_message_precommit::ID:
       func(static_cast<validatorSession_message_precommit &>(obj));
@@ -808,11 +790,20 @@ bool downcast_call(Function &obj, const T &func) {
     case engine_validator_addAdnlId::ID:
       func(static_cast<engine_validator_addAdnlId &>(obj));
       return true;
+    case engine_validator_addControlInterface::ID:
+      func(static_cast<engine_validator_addControlInterface &>(obj));
+      return true;
+    case engine_validator_addControlProcess::ID:
+      func(static_cast<engine_validator_addControlProcess &>(obj));
+      return true;
     case engine_validator_addDhtId::ID:
       func(static_cast<engine_validator_addDhtId &>(obj));
       return true;
     case engine_validator_addListeningPort::ID:
       func(static_cast<engine_validator_addListeningPort &>(obj));
+      return true;
+    case engine_validator_addLiteserver::ID:
+      func(static_cast<engine_validator_addLiteserver &>(obj));
       return true;
     case engine_validator_addProxy::ID:
       func(static_cast<engine_validator_addProxy &>(obj));
@@ -826,14 +817,17 @@ bool downcast_call(Function &obj, const T &func) {
     case engine_validator_addValidatorTempKey::ID:
       func(static_cast<engine_validator_addValidatorTempKey &>(obj));
       return true;
-    case engine_validator_changePassword::ID:
-      func(static_cast<engine_validator_changePassword &>(obj));
+    case engine_validator_changeFullNodeAdnlAddress::ID:
+      func(static_cast<engine_validator_changeFullNodeAdnlAddress &>(obj));
       return true;
     case engine_validator_controlQuery::ID:
       func(static_cast<engine_validator_controlQuery &>(obj));
       return true;
     case engine_validator_delAdnlId::ID:
       func(static_cast<engine_validator_delAdnlId &>(obj));
+      return true;
+    case engine_validator_delDhtId::ID:
+      func(static_cast<engine_validator_delDhtId &>(obj));
       return true;
     case engine_validator_delListeningPort::ID:
       func(static_cast<engine_validator_delListeningPort &>(obj));
@@ -868,14 +862,11 @@ bool downcast_call(Function &obj, const T &func) {
     case engine_validator_getTime::ID:
       func(static_cast<engine_validator_getTime &>(obj));
       return true;
-    case engine_validator_importLocalKey::ID:
-      func(static_cast<engine_validator_importLocalKey &>(obj));
-      return true;
     case engine_validator_importPrivateKey::ID:
       func(static_cast<engine_validator_importPrivateKey &>(obj));
       return true;
-    case engine_validator_setPassword::ID:
-      func(static_cast<engine_validator_setPassword &>(obj));
+    case engine_validator_setVerbosity::ID:
+      func(static_cast<engine_validator_setVerbosity &>(obj));
       return true;
     case engine_validator_sign::ID:
       func(static_cast<engine_validator_sign &>(obj));
@@ -995,6 +986,9 @@ bool downcast_call(Hashable &obj, const T &func) {
       return true;
     case hashable_blockCandidate::ID:
       func(static_cast<hashable_blockCandidate &>(obj));
+      return true;
+    case hashable_blockVoteCandidate::ID:
+      func(static_cast<hashable_blockVoteCandidate &>(obj));
       return true;
     case hashable_blockCandidateAttempt::ID:
       func(static_cast<hashable_blockCandidateAttempt &>(obj));
@@ -1143,6 +1137,26 @@ bool downcast_call(adnl_Message &obj, const T &func) {
       return true;
     case adnl_message_part::ID:
       func(static_cast<adnl_message_part &>(obj));
+      return true;
+    default:
+      return false;
+  }
+}
+
+/**
+ * Calls specified function object with the specified object downcasted to the most-derived type.
+ * \param[in] obj Object to pass as an argument to the function object.
+ * \param[in] func Function object to which the object will be passed.
+ * \returns whether function object call has happened. Should always return true for correct parameters.
+ */
+template <class T>
+bool downcast_call(adnl_Proxy &obj, const T &func) {
+  switch (obj.get_id()) {
+    case adnl_proxy_none::ID:
+      func(static_cast<adnl_proxy_none &>(obj));
+      return true;
+    case adnl_proxy_fast::ID:
+      func(static_cast<adnl_proxy_fast &>(obj));
       return true;
     default:
       return false;
@@ -1441,6 +1455,26 @@ bool downcast_call(dht_config_Local &obj, const T &func) {
  * \returns whether function object call has happened. Should always return true for correct parameters.
  */
 template <class T>
+bool downcast_call(engine_Addr &obj, const T &func) {
+  switch (obj.get_id()) {
+    case engine_addr::ID:
+      func(static_cast<engine_addr &>(obj));
+      return true;
+    case engine_addrProxy::ID:
+      func(static_cast<engine_addrProxy &>(obj));
+      return true;
+    default:
+      return false;
+  }
+}
+
+/**
+ * Calls specified function object with the specified object downcasted to the most-derived type.
+ * \param[in] obj Object to pass as an argument to the function object.
+ * \param[in] func Function object to which the object will be passed.
+ * \returns whether function object call has happened. Should always return true for correct parameters.
+ */
+template <class T>
 bool downcast_call(fec_Type &obj, const T &func) {
   switch (obj.get_id()) {
     case fec_raptorQ::ID:
@@ -1608,33 +1642,13 @@ bool downcast_call(tcp_Message &obj, const T &func) {
  * \returns whether function object call has happened. Should always return true for correct parameters.
  */
 template <class T>
-bool downcast_call(test0_MasterchainBlockExtra &obj, const T &func) {
+bool downcast_call(ton_BlockId &obj, const T &func) {
   switch (obj.get_id()) {
-    case test0_masterchainBlockExtra_empty::ID:
-      func(static_cast<test0_masterchainBlockExtra_empty &>(obj));
+    case ton_blockId::ID:
+      func(static_cast<ton_blockId &>(obj));
       return true;
-    case test0_masterchainBlockExtra_extra::ID:
-      func(static_cast<test0_masterchainBlockExtra_extra &>(obj));
-      return true;
-    default:
-      return false;
-  }
-}
-
-/**
- * Calls specified function object with the specified object downcasted to the most-derived type.
- * \param[in] obj Object to pass as an argument to the function object.
- * \param[in] func Function object to which the object will be passed.
- * \returns whether function object call has happened. Should always return true for correct parameters.
- */
-template <class T>
-bool downcast_call(test0_MasterchainStateExtra &obj, const T &func) {
-  switch (obj.get_id()) {
-    case test0_masterchainStateExtra_empty::ID:
-      func(static_cast<test0_masterchainStateExtra_empty &>(obj));
-      return true;
-    case test0_masterchainStateExtra_extra::ID:
-      func(static_cast<test0_masterchainStateExtra_extra &>(obj));
+    case ton_blockIdApprove::ID:
+      func(static_cast<ton_blockIdApprove &>(obj));
       return true;
     default:
       return false;
@@ -1813,6 +1827,9 @@ bool downcast_call(validatorSession_round_Message &obj, const T &func) {
       return true;
     case validatorSession_message_vote::ID:
       func(static_cast<validatorSession_message_vote &>(obj));
+      return true;
+    case validatorSession_message_voteFor::ID:
+      func(static_cast<validatorSession_message_voteFor &>(obj));
       return true;
     case validatorSession_message_precommit::ID:
       func(static_cast<validatorSession_message_precommit &>(obj));

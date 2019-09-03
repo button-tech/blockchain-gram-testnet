@@ -53,12 +53,76 @@ CMAKE_BINARY_DIR = /root/liteclient-build
 # Include the progress variables for this target.
 include tl/generate/CMakeFiles/tl_generate_common.dir/progress.make
 
-tl/generate/CMakeFiles/tl_generate_common: tl/generate/generate_common
-tl/generate/CMakeFiles/tl_generate_common: /root/lite-client/tl/generate/scheme/ton_api.tlo
+tl/generate/CMakeFiles/tl_generate_common: /root/lite-client/tl/generate/auto/tl/ton_api.cpp
+tl/generate/CMakeFiles/tl_generate_common: /root/lite-client/tl/generate/auto/tl/ton_api.h
+tl/generate/CMakeFiles/tl_generate_common: /root/lite-client/tl/generate/auto/tl/ton_api.hpp
+tl/generate/CMakeFiles/tl_generate_common: /root/lite-client/tl/generate/auto/tl/ton_api_json.cpp
+tl/generate/CMakeFiles/tl_generate_common: /root/lite-client/tl/generate/auto/tl/ton_api_json.h
+tl/generate/CMakeFiles/tl_generate_common: /root/lite-client/tl/generate/auto/tl/lite_api.cpp
+tl/generate/CMakeFiles/tl_generate_common: /root/lite-client/tl/generate/auto/tl/lite_api.h
+tl/generate/CMakeFiles/tl_generate_common: /root/lite-client/tl/generate/auto/tl/lite_api.hpp
+tl/generate/CMakeFiles/tl_generate_common: /root/lite-client/tl/generate/auto/tl/tonlib_api.cpp
+tl/generate/CMakeFiles/tl_generate_common: /root/lite-client/tl/generate/auto/tl/tonlib_api.h
+tl/generate/CMakeFiles/tl_generate_common: /root/lite-client/tl/generate/auto/tl/tonlib_api.hpp
+tl/generate/CMakeFiles/tl_generate_common: /root/lite-client/tl/generate/auto/tl/tonlib_api_json.cpp
+tl/generate/CMakeFiles/tl_generate_common: /root/lite-client/tl/generate/auto/tl/tonlib_api_json.h
+
+
+/root/lite-client/tl/generate/auto/tl/ton_api.cpp: tl/generate/generate_common
+/root/lite-client/tl/generate/auto/tl/ton_api.cpp: /root/lite-client/tl/generate/scheme/ton_api.tlo
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generate common tl source files"
 	cd /root/lite-client/tl/generate && /root/liteclient-build/tl/generate/generate_common
 
+/root/lite-client/tl/generate/auto/tl/ton_api.h: /root/lite-client/tl/generate/auto/tl/ton_api.cpp
+	@$(CMAKE_COMMAND) -E touch_nocreate /root/lite-client/tl/generate/auto/tl/ton_api.h
+
+/root/lite-client/tl/generate/auto/tl/ton_api.hpp: /root/lite-client/tl/generate/auto/tl/ton_api.cpp
+	@$(CMAKE_COMMAND) -E touch_nocreate /root/lite-client/tl/generate/auto/tl/ton_api.hpp
+
+/root/lite-client/tl/generate/auto/tl/ton_api_json.cpp: /root/lite-client/tl/generate/auto/tl/ton_api.cpp
+	@$(CMAKE_COMMAND) -E touch_nocreate /root/lite-client/tl/generate/auto/tl/ton_api_json.cpp
+
+/root/lite-client/tl/generate/auto/tl/ton_api_json.h: /root/lite-client/tl/generate/auto/tl/ton_api.cpp
+	@$(CMAKE_COMMAND) -E touch_nocreate /root/lite-client/tl/generate/auto/tl/ton_api_json.h
+
+/root/lite-client/tl/generate/auto/tl/lite_api.cpp: /root/lite-client/tl/generate/auto/tl/ton_api.cpp
+	@$(CMAKE_COMMAND) -E touch_nocreate /root/lite-client/tl/generate/auto/tl/lite_api.cpp
+
+/root/lite-client/tl/generate/auto/tl/lite_api.h: /root/lite-client/tl/generate/auto/tl/ton_api.cpp
+	@$(CMAKE_COMMAND) -E touch_nocreate /root/lite-client/tl/generate/auto/tl/lite_api.h
+
+/root/lite-client/tl/generate/auto/tl/lite_api.hpp: /root/lite-client/tl/generate/auto/tl/ton_api.cpp
+	@$(CMAKE_COMMAND) -E touch_nocreate /root/lite-client/tl/generate/auto/tl/lite_api.hpp
+
+/root/lite-client/tl/generate/auto/tl/tonlib_api.cpp: /root/lite-client/tl/generate/auto/tl/ton_api.cpp
+	@$(CMAKE_COMMAND) -E touch_nocreate /root/lite-client/tl/generate/auto/tl/tonlib_api.cpp
+
+/root/lite-client/tl/generate/auto/tl/tonlib_api.h: /root/lite-client/tl/generate/auto/tl/ton_api.cpp
+	@$(CMAKE_COMMAND) -E touch_nocreate /root/lite-client/tl/generate/auto/tl/tonlib_api.h
+
+/root/lite-client/tl/generate/auto/tl/tonlib_api.hpp: /root/lite-client/tl/generate/auto/tl/ton_api.cpp
+	@$(CMAKE_COMMAND) -E touch_nocreate /root/lite-client/tl/generate/auto/tl/tonlib_api.hpp
+
+/root/lite-client/tl/generate/auto/tl/tonlib_api_json.cpp: /root/lite-client/tl/generate/auto/tl/ton_api.cpp
+	@$(CMAKE_COMMAND) -E touch_nocreate /root/lite-client/tl/generate/auto/tl/tonlib_api_json.cpp
+
+/root/lite-client/tl/generate/auto/tl/tonlib_api_json.h: /root/lite-client/tl/generate/auto/tl/ton_api.cpp
+	@$(CMAKE_COMMAND) -E touch_nocreate /root/lite-client/tl/generate/auto/tl/tonlib_api_json.h
+
 tl_generate_common: tl/generate/CMakeFiles/tl_generate_common
+tl_generate_common: /root/lite-client/tl/generate/auto/tl/ton_api.cpp
+tl_generate_common: /root/lite-client/tl/generate/auto/tl/ton_api.h
+tl_generate_common: /root/lite-client/tl/generate/auto/tl/ton_api.hpp
+tl_generate_common: /root/lite-client/tl/generate/auto/tl/ton_api_json.cpp
+tl_generate_common: /root/lite-client/tl/generate/auto/tl/ton_api_json.h
+tl_generate_common: /root/lite-client/tl/generate/auto/tl/lite_api.cpp
+tl_generate_common: /root/lite-client/tl/generate/auto/tl/lite_api.h
+tl_generate_common: /root/lite-client/tl/generate/auto/tl/lite_api.hpp
+tl_generate_common: /root/lite-client/tl/generate/auto/tl/tonlib_api.cpp
+tl_generate_common: /root/lite-client/tl/generate/auto/tl/tonlib_api.h
+tl_generate_common: /root/lite-client/tl/generate/auto/tl/tonlib_api.hpp
+tl_generate_common: /root/lite-client/tl/generate/auto/tl/tonlib_api_json.cpp
+tl_generate_common: /root/lite-client/tl/generate/auto/tl/tonlib_api_json.h
 tl_generate_common: tl/generate/CMakeFiles/tl_generate_common.dir/build.make
 
 .PHONY : tl_generate_common

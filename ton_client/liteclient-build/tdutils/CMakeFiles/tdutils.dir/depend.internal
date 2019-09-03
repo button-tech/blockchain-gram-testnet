@@ -534,6 +534,7 @@ tdutils/CMakeFiles/tdutils.dir/td/utils/crypto.cpp.o
  /root/lite-client/tdutils/td/utils/StackAllocator.h
  /root/lite-client/tdutils/td/utils/Status.h
  /root/lite-client/tdutils/td/utils/StringBuilder.h
+ /root/lite-client/tdutils/td/utils/as.h
  /root/lite-client/tdutils/td/utils/buffer.h
  /root/lite-client/tdutils/td/utils/check.h
  /root/lite-client/tdutils/td/utils/common.h
@@ -584,6 +585,7 @@ tdutils/CMakeFiles/tdutils.dir/td/utils/filesystem.cpp.o
  /root/lite-client/tdutils/td/utils/port/detail/ThreadIdGuard.h
  /root/lite-client/tdutils/td/utils/port/detail/ThreadPthread.h
  /root/lite-client/tdutils/td/utils/port/detail/ThreadStl.h
+ /root/lite-client/tdutils/td/utils/port/path.h
  /root/lite-client/tdutils/td/utils/port/platform.h
  /root/lite-client/tdutils/td/utils/port/thread.h
  /root/lite-client/tdutils/td/utils/port/thread_local.h
@@ -1151,17 +1153,12 @@ tdutils/CMakeFiles/tdutils.dir/td/utils/port/detail/Iocp.cpp.o
  /root/lite-client/tdutils/td/utils/check.h
  /root/lite-client/tdutils/td/utils/common.h
  /root/lite-client/tdutils/td/utils/int_types.h
- /root/lite-client/tdutils/td/utils/invoke.h
  /root/lite-client/tdutils/td/utils/logging.h
  /root/lite-client/tdutils/td/utils/port/config.h
  /root/lite-client/tdutils/td/utils/port/detail/Iocp.cpp
  /root/lite-client/tdutils/td/utils/port/detail/Iocp.h
  /root/lite-client/tdutils/td/utils/port/detail/NativeFd.h
- /root/lite-client/tdutils/td/utils/port/detail/ThreadIdGuard.h
- /root/lite-client/tdutils/td/utils/port/detail/ThreadPthread.h
- /root/lite-client/tdutils/td/utils/port/detail/ThreadStl.h
  /root/lite-client/tdutils/td/utils/port/platform.h
- /root/lite-client/tdutils/td/utils/port/thread.h
  /root/lite-client/tdutils/td/utils/port/thread_local.h
  /root/lite-client/tdutils/td/utils/unique_ptr.h
  tdutils/td/utils/config.h
@@ -1492,7 +1489,6 @@ tdutils/CMakeFiles/tdutils.dir/td/utils/tests.cpp.o
  /root/lite-client/tdutils/td/utils/Status.h
  /root/lite-client/tdutils/td/utils/StringBuilder.h
  /root/lite-client/tdutils/td/utils/Time.h
- /root/lite-client/tdutils/td/utils/base64.h
  /root/lite-client/tdutils/td/utils/buffer.h
  /root/lite-client/tdutils/td/utils/check.h
  /root/lite-client/tdutils/td/utils/common.h
@@ -1503,7 +1499,6 @@ tdutils/CMakeFiles/tdutils.dir/td/utils/tests.cpp.o
  /root/lite-client/tdutils/td/utils/invoke.h
  /root/lite-client/tdutils/td/utils/logging.h
  /root/lite-client/tdutils/td/utils/misc.h
- /root/lite-client/tdutils/td/utils/optional.h
  /root/lite-client/tdutils/td/utils/port/Clocks.h
  /root/lite-client/tdutils/td/utils/port/FileFd.h
  /root/lite-client/tdutils/td/utils/port/IoSlice.h

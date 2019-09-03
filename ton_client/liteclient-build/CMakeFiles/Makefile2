@@ -68,7 +68,7 @@ CMakeFiles/test-tdactor.dir/all: tdutils/CMakeFiles/tdutils.dir/all
 CMakeFiles/test-tdactor.dir/all: tdactor/CMakeFiles/tdactor.dir/all
 	$(MAKE) -f CMakeFiles/test-tdactor.dir/build.make CMakeFiles/test-tdactor.dir/depend
 	$(MAKE) -f CMakeFiles/test-tdactor.dir/build.make CMakeFiles/test-tdactor.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=62 "Built target test-tdactor"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=63 "Built target test-tdactor"
 .PHONY : CMakeFiles/test-tdactor.dir/all
 
 # Include target in all.
@@ -78,7 +78,7 @@ all: CMakeFiles/test-tdactor.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/test-tdactor.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 30
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 28
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/test-tdactor.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 0
 .PHONY : CMakeFiles/test-tdactor.dir/rule
@@ -107,7 +107,7 @@ CMakeFiles/test-cells.dir/all: tdutils/CMakeFiles/tdutils.dir/all
 CMakeFiles/test-cells.dir/all: crypto/CMakeFiles/ton_crypto.dir/all
 	$(MAKE) -f CMakeFiles/test-cells.dir/build.make CMakeFiles/test-cells.dir/depend
 	$(MAKE) -f CMakeFiles/test-cells.dir/build.make CMakeFiles/test-cells.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=57 "Built target test-cells"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=58 "Built target test-cells"
 .PHONY : CMakeFiles/test-cells.dir/all
 
 # Include target in all.
@@ -117,7 +117,7 @@ all: CMakeFiles/test-cells.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/test-cells.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 43
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 40
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/test-cells.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 0
 .PHONY : CMakeFiles/test-cells.dir/rule
@@ -151,7 +151,7 @@ CMakeFiles/prepare_cross_compiling.dir/all: crypto/CMakeFiles/tlb_generate_block
 
 # Build rule for subdir invocation for target.
 CMakeFiles/prepare_cross_compiling.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 50
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 51
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/prepare_cross_compiling.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 0
 .PHONY : CMakeFiles/prepare_cross_compiling.dir/rule
@@ -180,7 +180,7 @@ CMakeFiles/test-tdutils.dir/all: tdutils/CMakeFiles/tdutils.dir/all
 CMakeFiles/test-tdutils.dir/all: memprof/CMakeFiles/memprof.dir/all
 	$(MAKE) -f CMakeFiles/test-tdutils.dir/build.make CMakeFiles/test-tdutils.dir/depend
 	$(MAKE) -f CMakeFiles/test-tdutils.dir/build.make CMakeFiles/test-tdutils.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=63,64,65,66,67,68,69,70 "Built target test-tdutils"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=64,65,66,67,68,69,70,71 "Built target test-tdutils"
 .PHONY : CMakeFiles/test-tdutils.dir/all
 
 # Include target in all.
@@ -190,7 +190,7 @@ all: CMakeFiles/test-tdutils.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/test-tdutils.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 36
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 32
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/test-tdutils.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 0
 .PHONY : CMakeFiles/test-tdutils.dir/rule
@@ -220,7 +220,7 @@ CMakeFiles/test-net.dir/all: tdactor/CMakeFiles/tdactor.dir/all
 CMakeFiles/test-net.dir/all: tdnet/CMakeFiles/tdnet.dir/all
 	$(MAKE) -f CMakeFiles/test-net.dir/build.make CMakeFiles/test-net.dir/depend
 	$(MAKE) -f CMakeFiles/test-net.dir/build.make CMakeFiles/test-net.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=61 "Built target test-net"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=62 "Built target test-net"
 .PHONY : CMakeFiles/test-net.dir/all
 
 # Include target in all.
@@ -230,7 +230,7 @@ all: CMakeFiles/test-net.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/test-net.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 31
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 29
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/test-net.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 0
 .PHONY : CMakeFiles/test-net.dir/rule
@@ -265,7 +265,7 @@ CMakeFiles/test-vm.dir/all: crypto/CMakeFiles/ton_db.dir/all
 CMakeFiles/test-vm.dir/all: crypto/CMakeFiles/ton_block.dir/all
 	$(MAKE) -f CMakeFiles/test-vm.dir/build.make CMakeFiles/test-vm.dir/depend
 	$(MAKE) -f CMakeFiles/test-vm.dir/build.make CMakeFiles/test-vm.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=71 "Built target test-vm"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=72 "Built target test-vm"
 .PHONY : CMakeFiles/test-vm.dir/all
 
 # Include target in all.
@@ -304,7 +304,7 @@ CMakeFiles/test-ed25519.dir/all: tdutils/CMakeFiles/tdutils.dir/all
 CMakeFiles/test-ed25519.dir/all: crypto/CMakeFiles/ton_crypto.dir/all
 	$(MAKE) -f CMakeFiles/test-ed25519.dir/build.make CMakeFiles/test-ed25519.dir/depend
 	$(MAKE) -f CMakeFiles/test-ed25519.dir/build.make CMakeFiles/test-ed25519.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=58 "Built target test-ed25519"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=59 "Built target test-ed25519"
 .PHONY : CMakeFiles/test-ed25519.dir/all
 
 # Include target in all.
@@ -314,7 +314,7 @@ all: CMakeFiles/test-ed25519.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/test-ed25519.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 43
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 40
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/test-ed25519.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 0
 .PHONY : CMakeFiles/test-ed25519.dir/rule
@@ -349,7 +349,7 @@ CMakeFiles/test-fift.dir/all: crypto/CMakeFiles/ton_db.dir/all
 CMakeFiles/test-fift.dir/all: crypto/CMakeFiles/ton_block.dir/all
 	$(MAKE) -f CMakeFiles/test-fift.dir/build.make CMakeFiles/test-fift.dir/depend
 	$(MAKE) -f CMakeFiles/test-fift.dir/build.make CMakeFiles/test-fift.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=59,60 "Built target test-fift"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=61 "Built target test-fift"
 .PHONY : CMakeFiles/test-fift.dir/all
 
 # Include target in all.
@@ -359,7 +359,7 @@ all: CMakeFiles/test-fift.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/test-fift.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 67
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 66
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/test-fift.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 0
 .PHONY : CMakeFiles/test-fift.dir/rule
@@ -526,7 +526,7 @@ tdutils/CMakeFiles/tdutils.dir/all: third-party/crc32c/CMakeFiles/crc32c.dir/all
 tdutils/CMakeFiles/tdutils.dir/all: tdutils/generate/CMakeFiles/tdmime_auto.dir/all
 	$(MAKE) -f tdutils/CMakeFiles/tdutils.dir/build.make tdutils/CMakeFiles/tdutils.dir/depend
 	$(MAKE) -f tdutils/CMakeFiles/tdutils.dir/build.make tdutils/CMakeFiles/tdutils.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55 "Built target tdutils"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55 "Built target tdutils"
 .PHONY : tdutils/CMakeFiles/tdutils.dir/all
 
 # Include target in all.
@@ -536,7 +536,7 @@ all: tdutils/CMakeFiles/tdutils.dir/all
 
 # Build rule for subdir invocation for target.
 tdutils/CMakeFiles/tdutils.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 27
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 24
 	$(MAKE) -f CMakeFiles/Makefile2 tdutils/CMakeFiles/tdutils.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 0
 .PHONY : tdutils/CMakeFiles/tdutils.dir/rule
@@ -582,7 +582,7 @@ tdutils/generate/preinstall:
 tdutils/generate/CMakeFiles/generate_mime_types_gperf.dir/all:
 	$(MAKE) -f tdutils/generate/CMakeFiles/generate_mime_types_gperf.dir/build.make tdutils/generate/CMakeFiles/generate_mime_types_gperf.dir/depend
 	$(MAKE) -f tdutils/generate/CMakeFiles/generate_mime_types_gperf.dir/build.make tdutils/generate/CMakeFiles/generate_mime_types_gperf.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=16 "Built target generate_mime_types_gperf"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num= "Built target generate_mime_types_gperf"
 .PHONY : tdutils/generate/CMakeFiles/generate_mime_types_gperf.dir/all
 
 # Include target in all.
@@ -592,7 +592,7 @@ all: tdutils/generate/CMakeFiles/generate_mime_types_gperf.dir/all
 
 # Build rule for subdir invocation for target.
 tdutils/generate/CMakeFiles/generate_mime_types_gperf.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 1
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 0
 	$(MAKE) -f CMakeFiles/Makefile2 tdutils/generate/CMakeFiles/generate_mime_types_gperf.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 0
 .PHONY : tdutils/generate/CMakeFiles/generate_mime_types_gperf.dir/rule
@@ -619,12 +619,12 @@ clean: tdutils/generate/CMakeFiles/generate_mime_types_gperf.dir/clean
 tdutils/generate/CMakeFiles/tdmime_auto.dir/all: tdutils/generate/CMakeFiles/generate_mime_types_gperf.dir/all
 	$(MAKE) -f tdutils/generate/CMakeFiles/tdmime_auto.dir/build.make tdutils/generate/CMakeFiles/tdmime_auto.dir/depend
 	$(MAKE) -f tdutils/generate/CMakeFiles/tdmime_auto.dir/build.make tdutils/generate/CMakeFiles/tdmime_auto.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=28 "Built target tdmime_auto"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=29 "Built target tdmime_auto"
 .PHONY : tdutils/generate/CMakeFiles/tdmime_auto.dir/all
 
 # Build rule for subdir invocation for target.
 tdutils/generate/CMakeFiles/tdmime_auto.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 1
 	$(MAKE) -f CMakeFiles/Makefile2 tdutils/generate/CMakeFiles/tdmime_auto.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 0
 .PHONY : tdutils/generate/CMakeFiles/tdmime_auto.dir/rule
@@ -670,7 +670,7 @@ memprof/CMakeFiles/memprof.dir/all: third-party/crc32c/CMakeFiles/crc32c.dir/all
 memprof/CMakeFiles/memprof.dir/all: tdutils/CMakeFiles/tdutils.dir/all
 	$(MAKE) -f memprof/CMakeFiles/memprof.dir/build.make memprof/CMakeFiles/memprof.dir/depend
 	$(MAKE) -f memprof/CMakeFiles/memprof.dir/build.make memprof/CMakeFiles/memprof.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=19 "Built target memprof"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num= "Built target memprof"
 .PHONY : memprof/CMakeFiles/memprof.dir/all
 
 # Include target in all.
@@ -680,7 +680,7 @@ all: memprof/CMakeFiles/memprof.dir/all
 
 # Build rule for subdir invocation for target.
 memprof/CMakeFiles/memprof.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 28
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 24
 	$(MAKE) -f CMakeFiles/Makefile2 memprof/CMakeFiles/memprof.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 0
 .PHONY : memprof/CMakeFiles/memprof.dir/rule
@@ -728,7 +728,7 @@ tdactor/CMakeFiles/tdactor.dir/all: third-party/crc32c/CMakeFiles/crc32c.dir/all
 tdactor/CMakeFiles/tdactor.dir/all: tdutils/CMakeFiles/tdutils.dir/all
 	$(MAKE) -f tdactor/CMakeFiles/tdactor.dir/build.make tdactor/CMakeFiles/tdactor.dir/depend
 	$(MAKE) -f tdactor/CMakeFiles/tdactor.dir/build.make tdactor/CMakeFiles/tdactor.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=22,23 "Built target tdactor"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=23,24,25 "Built target tdactor"
 .PHONY : tdactor/CMakeFiles/tdactor.dir/all
 
 # Include target in all.
@@ -738,7 +738,7 @@ all: tdactor/CMakeFiles/tdactor.dir/all
 
 # Build rule for subdir invocation for target.
 tdactor/CMakeFiles/tdactor.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 29
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 27
 	$(MAKE) -f CMakeFiles/Makefile2 tdactor/CMakeFiles/tdactor.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 0
 .PHONY : tdactor/CMakeFiles/tdactor.dir/rule
@@ -795,7 +795,7 @@ all: tdactor/benchmark/CMakeFiles/benchmark.dir/all
 
 # Build rule for subdir invocation for target.
 tdactor/benchmark/CMakeFiles/benchmark.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 30
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 28
 	$(MAKE) -f CMakeFiles/Makefile2 tdactor/benchmark/CMakeFiles/benchmark.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 0
 .PHONY : tdactor/benchmark/CMakeFiles/benchmark.dir/rule
@@ -857,7 +857,7 @@ all: tdnet/CMakeFiles/udp_ping_pong.dir/all
 
 # Build rule for subdir invocation for target.
 tdnet/CMakeFiles/udp_ping_pong.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 31
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 29
 	$(MAKE) -f CMakeFiles/Makefile2 tdnet/CMakeFiles/udp_ping_pong.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 0
 .PHONY : tdnet/CMakeFiles/udp_ping_pong.dir/rule
@@ -887,7 +887,7 @@ tdnet/CMakeFiles/tcp_ping_pong.dir/all: tdactor/CMakeFiles/tdactor.dir/all
 tdnet/CMakeFiles/tcp_ping_pong.dir/all: tdnet/CMakeFiles/tdnet.dir/all
 	$(MAKE) -f tdnet/CMakeFiles/tcp_ping_pong.dir/build.make tdnet/CMakeFiles/tcp_ping_pong.dir/depend
 	$(MAKE) -f tdnet/CMakeFiles/tcp_ping_pong.dir/build.make tdnet/CMakeFiles/tcp_ping_pong.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=21 "Built target tcp_ping_pong"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num= "Built target tcp_ping_pong"
 .PHONY : tdnet/CMakeFiles/tcp_ping_pong.dir/all
 
 # Include target in all.
@@ -897,7 +897,7 @@ all: tdnet/CMakeFiles/tcp_ping_pong.dir/all
 
 # Build rule for subdir invocation for target.
 tdnet/CMakeFiles/tcp_ping_pong.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 31
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 28
 	$(MAKE) -f CMakeFiles/Makefile2 tdnet/CMakeFiles/tcp_ping_pong.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 0
 .PHONY : tdnet/CMakeFiles/tcp_ping_pong.dir/rule
@@ -926,7 +926,7 @@ tdnet/CMakeFiles/tdnet.dir/all: tdutils/CMakeFiles/tdutils.dir/all
 tdnet/CMakeFiles/tdnet.dir/all: tdactor/CMakeFiles/tdactor.dir/all
 	$(MAKE) -f tdnet/CMakeFiles/tdnet.dir/build.make tdnet/CMakeFiles/tdnet.dir/depend
 	$(MAKE) -f tdnet/CMakeFiles/tdnet.dir/build.make tdnet/CMakeFiles/tdnet.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=29 "Built target tdnet"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=30 "Built target tdnet"
 .PHONY : tdnet/CMakeFiles/tdnet.dir/all
 
 # Include target in all.
@@ -936,7 +936,7 @@ all: tdnet/CMakeFiles/tdnet.dir/all
 
 # Build rule for subdir invocation for target.
 tdnet/CMakeFiles/tdnet.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 30
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 28
 	$(MAKE) -f CMakeFiles/Makefile2 tdnet/CMakeFiles/tdnet.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 0
 .PHONY : tdnet/CMakeFiles/tdnet.dir/rule
@@ -986,7 +986,7 @@ tddb/CMakeFiles/io-bench.dir/all: tdactor/CMakeFiles/tdactor.dir/all
 tddb/CMakeFiles/io-bench.dir/all: tddb/CMakeFiles/tddb.dir/all
 	$(MAKE) -f tddb/CMakeFiles/io-bench.dir/build.make tddb/CMakeFiles/io-bench.dir/depend
 	$(MAKE) -f tddb/CMakeFiles/io-bench.dir/build.make tddb/CMakeFiles/io-bench.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num= "Built target io-bench"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=18 "Built target io-bench"
 .PHONY : tddb/CMakeFiles/io-bench.dir/all
 
 # Include target in all.
@@ -996,7 +996,7 @@ all: tddb/CMakeFiles/io-bench.dir/all
 
 # Build rule for subdir invocation for target.
 tddb/CMakeFiles/io-bench.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 33
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 31
 	$(MAKE) -f CMakeFiles/Makefile2 tddb/CMakeFiles/io-bench.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 0
 .PHONY : tddb/CMakeFiles/io-bench.dir/rule
@@ -1025,7 +1025,7 @@ tddb/CMakeFiles/tddb.dir/all: tdutils/CMakeFiles/tdutils.dir/all
 tddb/CMakeFiles/tddb.dir/all: tdactor/CMakeFiles/tdactor.dir/all
 	$(MAKE) -f tddb/CMakeFiles/tddb.dir/build.make tddb/CMakeFiles/tddb.dir/depend
 	$(MAKE) -f tddb/CMakeFiles/tddb.dir/build.make tddb/CMakeFiles/tddb.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=24,25,26,27 "Built target tddb"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=26,27,28 "Built target tddb"
 .PHONY : tddb/CMakeFiles/tddb.dir/all
 
 # Include target in all.
@@ -1035,7 +1035,7 @@ all: tddb/CMakeFiles/tddb.dir/all
 
 # Build rule for subdir invocation for target.
 tddb/CMakeFiles/tddb.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 33
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 30
 	$(MAKE) -f CMakeFiles/Makefile2 tddb/CMakeFiles/tddb.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 0
 .PHONY : tddb/CMakeFiles/tddb.dir/rule
@@ -1080,7 +1080,7 @@ tdtl/preinstall:
 tdtl/CMakeFiles/tdtl.dir/all:
 	$(MAKE) -f tdtl/CMakeFiles/tdtl.dir/build.make tdtl/CMakeFiles/tdtl.dir/depend
 	$(MAKE) -f tdtl/CMakeFiles/tdtl.dir/build.make tdtl/CMakeFiles/tdtl.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=30,31,32 "Built target tdtl"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=31,32,33,34 "Built target tdtl"
 .PHONY : tdtl/CMakeFiles/tdtl.dir/all
 
 # Include target in all.
@@ -1090,7 +1090,7 @@ all: tdtl/CMakeFiles/tdtl.dir/all
 
 # Build rule for subdir invocation for target.
 tdtl/CMakeFiles/tdtl.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 4
 	$(MAKE) -f CMakeFiles/Makefile2 tdtl/CMakeFiles/tdtl.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 0
 .PHONY : tdtl/CMakeFiles/tdtl.dir/rule
@@ -1145,7 +1145,7 @@ tl/CMakeFiles/tl_lite_api.dir/all: tdutils/CMakeFiles/tdutils.dir/all
 tl/CMakeFiles/tl_lite_api.dir/all: tl/generate/CMakeFiles/tl_generate_common.dir/all
 	$(MAKE) -f tl/CMakeFiles/tl_lite_api.dir/build.make tl/CMakeFiles/tl_lite_api.dir/depend
 	$(MAKE) -f tl/CMakeFiles/tl_lite_api.dir/build.make tl/CMakeFiles/tl_lite_api.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=75 "Built target tl_lite_api"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num= "Built target tl_lite_api"
 .PHONY : tl/CMakeFiles/tl_lite_api.dir/all
 
 # Include target in all.
@@ -1155,7 +1155,7 @@ all: tl/CMakeFiles/tl_lite_api.dir/all
 
 # Build rule for subdir invocation for target.
 tl/CMakeFiles/tl_lite_api.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 34
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 33
 	$(MAKE) -f CMakeFiles/Makefile2 tl/CMakeFiles/tl_lite_api.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 0
 .PHONY : tl/CMakeFiles/tl_lite_api.dir/rule
@@ -1184,7 +1184,7 @@ tl/CMakeFiles/tl_tonlib_api_json.dir/all: tdutils/CMakeFiles/tdutils.dir/all
 tl/CMakeFiles/tl_tonlib_api_json.dir/all: tl/CMakeFiles/tl_tonlib_api.dir/all
 	$(MAKE) -f tl/CMakeFiles/tl_tonlib_api_json.dir/build.make tl/CMakeFiles/tl_tonlib_api_json.dir/depend
 	$(MAKE) -f tl/CMakeFiles/tl_tonlib_api_json.dir/build.make tl/CMakeFiles/tl_tonlib_api_json.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num= "Built target tl_tonlib_api_json"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=77 "Built target tl_tonlib_api_json"
 .PHONY : tl/CMakeFiles/tl_tonlib_api_json.dir/all
 
 # Include target in all.
@@ -1194,7 +1194,7 @@ all: tl/CMakeFiles/tl_tonlib_api_json.dir/all
 
 # Build rule for subdir invocation for target.
 tl/CMakeFiles/tl_tonlib_api_json.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 34
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 35
 	$(MAKE) -f CMakeFiles/Makefile2 tl/CMakeFiles/tl_tonlib_api_json.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 0
 .PHONY : tl/CMakeFiles/tl_tonlib_api_json.dir/rule
@@ -1330,7 +1330,7 @@ all: tl/generate/CMakeFiles/tonlib_generate_java_api.dir/all
 
 # Build rule for subdir invocation for target.
 tl/generate/CMakeFiles/tonlib_generate_java_api.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 5
 	$(MAKE) -f CMakeFiles/Makefile2 tl/generate/CMakeFiles/tonlib_generate_java_api.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 0
 .PHONY : tl/generate/CMakeFiles/tonlib_generate_java_api.dir/rule
@@ -1357,7 +1357,7 @@ clean: tl/generate/CMakeFiles/tonlib_generate_java_api.dir/clean
 tl/generate/CMakeFiles/tl_generate_common.dir/all: tl/generate/CMakeFiles/generate_common.dir/all
 	$(MAKE) -f tl/generate/CMakeFiles/tl_generate_common.dir/build.make tl/generate/CMakeFiles/tl_generate_common.dir/depend
 	$(MAKE) -f tl/generate/CMakeFiles/tl_generate_common.dir/build.make tl/generate/CMakeFiles/tl_generate_common.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num= "Built target tl_generate_common"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=75 "Built target tl_generate_common"
 .PHONY : tl/generate/CMakeFiles/tl_generate_common.dir/all
 
 # Build rule for subdir invocation for target.
@@ -1391,7 +1391,7 @@ tl/generate/CMakeFiles/generate_common.dir/all: tdutils/CMakeFiles/tdutils.dir/a
 tl/generate/CMakeFiles/generate_common.dir/all: tdtl/CMakeFiles/tdtl.dir/all
 	$(MAKE) -f tl/generate/CMakeFiles/generate_common.dir/build.make tl/generate/CMakeFiles/generate_common.dir/depend
 	$(MAKE) -f tl/generate/CMakeFiles/generate_common.dir/build.make tl/generate/CMakeFiles/generate_common.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=13,14,15 "Built target generate_common"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=14,15,16,17 "Built target generate_common"
 .PHONY : tl/generate/CMakeFiles/generate_common.dir/all
 
 # Include target in all.
@@ -1401,7 +1401,7 @@ all: tl/generate/CMakeFiles/generate_common.dir/all
 
 # Build rule for subdir invocation for target.
 tl/generate/CMakeFiles/generate_common.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 33
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 32
 	$(MAKE) -f CMakeFiles/Makefile2 tl/generate/CMakeFiles/generate_common.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 0
 .PHONY : tl/generate/CMakeFiles/generate_common.dir/rule
@@ -1458,7 +1458,7 @@ all: terminal/CMakeFiles/terminal.dir/all
 
 # Build rule for subdir invocation for target.
 terminal/CMakeFiles/terminal.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 30
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 28
 	$(MAKE) -f CMakeFiles/Makefile2 terminal/CMakeFiles/terminal.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 0
 .PHONY : terminal/CMakeFiles/terminal.dir/rule
@@ -1508,7 +1508,7 @@ keys/CMakeFiles/keys.dir/all: tl-utils/CMakeFiles/tl-utils.dir/all
 keys/CMakeFiles/keys.dir/all: crypto/CMakeFiles/ton_crypto.dir/all
 	$(MAKE) -f keys/CMakeFiles/keys.dir/build.make keys/CMakeFiles/keys.dir/depend
 	$(MAKE) -f keys/CMakeFiles/keys.dir/build.make keys/CMakeFiles/keys.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=17 "Built target keys"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=19 "Built target keys"
 .PHONY : keys/CMakeFiles/keys.dir/all
 
 # Include target in all.
@@ -1518,7 +1518,7 @@ all: keys/CMakeFiles/keys.dir/all
 
 # Build rule for subdir invocation for target.
 keys/CMakeFiles/keys.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 53
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 54
 	$(MAKE) -f CMakeFiles/Makefile2 keys/CMakeFiles/keys.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 0
 .PHONY : keys/CMakeFiles/keys.dir/rule
@@ -1568,7 +1568,7 @@ tl-utils/CMakeFiles/tl-lite-utils.dir/all: tl/CMakeFiles/tl_lite_api.dir/all
 tl-utils/CMakeFiles/tl-lite-utils.dir/all: crypto/CMakeFiles/ton_crypto.dir/all
 	$(MAKE) -f tl-utils/CMakeFiles/tl-lite-utils.dir/build.make tl-utils/CMakeFiles/tl-lite-utils.dir/depend
 	$(MAKE) -f tl-utils/CMakeFiles/tl-lite-utils.dir/build.make tl-utils/CMakeFiles/tl-lite-utils.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=72 "Built target tl-lite-utils"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num= "Built target tl-lite-utils"
 .PHONY : tl-utils/CMakeFiles/tl-lite-utils.dir/all
 
 # Include target in all.
@@ -1578,7 +1578,7 @@ all: tl-utils/CMakeFiles/tl-lite-utils.dir/all
 
 # Build rule for subdir invocation for target.
 tl-utils/CMakeFiles/tl-lite-utils.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 50
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 48
 	$(MAKE) -f CMakeFiles/Makefile2 tl-utils/CMakeFiles/tl-lite-utils.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 0
 .PHONY : tl-utils/CMakeFiles/tl-lite-utils.dir/rule
@@ -1705,22 +1705,27 @@ clean: adnl/CMakeFiles/adnllite.dir/clean
 # Directory level rules for directory crypto
 
 # Convenience name for "all" pass in the directory.
-crypto/all: crypto/CMakeFiles/src_parser.dir/all
+crypto/all: crypto/CMakeFiles/test-block.dir/all
 crypto/all: crypto/CMakeFiles/test-ed25519-crypto.dir/all
 crypto/all: crypto/CMakeFiles/fift-lib.dir/all
+crypto/all: crypto/CMakeFiles/create-state.dir/all
 crypto/all: crypto/CMakeFiles/ton_crypto.dir/all
 crypto/all: crypto/CMakeFiles/ton_db.dir/all
 crypto/all: crypto/CMakeFiles/func.dir/all
 crypto/all: crypto/CMakeFiles/tlbc.dir/all
 crypto/all: crypto/CMakeFiles/fift.dir/all
 crypto/all: crypto/CMakeFiles/ton_block.dir/all
+crypto/all: crypto/CMakeFiles/gen_fif.dir/all
+crypto/all: crypto/CMakeFiles/src_parser.dir/all
 
 .PHONY : crypto/all
 
 # Convenience name for "clean" pass in the directory.
-crypto/clean: crypto/CMakeFiles/src_parser.dir/clean
+crypto/clean: crypto/CMakeFiles/test-block.dir/clean
+crypto/clean: crypto/CMakeFiles/gen_fif_smartcont_config_code_fif.dir/clean
 crypto/clean: crypto/CMakeFiles/test-ed25519-crypto.dir/clean
 crypto/clean: crypto/CMakeFiles/fift-lib.dir/clean
+crypto/clean: crypto/CMakeFiles/create-state.dir/clean
 crypto/clean: crypto/CMakeFiles/ton_crypto.dir/clean
 crypto/clean: crypto/CMakeFiles/ton_db.dir/clean
 crypto/clean: crypto/CMakeFiles/tlb_generate_block.dir/clean
@@ -1728,6 +1733,11 @@ crypto/clean: crypto/CMakeFiles/func.dir/clean
 crypto/clean: crypto/CMakeFiles/tlbc.dir/clean
 crypto/clean: crypto/CMakeFiles/fift.dir/clean
 crypto/clean: crypto/CMakeFiles/ton_block.dir/clean
+crypto/clean: crypto/CMakeFiles/gen_fif_smartcont_simple_wallet_code_fif.dir/clean
+crypto/clean: crypto/CMakeFiles/gen_fif.dir/clean
+crypto/clean: crypto/CMakeFiles/gen_fif_smartcont_wallet_code_fif.dir/clean
+crypto/clean: crypto/CMakeFiles/src_parser.dir/clean
+crypto/clean: crypto/CMakeFiles/gen_fif_smartcont_elector_code_fif.dir/clean
 
 .PHONY : crypto/clean
 
@@ -1737,41 +1747,79 @@ crypto/preinstall:
 .PHONY : crypto/preinstall
 
 #=============================================================================
-# Target rules for target crypto/CMakeFiles/src_parser.dir
+# Target rules for target crypto/CMakeFiles/test-block.dir
 
 # All Build rule for target.
-crypto/CMakeFiles/src_parser.dir/all: third-party/crc32c/CMakeFiles/crc32c.dir/all
-crypto/CMakeFiles/src_parser.dir/all: tdutils/CMakeFiles/tdutils.dir/all
-crypto/CMakeFiles/src_parser.dir/all: crypto/CMakeFiles/ton_crypto.dir/all
-	$(MAKE) -f crypto/CMakeFiles/src_parser.dir/build.make crypto/CMakeFiles/src_parser.dir/depend
-	$(MAKE) -f crypto/CMakeFiles/src_parser.dir/build.make crypto/CMakeFiles/src_parser.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=20 "Built target src_parser"
-.PHONY : crypto/CMakeFiles/src_parser.dir/all
+crypto/CMakeFiles/test-block.dir/all: third-party/crc32c/CMakeFiles/crc32c.dir/all
+crypto/CMakeFiles/test-block.dir/all: tdutils/CMakeFiles/tdutils.dir/all
+crypto/CMakeFiles/test-block.dir/all: tdactor/CMakeFiles/tdactor.dir/all
+crypto/CMakeFiles/test-block.dir/all: tddb/CMakeFiles/tddb.dir/all
+crypto/CMakeFiles/test-block.dir/all: tl/CMakeFiles/tl_api.dir/all
+crypto/CMakeFiles/test-block.dir/all: crypto/CMakeFiles/fift-lib.dir/all
+crypto/CMakeFiles/test-block.dir/all: crypto/CMakeFiles/ton_crypto.dir/all
+crypto/CMakeFiles/test-block.dir/all: crypto/CMakeFiles/ton_db.dir/all
+crypto/CMakeFiles/test-block.dir/all: crypto/CMakeFiles/ton_block.dir/all
+	$(MAKE) -f crypto/CMakeFiles/test-block.dir/build.make crypto/CMakeFiles/test-block.dir/depend
+	$(MAKE) -f crypto/CMakeFiles/test-block.dir/build.make crypto/CMakeFiles/test-block.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=57 "Built target test-block"
+.PHONY : crypto/CMakeFiles/test-block.dir/all
 
 # Include target in all.
-all: crypto/CMakeFiles/src_parser.dir/all
+all: crypto/CMakeFiles/test-block.dir/all
 
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-crypto/CMakeFiles/src_parser.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 43
-	$(MAKE) -f CMakeFiles/Makefile2 crypto/CMakeFiles/src_parser.dir/all
+crypto/CMakeFiles/test-block.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 66
+	$(MAKE) -f CMakeFiles/Makefile2 crypto/CMakeFiles/test-block.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 0
-.PHONY : crypto/CMakeFiles/src_parser.dir/rule
+.PHONY : crypto/CMakeFiles/test-block.dir/rule
 
 # Convenience name for target.
-src_parser: crypto/CMakeFiles/src_parser.dir/rule
+test-block: crypto/CMakeFiles/test-block.dir/rule
 
-.PHONY : src_parser
-
-# clean rule for target.
-crypto/CMakeFiles/src_parser.dir/clean:
-	$(MAKE) -f crypto/CMakeFiles/src_parser.dir/build.make crypto/CMakeFiles/src_parser.dir/clean
-.PHONY : crypto/CMakeFiles/src_parser.dir/clean
+.PHONY : test-block
 
 # clean rule for target.
-clean: crypto/CMakeFiles/src_parser.dir/clean
+crypto/CMakeFiles/test-block.dir/clean:
+	$(MAKE) -f crypto/CMakeFiles/test-block.dir/build.make crypto/CMakeFiles/test-block.dir/clean
+.PHONY : crypto/CMakeFiles/test-block.dir/clean
+
+# clean rule for target.
+clean: crypto/CMakeFiles/test-block.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target crypto/CMakeFiles/gen_fif_smartcont_config_code_fif.dir
+
+# All Build rule for target.
+crypto/CMakeFiles/gen_fif_smartcont_config_code_fif.dir/all: crypto/CMakeFiles/func.dir/all
+	$(MAKE) -f crypto/CMakeFiles/gen_fif_smartcont_config_code_fif.dir/build.make crypto/CMakeFiles/gen_fif_smartcont_config_code_fif.dir/depend
+	$(MAKE) -f crypto/CMakeFiles/gen_fif_smartcont_config_code_fif.dir/build.make crypto/CMakeFiles/gen_fif_smartcont_config_code_fif.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num= "Built target gen_fif_smartcont_config_code_fif"
+.PHONY : crypto/CMakeFiles/gen_fif_smartcont_config_code_fif.dir/all
+
+# Build rule for subdir invocation for target.
+crypto/CMakeFiles/gen_fif_smartcont_config_code_fif.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 46
+	$(MAKE) -f CMakeFiles/Makefile2 crypto/CMakeFiles/gen_fif_smartcont_config_code_fif.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 0
+.PHONY : crypto/CMakeFiles/gen_fif_smartcont_config_code_fif.dir/rule
+
+# Convenience name for target.
+gen_fif_smartcont_config_code_fif: crypto/CMakeFiles/gen_fif_smartcont_config_code_fif.dir/rule
+
+.PHONY : gen_fif_smartcont_config_code_fif
+
+# clean rule for target.
+crypto/CMakeFiles/gen_fif_smartcont_config_code_fif.dir/clean:
+	$(MAKE) -f crypto/CMakeFiles/gen_fif_smartcont_config_code_fif.dir/build.make crypto/CMakeFiles/gen_fif_smartcont_config_code_fif.dir/clean
+.PHONY : crypto/CMakeFiles/gen_fif_smartcont_config_code_fif.dir/clean
+
+# clean rule for target.
+clean: crypto/CMakeFiles/gen_fif_smartcont_config_code_fif.dir/clean
 
 .PHONY : clean
 
@@ -1784,7 +1832,7 @@ crypto/CMakeFiles/test-ed25519-crypto.dir/all: tdutils/CMakeFiles/tdutils.dir/al
 crypto/CMakeFiles/test-ed25519-crypto.dir/all: crypto/CMakeFiles/ton_crypto.dir/all
 	$(MAKE) -f crypto/CMakeFiles/test-ed25519-crypto.dir/build.make crypto/CMakeFiles/test-ed25519-crypto.dir/depend
 	$(MAKE) -f crypto/CMakeFiles/test-ed25519-crypto.dir/build.make crypto/CMakeFiles/test-ed25519-crypto.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num= "Built target test-ed25519-crypto"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=60 "Built target test-ed25519-crypto"
 .PHONY : crypto/CMakeFiles/test-ed25519-crypto.dir/all
 
 # Include target in all.
@@ -1794,7 +1842,7 @@ all: crypto/CMakeFiles/test-ed25519-crypto.dir/all
 
 # Build rule for subdir invocation for target.
 crypto/CMakeFiles/test-ed25519-crypto.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 42
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 40
 	$(MAKE) -f CMakeFiles/Makefile2 crypto/CMakeFiles/test-ed25519-crypto.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 0
 .PHONY : crypto/CMakeFiles/test-ed25519-crypto.dir/rule
@@ -1859,6 +1907,51 @@ clean: crypto/CMakeFiles/fift-lib.dir/clean
 .PHONY : clean
 
 #=============================================================================
+# Target rules for target crypto/CMakeFiles/create-state.dir
+
+# All Build rule for target.
+crypto/CMakeFiles/create-state.dir/all: third-party/crc32c/CMakeFiles/crc32c.dir/all
+crypto/CMakeFiles/create-state.dir/all: tdutils/CMakeFiles/tdutils.dir/all
+crypto/CMakeFiles/create-state.dir/all: tdactor/CMakeFiles/tdactor.dir/all
+crypto/CMakeFiles/create-state.dir/all: tddb/CMakeFiles/tddb.dir/all
+crypto/CMakeFiles/create-state.dir/all: tl/CMakeFiles/tl_api.dir/all
+crypto/CMakeFiles/create-state.dir/all: crypto/CMakeFiles/fift-lib.dir/all
+crypto/CMakeFiles/create-state.dir/all: crypto/CMakeFiles/ton_crypto.dir/all
+crypto/CMakeFiles/create-state.dir/all: crypto/CMakeFiles/ton_db.dir/all
+crypto/CMakeFiles/create-state.dir/all: crypto/CMakeFiles/ton_block.dir/all
+	$(MAKE) -f crypto/CMakeFiles/create-state.dir/build.make crypto/CMakeFiles/create-state.dir/depend
+	$(MAKE) -f crypto/CMakeFiles/create-state.dir/build.make crypto/CMakeFiles/create-state.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num= "Built target create-state"
+.PHONY : crypto/CMakeFiles/create-state.dir/all
+
+# Include target in all.
+all: crypto/CMakeFiles/create-state.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+crypto/CMakeFiles/create-state.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 65
+	$(MAKE) -f CMakeFiles/Makefile2 crypto/CMakeFiles/create-state.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 0
+.PHONY : crypto/CMakeFiles/create-state.dir/rule
+
+# Convenience name for target.
+create-state: crypto/CMakeFiles/create-state.dir/rule
+
+.PHONY : create-state
+
+# clean rule for target.
+crypto/CMakeFiles/create-state.dir/clean:
+	$(MAKE) -f crypto/CMakeFiles/create-state.dir/build.make crypto/CMakeFiles/create-state.dir/clean
+.PHONY : crypto/CMakeFiles/create-state.dir/clean
+
+# clean rule for target.
+clean: crypto/CMakeFiles/create-state.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
 # Target rules for target crypto/CMakeFiles/ton_crypto.dir
 
 # All Build rule for target.
@@ -1876,7 +1969,7 @@ all: crypto/CMakeFiles/ton_crypto.dir/all
 
 # Build rule for subdir invocation for target.
 crypto/CMakeFiles/ton_crypto.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 42
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 39
 	$(MAKE) -f CMakeFiles/Makefile2 crypto/CMakeFiles/ton_crypto.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 0
 .PHONY : crypto/CMakeFiles/ton_crypto.dir/rule
@@ -1917,7 +2010,7 @@ all: crypto/CMakeFiles/ton_db.dir/all
 
 # Build rule for subdir invocation for target.
 crypto/CMakeFiles/ton_db.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 50
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 47
 	$(MAKE) -f CMakeFiles/Makefile2 crypto/CMakeFiles/ton_db.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 0
 .PHONY : crypto/CMakeFiles/ton_db.dir/rule
@@ -1944,12 +2037,12 @@ clean: crypto/CMakeFiles/ton_db.dir/clean
 crypto/CMakeFiles/tlb_generate_block.dir/all: crypto/CMakeFiles/tlbc.dir/all
 	$(MAKE) -f crypto/CMakeFiles/tlb_generate_block.dir/build.make crypto/CMakeFiles/tlb_generate_block.dir/depend
 	$(MAKE) -f crypto/CMakeFiles/tlb_generate_block.dir/build.make crypto/CMakeFiles/tlb_generate_block.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=77 "Built target tlb_generate_block"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num= "Built target tlb_generate_block"
 .PHONY : crypto/CMakeFiles/tlb_generate_block.dir/all
 
 # Build rule for subdir invocation for target.
 crypto/CMakeFiles/tlb_generate_block.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 44
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 42
 	$(MAKE) -f CMakeFiles/Makefile2 crypto/CMakeFiles/tlb_generate_block.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 0
 .PHONY : crypto/CMakeFiles/tlb_generate_block.dir/rule
@@ -1975,8 +2068,8 @@ clean: crypto/CMakeFiles/tlb_generate_block.dir/clean
 # All Build rule for target.
 crypto/CMakeFiles/func.dir/all: third-party/crc32c/CMakeFiles/crc32c.dir/all
 crypto/CMakeFiles/func.dir/all: tdutils/CMakeFiles/tdutils.dir/all
-crypto/CMakeFiles/func.dir/all: crypto/CMakeFiles/src_parser.dir/all
 crypto/CMakeFiles/func.dir/all: crypto/CMakeFiles/ton_crypto.dir/all
+crypto/CMakeFiles/func.dir/all: crypto/CMakeFiles/src_parser.dir/all
 	$(MAKE) -f crypto/CMakeFiles/func.dir/build.make crypto/CMakeFiles/func.dir/depend
 	$(MAKE) -f crypto/CMakeFiles/func.dir/build.make crypto/CMakeFiles/func.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=8,9,10,11,12 "Built target func"
@@ -1989,7 +2082,7 @@ all: crypto/CMakeFiles/func.dir/all
 
 # Build rule for subdir invocation for target.
 crypto/CMakeFiles/func.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 48
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 46
 	$(MAKE) -f CMakeFiles/Makefile2 crypto/CMakeFiles/func.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 0
 .PHONY : crypto/CMakeFiles/func.dir/rule
@@ -2015,11 +2108,11 @@ clean: crypto/CMakeFiles/func.dir/clean
 # All Build rule for target.
 crypto/CMakeFiles/tlbc.dir/all: third-party/crc32c/CMakeFiles/crc32c.dir/all
 crypto/CMakeFiles/tlbc.dir/all: tdutils/CMakeFiles/tdutils.dir/all
-crypto/CMakeFiles/tlbc.dir/all: crypto/CMakeFiles/src_parser.dir/all
 crypto/CMakeFiles/tlbc.dir/all: crypto/CMakeFiles/ton_crypto.dir/all
+crypto/CMakeFiles/tlbc.dir/all: crypto/CMakeFiles/src_parser.dir/all
 	$(MAKE) -f crypto/CMakeFiles/tlbc.dir/build.make crypto/CMakeFiles/tlbc.dir/depend
 	$(MAKE) -f crypto/CMakeFiles/tlbc.dir/build.make crypto/CMakeFiles/tlbc.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num= "Built target tlbc"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=78 "Built target tlbc"
 .PHONY : crypto/CMakeFiles/tlbc.dir/all
 
 # Include target in all.
@@ -2029,7 +2122,7 @@ all: crypto/CMakeFiles/tlbc.dir/all
 
 # Build rule for subdir invocation for target.
 crypto/CMakeFiles/tlbc.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 43
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 42
 	$(MAKE) -f CMakeFiles/Makefile2 crypto/CMakeFiles/tlbc.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 0
 .PHONY : crypto/CMakeFiles/tlbc.dir/rule
@@ -2104,9 +2197,10 @@ crypto/CMakeFiles/ton_block.dir/all: tdactor/CMakeFiles/tdactor.dir/all
 crypto/CMakeFiles/ton_block.dir/all: tl/CMakeFiles/tl_api.dir/all
 crypto/CMakeFiles/ton_block.dir/all: crypto/CMakeFiles/ton_crypto.dir/all
 crypto/CMakeFiles/ton_block.dir/all: crypto/CMakeFiles/tlb_generate_block.dir/all
+crypto/CMakeFiles/ton_block.dir/all: crypto/CMakeFiles/tlbc.dir/all
 	$(MAKE) -f crypto/CMakeFiles/ton_block.dir/build.make crypto/CMakeFiles/ton_block.dir/depend
 	$(MAKE) -f crypto/CMakeFiles/ton_block.dir/build.make crypto/CMakeFiles/ton_block.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=78,79,80,81 "Built target ton_block"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=79,80,81 "Built target ton_block"
 .PHONY : crypto/CMakeFiles/ton_block.dir/all
 
 # Include target in all.
@@ -2116,7 +2210,7 @@ all: crypto/CMakeFiles/ton_block.dir/all
 
 # Build rule for subdir invocation for target.
 crypto/CMakeFiles/ton_block.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 57
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 58
 	$(MAKE) -f CMakeFiles/Makefile2 crypto/CMakeFiles/ton_block.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 0
 .PHONY : crypto/CMakeFiles/ton_block.dir/rule
@@ -2133,6 +2227,181 @@ crypto/CMakeFiles/ton_block.dir/clean:
 
 # clean rule for target.
 clean: crypto/CMakeFiles/ton_block.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target crypto/CMakeFiles/gen_fif_smartcont_simple_wallet_code_fif.dir
+
+# All Build rule for target.
+crypto/CMakeFiles/gen_fif_smartcont_simple_wallet_code_fif.dir/all: crypto/CMakeFiles/func.dir/all
+	$(MAKE) -f crypto/CMakeFiles/gen_fif_smartcont_simple_wallet_code_fif.dir/build.make crypto/CMakeFiles/gen_fif_smartcont_simple_wallet_code_fif.dir/depend
+	$(MAKE) -f crypto/CMakeFiles/gen_fif_smartcont_simple_wallet_code_fif.dir/build.make crypto/CMakeFiles/gen_fif_smartcont_simple_wallet_code_fif.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num= "Built target gen_fif_smartcont_simple_wallet_code_fif"
+.PHONY : crypto/CMakeFiles/gen_fif_smartcont_simple_wallet_code_fif.dir/all
+
+# Build rule for subdir invocation for target.
+crypto/CMakeFiles/gen_fif_smartcont_simple_wallet_code_fif.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 46
+	$(MAKE) -f CMakeFiles/Makefile2 crypto/CMakeFiles/gen_fif_smartcont_simple_wallet_code_fif.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 0
+.PHONY : crypto/CMakeFiles/gen_fif_smartcont_simple_wallet_code_fif.dir/rule
+
+# Convenience name for target.
+gen_fif_smartcont_simple_wallet_code_fif: crypto/CMakeFiles/gen_fif_smartcont_simple_wallet_code_fif.dir/rule
+
+.PHONY : gen_fif_smartcont_simple_wallet_code_fif
+
+# clean rule for target.
+crypto/CMakeFiles/gen_fif_smartcont_simple_wallet_code_fif.dir/clean:
+	$(MAKE) -f crypto/CMakeFiles/gen_fif_smartcont_simple_wallet_code_fif.dir/build.make crypto/CMakeFiles/gen_fif_smartcont_simple_wallet_code_fif.dir/clean
+.PHONY : crypto/CMakeFiles/gen_fif_smartcont_simple_wallet_code_fif.dir/clean
+
+# clean rule for target.
+clean: crypto/CMakeFiles/gen_fif_smartcont_simple_wallet_code_fif.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target crypto/CMakeFiles/gen_fif.dir
+
+# All Build rule for target.
+crypto/CMakeFiles/gen_fif.dir/all: crypto/CMakeFiles/gen_fif_smartcont_config_code_fif.dir/all
+crypto/CMakeFiles/gen_fif.dir/all: crypto/CMakeFiles/gen_fif_smartcont_simple_wallet_code_fif.dir/all
+crypto/CMakeFiles/gen_fif.dir/all: crypto/CMakeFiles/gen_fif_smartcont_wallet_code_fif.dir/all
+crypto/CMakeFiles/gen_fif.dir/all: crypto/CMakeFiles/gen_fif_smartcont_elector_code_fif.dir/all
+	$(MAKE) -f crypto/CMakeFiles/gen_fif.dir/build.make crypto/CMakeFiles/gen_fif.dir/depend
+	$(MAKE) -f crypto/CMakeFiles/gen_fif.dir/build.make crypto/CMakeFiles/gen_fif.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num= "Built target gen_fif"
+.PHONY : crypto/CMakeFiles/gen_fif.dir/all
+
+# Include target in all.
+all: crypto/CMakeFiles/gen_fif.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+crypto/CMakeFiles/gen_fif.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 47
+	$(MAKE) -f CMakeFiles/Makefile2 crypto/CMakeFiles/gen_fif.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 0
+.PHONY : crypto/CMakeFiles/gen_fif.dir/rule
+
+# Convenience name for target.
+gen_fif: crypto/CMakeFiles/gen_fif.dir/rule
+
+.PHONY : gen_fif
+
+# clean rule for target.
+crypto/CMakeFiles/gen_fif.dir/clean:
+	$(MAKE) -f crypto/CMakeFiles/gen_fif.dir/build.make crypto/CMakeFiles/gen_fif.dir/clean
+.PHONY : crypto/CMakeFiles/gen_fif.dir/clean
+
+# clean rule for target.
+clean: crypto/CMakeFiles/gen_fif.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target crypto/CMakeFiles/gen_fif_smartcont_wallet_code_fif.dir
+
+# All Build rule for target.
+crypto/CMakeFiles/gen_fif_smartcont_wallet_code_fif.dir/all: crypto/CMakeFiles/func.dir/all
+	$(MAKE) -f crypto/CMakeFiles/gen_fif_smartcont_wallet_code_fif.dir/build.make crypto/CMakeFiles/gen_fif_smartcont_wallet_code_fif.dir/depend
+	$(MAKE) -f crypto/CMakeFiles/gen_fif_smartcont_wallet_code_fif.dir/build.make crypto/CMakeFiles/gen_fif_smartcont_wallet_code_fif.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num= "Built target gen_fif_smartcont_wallet_code_fif"
+.PHONY : crypto/CMakeFiles/gen_fif_smartcont_wallet_code_fif.dir/all
+
+# Build rule for subdir invocation for target.
+crypto/CMakeFiles/gen_fif_smartcont_wallet_code_fif.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 46
+	$(MAKE) -f CMakeFiles/Makefile2 crypto/CMakeFiles/gen_fif_smartcont_wallet_code_fif.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 0
+.PHONY : crypto/CMakeFiles/gen_fif_smartcont_wallet_code_fif.dir/rule
+
+# Convenience name for target.
+gen_fif_smartcont_wallet_code_fif: crypto/CMakeFiles/gen_fif_smartcont_wallet_code_fif.dir/rule
+
+.PHONY : gen_fif_smartcont_wallet_code_fif
+
+# clean rule for target.
+crypto/CMakeFiles/gen_fif_smartcont_wallet_code_fif.dir/clean:
+	$(MAKE) -f crypto/CMakeFiles/gen_fif_smartcont_wallet_code_fif.dir/build.make crypto/CMakeFiles/gen_fif_smartcont_wallet_code_fif.dir/clean
+.PHONY : crypto/CMakeFiles/gen_fif_smartcont_wallet_code_fif.dir/clean
+
+# clean rule for target.
+clean: crypto/CMakeFiles/gen_fif_smartcont_wallet_code_fif.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target crypto/CMakeFiles/src_parser.dir
+
+# All Build rule for target.
+crypto/CMakeFiles/src_parser.dir/all: third-party/crc32c/CMakeFiles/crc32c.dir/all
+crypto/CMakeFiles/src_parser.dir/all: tdutils/CMakeFiles/tdutils.dir/all
+crypto/CMakeFiles/src_parser.dir/all: crypto/CMakeFiles/ton_crypto.dir/all
+	$(MAKE) -f crypto/CMakeFiles/src_parser.dir/build.make crypto/CMakeFiles/src_parser.dir/depend
+	$(MAKE) -f crypto/CMakeFiles/src_parser.dir/build.make crypto/CMakeFiles/src_parser.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=21,22 "Built target src_parser"
+.PHONY : crypto/CMakeFiles/src_parser.dir/all
+
+# Include target in all.
+all: crypto/CMakeFiles/src_parser.dir/all
+
+.PHONY : all
+
+# Build rule for subdir invocation for target.
+crypto/CMakeFiles/src_parser.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 41
+	$(MAKE) -f CMakeFiles/Makefile2 crypto/CMakeFiles/src_parser.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 0
+.PHONY : crypto/CMakeFiles/src_parser.dir/rule
+
+# Convenience name for target.
+src_parser: crypto/CMakeFiles/src_parser.dir/rule
+
+.PHONY : src_parser
+
+# clean rule for target.
+crypto/CMakeFiles/src_parser.dir/clean:
+	$(MAKE) -f crypto/CMakeFiles/src_parser.dir/build.make crypto/CMakeFiles/src_parser.dir/clean
+.PHONY : crypto/CMakeFiles/src_parser.dir/clean
+
+# clean rule for target.
+clean: crypto/CMakeFiles/src_parser.dir/clean
+
+.PHONY : clean
+
+#=============================================================================
+# Target rules for target crypto/CMakeFiles/gen_fif_smartcont_elector_code_fif.dir
+
+# All Build rule for target.
+crypto/CMakeFiles/gen_fif_smartcont_elector_code_fif.dir/all: crypto/CMakeFiles/func.dir/all
+	$(MAKE) -f crypto/CMakeFiles/gen_fif_smartcont_elector_code_fif.dir/build.make crypto/CMakeFiles/gen_fif_smartcont_elector_code_fif.dir/depend
+	$(MAKE) -f crypto/CMakeFiles/gen_fif_smartcont_elector_code_fif.dir/build.make crypto/CMakeFiles/gen_fif_smartcont_elector_code_fif.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=13 "Built target gen_fif_smartcont_elector_code_fif"
+.PHONY : crypto/CMakeFiles/gen_fif_smartcont_elector_code_fif.dir/all
+
+# Build rule for subdir invocation for target.
+crypto/CMakeFiles/gen_fif_smartcont_elector_code_fif.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 47
+	$(MAKE) -f CMakeFiles/Makefile2 crypto/CMakeFiles/gen_fif_smartcont_elector_code_fif.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 0
+.PHONY : crypto/CMakeFiles/gen_fif_smartcont_elector_code_fif.dir/rule
+
+# Convenience name for target.
+gen_fif_smartcont_elector_code_fif: crypto/CMakeFiles/gen_fif_smartcont_elector_code_fif.dir/rule
+
+.PHONY : gen_fif_smartcont_elector_code_fif
+
+# clean rule for target.
+crypto/CMakeFiles/gen_fif_smartcont_elector_code_fif.dir/clean:
+	$(MAKE) -f crypto/CMakeFiles/gen_fif_smartcont_elector_code_fif.dir/build.make crypto/CMakeFiles/gen_fif_smartcont_elector_code_fif.dir/clean
+.PHONY : crypto/CMakeFiles/gen_fif_smartcont_elector_code_fif.dir/clean
+
+# clean rule for target.
+clean: crypto/CMakeFiles/gen_fif_smartcont_elector_code_fif.dir/clean
 
 .PHONY : clean
 
@@ -2173,7 +2442,7 @@ lite-client/CMakeFiles/lite-client.dir/all: crypto/CMakeFiles/ton_crypto.dir/all
 lite-client/CMakeFiles/lite-client.dir/all: crypto/CMakeFiles/ton_block.dir/all
 	$(MAKE) -f lite-client/CMakeFiles/lite-client.dir/build.make lite-client/CMakeFiles/lite-client.dir/depend
 	$(MAKE) -f lite-client/CMakeFiles/lite-client.dir/build.make lite-client/CMakeFiles/lite-client.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=18 "Built target lite-client"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=20 "Built target lite-client"
 .PHONY : lite-client/CMakeFiles/lite-client.dir/all
 
 # Include target in all.
@@ -2183,7 +2452,7 @@ all: lite-client/CMakeFiles/lite-client.dir/all
 
 # Build rule for subdir invocation for target.
 lite-client/CMakeFiles/lite-client.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 65
+	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 64
 	$(MAKE) -f CMakeFiles/Makefile2 lite-client/CMakeFiles/lite-client.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /root/liteclient-build/CMakeFiles 0
 .PHONY : lite-client/CMakeFiles/lite-client.dir/rule

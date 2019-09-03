@@ -1353,33 +1353,9 @@ tdutils/CMakeFiles/tdutils.dir/td/utils/StringBuilder.cpp.o.provides: tdutils/CM
 tdutils/CMakeFiles/tdutils.dir/td/utils/StringBuilder.cpp.o.provides.build: tdutils/CMakeFiles/tdutils.dir/td/utils/StringBuilder.cpp.o
 
 
-tdutils/CMakeFiles/tdutils.dir/td/utils/tests.cpp.o: tdutils/CMakeFiles/tdutils.dir/flags.make
-tdutils/CMakeFiles/tdutils.dir/td/utils/tests.cpp.o: /root/lite-client/tdutils/td/utils/tests.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_55) "Building CXX object tdutils/CMakeFiles/tdutils.dir/td/utils/tests.cpp.o"
-	cd /root/liteclient-build/tdutils && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/tdutils.dir/td/utils/tests.cpp.o -c /root/lite-client/tdutils/td/utils/tests.cpp
-
-tdutils/CMakeFiles/tdutils.dir/td/utils/tests.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/tdutils.dir/td/utils/tests.cpp.i"
-	cd /root/liteclient-build/tdutils && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /root/lite-client/tdutils/td/utils/tests.cpp > CMakeFiles/tdutils.dir/td/utils/tests.cpp.i
-
-tdutils/CMakeFiles/tdutils.dir/td/utils/tests.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/tdutils.dir/td/utils/tests.cpp.s"
-	cd /root/liteclient-build/tdutils && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /root/lite-client/tdutils/td/utils/tests.cpp -o CMakeFiles/tdutils.dir/td/utils/tests.cpp.s
-
-tdutils/CMakeFiles/tdutils.dir/td/utils/tests.cpp.o.requires:
-
-.PHONY : tdutils/CMakeFiles/tdutils.dir/td/utils/tests.cpp.o.requires
-
-tdutils/CMakeFiles/tdutils.dir/td/utils/tests.cpp.o.provides: tdutils/CMakeFiles/tdutils.dir/td/utils/tests.cpp.o.requires
-	$(MAKE) -f tdutils/CMakeFiles/tdutils.dir/build.make tdutils/CMakeFiles/tdutils.dir/td/utils/tests.cpp.o.provides.build
-.PHONY : tdutils/CMakeFiles/tdutils.dir/td/utils/tests.cpp.o.provides
-
-tdutils/CMakeFiles/tdutils.dir/td/utils/tests.cpp.o.provides.build: tdutils/CMakeFiles/tdutils.dir/td/utils/tests.cpp.o
-
-
 tdutils/CMakeFiles/tdutils.dir/td/utils/Time.cpp.o: tdutils/CMakeFiles/tdutils.dir/flags.make
 tdutils/CMakeFiles/tdutils.dir/td/utils/Time.cpp.o: /root/lite-client/tdutils/td/utils/Time.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_56) "Building CXX object tdutils/CMakeFiles/tdutils.dir/td/utils/Time.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_55) "Building CXX object tdutils/CMakeFiles/tdutils.dir/td/utils/Time.cpp.o"
 	cd /root/liteclient-build/tdutils && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/tdutils.dir/td/utils/Time.cpp.o -c /root/lite-client/tdutils/td/utils/Time.cpp
 
 tdutils/CMakeFiles/tdutils.dir/td/utils/Time.cpp.i: cmake_force
@@ -1403,7 +1379,7 @@ tdutils/CMakeFiles/tdutils.dir/td/utils/Time.cpp.o.provides.build: tdutils/CMake
 
 tdutils/CMakeFiles/tdutils.dir/td/utils/Timer.cpp.o: tdutils/CMakeFiles/tdutils.dir/flags.make
 tdutils/CMakeFiles/tdutils.dir/td/utils/Timer.cpp.o: /root/lite-client/tdutils/td/utils/Timer.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_57) "Building CXX object tdutils/CMakeFiles/tdutils.dir/td/utils/Timer.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_56) "Building CXX object tdutils/CMakeFiles/tdutils.dir/td/utils/Timer.cpp.o"
 	cd /root/liteclient-build/tdutils && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/tdutils.dir/td/utils/Timer.cpp.o -c /root/lite-client/tdutils/td/utils/Timer.cpp
 
 tdutils/CMakeFiles/tdutils.dir/td/utils/Timer.cpp.i: cmake_force
@@ -1427,7 +1403,7 @@ tdutils/CMakeFiles/tdutils.dir/td/utils/Timer.cpp.o.provides.build: tdutils/CMak
 
 tdutils/CMakeFiles/tdutils.dir/td/utils/TsFileLog.cpp.o: tdutils/CMakeFiles/tdutils.dir/flags.make
 tdutils/CMakeFiles/tdutils.dir/td/utils/TsFileLog.cpp.o: /root/lite-client/tdutils/td/utils/TsFileLog.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_58) "Building CXX object tdutils/CMakeFiles/tdutils.dir/td/utils/TsFileLog.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_57) "Building CXX object tdutils/CMakeFiles/tdutils.dir/td/utils/TsFileLog.cpp.o"
 	cd /root/liteclient-build/tdutils && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/tdutils.dir/td/utils/TsFileLog.cpp.o -c /root/lite-client/tdutils/td/utils/TsFileLog.cpp
 
 tdutils/CMakeFiles/tdutils.dir/td/utils/TsFileLog.cpp.i: cmake_force
@@ -1447,6 +1423,30 @@ tdutils/CMakeFiles/tdutils.dir/td/utils/TsFileLog.cpp.o.provides: tdutils/CMakeF
 .PHONY : tdutils/CMakeFiles/tdutils.dir/td/utils/TsFileLog.cpp.o.provides
 
 tdutils/CMakeFiles/tdutils.dir/td/utils/TsFileLog.cpp.o.provides.build: tdutils/CMakeFiles/tdutils.dir/td/utils/TsFileLog.cpp.o
+
+
+tdutils/CMakeFiles/tdutils.dir/td/utils/tests.cpp.o: tdutils/CMakeFiles/tdutils.dir/flags.make
+tdutils/CMakeFiles/tdutils.dir/td/utils/tests.cpp.o: /root/lite-client/tdutils/td/utils/tests.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_58) "Building CXX object tdutils/CMakeFiles/tdutils.dir/td/utils/tests.cpp.o"
+	cd /root/liteclient-build/tdutils && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/tdutils.dir/td/utils/tests.cpp.o -c /root/lite-client/tdutils/td/utils/tests.cpp
+
+tdutils/CMakeFiles/tdutils.dir/td/utils/tests.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/tdutils.dir/td/utils/tests.cpp.i"
+	cd /root/liteclient-build/tdutils && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /root/lite-client/tdutils/td/utils/tests.cpp > CMakeFiles/tdutils.dir/td/utils/tests.cpp.i
+
+tdutils/CMakeFiles/tdutils.dir/td/utils/tests.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/tdutils.dir/td/utils/tests.cpp.s"
+	cd /root/liteclient-build/tdutils && /usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /root/lite-client/tdutils/td/utils/tests.cpp -o CMakeFiles/tdutils.dir/td/utils/tests.cpp.s
+
+tdutils/CMakeFiles/tdutils.dir/td/utils/tests.cpp.o.requires:
+
+.PHONY : tdutils/CMakeFiles/tdutils.dir/td/utils/tests.cpp.o.requires
+
+tdutils/CMakeFiles/tdutils.dir/td/utils/tests.cpp.o.provides: tdutils/CMakeFiles/tdutils.dir/td/utils/tests.cpp.o.requires
+	$(MAKE) -f tdutils/CMakeFiles/tdutils.dir/build.make tdutils/CMakeFiles/tdutils.dir/td/utils/tests.cpp.o.provides.build
+.PHONY : tdutils/CMakeFiles/tdutils.dir/td/utils/tests.cpp.o.provides
+
+tdutils/CMakeFiles/tdutils.dir/td/utils/tests.cpp.o.provides.build: tdutils/CMakeFiles/tdutils.dir/td/utils/tests.cpp.o
 
 
 tdutils/CMakeFiles/tdutils.dir/td/utils/tl_parsers.cpp.o: tdutils/CMakeFiles/tdutils.dir/flags.make
@@ -1601,10 +1601,10 @@ tdutils_OBJECTS = \
 "CMakeFiles/tdutils.dir/td/utils/StackAllocator.cpp.o" \
 "CMakeFiles/tdutils.dir/td/utils/Status.cpp.o" \
 "CMakeFiles/tdutils.dir/td/utils/StringBuilder.cpp.o" \
-"CMakeFiles/tdutils.dir/td/utils/tests.cpp.o" \
 "CMakeFiles/tdutils.dir/td/utils/Time.cpp.o" \
 "CMakeFiles/tdutils.dir/td/utils/Timer.cpp.o" \
 "CMakeFiles/tdutils.dir/td/utils/TsFileLog.cpp.o" \
+"CMakeFiles/tdutils.dir/td/utils/tests.cpp.o" \
 "CMakeFiles/tdutils.dir/td/utils/tl_parsers.cpp.o" \
 "CMakeFiles/tdutils.dir/td/utils/translit.cpp.o" \
 "CMakeFiles/tdutils.dir/td/utils/unicode.cpp.o" \
@@ -1667,10 +1667,10 @@ tdutils/libtdutils.a: tdutils/CMakeFiles/tdutils.dir/td/utils/SharedSlice.cpp.o
 tdutils/libtdutils.a: tdutils/CMakeFiles/tdutils.dir/td/utils/StackAllocator.cpp.o
 tdutils/libtdutils.a: tdutils/CMakeFiles/tdutils.dir/td/utils/Status.cpp.o
 tdutils/libtdutils.a: tdutils/CMakeFiles/tdutils.dir/td/utils/StringBuilder.cpp.o
-tdutils/libtdutils.a: tdutils/CMakeFiles/tdutils.dir/td/utils/tests.cpp.o
 tdutils/libtdutils.a: tdutils/CMakeFiles/tdutils.dir/td/utils/Time.cpp.o
 tdutils/libtdutils.a: tdutils/CMakeFiles/tdutils.dir/td/utils/Timer.cpp.o
 tdutils/libtdutils.a: tdutils/CMakeFiles/tdutils.dir/td/utils/TsFileLog.cpp.o
+tdutils/libtdutils.a: tdutils/CMakeFiles/tdutils.dir/td/utils/tests.cpp.o
 tdutils/libtdutils.a: tdutils/CMakeFiles/tdutils.dir/td/utils/tl_parsers.cpp.o
 tdutils/libtdutils.a: tdutils/CMakeFiles/tdutils.dir/td/utils/translit.cpp.o
 tdutils/libtdutils.a: tdutils/CMakeFiles/tdutils.dir/td/utils/unicode.cpp.o
@@ -1740,10 +1740,10 @@ tdutils/CMakeFiles/tdutils.dir/requires: tdutils/CMakeFiles/tdutils.dir/td/utils
 tdutils/CMakeFiles/tdutils.dir/requires: tdutils/CMakeFiles/tdutils.dir/td/utils/StackAllocator.cpp.o.requires
 tdutils/CMakeFiles/tdutils.dir/requires: tdutils/CMakeFiles/tdutils.dir/td/utils/Status.cpp.o.requires
 tdutils/CMakeFiles/tdutils.dir/requires: tdutils/CMakeFiles/tdutils.dir/td/utils/StringBuilder.cpp.o.requires
-tdutils/CMakeFiles/tdutils.dir/requires: tdutils/CMakeFiles/tdutils.dir/td/utils/tests.cpp.o.requires
 tdutils/CMakeFiles/tdutils.dir/requires: tdutils/CMakeFiles/tdutils.dir/td/utils/Time.cpp.o.requires
 tdutils/CMakeFiles/tdutils.dir/requires: tdutils/CMakeFiles/tdutils.dir/td/utils/Timer.cpp.o.requires
 tdutils/CMakeFiles/tdutils.dir/requires: tdutils/CMakeFiles/tdutils.dir/td/utils/TsFileLog.cpp.o.requires
+tdutils/CMakeFiles/tdutils.dir/requires: tdutils/CMakeFiles/tdutils.dir/td/utils/tests.cpp.o.requires
 tdutils/CMakeFiles/tdutils.dir/requires: tdutils/CMakeFiles/tdutils.dir/td/utils/tl_parsers.cpp.o.requires
 tdutils/CMakeFiles/tdutils.dir/requires: tdutils/CMakeFiles/tdutils.dir/td/utils/translit.cpp.o.requires
 tdutils/CMakeFiles/tdutils.dir/requires: tdutils/CMakeFiles/tdutils.dir/td/utils/unicode.cpp.o.requires

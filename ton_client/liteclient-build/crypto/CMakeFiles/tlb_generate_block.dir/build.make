@@ -53,13 +53,22 @@ CMAKE_BINARY_DIR = /root/liteclient-build
 # Include the progress variables for this target.
 include crypto/CMakeFiles/tlb_generate_block.dir/progress.make
 
-crypto/CMakeFiles/tlb_generate_block: crypto/tlbc
-crypto/CMakeFiles/tlb_generate_block: /root/lite-client/crypto/block/block.tlb
+crypto/CMakeFiles/tlb_generate_block: /root/lite-client/crypto/block/block-auto.cpp
+crypto/CMakeFiles/tlb_generate_block: /root/lite-client/crypto/block/block-auto.h
+
+
+/root/lite-client/crypto/block/block-auto.cpp: crypto/tlbc
+/root/lite-client/crypto/block/block-auto.cpp: /root/lite-client/crypto/block/block.tlb
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generate block tlb source files"
 	cd /root/lite-client/crypto/block && cd .
 	cd /root/lite-client/crypto/block && /root/liteclient-build/crypto/tlbc -o block-auto -n block::gen -z block.tlb
 
+/root/lite-client/crypto/block/block-auto.h: /root/lite-client/crypto/block/block-auto.cpp
+	@$(CMAKE_COMMAND) -E touch_nocreate /root/lite-client/crypto/block/block-auto.h
+
 tlb_generate_block: crypto/CMakeFiles/tlb_generate_block
+tlb_generate_block: /root/lite-client/crypto/block/block-auto.cpp
+tlb_generate_block: /root/lite-client/crypto/block/block-auto.h
 tlb_generate_block: crypto/CMakeFiles/tlb_generate_block.dir/build.make
 
 .PHONY : tlb_generate_block

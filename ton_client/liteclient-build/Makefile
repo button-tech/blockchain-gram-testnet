@@ -623,17 +623,30 @@ adnllite/fast:
 .PHONY : adnllite/fast
 
 #=============================================================================
-# Target rules for targets named src_parser
+# Target rules for targets named test-block
 
 # Build rule for target.
-src_parser: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 src_parser
-.PHONY : src_parser
+test-block: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test-block
+.PHONY : test-block
 
 # fast build rule for target.
-src_parser/fast:
-	$(MAKE) -f crypto/CMakeFiles/src_parser.dir/build.make crypto/CMakeFiles/src_parser.dir/build
-.PHONY : src_parser/fast
+test-block/fast:
+	$(MAKE) -f crypto/CMakeFiles/test-block.dir/build.make crypto/CMakeFiles/test-block.dir/build
+.PHONY : test-block/fast
+
+#=============================================================================
+# Target rules for targets named gen_fif_smartcont_config_code_fif
+
+# Build rule for target.
+gen_fif_smartcont_config_code_fif: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 gen_fif_smartcont_config_code_fif
+.PHONY : gen_fif_smartcont_config_code_fif
+
+# fast build rule for target.
+gen_fif_smartcont_config_code_fif/fast:
+	$(MAKE) -f crypto/CMakeFiles/gen_fif_smartcont_config_code_fif.dir/build.make crypto/CMakeFiles/gen_fif_smartcont_config_code_fif.dir/build
+.PHONY : gen_fif_smartcont_config_code_fif/fast
 
 #=============================================================================
 # Target rules for targets named test-ed25519-crypto
@@ -660,6 +673,19 @@ fift-lib: cmake_check_build_system
 fift-lib/fast:
 	$(MAKE) -f crypto/CMakeFiles/fift-lib.dir/build.make crypto/CMakeFiles/fift-lib.dir/build
 .PHONY : fift-lib/fast
+
+#=============================================================================
+# Target rules for targets named create-state
+
+# Build rule for target.
+create-state: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 create-state
+.PHONY : create-state
+
+# fast build rule for target.
+create-state/fast:
+	$(MAKE) -f crypto/CMakeFiles/create-state.dir/build.make crypto/CMakeFiles/create-state.dir/build
+.PHONY : create-state/fast
 
 #=============================================================================
 # Target rules for targets named ton_crypto
@@ -751,6 +777,71 @@ ton_block: cmake_check_build_system
 ton_block/fast:
 	$(MAKE) -f crypto/CMakeFiles/ton_block.dir/build.make crypto/CMakeFiles/ton_block.dir/build
 .PHONY : ton_block/fast
+
+#=============================================================================
+# Target rules for targets named gen_fif_smartcont_simple_wallet_code_fif
+
+# Build rule for target.
+gen_fif_smartcont_simple_wallet_code_fif: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 gen_fif_smartcont_simple_wallet_code_fif
+.PHONY : gen_fif_smartcont_simple_wallet_code_fif
+
+# fast build rule for target.
+gen_fif_smartcont_simple_wallet_code_fif/fast:
+	$(MAKE) -f crypto/CMakeFiles/gen_fif_smartcont_simple_wallet_code_fif.dir/build.make crypto/CMakeFiles/gen_fif_smartcont_simple_wallet_code_fif.dir/build
+.PHONY : gen_fif_smartcont_simple_wallet_code_fif/fast
+
+#=============================================================================
+# Target rules for targets named gen_fif
+
+# Build rule for target.
+gen_fif: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 gen_fif
+.PHONY : gen_fif
+
+# fast build rule for target.
+gen_fif/fast:
+	$(MAKE) -f crypto/CMakeFiles/gen_fif.dir/build.make crypto/CMakeFiles/gen_fif.dir/build
+.PHONY : gen_fif/fast
+
+#=============================================================================
+# Target rules for targets named gen_fif_smartcont_wallet_code_fif
+
+# Build rule for target.
+gen_fif_smartcont_wallet_code_fif: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 gen_fif_smartcont_wallet_code_fif
+.PHONY : gen_fif_smartcont_wallet_code_fif
+
+# fast build rule for target.
+gen_fif_smartcont_wallet_code_fif/fast:
+	$(MAKE) -f crypto/CMakeFiles/gen_fif_smartcont_wallet_code_fif.dir/build.make crypto/CMakeFiles/gen_fif_smartcont_wallet_code_fif.dir/build
+.PHONY : gen_fif_smartcont_wallet_code_fif/fast
+
+#=============================================================================
+# Target rules for targets named src_parser
+
+# Build rule for target.
+src_parser: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 src_parser
+.PHONY : src_parser
+
+# fast build rule for target.
+src_parser/fast:
+	$(MAKE) -f crypto/CMakeFiles/src_parser.dir/build.make crypto/CMakeFiles/src_parser.dir/build
+.PHONY : src_parser/fast
+
+#=============================================================================
+# Target rules for targets named gen_fif_smartcont_elector_code_fif
+
+# Build rule for target.
+gen_fif_smartcont_elector_code_fif: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 gen_fif_smartcont_elector_code_fif
+.PHONY : gen_fif_smartcont_elector_code_fif
+
+# fast build rule for target.
+gen_fif_smartcont_elector_code_fif/fast:
+	$(MAKE) -f crypto/CMakeFiles/gen_fif_smartcont_elector_code_fif.dir/build.make crypto/CMakeFiles/gen_fif_smartcont_elector_code_fif.dir/build
+.PHONY : gen_fif_smartcont_elector_code_fif/fast
 
 #=============================================================================
 # Target rules for targets named lite-client
@@ -1007,33 +1098,6 @@ tdutils/test/Enumerator.s: tdutils/test/Enumerator.cpp.s
 tdutils/test/Enumerator.cpp.s:
 	$(MAKE) -f CMakeFiles/test-tdutils.dir/build.make CMakeFiles/test-tdutils.dir/tdutils/test/Enumerator.cpp.s
 .PHONY : tdutils/test/Enumerator.cpp.s
-
-tdutils/test/EpochBasedMemoryReclamation.o: tdutils/test/EpochBasedMemoryReclamation.cpp.o
-
-.PHONY : tdutils/test/EpochBasedMemoryReclamation.o
-
-# target to build an object file
-tdutils/test/EpochBasedMemoryReclamation.cpp.o:
-	$(MAKE) -f CMakeFiles/test-tdutils.dir/build.make CMakeFiles/test-tdutils.dir/tdutils/test/EpochBasedMemoryReclamation.cpp.o
-.PHONY : tdutils/test/EpochBasedMemoryReclamation.cpp.o
-
-tdutils/test/EpochBasedMemoryReclamation.i: tdutils/test/EpochBasedMemoryReclamation.cpp.i
-
-.PHONY : tdutils/test/EpochBasedMemoryReclamation.i
-
-# target to preprocess a source file
-tdutils/test/EpochBasedMemoryReclamation.cpp.i:
-	$(MAKE) -f CMakeFiles/test-tdutils.dir/build.make CMakeFiles/test-tdutils.dir/tdutils/test/EpochBasedMemoryReclamation.cpp.i
-.PHONY : tdutils/test/EpochBasedMemoryReclamation.cpp.i
-
-tdutils/test/EpochBasedMemoryReclamation.s: tdutils/test/EpochBasedMemoryReclamation.cpp.s
-
-.PHONY : tdutils/test/EpochBasedMemoryReclamation.s
-
-# target to generate assembly for a file
-tdutils/test/EpochBasedMemoryReclamation.cpp.s:
-	$(MAKE) -f CMakeFiles/test-tdutils.dir/build.make CMakeFiles/test-tdutils.dir/tdutils/test/EpochBasedMemoryReclamation.cpp.s
-.PHONY : tdutils/test/EpochBasedMemoryReclamation.cpp.s
 
 tdutils/test/HazardPointers.o: tdutils/test/HazardPointers.cpp.o
 
@@ -1614,9 +1678,11 @@ help:
 	@echo "... tl-lite-utils"
 	@echo "... tl-utils"
 	@echo "... adnllite"
-	@echo "... src_parser"
+	@echo "... test-block"
+	@echo "... gen_fif_smartcont_config_code_fif"
 	@echo "... test-ed25519-crypto"
 	@echo "... fift-lib"
+	@echo "... create-state"
 	@echo "... ton_crypto"
 	@echo "... ton_db"
 	@echo "... tlb_generate_block"
@@ -1624,6 +1690,11 @@ help:
 	@echo "... tlbc"
 	@echo "... fift"
 	@echo "... ton_block"
+	@echo "... gen_fif_smartcont_simple_wallet_code_fif"
+	@echo "... gen_fif"
+	@echo "... gen_fif_smartcont_wallet_code_fif"
+	@echo "... src_parser"
+	@echo "... gen_fif_smartcont_elector_code_fif"
 	@echo "... lite-client"
 	@echo "... crypto/test/Ed25519.o"
 	@echo "... crypto/test/Ed25519.i"
@@ -1652,9 +1723,6 @@ help:
 	@echo "... tdutils/test/Enumerator.o"
 	@echo "... tdutils/test/Enumerator.i"
 	@echo "... tdutils/test/Enumerator.s"
-	@echo "... tdutils/test/EpochBasedMemoryReclamation.o"
-	@echo "... tdutils/test/EpochBasedMemoryReclamation.i"
-	@echo "... tdutils/test/EpochBasedMemoryReclamation.s"
 	@echo "... tdutils/test/HazardPointers.o"
 	@echo "... tdutils/test/HazardPointers.i"
 	@echo "... tdutils/test/HazardPointers.s"

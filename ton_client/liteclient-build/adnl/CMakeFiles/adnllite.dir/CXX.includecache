@@ -19,8 +19,6 @@ td/utils/format.h
 /root/lite-client/adnl/../common/td/utils/format.h
 td/utils/base64.h
 /root/lite-client/adnl/../common/td/utils/base64.h
-td/utils/JsonBuilder.h
-/root/lite-client/adnl/../common/td/utils/JsonBuilder.h
 tl-utils/tl-utils.hpp
 /root/lite-client/adnl/../common/tl-utils/tl-utils.hpp
 common/errorcode.h
@@ -562,30 +560,6 @@ memory
 td/utils/common.h
 /root/lite-client/tdutils/td/utils/td/utils/common.h
 
-/root/lite-client/tdutils/td/utils/JsonBuilder.h
-td/utils/common.h
-/root/lite-client/tdutils/td/utils/td/utils/common.h
-td/utils/logging.h
-/root/lite-client/tdutils/td/utils/td/utils/logging.h
-td/utils/Parser.h
-/root/lite-client/tdutils/td/utils/td/utils/Parser.h
-td/utils/Slice.h
-/root/lite-client/tdutils/td/utils/td/utils/Slice.h
-td/utils/StackAllocator.h
-/root/lite-client/tdutils/td/utils/td/utils/StackAllocator.h
-td/utils/Status.h
-/root/lite-client/tdutils/td/utils/td/utils/Status.h
-td/utils/StringBuilder.h
-/root/lite-client/tdutils/td/utils/td/utils/StringBuilder.h
-new
--
-tuple
--
-type_traits
--
-utility
--
-
 /root/lite-client/tdutils/td/utils/List.h
 td/utils/common.h
 /root/lite-client/tdutils/td/utils/td/utils/common.h
@@ -613,8 +587,6 @@ td/utils/common.h
 /root/lite-client/tdutils/td/utils/td/utils/common.h
 td/utils/port/thread.h
 /root/lite-client/tdutils/td/utils/td/utils/port/thread.h
-td/utils/logging.h
-/root/lite-client/tdutils/td/utils/td/utils/logging.h
 atomic
 -
 condition_variable
@@ -643,22 +615,6 @@ utility
 /root/lite-client/tdutils/td/utils/Observer.h
 td/utils/common.h
 /root/lite-client/tdutils/td/utils/td/utils/common.h
-
-/root/lite-client/tdutils/td/utils/Parser.h
-td/utils/common.h
-/root/lite-client/tdutils/td/utils/td/utils/common.h
-td/utils/format.h
-/root/lite-client/tdutils/td/utils/td/utils/format.h
-td/utils/logging.h
-/root/lite-client/tdutils/td/utils/td/utils/logging.h
-td/utils/Slice.h
-/root/lite-client/tdutils/td/utils/td/utils/Slice.h
-td/utils/Status.h
-/root/lite-client/tdutils/td/utils/td/utils/Status.h
-cstring
--
-utility
--
 
 /root/lite-client/tdutils/td/utils/Random.h
 td/utils/common.h
@@ -706,8 +662,6 @@ memory
 td/utils/common.h
 /root/lite-client/tdutils/td/utils/td/utils/common.h
 type_traits
--
-limits
 -
 
 /root/lite-client/tdutils/td/utils/Slice.h
@@ -793,8 +747,6 @@ td/utils/common.h
 /root/lite-client/tdutils/td/utils/td/utils/common.h
 td/utils/port/Clocks.h
 /root/lite-client/tdutils/td/utils/td/utils/port/Clocks.h
-atomic
--
 
 /root/lite-client/tdutils/td/utils/Timer.h
 td/utils/StringBuilder.h
@@ -833,8 +785,6 @@ td/utils/Status.h
 /root/lite-client/tdutils/td/utils/bits.h
 td/utils/common.h
 /root/lite-client/tdutils/td/utils/td/utils/common.h
-td/utils/check.h
-/root/lite-client/tdutils/td/utils/td/utils/check.h
 intrin.h
 -
 
@@ -851,8 +801,6 @@ td/utils/Slice.h
 /root/lite-client/tdutils/td/utils/td/utils/Slice.h
 atomic
 -
-cstring
--
 limits
 -
 memory
@@ -865,11 +813,11 @@ td/utils/config.h
 /root/lite-client/tdutils/td/utils/td/utils/config.h
 td/utils/port/platform.h
 /root/lite-client/tdutils/td/utils/td/utils/port/platform.h
-Winsock2.h
+WinSock2.h
 -
-ws2tcpip.h
+WS2tcpip.h
 -
-Mswsock.h
+MSWSock.h
 -
 Windows.h
 -
@@ -967,8 +915,6 @@ type_traits
 -
 utility
 -
-string
--
 
 /root/lite-client/tdutils/td/utils/port/Clocks.h
 
@@ -1011,8 +957,6 @@ sys/socket.h
 /root/lite-client/tdutils/td/utils/port/IoSlice.h
 td/utils/Slice.h
 /root/lite-client/tdutils/td/utils/port/td/utils/Slice.h
-td/utils/Span.h
-/root/lite-client/tdutils/td/utils/port/td/utils/Span.h
 sys/uio.h
 -
 
@@ -1063,10 +1007,10 @@ td/utils/port/detail/NativeFd.h
 /root/lite-client/tdutils/td/utils/port/td/utils/port/detail/NativeFd.h
 td/utils/port/detail/PollableFd.h
 /root/lite-client/tdutils/td/utils/port/td/utils/port/detail/PollableFd.h
-td/utils/port/IPAddress.h
-/root/lite-client/tdutils/td/utils/port/td/utils/port/IPAddress.h
 td/utils/port/IoSlice.h
 /root/lite-client/tdutils/td/utils/port/td/utils/port/IoSlice.h
+td/utils/port/IPAddress.h
+/root/lite-client/tdutils/td/utils/port/td/utils/port/IPAddress.h
 td/utils/Slice.h
 /root/lite-client/tdutils/td/utils/port/td/utils/Slice.h
 td/utils/Span.h
@@ -1087,6 +1031,8 @@ td/utils/common.h
 /root/lite-client/tdutils/td/utils/port/detail/td/utils/common.h
 td/utils/List.h
 /root/lite-client/tdutils/td/utils/port/detail/td/utils/List.h
+td/utils/port/detail/NativeFd.h
+/root/lite-client/tdutils/td/utils/port/detail/td/utils/port/detail/NativeFd.h
 td/utils/port/detail/PollableFd.h
 /root/lite-client/tdutils/td/utils/port/detail/td/utils/port/detail/PollableFd.h
 td/utils/port/PollBase.h
@@ -1145,10 +1091,10 @@ td/utils/Context.h
 /root/lite-client/tdutils/td/utils/port/detail/td/utils/Context.h
 td/utils/port/detail/NativeFd.h
 /root/lite-client/tdutils/td/utils/port/detail/td/utils/port/detail/NativeFd.h
-td/utils/port/thread.h
-/root/lite-client/tdutils/td/utils/port/detail/td/utils/port/thread.h
 td/utils/Status.h
 /root/lite-client/tdutils/td/utils/port/detail/td/utils/Status.h
+memory
+-
 
 /root/lite-client/tdutils/td/utils/port/detail/KQueue.h
 td/utils/port/config.h
@@ -1157,6 +1103,8 @@ td/utils/common.h
 /root/lite-client/tdutils/td/utils/port/detail/td/utils/common.h
 td/utils/List.h
 /root/lite-client/tdutils/td/utils/port/detail/td/utils/List.h
+td/utils/port/detail/NativeFd.h
+/root/lite-client/tdutils/td/utils/port/detail/td/utils/port/detail/NativeFd.h
 td/utils/port/detail/PollableFd.h
 /root/lite-client/tdutils/td/utils/port/detail/td/utils/port/detail/PollableFd.h
 td/utils/port/PollBase.h

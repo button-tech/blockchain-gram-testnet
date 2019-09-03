@@ -266,6 +266,139 @@ bool Bool::print_skip(PrettyPrinter& pp, vm::CellSlice& cs) const {
 const Bool t_Bool;
 
 //
+// code for type `BoolFalse`
+//
+
+int BoolFalse::check_tag(const vm::CellSlice& cs) const {
+  return cs.prefetch_ulong(1) == 0 ? bool_false : -1;
+}
+
+bool BoolFalse::validate_skip(vm::CellSlice& cs, bool weak) const {
+  return cs.fetch_ulong(1) == 0;
+}
+
+bool BoolFalse::fetch_enum_to(vm::CellSlice& cs, char& value) const {
+  value = (cs.fetch_ulong(1) == 0) ? 0 : -1;
+  return !value;
+}
+
+bool BoolFalse::store_enum_from(vm::CellBuilder& cb, int value) const {
+  return !value && cb.store_long_bool(0, 1);
+}
+
+bool BoolFalse::unpack(vm::CellSlice& cs, BoolFalse::Record& data) const {
+  return cs.fetch_ulong(1) == 0;
+}
+
+bool BoolFalse::unpack_bool_false(vm::CellSlice& cs) const {
+  return cs.fetch_ulong(1) == 0;
+}
+
+bool BoolFalse::cell_unpack(Ref<vm::Cell> cell_ref, BoolFalse::Record& data) const {
+  if (cell_ref.is_null()) { return false; }
+  auto cs = load_cell_slice(std::move(cell_ref));
+  return unpack(cs, data) && cs.empty_ext();
+}
+
+bool BoolFalse::cell_unpack_bool_false(Ref<vm::Cell> cell_ref) const {
+  if (cell_ref.is_null()) { return false; }
+  auto cs = load_cell_slice(std::move(cell_ref));
+  return unpack_bool_false(cs) && cs.empty_ext();
+}
+
+bool BoolFalse::pack(vm::CellBuilder& cb, const BoolFalse::Record& data) const {
+  return cb.store_long_bool(0, 1);
+}
+
+bool BoolFalse::pack_bool_false(vm::CellBuilder& cb) const {
+  return cb.store_long_bool(0, 1);
+}
+
+bool BoolFalse::cell_pack(Ref<vm::Cell>& cell_ref, const BoolFalse::Record& data) const {
+  vm::CellBuilder cb;
+  return pack(cb, data) && std::move(cb).finalize_to(cell_ref);
+}
+
+bool BoolFalse::cell_pack_bool_false(Ref<vm::Cell>& cell_ref) const {
+  vm::CellBuilder cb;
+  return pack_bool_false(cb) && std::move(cb).finalize_to(cell_ref);
+}
+
+bool BoolFalse::print_skip(PrettyPrinter& pp, vm::CellSlice& cs) const {
+  return cs.fetch_ulong(1) == 0
+      && pp.cons("bool_false");
+}
+
+const BoolFalse t_BoolFalse;
+
+//
+// code for type `BoolTrue`
+//
+constexpr unsigned char BoolTrue::cons_tag[1];
+
+int BoolTrue::check_tag(const vm::CellSlice& cs) const {
+  return cs.prefetch_ulong(1) == 1 ? bool_true : -1;
+}
+
+bool BoolTrue::validate_skip(vm::CellSlice& cs, bool weak) const {
+  return cs.fetch_ulong(1) == 1;
+}
+
+bool BoolTrue::fetch_enum_to(vm::CellSlice& cs, char& value) const {
+  value = (cs.fetch_ulong(1) == 1) ? 0 : -1;
+  return !value;
+}
+
+bool BoolTrue::store_enum_from(vm::CellBuilder& cb, int value) const {
+  return !value && cb.store_long_bool(1, 1);
+}
+
+bool BoolTrue::unpack(vm::CellSlice& cs, BoolTrue::Record& data) const {
+  return cs.fetch_ulong(1) == 1;
+}
+
+bool BoolTrue::unpack_bool_true(vm::CellSlice& cs) const {
+  return cs.fetch_ulong(1) == 1;
+}
+
+bool BoolTrue::cell_unpack(Ref<vm::Cell> cell_ref, BoolTrue::Record& data) const {
+  if (cell_ref.is_null()) { return false; }
+  auto cs = load_cell_slice(std::move(cell_ref));
+  return unpack(cs, data) && cs.empty_ext();
+}
+
+bool BoolTrue::cell_unpack_bool_true(Ref<vm::Cell> cell_ref) const {
+  if (cell_ref.is_null()) { return false; }
+  auto cs = load_cell_slice(std::move(cell_ref));
+  return unpack_bool_true(cs) && cs.empty_ext();
+}
+
+bool BoolTrue::pack(vm::CellBuilder& cb, const BoolTrue::Record& data) const {
+  return cb.store_long_bool(1, 1);
+}
+
+bool BoolTrue::pack_bool_true(vm::CellBuilder& cb) const {
+  return cb.store_long_bool(1, 1);
+}
+
+bool BoolTrue::cell_pack(Ref<vm::Cell>& cell_ref, const BoolTrue::Record& data) const {
+  vm::CellBuilder cb;
+  return pack(cb, data) && std::move(cb).finalize_to(cell_ref);
+}
+
+bool BoolTrue::cell_pack_bool_true(Ref<vm::Cell>& cell_ref) const {
+  vm::CellBuilder cb;
+  return pack_bool_true(cb) && std::move(cb).finalize_to(cell_ref);
+}
+
+bool BoolTrue::print_skip(PrettyPrinter& pp, vm::CellSlice& cs) const {
+  return cs.fetch_ulong(1) == 1
+      && pp.cons("bool_true");
+}
+
+const BoolTrue t_BoolTrue;
+
+//
 // code for type `Maybe`
 //
 
@@ -290,13 +423,13 @@ bool Maybe::skip(vm::CellSlice& cs) const {
   return false;
 }
 
-bool Maybe::validate_skip(vm::CellSlice& cs) const {
+bool Maybe::validate_skip(vm::CellSlice& cs, bool weak) const {
   switch (get_tag(cs)) {
   case nothing:
     return cs.advance(1);
   case just:
     return cs.advance(1)
-        && X_.validate_skip(cs);
+        && X_.validate_skip(cs, weak);
   }
   return false;
 }
@@ -423,14 +556,14 @@ bool Either::skip(vm::CellSlice& cs) const {
   return false;
 }
 
-bool Either::validate_skip(vm::CellSlice& cs) const {
+bool Either::validate_skip(vm::CellSlice& cs, bool weak) const {
   switch (get_tag(cs)) {
   case left:
     return cs.advance(1)
-        && X_.validate_skip(cs);
+        && X_.validate_skip(cs, weak);
   case right:
     return cs.advance(1)
-        && Y_.validate_skip(cs);
+        && Y_.validate_skip(cs, weak);
   }
   return false;
 }
@@ -551,9 +684,9 @@ bool Both::skip(vm::CellSlice& cs) const {
       && Y_.skip(cs);
 }
 
-bool Both::validate_skip(vm::CellSlice& cs) const {
-  return X_.validate_skip(cs)
-      && Y_.validate_skip(cs);
+bool Both::validate_skip(vm::CellSlice& cs, bool weak) const {
+  return X_.validate_skip(cs, weak)
+      && Y_.validate_skip(cs, weak);
 }
 
 bool Both::unpack(vm::CellSlice& cs, Both::Record& data) const {
@@ -679,11 +812,11 @@ bool Hashmap::skip(vm::CellSlice& cs) const {
       && HashmapNode{m, X_}.skip(cs);
 }
 
-bool Hashmap::validate_skip(vm::CellSlice& cs) const {
+bool Hashmap::validate_skip(vm::CellSlice& cs, bool weak) const {
   int l, m;
-  return HmLabel{m_}.validate_skip(cs, l)
+  return HmLabel{m_}.validate_skip(cs, weak, l)
       && add_r1(m, l, m_)
-      && HashmapNode{m, X_}.validate_skip(cs);
+      && HashmapNode{m, X_}.validate_skip(cs, weak);
 }
 
 bool Hashmap::unpack(vm::CellSlice& cs, Hashmap::Record& data) const {
@@ -756,16 +889,16 @@ bool HashmapNode::skip(vm::CellSlice& cs) const {
   return false;
 }
 
-bool HashmapNode::validate_skip(vm::CellSlice& cs) const {
+bool HashmapNode::validate_skip(vm::CellSlice& cs, bool weak) const {
   switch (get_tag(cs)) {
   case hmn_leaf:
     return m_ == 0
-        && X_.validate_skip(cs);
+        && X_.validate_skip(cs, weak);
   case hmn_fork: {
     int n;
     return add_r1(n, 1, m_)
-        && Hashmap{n, X_}.validate_skip_ref(cs)
-        && Hashmap{n, X_}.validate_skip_ref(cs);
+        && Hashmap{n, X_}.validate_skip_ref(cs, weak)
+        && Hashmap{n, X_}.validate_skip_ref(cs, weak);
     }
   }
   return false;
@@ -944,12 +1077,12 @@ bool HmLabel::skip(vm::CellSlice& cs, int& m_) const {
   return false;
 }
 
-bool HmLabel::validate_skip(vm::CellSlice& cs) const {
+bool HmLabel::validate_skip(vm::CellSlice& cs, bool weak) const {
   switch (get_tag(cs)) {
   case hml_short: {
     int m_;
     return cs.advance(1)
-        && t_Unary.validate_skip(cs, m_)
+        && t_Unary.validate_skip(cs, weak, m_)
         && m_ <= n_
         && cs.advance(m_);
     }
@@ -968,11 +1101,11 @@ bool HmLabel::validate_skip(vm::CellSlice& cs) const {
   return false;
 }
 
-bool HmLabel::validate_skip(vm::CellSlice& cs, int& m_) const {
+bool HmLabel::validate_skip(vm::CellSlice& cs, bool weak, int& m_) const {
   switch (get_tag(cs)) {
   case hml_short:
     return cs.advance(1)
-        && t_Unary.validate_skip(cs, m_)
+        && t_Unary.validate_skip(cs, weak, m_)
         && m_ <= n_
         && cs.advance(m_);
   case hml_long:
@@ -1227,20 +1360,20 @@ bool Unary::skip(vm::CellSlice& cs, int& m_) const {
   return false;
 }
 
-bool Unary::validate_skip(vm::CellSlice& cs) const {
+bool Unary::validate_skip(vm::CellSlice& cs, bool weak) const {
   switch (get_tag(cs)) {
   case unary_zero:
     return cs.advance(1);
   case unary_succ: {
     int n;
     return cs.advance(1)
-        && validate_skip(cs, n);
+        && validate_skip(cs, weak, n);
     }
   }
   return false;
 }
 
-bool Unary::validate_skip(vm::CellSlice& cs, int& m_) const {
+bool Unary::validate_skip(vm::CellSlice& cs, bool weak, int& m_) const {
   switch (get_tag(cs)) {
   case unary_zero:
     return (m_ = 0) >= 0
@@ -1248,7 +1381,7 @@ bool Unary::validate_skip(vm::CellSlice& cs, int& m_) const {
   case unary_succ: {
     int n;
     return cs.advance(1)
-        && validate_skip(cs, n)
+        && validate_skip(cs, weak, n)
         && (m_ = n + 1) >= 0;
     }
   }
@@ -1412,13 +1545,13 @@ bool HashmapE::skip(vm::CellSlice& cs) const {
   return false;
 }
 
-bool HashmapE::validate_skip(vm::CellSlice& cs) const {
+bool HashmapE::validate_skip(vm::CellSlice& cs, bool weak) const {
   switch (get_tag(cs)) {
   case hme_empty:
     return cs.advance(1);
   case hme_root:
     return cs.advance(1)
-        && Hashmap{m_, X_}.validate_skip_ref(cs);
+        && Hashmap{m_, X_}.validate_skip_ref(cs, weak);
   }
   return false;
 }
@@ -1533,8 +1666,8 @@ bool BitstringSet::skip(vm::CellSlice& cs) const {
   return Hashmap{m_, t_True}.skip(cs);
 }
 
-bool BitstringSet::validate_skip(vm::CellSlice& cs) const {
-  return Hashmap{m_, t_True}.validate_skip(cs);
+bool BitstringSet::validate_skip(vm::CellSlice& cs, bool weak) const {
+  return Hashmap{m_, t_True}.validate_skip(cs, weak);
 }
 
 bool BitstringSet::unpack(vm::CellSlice& cs, BitstringSet::Record& data) const {
@@ -1600,11 +1733,11 @@ bool HashmapAug::skip(vm::CellSlice& cs) const {
       && HashmapAugNode{m, X_, Y_}.skip(cs);
 }
 
-bool HashmapAug::validate_skip(vm::CellSlice& cs) const {
+bool HashmapAug::validate_skip(vm::CellSlice& cs, bool weak) const {
   int l, m;
-  return HmLabel{m_}.validate_skip(cs, l)
+  return HmLabel{m_}.validate_skip(cs, weak, l)
       && add_r1(m, l, m_)
-      && HashmapAugNode{m, X_, Y_}.validate_skip(cs);
+      && HashmapAugNode{m, X_, Y_}.validate_skip(cs, weak);
 }
 
 bool HashmapAug::unpack(vm::CellSlice& cs, HashmapAug::Record& data) const {
@@ -1679,18 +1812,18 @@ bool HashmapAugNode::skip(vm::CellSlice& cs) const {
   return false;
 }
 
-bool HashmapAugNode::validate_skip(vm::CellSlice& cs) const {
+bool HashmapAugNode::validate_skip(vm::CellSlice& cs, bool weak) const {
   switch (get_tag(cs)) {
   case ahmn_leaf:
     return m_ == 0
-        && Y_.validate_skip(cs)
-        && X_.validate_skip(cs);
+        && Y_.validate_skip(cs, weak)
+        && X_.validate_skip(cs, weak);
   case ahmn_fork: {
     int n;
     return add_r1(n, 1, m_)
-        && HashmapAug{n, X_, Y_}.validate_skip_ref(cs)
-        && HashmapAug{n, X_, Y_}.validate_skip_ref(cs)
-        && Y_.validate_skip(cs);
+        && HashmapAug{n, X_, Y_}.validate_skip_ref(cs, weak)
+        && HashmapAug{n, X_, Y_}.validate_skip_ref(cs, weak)
+        && Y_.validate_skip(cs, weak);
     }
   }
   return false;
@@ -1821,15 +1954,15 @@ bool HashmapAugE::skip(vm::CellSlice& cs) const {
   return false;
 }
 
-bool HashmapAugE::validate_skip(vm::CellSlice& cs) const {
+bool HashmapAugE::validate_skip(vm::CellSlice& cs, bool weak) const {
   switch (get_tag(cs)) {
   case ahme_empty:
     return cs.advance(1)
-        && Y_.validate_skip(cs);
+        && Y_.validate_skip(cs, weak);
   case ahme_root:
     return cs.advance(1)
-        && HashmapAug{m_, X_, Y_}.validate_skip_ref(cs)
-        && Y_.validate_skip(cs);
+        && HashmapAug{m_, X_, Y_}.validate_skip_ref(cs, weak)
+        && Y_.validate_skip(cs, weak);
   }
   return false;
 }
@@ -1960,11 +2093,11 @@ bool VarHashmap::skip(vm::CellSlice& cs) const {
       && VarHashmapNode{m, X_}.skip(cs);
 }
 
-bool VarHashmap::validate_skip(vm::CellSlice& cs) const {
+bool VarHashmap::validate_skip(vm::CellSlice& cs, bool weak) const {
   int l, m;
-  return HmLabel{m_}.validate_skip(cs, l)
+  return HmLabel{m_}.validate_skip(cs, weak, l)
       && add_r1(m, l, m_)
-      && VarHashmapNode{m, X_}.validate_skip(cs);
+      && VarHashmapNode{m, X_}.validate_skip(cs, weak);
 }
 
 bool VarHashmap::unpack(vm::CellSlice& cs, VarHashmap::Record& data) const {
@@ -2043,25 +2176,25 @@ bool VarHashmapNode::skip(vm::CellSlice& cs) const {
   return false;
 }
 
-bool VarHashmapNode::validate_skip(vm::CellSlice& cs) const {
+bool VarHashmapNode::validate_skip(vm::CellSlice& cs, bool weak) const {
   switch (get_tag(cs)) {
   case vhmn_leaf:
     return cs.advance(2)
-        && X_.validate_skip(cs);
+        && X_.validate_skip(cs, weak);
   case vhmn_fork: {
     int n;
     return add_r1(n, 1, m_)
         && cs.advance(2)
-        && VarHashmap{n, X_}.validate_skip_ref(cs)
-        && VarHashmap{n, X_}.validate_skip_ref(cs)
-        && Maybe{X_}.validate_skip(cs);
+        && VarHashmap{n, X_}.validate_skip_ref(cs, weak)
+        && VarHashmap{n, X_}.validate_skip_ref(cs, weak)
+        && Maybe{X_}.validate_skip(cs, weak);
     }
   case vhmn_cont: {
     int n;
     return add_r1(n, 1, m_)
         && cs.advance(2)
-        && VarHashmap{n, X_}.validate_skip_ref(cs)
-        && X_.validate_skip(cs);
+        && VarHashmap{n, X_}.validate_skip_ref(cs, weak)
+        && X_.validate_skip(cs, weak);
     }
   }
   return false;
@@ -2227,13 +2360,13 @@ bool VarHashmapE::skip(vm::CellSlice& cs) const {
   return false;
 }
 
-bool VarHashmapE::validate_skip(vm::CellSlice& cs) const {
+bool VarHashmapE::validate_skip(vm::CellSlice& cs, bool weak) const {
   switch (get_tag(cs)) {
   case vhme_empty:
     return cs.advance(1);
   case vhme_root:
     return cs.advance(1)
-        && VarHashmap{m_, X_}.validate_skip_ref(cs);
+        && VarHashmap{m_, X_}.validate_skip_ref(cs, weak);
   }
   return false;
 }
@@ -2351,11 +2484,11 @@ bool PfxHashmap::skip(vm::CellSlice& cs) const {
       && PfxHashmapNode{m, X_}.skip(cs);
 }
 
-bool PfxHashmap::validate_skip(vm::CellSlice& cs) const {
+bool PfxHashmap::validate_skip(vm::CellSlice& cs, bool weak) const {
   int l, m;
-  return HmLabel{m_}.validate_skip(cs, l)
+  return HmLabel{m_}.validate_skip(cs, weak, l)
       && add_r1(m, l, m_)
-      && PfxHashmapNode{m, X_}.validate_skip(cs);
+      && PfxHashmapNode{m, X_}.validate_skip(cs, weak);
 }
 
 bool PfxHashmap::unpack(vm::CellSlice& cs, PfxHashmap::Record& data) const {
@@ -2423,17 +2556,17 @@ bool PfxHashmapNode::skip(vm::CellSlice& cs) const {
   return false;
 }
 
-bool PfxHashmapNode::validate_skip(vm::CellSlice& cs) const {
+bool PfxHashmapNode::validate_skip(vm::CellSlice& cs, bool weak) const {
   switch (get_tag(cs)) {
   case phmn_leaf:
     return cs.advance(1)
-        && X_.validate_skip(cs);
+        && X_.validate_skip(cs, weak);
   case phmn_fork: {
     int n;
     return add_r1(n, 1, m_)
         && cs.advance(1)
-        && PfxHashmap{n, X_}.validate_skip_ref(cs)
-        && PfxHashmap{n, X_}.validate_skip_ref(cs);
+        && PfxHashmap{n, X_}.validate_skip_ref(cs, weak)
+        && PfxHashmap{n, X_}.validate_skip_ref(cs, weak);
     }
   }
   return false;
@@ -2581,13 +2714,13 @@ bool PfxHashmapE::skip(vm::CellSlice& cs) const {
   return false;
 }
 
-bool PfxHashmapE::validate_skip(vm::CellSlice& cs) const {
+bool PfxHashmapE::validate_skip(vm::CellSlice& cs, bool weak) const {
   switch (get_tag(cs)) {
   case phme_empty:
     return cs.advance(1);
   case phme_root:
     return cs.advance(1)
-        && PfxHashmap{m_, X_}.validate_skip_ref(cs);
+        && PfxHashmap{m_, X_}.validate_skip_ref(cs, weak);
   }
   return false;
 }
@@ -2718,7 +2851,7 @@ bool MsgAddressExt::skip(vm::CellSlice& cs) const {
   return false;
 }
 
-bool MsgAddressExt::validate_skip(vm::CellSlice& cs) const {
+bool MsgAddressExt::validate_skip(vm::CellSlice& cs, bool weak) const {
   switch (get_tag(cs)) {
   case addr_none:
     return cs.advance(2);
@@ -2851,7 +2984,7 @@ bool Anycast::skip(vm::CellSlice& cs) const {
       && cs.advance(depth);
 }
 
-bool Anycast::validate_skip(vm::CellSlice& cs) const {
+bool Anycast::validate_skip(vm::CellSlice& cs, bool weak) const {
   int depth;
   return cs.fetch_uint_leq(30, depth)
       && 1 <= depth
@@ -2949,16 +3082,16 @@ bool MsgAddressInt::skip(vm::CellSlice& cs) const {
   return false;
 }
 
-bool MsgAddressInt::validate_skip(vm::CellSlice& cs) const {
+bool MsgAddressInt::validate_skip(vm::CellSlice& cs, bool weak) const {
   switch (get_tag(cs)) {
   case addr_std:
     return cs.advance(2)
-        && t_Maybe_Anycast.validate_skip(cs)
+        && t_Maybe_Anycast.validate_skip(cs, weak)
         && cs.advance(264);
   case addr_var: {
     int addr_len;
     return cs.advance(2)
-        && t_Maybe_Anycast.validate_skip(cs)
+        && t_Maybe_Anycast.validate_skip(cs, weak)
         && cs.fetch_uint_to(9, addr_len)
         && cs.advance(32)
         && cs.advance(addr_len);
@@ -3096,12 +3229,12 @@ bool MsgAddress::skip(vm::CellSlice& cs) const {
   return false;
 }
 
-bool MsgAddress::validate_skip(vm::CellSlice& cs) const {
+bool MsgAddress::validate_skip(vm::CellSlice& cs, bool weak) const {
   switch (get_tag(cs)) {
   case cons1:
-    return t_MsgAddressInt.validate_skip(cs);
+    return t_MsgAddressInt.validate_skip(cs, weak);
   case cons2:
-    return t_MsgAddressExt.validate_skip(cs);
+    return t_MsgAddressExt.validate_skip(cs, weak);
   }
   return false;
 }
@@ -3214,7 +3347,7 @@ bool VarUInteger::skip(vm::CellSlice& cs) const {
       && cs.advance(8 * len);
 }
 
-bool VarUInteger::validate_skip(vm::CellSlice& cs) const {
+bool VarUInteger::validate_skip(vm::CellSlice& cs, bool weak) const {
   int len;
   return cs.fetch_uint_less(m_, len)
       && cs.advance(8 * len);
@@ -3288,7 +3421,7 @@ bool VarInteger::skip(vm::CellSlice& cs) const {
       && cs.advance(8 * len);
 }
 
-bool VarInteger::validate_skip(vm::CellSlice& cs) const {
+bool VarInteger::validate_skip(vm::CellSlice& cs, bool weak) const {
   int len;
   return cs.fetch_uint_less(m_, len)
       && cs.advance(8 * len);
@@ -3360,8 +3493,8 @@ bool Grams::skip(vm::CellSlice& cs) const {
   return t_VarUInteger_16.skip(cs);
 }
 
-bool Grams::validate_skip(vm::CellSlice& cs) const {
-  return t_VarUInteger_16.validate_skip(cs);
+bool Grams::validate_skip(vm::CellSlice& cs, bool weak) const {
+  return t_VarUInteger_16.validate_skip(cs, weak);
 }
 
 bool Grams::unpack(vm::CellSlice& cs, Grams::Record& data) const {
@@ -3423,8 +3556,8 @@ bool ExtraCurrencyCollection::skip(vm::CellSlice& cs) const {
   return t_HashmapE_32_VarUInteger_32.skip(cs);
 }
 
-bool ExtraCurrencyCollection::validate_skip(vm::CellSlice& cs) const {
-  return t_HashmapE_32_VarUInteger_32.validate_skip(cs);
+bool ExtraCurrencyCollection::validate_skip(vm::CellSlice& cs, bool weak) const {
+  return t_HashmapE_32_VarUInteger_32.validate_skip(cs, weak);
 }
 
 bool ExtraCurrencyCollection::unpack(vm::CellSlice& cs, ExtraCurrencyCollection::Record& data) const {
@@ -3487,9 +3620,9 @@ bool CurrencyCollection::skip(vm::CellSlice& cs) const {
       && t_ExtraCurrencyCollection.skip(cs);
 }
 
-bool CurrencyCollection::validate_skip(vm::CellSlice& cs) const {
-  return t_Grams.validate_skip(cs)
-      && t_ExtraCurrencyCollection.validate_skip(cs);
+bool CurrencyCollection::validate_skip(vm::CellSlice& cs, bool weak) const {
+  return t_Grams.validate_skip(cs, weak)
+      && t_ExtraCurrencyCollection.validate_skip(cs, weak);
 }
 
 bool CurrencyCollection::unpack(vm::CellSlice& cs, CurrencyCollection::Record& data) const {
@@ -3587,25 +3720,25 @@ bool CommonMsgInfo::skip(vm::CellSlice& cs) const {
   return false;
 }
 
-bool CommonMsgInfo::validate_skip(vm::CellSlice& cs) const {
+bool CommonMsgInfo::validate_skip(vm::CellSlice& cs, bool weak) const {
   switch (get_tag(cs)) {
   case int_msg_info:
     return cs.advance(4)
-        && t_MsgAddressInt.validate_skip(cs)
-        && t_MsgAddressInt.validate_skip(cs)
-        && t_CurrencyCollection.validate_skip(cs)
-        && t_Grams.validate_skip(cs)
-        && t_Grams.validate_skip(cs)
+        && t_MsgAddressInt.validate_skip(cs, weak)
+        && t_MsgAddressInt.validate_skip(cs, weak)
+        && t_CurrencyCollection.validate_skip(cs, weak)
+        && t_Grams.validate_skip(cs, weak)
+        && t_Grams.validate_skip(cs, weak)
         && cs.advance(96);
   case ext_in_msg_info:
     return cs.advance(2)
-        && t_MsgAddressExt.validate_skip(cs)
-        && t_MsgAddressInt.validate_skip(cs)
-        && t_Grams.validate_skip(cs);
+        && t_MsgAddressExt.validate_skip(cs, weak)
+        && t_MsgAddressInt.validate_skip(cs, weak)
+        && t_Grams.validate_skip(cs, weak);
   case ext_out_msg_info:
     return cs.advance(2)
-        && t_MsgAddressInt.validate_skip(cs)
-        && t_MsgAddressExt.validate_skip(cs)
+        && t_MsgAddressInt.validate_skip(cs, weak)
+        && t_MsgAddressExt.validate_skip(cs, weak)
         && cs.advance(96);
   }
   return false;
@@ -3809,20 +3942,20 @@ bool CommonMsgInfoRelaxed::skip(vm::CellSlice& cs) const {
   return false;
 }
 
-bool CommonMsgInfoRelaxed::validate_skip(vm::CellSlice& cs) const {
+bool CommonMsgInfoRelaxed::validate_skip(vm::CellSlice& cs, bool weak) const {
   switch (get_tag(cs)) {
   case int_msg_info:
     return cs.advance(4)
-        && t_MsgAddress.validate_skip(cs)
-        && t_MsgAddressInt.validate_skip(cs)
-        && t_CurrencyCollection.validate_skip(cs)
-        && t_Grams.validate_skip(cs)
-        && t_Grams.validate_skip(cs)
+        && t_MsgAddress.validate_skip(cs, weak)
+        && t_MsgAddressInt.validate_skip(cs, weak)
+        && t_CurrencyCollection.validate_skip(cs, weak)
+        && t_Grams.validate_skip(cs, weak)
+        && t_Grams.validate_skip(cs, weak)
         && cs.advance(96);
   case ext_out_msg_info:
     return cs.fetch_ulong(2) == 3
-        && t_MsgAddress.validate_skip(cs)
-        && t_MsgAddressExt.validate_skip(cs)
+        && t_MsgAddress.validate_skip(cs, weak)
+        && t_MsgAddressExt.validate_skip(cs, weak)
         && cs.advance(96);
   }
   return false;
@@ -4006,12 +4139,12 @@ bool StateInit::skip(vm::CellSlice& cs) const {
       && t_HashmapE_256_SimpleLib.skip(cs);
 }
 
-bool StateInit::validate_skip(vm::CellSlice& cs) const {
-  return t_Maybe_natwidth_5.validate_skip(cs)
-      && t_Maybe_TickTock.validate_skip(cs)
-      && t_Maybe_Ref_Cell.validate_skip(cs)
-      && t_Maybe_Ref_Cell.validate_skip(cs)
-      && t_HashmapE_256_SimpleLib.validate_skip(cs);
+bool StateInit::validate_skip(vm::CellSlice& cs, bool weak) const {
+  return t_Maybe_natwidth_5.validate_skip(cs, weak)
+      && t_Maybe_TickTock.validate_skip(cs, weak)
+      && t_Maybe_Ref_Cell.validate_skip(cs, weak)
+      && t_Maybe_Ref_Cell.validate_skip(cs, weak)
+      && t_HashmapE_256_SimpleLib.validate_skip(cs, weak);
 }
 
 bool StateInit::unpack(vm::CellSlice& cs, StateInit::Record& data) const {
@@ -4066,7 +4199,7 @@ int SimpleLib::check_tag(const vm::CellSlice& cs) const {
   return simple_lib;
 }
 
-bool SimpleLib::validate_skip(vm::CellSlice& cs) const {
+bool SimpleLib::validate_skip(vm::CellSlice& cs, bool weak) const {
   return cs.advance_ext(0x10001);
 }
 
@@ -4136,10 +4269,10 @@ bool Message::skip(vm::CellSlice& cs) const {
       && Either{X_, RefT{X_}}.skip(cs);
 }
 
-bool Message::validate_skip(vm::CellSlice& cs) const {
-  return t_CommonMsgInfo.validate_skip(cs)
-      && t_Maybe_Either_StateInit_Ref_StateInit.validate_skip(cs)
-      && Either{X_, RefT{X_}}.validate_skip(cs);
+bool Message::validate_skip(vm::CellSlice& cs, bool weak) const {
+  return t_CommonMsgInfo.validate_skip(cs, weak)
+      && t_Maybe_Either_StateInit_Ref_StateInit.validate_skip(cs, weak)
+      && Either{X_, RefT{X_}}.validate_skip(cs, weak);
 }
 
 bool Message::unpack(vm::CellSlice& cs, Message::Record& data) const {
@@ -4214,10 +4347,10 @@ bool MessageRelaxed::skip(vm::CellSlice& cs) const {
       && Either{X_, RefT{X_}}.skip(cs);
 }
 
-bool MessageRelaxed::validate_skip(vm::CellSlice& cs) const {
-  return t_CommonMsgInfoRelaxed.validate_skip(cs)
-      && t_Maybe_Either_StateInit_Ref_StateInit.validate_skip(cs)
-      && Either{X_, RefT{X_}}.validate_skip(cs);
+bool MessageRelaxed::validate_skip(vm::CellSlice& cs, bool weak) const {
+  return t_CommonMsgInfoRelaxed.validate_skip(cs, weak)
+      && t_Maybe_Either_StateInit_Ref_StateInit.validate_skip(cs, weak)
+      && Either{X_, RefT{X_}}.validate_skip(cs, weak);
 }
 
 bool MessageRelaxed::unpack(vm::CellSlice& cs, MessageRelaxed::Record& data) const {
@@ -4308,7 +4441,7 @@ bool IntermediateAddress::skip(vm::CellSlice& cs) const {
   return false;
 }
 
-bool IntermediateAddress::validate_skip(vm::CellSlice& cs) const {
+bool IntermediateAddress::validate_skip(vm::CellSlice& cs, bool weak) const {
   switch (get_tag(cs)) {
   case interm_addr_regular: {
     int use_dest_bits;
@@ -4502,12 +4635,12 @@ bool MsgEnvelope::skip(vm::CellSlice& cs) const {
       && cs.advance_refs(1);
 }
 
-bool MsgEnvelope::validate_skip(vm::CellSlice& cs) const {
+bool MsgEnvelope::validate_skip(vm::CellSlice& cs, bool weak) const {
   return cs.fetch_ulong(4) == 4
-      && t_IntermediateAddress.validate_skip(cs)
-      && t_IntermediateAddress.validate_skip(cs)
-      && t_Grams.validate_skip(cs)
-      && t_Message_Any.validate_skip_ref(cs);
+      && t_IntermediateAddress.validate_skip(cs, weak)
+      && t_IntermediateAddress.validate_skip(cs, weak)
+      && t_Grams.validate_skip(cs, weak)
+      && t_Message_Any.validate_skip_ref(cs, weak);
 }
 
 bool MsgEnvelope::unpack(vm::CellSlice& cs, MsgEnvelope::Record& data) const {
@@ -4606,43 +4739,43 @@ bool InMsg::skip(vm::CellSlice& cs) const {
   return false;
 }
 
-bool InMsg::validate_skip(vm::CellSlice& cs) const {
+bool InMsg::validate_skip(vm::CellSlice& cs, bool weak) const {
   switch (get_tag(cs)) {
   case msg_import_ext:
     return cs.fetch_ulong(3) == 0
-        && t_Message_Any.validate_skip_ref(cs)
-        && t_Transaction.validate_skip_ref(cs);
+        && t_Message_Any.validate_skip_ref(cs, weak)
+        && t_Transaction.validate_skip_ref(cs, weak);
   case msg_import_ihr:
     return cs.advance(3)
-        && t_Message_Any.validate_skip_ref(cs)
-        && t_Transaction.validate_skip_ref(cs)
-        && t_Grams.validate_skip(cs)
+        && t_Message_Any.validate_skip_ref(cs, weak)
+        && t_Transaction.validate_skip_ref(cs, weak)
+        && t_Grams.validate_skip(cs, weak)
         && cs.advance_refs(1);
   case msg_import_imm:
     return cs.advance(3)
-        && t_MsgEnvelope.validate_skip_ref(cs)
-        && t_Transaction.validate_skip_ref(cs)
-        && t_Grams.validate_skip(cs);
+        && t_MsgEnvelope.validate_skip_ref(cs, weak)
+        && t_Transaction.validate_skip_ref(cs, weak)
+        && t_Grams.validate_skip(cs, weak);
   case msg_import_fin:
     return cs.advance(3)
-        && t_MsgEnvelope.validate_skip_ref(cs)
-        && t_Transaction.validate_skip_ref(cs)
-        && t_Grams.validate_skip(cs);
+        && t_MsgEnvelope.validate_skip_ref(cs, weak)
+        && t_Transaction.validate_skip_ref(cs, weak)
+        && t_Grams.validate_skip(cs, weak);
   case msg_import_tr:
     return cs.advance(3)
-        && t_MsgEnvelope.validate_skip_ref(cs)
-        && t_MsgEnvelope.validate_skip_ref(cs)
-        && t_Grams.validate_skip(cs);
+        && t_MsgEnvelope.validate_skip_ref(cs, weak)
+        && t_MsgEnvelope.validate_skip_ref(cs, weak)
+        && t_Grams.validate_skip(cs, weak);
   case msg_discard_fin:
     return cs.advance(3)
-        && t_MsgEnvelope.validate_skip_ref(cs)
+        && t_MsgEnvelope.validate_skip_ref(cs, weak)
         && cs.advance(64)
-        && t_Grams.validate_skip(cs);
+        && t_Grams.validate_skip(cs, weak);
   case msg_discard_tr:
     return cs.advance(3)
-        && t_MsgEnvelope.validate_skip_ref(cs)
+        && t_MsgEnvelope.validate_skip_ref(cs, weak)
         && cs.advance(64)
-        && t_Grams.validate_skip(cs)
+        && t_Grams.validate_skip(cs, weak)
         && cs.advance_refs(1);
   }
   return false;
@@ -5039,9 +5172,9 @@ bool ImportFees::skip(vm::CellSlice& cs) const {
       && t_CurrencyCollection.skip(cs);
 }
 
-bool ImportFees::validate_skip(vm::CellSlice& cs) const {
-  return t_Grams.validate_skip(cs)
-      && t_CurrencyCollection.validate_skip(cs);
+bool ImportFees::validate_skip(vm::CellSlice& cs, bool weak) const {
+  return t_Grams.validate_skip(cs, weak)
+      && t_CurrencyCollection.validate_skip(cs, weak);
 }
 
 bool ImportFees::unpack(vm::CellSlice& cs, ImportFees::Record& data) const {
@@ -5109,8 +5242,8 @@ bool InMsgDescr::skip(vm::CellSlice& cs) const {
   return t_HashmapAugE_256_InMsg_ImportFees.skip(cs);
 }
 
-bool InMsgDescr::validate_skip(vm::CellSlice& cs) const {
-  return t_HashmapAugE_256_InMsg_ImportFees.validate_skip(cs);
+bool InMsgDescr::validate_skip(vm::CellSlice& cs, bool weak) const {
+  return t_HashmapAugE_256_InMsg_ImportFees.validate_skip(cs, weak);
 }
 
 bool InMsgDescr::unpack(vm::CellSlice& cs, InMsgDescr::Record& data) const {
@@ -5205,37 +5338,37 @@ bool OutMsg::skip(vm::CellSlice& cs) const {
   return false;
 }
 
-bool OutMsg::validate_skip(vm::CellSlice& cs) const {
+bool OutMsg::validate_skip(vm::CellSlice& cs, bool weak) const {
   switch (get_tag(cs)) {
   case msg_export_ext:
     return cs.advance(3)
-        && t_Message_Any.validate_skip_ref(cs)
-        && t_Transaction.validate_skip_ref(cs);
+        && t_Message_Any.validate_skip_ref(cs, weak)
+        && t_Transaction.validate_skip_ref(cs, weak);
   case msg_export_imm:
     return cs.advance(3)
-        && t_MsgEnvelope.validate_skip_ref(cs)
-        && t_Transaction.validate_skip_ref(cs)
-        && t_InMsg.validate_skip_ref(cs);
+        && t_MsgEnvelope.validate_skip_ref(cs, weak)
+        && t_Transaction.validate_skip_ref(cs, weak)
+        && t_InMsg.validate_skip_ref(cs, weak);
   case msg_export_new:
     return cs.advance(3)
-        && t_MsgEnvelope.validate_skip_ref(cs)
-        && t_Transaction.validate_skip_ref(cs);
+        && t_MsgEnvelope.validate_skip_ref(cs, weak)
+        && t_Transaction.validate_skip_ref(cs, weak);
   case msg_export_tr:
     return cs.advance(3)
-        && t_MsgEnvelope.validate_skip_ref(cs)
-        && t_InMsg.validate_skip_ref(cs);
+        && t_MsgEnvelope.validate_skip_ref(cs, weak)
+        && t_InMsg.validate_skip_ref(cs, weak);
   case msg_export_deq:
     return cs.advance(3)
-        && t_MsgEnvelope.validate_skip_ref(cs)
+        && t_MsgEnvelope.validate_skip_ref(cs, weak)
         && cs.advance(64);
   case msg_export_tr_req:
     return cs.advance(3)
-        && t_MsgEnvelope.validate_skip_ref(cs)
-        && t_InMsg.validate_skip_ref(cs);
+        && t_MsgEnvelope.validate_skip_ref(cs, weak)
+        && t_InMsg.validate_skip_ref(cs, weak);
   case msg_export_deq_imm:
     return cs.fetch_ulong(3) == 4
-        && t_MsgEnvelope.validate_skip_ref(cs)
-        && t_InMsg.validate_skip_ref(cs);
+        && t_MsgEnvelope.validate_skip_ref(cs, weak)
+        && t_InMsg.validate_skip_ref(cs, weak);
   }
   return false;
 }
@@ -5639,9 +5772,9 @@ int EnqueuedMsg::check_tag(const vm::CellSlice& cs) const {
   return cons1;
 }
 
-bool EnqueuedMsg::validate_skip(vm::CellSlice& cs) const {
+bool EnqueuedMsg::validate_skip(vm::CellSlice& cs, bool weak) const {
   return cs.advance(64)
-      && t_MsgEnvelope.validate_skip_ref(cs);
+      && t_MsgEnvelope.validate_skip_ref(cs, weak);
 }
 
 bool EnqueuedMsg::unpack(vm::CellSlice& cs, EnqueuedMsg::Record& data) const {
@@ -5708,8 +5841,8 @@ bool OutMsgDescr::skip(vm::CellSlice& cs) const {
   return t_HashmapAugE_256_OutMsg_CurrencyCollection.skip(cs);
 }
 
-bool OutMsgDescr::validate_skip(vm::CellSlice& cs) const {
-  return t_HashmapAugE_256_OutMsg_CurrencyCollection.validate_skip(cs);
+bool OutMsgDescr::validate_skip(vm::CellSlice& cs, bool weak) const {
+  return t_HashmapAugE_256_OutMsg_CurrencyCollection.validate_skip(cs, weak);
 }
 
 bool OutMsgDescr::unpack(vm::CellSlice& cs, OutMsgDescr::Record& data) const {
@@ -5771,8 +5904,8 @@ bool OutMsgQueue::skip(vm::CellSlice& cs) const {
   return t_HashmapAugE_352_EnqueuedMsg_uint64.skip(cs);
 }
 
-bool OutMsgQueue::validate_skip(vm::CellSlice& cs) const {
-  return t_HashmapAugE_352_EnqueuedMsg_uint64.validate_skip(cs);
+bool OutMsgQueue::validate_skip(vm::CellSlice& cs, bool weak) const {
+  return t_HashmapAugE_352_EnqueuedMsg_uint64.validate_skip(cs, weak);
 }
 
 bool OutMsgQueue::unpack(vm::CellSlice& cs, OutMsgQueue::Record& data) const {
@@ -5893,8 +6026,8 @@ bool ProcessedInfo::skip(vm::CellSlice& cs) const {
   return t_HashmapE_96_ProcessedUpto.skip(cs);
 }
 
-bool ProcessedInfo::validate_skip(vm::CellSlice& cs) const {
-  return t_HashmapE_96_ProcessedUpto.validate_skip(cs);
+bool ProcessedInfo::validate_skip(vm::CellSlice& cs, bool weak) const {
+  return t_HashmapE_96_ProcessedUpto.validate_skip(cs, weak);
 }
 
 bool ProcessedInfo::unpack(vm::CellSlice& cs, ProcessedInfo::Record& data) const {
@@ -6010,8 +6143,8 @@ bool IhrPendingInfo::skip(vm::CellSlice& cs) const {
   return t_HashmapE_320_IhrPendingSince.skip(cs);
 }
 
-bool IhrPendingInfo::validate_skip(vm::CellSlice& cs) const {
-  return t_HashmapE_320_IhrPendingSince.validate_skip(cs);
+bool IhrPendingInfo::validate_skip(vm::CellSlice& cs, bool weak) const {
+  return t_HashmapE_320_IhrPendingSince.validate_skip(cs, weak);
 }
 
 bool IhrPendingInfo::unpack(vm::CellSlice& cs, IhrPendingInfo::Record& data) const {
@@ -6075,10 +6208,10 @@ bool OutMsgQueueInfo::skip(vm::CellSlice& cs) const {
       && t_IhrPendingInfo.skip(cs);
 }
 
-bool OutMsgQueueInfo::validate_skip(vm::CellSlice& cs) const {
-  return t_OutMsgQueue.validate_skip(cs)
-      && t_ProcessedInfo.validate_skip(cs)
-      && t_IhrPendingInfo.validate_skip(cs);
+bool OutMsgQueueInfo::validate_skip(vm::CellSlice& cs, bool weak) const {
+  return t_OutMsgQueue.validate_skip(cs, weak)
+      && t_ProcessedInfo.validate_skip(cs, weak)
+      && t_IhrPendingInfo.validate_skip(cs, weak);
 }
 
 bool OutMsgQueueInfo::unpack(vm::CellSlice& cs, OutMsgQueueInfo::Record& data) const {
@@ -6154,10 +6287,10 @@ bool StorageUsed::skip(vm::CellSlice& cs) const {
       && t_VarUInteger_7.skip(cs);
 }
 
-bool StorageUsed::validate_skip(vm::CellSlice& cs) const {
-  return t_VarUInteger_7.validate_skip(cs)
-      && t_VarUInteger_7.validate_skip(cs)
-      && t_VarUInteger_7.validate_skip(cs);
+bool StorageUsed::validate_skip(vm::CellSlice& cs, bool weak) const {
+  return t_VarUInteger_7.validate_skip(cs, weak)
+      && t_VarUInteger_7.validate_skip(cs, weak)
+      && t_VarUInteger_7.validate_skip(cs, weak);
 }
 
 bool StorageUsed::unpack(vm::CellSlice& cs, StorageUsed::Record& data) const {
@@ -6232,9 +6365,9 @@ bool StorageUsedShort::skip(vm::CellSlice& cs) const {
       && t_VarUInteger_7.skip(cs);
 }
 
-bool StorageUsedShort::validate_skip(vm::CellSlice& cs) const {
-  return t_VarUInteger_7.validate_skip(cs)
-      && t_VarUInteger_7.validate_skip(cs);
+bool StorageUsedShort::validate_skip(vm::CellSlice& cs, bool weak) const {
+  return t_VarUInteger_7.validate_skip(cs, weak)
+      && t_VarUInteger_7.validate_skip(cs, weak);
 }
 
 bool StorageUsedShort::unpack(vm::CellSlice& cs, StorageUsedShort::Record& data) const {
@@ -6304,10 +6437,10 @@ bool StorageInfo::skip(vm::CellSlice& cs) const {
       && t_Maybe_Grams.skip(cs);
 }
 
-bool StorageInfo::validate_skip(vm::CellSlice& cs) const {
-  return t_StorageUsed.validate_skip(cs)
+bool StorageInfo::validate_skip(vm::CellSlice& cs, bool weak) const {
+  return t_StorageUsed.validate_skip(cs, weak)
       && cs.advance(32)
-      && t_Maybe_Grams.validate_skip(cs);
+      && t_Maybe_Grams.validate_skip(cs, weak);
 }
 
 bool StorageInfo::unpack(vm::CellSlice& cs, StorageInfo::Record& data) const {
@@ -6395,15 +6528,15 @@ bool Account::skip(vm::CellSlice& cs) const {
   return false;
 }
 
-bool Account::validate_skip(vm::CellSlice& cs) const {
+bool Account::validate_skip(vm::CellSlice& cs, bool weak) const {
   switch (get_tag(cs)) {
   case account_none:
     return cs.advance(1);
   case account:
     return cs.advance(1)
-        && t_MsgAddressInt.validate_skip(cs)
-        && t_StorageInfo.validate_skip(cs)
-        && t_AccountStorage.validate_skip(cs);
+        && t_MsgAddressInt.validate_skip(cs, weak)
+        && t_StorageInfo.validate_skip(cs, weak)
+        && t_AccountStorage.validate_skip(cs, weak);
   }
   return false;
 }
@@ -6531,10 +6664,10 @@ bool AccountStorage::skip(vm::CellSlice& cs) const {
       && t_AccountState.skip(cs);
 }
 
-bool AccountStorage::validate_skip(vm::CellSlice& cs) const {
+bool AccountStorage::validate_skip(vm::CellSlice& cs, bool weak) const {
   return cs.advance(64)
-      && t_CurrencyCollection.validate_skip(cs)
-      && t_AccountState.validate_skip(cs);
+      && t_CurrencyCollection.validate_skip(cs, weak)
+      && t_AccountState.validate_skip(cs, weak);
 }
 
 bool AccountStorage::unpack(vm::CellSlice& cs, AccountStorage::Record& data) const {
@@ -6626,13 +6759,13 @@ bool AccountState::skip(vm::CellSlice& cs) const {
   return false;
 }
 
-bool AccountState::validate_skip(vm::CellSlice& cs) const {
+bool AccountState::validate_skip(vm::CellSlice& cs, bool weak) const {
   switch (get_tag(cs)) {
   case account_uninit:
     return cs.advance(2);
   case account_active:
     return cs.advance(1)
-        && t_StateInit.validate_skip(cs);
+        && t_StateInit.validate_skip(cs, weak);
   case account_frozen:
     return cs.advance(258);
   }
@@ -6990,8 +7123,8 @@ int ShardAccount::check_tag(const vm::CellSlice& cs) const {
   return account_descr;
 }
 
-bool ShardAccount::validate_skip(vm::CellSlice& cs) const {
-  return t_Account.validate_skip_ref(cs)
+bool ShardAccount::validate_skip(vm::CellSlice& cs, bool weak) const {
+  return t_Account.validate_skip_ref(cs, weak)
       && cs.advance(320);
 }
 
@@ -7065,10 +7198,10 @@ bool DepthBalanceInfo::skip(vm::CellSlice& cs) const {
       && t_CurrencyCollection.skip(cs);
 }
 
-bool DepthBalanceInfo::validate_skip(vm::CellSlice& cs) const {
+bool DepthBalanceInfo::validate_skip(vm::CellSlice& cs, bool weak) const {
   int split_depth;
   return cs.fetch_uint_leq(30, split_depth)
-      && t_CurrencyCollection.validate_skip(cs);
+      && t_CurrencyCollection.validate_skip(cs, weak);
 }
 
 bool DepthBalanceInfo::unpack(vm::CellSlice& cs, DepthBalanceInfo::Record& data) const {
@@ -7137,8 +7270,8 @@ bool ShardAccounts::skip(vm::CellSlice& cs) const {
   return t_HashmapAugE_256_ShardAccount_DepthBalanceInfo.skip(cs);
 }
 
-bool ShardAccounts::validate_skip(vm::CellSlice& cs) const {
-  return t_HashmapAugE_256_ShardAccount_DepthBalanceInfo.validate_skip(cs);
+bool ShardAccounts::validate_skip(vm::CellSlice& cs, bool weak) const {
+  return t_HashmapAugE_256_ShardAccount_DepthBalanceInfo.validate_skip(cs, weak);
 }
 
 bool ShardAccounts::unpack(vm::CellSlice& cs, ShardAccounts::Record& data) const {
@@ -7189,34 +7322,102 @@ bool ShardAccounts::print_skip(PrettyPrinter& pp, vm::CellSlice& cs) const {
 const ShardAccounts t_ShardAccounts;
 
 //
+// code for auxiliary type `Transaction_aux`
+//
+
+int Transaction_aux::check_tag(const vm::CellSlice& cs) const {
+  return cons1;
+}
+
+bool Transaction_aux::skip(vm::CellSlice& cs) const {
+  return t_Maybe_Ref_Message_Any.skip(cs)
+      && t_HashmapE_15_Ref_Message_Any.skip(cs);
+}
+
+bool Transaction_aux::validate_skip(vm::CellSlice& cs, bool weak) const {
+  return t_Maybe_Ref_Message_Any.validate_skip(cs, weak)
+      && t_HashmapE_15_Ref_Message_Any.validate_skip(cs, weak);
+}
+
+bool Transaction_aux::unpack(vm::CellSlice& cs, Transaction_aux::Record& data) const {
+  return t_Maybe_Ref_Message_Any.fetch_to(cs, data.in_msg)
+      && t_HashmapE_15_Ref_Message_Any.fetch_to(cs, data.out_msgs);
+}
+
+bool Transaction_aux::unpack_cons1(vm::CellSlice& cs, Ref<CellSlice>& in_msg, Ref<CellSlice>& out_msgs) const {
+  return t_Maybe_Ref_Message_Any.fetch_to(cs, in_msg)
+      && t_HashmapE_15_Ref_Message_Any.fetch_to(cs, out_msgs);
+}
+
+bool Transaction_aux::cell_unpack(Ref<vm::Cell> cell_ref, Transaction_aux::Record& data) const {
+  if (cell_ref.is_null()) { return false; }
+  auto cs = load_cell_slice(std::move(cell_ref));
+  return unpack(cs, data) && cs.empty_ext();
+}
+
+bool Transaction_aux::cell_unpack_cons1(Ref<vm::Cell> cell_ref, Ref<CellSlice>& in_msg, Ref<CellSlice>& out_msgs) const {
+  if (cell_ref.is_null()) { return false; }
+  auto cs = load_cell_slice(std::move(cell_ref));
+  return unpack_cons1(cs, in_msg, out_msgs) && cs.empty_ext();
+}
+
+bool Transaction_aux::pack(vm::CellBuilder& cb, const Transaction_aux::Record& data) const {
+  return t_Maybe_Ref_Message_Any.store_from(cb, data.in_msg)
+      && t_HashmapE_15_Ref_Message_Any.store_from(cb, data.out_msgs);
+}
+
+bool Transaction_aux::pack_cons1(vm::CellBuilder& cb, Ref<CellSlice> in_msg, Ref<CellSlice> out_msgs) const {
+  return t_Maybe_Ref_Message_Any.store_from(cb, in_msg)
+      && t_HashmapE_15_Ref_Message_Any.store_from(cb, out_msgs);
+}
+
+bool Transaction_aux::cell_pack(Ref<vm::Cell>& cell_ref, const Transaction_aux::Record& data) const {
+  vm::CellBuilder cb;
+  return pack(cb, data) && std::move(cb).finalize_to(cell_ref);
+}
+
+bool Transaction_aux::cell_pack_cons1(Ref<vm::Cell>& cell_ref, Ref<CellSlice> in_msg, Ref<CellSlice> out_msgs) const {
+  vm::CellBuilder cb;
+  return pack_cons1(cb, std::move(in_msg), std::move(out_msgs)) && std::move(cb).finalize_to(cell_ref);
+}
+
+bool Transaction_aux::print_skip(PrettyPrinter& pp, vm::CellSlice& cs) const {
+  return pp.open()
+      && pp.field("in_msg")
+      && t_Maybe_Ref_Message_Any.print_skip(pp, cs)
+      && pp.field("out_msgs")
+      && t_HashmapE_15_Ref_Message_Any.print_skip(pp, cs)
+      && pp.close();
+}
+
+const Transaction_aux t_Transaction_aux;
+
+//
 // code for type `Transaction`
 //
 constexpr unsigned char Transaction::cons_tag[1];
 
 int Transaction::check_tag(const vm::CellSlice& cs) const {
-  return cs.prefetch_ulong(4) == 6 ? transaction : -1;
+  return cs.prefetch_ulong(4) == 7 ? transaction : -1;
 }
 
 bool Transaction::skip(vm::CellSlice& cs) const {
-  return cs.advance(695)
-      && t_Maybe_Ref_Message_Any.skip(cs)
-      && t_HashmapE_15_Ref_Message_Any.skip(cs)
-      && t_Grams.skip(cs)
+  return cs.advance_ext(0x102b7)
+      && t_CurrencyCollection.skip(cs)
       && cs.advance_refs(2);
 }
 
-bool Transaction::validate_skip(vm::CellSlice& cs) const {
-  return cs.fetch_ulong(4) == 6
+bool Transaction::validate_skip(vm::CellSlice& cs, bool weak) const {
+  return cs.fetch_ulong(4) == 7
       && cs.advance(691)
-      && t_Maybe_Ref_Message_Any.validate_skip(cs)
-      && t_HashmapE_15_Ref_Message_Any.validate_skip(cs)
-      && t_Grams.validate_skip(cs)
-      && t_HASH_UPDATE_Account.validate_skip_ref(cs)
-      && t_TransactionDescr.validate_skip_ref(cs);
+      && t_Transaction_aux.validate_skip_ref(cs, weak)
+      && t_CurrencyCollection.validate_skip(cs, weak)
+      && t_HASH_UPDATE_Account.validate_skip_ref(cs, weak)
+      && t_TransactionDescr.validate_skip_ref(cs, weak);
 }
 
 bool Transaction::unpack(vm::CellSlice& cs, Transaction::Record& data) const {
-  return cs.fetch_ulong(4) == 6
+  return cs.fetch_ulong(4) == 7
       && cs.fetch_bits_to(data.account_addr.bits(), 256)
       && cs.fetch_uint_to(64, data.lt)
       && cs.fetch_bits_to(data.prev_trans_hash.bits(), 256)
@@ -7225,9 +7426,8 @@ bool Transaction::unpack(vm::CellSlice& cs, Transaction::Record& data) const {
       && cs.fetch_uint_to(15, data.outmsg_cnt)
       && t_AccountStatus.fetch_enum_to(cs, data.orig_status)
       && t_AccountStatus.fetch_enum_to(cs, data.end_status)
-      && t_Maybe_Ref_Message_Any.fetch_to(cs, data.in_msg)
-      && t_HashmapE_15_Ref_Message_Any.fetch_to(cs, data.out_msgs)
-      && t_Grams.fetch_to(cs, data.total_fees)
+      && t_Transaction_aux.cell_unpack(cs.fetch_ref(), data.r1)
+      && t_CurrencyCollection.fetch_to(cs, data.total_fees)
       && cs.fetch_ref_to(data.state_update)
       && cs.fetch_ref_to(data.description);
 }
@@ -7239,7 +7439,8 @@ bool Transaction::cell_unpack(Ref<vm::Cell> cell_ref, Transaction::Record& data)
 }
 
 bool Transaction::pack(vm::CellBuilder& cb, const Transaction::Record& data) const {
-  return cb.store_long_bool(6, 4)
+  Ref<vm::Cell> tmp_cell;
+  return cb.store_long_bool(7, 4)
       && cb.store_bits_bool(data.account_addr.cbits(), 256)
       && cb.store_ulong_rchk_bool(data.lt, 64)
       && cb.store_bits_bool(data.prev_trans_hash.cbits(), 256)
@@ -7248,9 +7449,9 @@ bool Transaction::pack(vm::CellBuilder& cb, const Transaction::Record& data) con
       && cb.store_ulong_rchk_bool(data.outmsg_cnt, 15)
       && t_AccountStatus.store_enum_from(cb, data.orig_status)
       && t_AccountStatus.store_enum_from(cb, data.end_status)
-      && t_Maybe_Ref_Message_Any.store_from(cb, data.in_msg)
-      && t_HashmapE_15_Ref_Message_Any.store_from(cb, data.out_msgs)
-      && t_Grams.store_from(cb, data.total_fees)
+      && t_Transaction_aux.cell_pack(tmp_cell, data.r1)
+      && cb.store_ref_bool(std::move(tmp_cell))
+      && t_CurrencyCollection.store_from(cb, data.total_fees)
       && cb.store_ref_bool(data.state_update)
       && cb.store_ref_bool(data.description);
 }
@@ -7261,7 +7462,7 @@ bool Transaction::cell_pack(Ref<vm::Cell>& cell_ref, const Transaction::Record& 
 }
 
 bool Transaction::print_skip(PrettyPrinter& pp, vm::CellSlice& cs) const {
-  return cs.fetch_ulong(4) == 6
+  return cs.fetch_ulong(4) == 7
       && pp.open("transaction")
       && pp.fetch_bits_field(cs, 256, "account_addr")
       && pp.fetch_uint_field(cs, 64, "lt")
@@ -7273,12 +7474,10 @@ bool Transaction::print_skip(PrettyPrinter& pp, vm::CellSlice& cs) const {
       && t_AccountStatus.print_skip(pp, cs)
       && pp.field("end_status")
       && t_AccountStatus.print_skip(pp, cs)
-      && pp.field("in_msg")
-      && t_Maybe_Ref_Message_Any.print_skip(pp, cs)
-      && pp.field("out_msgs")
-      && t_HashmapE_15_Ref_Message_Any.print_skip(pp, cs)
+      && pp.field()
+      && t_Transaction_aux.print_ref(pp, cs.fetch_ref())
       && pp.field("total_fees")
-      && t_Grams.print_skip(pp, cs)
+      && t_CurrencyCollection.print_skip(pp, cs)
       && pp.field("state_update")
       && t_HASH_UPDATE_Account.print_ref(pp, cs.fetch_ref())
       && pp.field("description")
@@ -7297,11 +7496,11 @@ int MERKLE_UPDATE::check_tag(const vm::CellSlice& cs) const {
   return cs.prefetch_ulong(8) == 2 ? _merkle_update : -1;
 }
 
-bool MERKLE_UPDATE::validate_skip(vm::CellSlice& cs) const {
+bool MERKLE_UPDATE::validate_skip(vm::CellSlice& cs, bool weak) const {
   return cs.fetch_ulong(8) == 2
       && cs.advance(512)
-      && X_.validate_skip_ref(cs)
-      && X_.validate_skip_ref(cs);
+      && X_.validate_skip_ref(cs, weak)
+      && X_.validate_skip_ref(cs, weak);
 }
 
 bool MERKLE_UPDATE::unpack(vm::CellSlice& cs, MERKLE_UPDATE::Record& data) const {
@@ -7353,7 +7552,7 @@ int HASH_UPDATE::check_tag(const vm::CellSlice& cs) const {
   return cs.prefetch_ulong(8) == 0x72 ? update_hashes : -1;
 }
 
-bool HASH_UPDATE::validate_skip(vm::CellSlice& cs) const {
+bool HASH_UPDATE::validate_skip(vm::CellSlice& cs, bool weak) const {
   return cs.fetch_ulong(8) == 0x72
       && cs.advance(512);
 }
@@ -7419,33 +7618,33 @@ bool HASH_UPDATE::print_skip(PrettyPrinter& pp, vm::CellSlice& cs) const {
 constexpr unsigned char AccountBlock::cons_tag[1];
 
 int AccountBlock::check_tag(const vm::CellSlice& cs) const {
-  return cs.prefetch_ulong(4) == 4 ? acc_trans : -1;
+  return cs.prefetch_ulong(4) == 5 ? acc_trans : -1;
 }
 
 bool AccountBlock::skip(vm::CellSlice& cs) const {
   return cs.advance(260)
-      && t_HashmapAug_64_Ref_Transaction_Grams.skip(cs)
+      && t_HashmapAug_64_Ref_Transaction_CurrencyCollection.skip(cs)
       && cs.advance_refs(1);
 }
 
-bool AccountBlock::validate_skip(vm::CellSlice& cs) const {
-  return cs.fetch_ulong(4) == 4
+bool AccountBlock::validate_skip(vm::CellSlice& cs, bool weak) const {
+  return cs.fetch_ulong(4) == 5
       && cs.advance(256)
-      && t_HashmapAug_64_Ref_Transaction_Grams.validate_skip(cs)
-      && t_HASH_UPDATE_Account.validate_skip_ref(cs);
+      && t_HashmapAug_64_Ref_Transaction_CurrencyCollection.validate_skip(cs, weak)
+      && t_HASH_UPDATE_Account.validate_skip_ref(cs, weak);
 }
 
 bool AccountBlock::unpack(vm::CellSlice& cs, AccountBlock::Record& data) const {
-  return cs.fetch_ulong(4) == 4
+  return cs.fetch_ulong(4) == 5
       && cs.fetch_bits_to(data.account_addr.bits(), 256)
-      && t_HashmapAug_64_Ref_Transaction_Grams.fetch_to(cs, data.transactions)
+      && t_HashmapAug_64_Ref_Transaction_CurrencyCollection.fetch_to(cs, data.transactions)
       && cs.fetch_ref_to(data.state_update);
 }
 
 bool AccountBlock::unpack_acc_trans(vm::CellSlice& cs, td::BitArray<256>& account_addr, Ref<CellSlice>& transactions, Ref<Cell>& state_update) const {
-  return cs.fetch_ulong(4) == 4
+  return cs.fetch_ulong(4) == 5
       && cs.fetch_bits_to(account_addr.bits(), 256)
-      && t_HashmapAug_64_Ref_Transaction_Grams.fetch_to(cs, transactions)
+      && t_HashmapAug_64_Ref_Transaction_CurrencyCollection.fetch_to(cs, transactions)
       && cs.fetch_ref_to(state_update);
 }
 
@@ -7462,16 +7661,16 @@ bool AccountBlock::cell_unpack_acc_trans(Ref<vm::Cell> cell_ref, td::BitArray<25
 }
 
 bool AccountBlock::pack(vm::CellBuilder& cb, const AccountBlock::Record& data) const {
-  return cb.store_long_bool(4, 4)
+  return cb.store_long_bool(5, 4)
       && cb.store_bits_bool(data.account_addr.cbits(), 256)
-      && t_HashmapAug_64_Ref_Transaction_Grams.store_from(cb, data.transactions)
+      && t_HashmapAug_64_Ref_Transaction_CurrencyCollection.store_from(cb, data.transactions)
       && cb.store_ref_bool(data.state_update);
 }
 
 bool AccountBlock::pack_acc_trans(vm::CellBuilder& cb, td::BitArray<256> account_addr, Ref<CellSlice> transactions, Ref<Cell> state_update) const {
-  return cb.store_long_bool(4, 4)
+  return cb.store_long_bool(5, 4)
       && cb.store_bits_bool(account_addr.cbits(), 256)
-      && t_HashmapAug_64_Ref_Transaction_Grams.store_from(cb, transactions)
+      && t_HashmapAug_64_Ref_Transaction_CurrencyCollection.store_from(cb, transactions)
       && cb.store_ref_bool(state_update);
 }
 
@@ -7486,11 +7685,11 @@ bool AccountBlock::cell_pack_acc_trans(Ref<vm::Cell>& cell_ref, td::BitArray<256
 }
 
 bool AccountBlock::print_skip(PrettyPrinter& pp, vm::CellSlice& cs) const {
-  return cs.fetch_ulong(4) == 4
+  return cs.fetch_ulong(4) == 5
       && pp.open("acc_trans")
       && pp.fetch_bits_field(cs, 256, "account_addr")
       && pp.field("transactions")
-      && t_HashmapAug_64_Ref_Transaction_Grams.print_skip(pp, cs)
+      && t_HashmapAug_64_Ref_Transaction_CurrencyCollection.print_skip(pp, cs)
       && pp.field("state_update")
       && t_HASH_UPDATE_Account.print_ref(pp, cs.fetch_ref())
       && pp.close();
@@ -7507,19 +7706,19 @@ int ShardAccountBlocks::check_tag(const vm::CellSlice& cs) const {
 }
 
 bool ShardAccountBlocks::skip(vm::CellSlice& cs) const {
-  return t_HashmapAugE_256_AccountBlock_Grams.skip(cs);
+  return t_HashmapAugE_256_AccountBlock_CurrencyCollection.skip(cs);
 }
 
-bool ShardAccountBlocks::validate_skip(vm::CellSlice& cs) const {
-  return t_HashmapAugE_256_AccountBlock_Grams.validate_skip(cs);
+bool ShardAccountBlocks::validate_skip(vm::CellSlice& cs, bool weak) const {
+  return t_HashmapAugE_256_AccountBlock_CurrencyCollection.validate_skip(cs, weak);
 }
 
 bool ShardAccountBlocks::unpack(vm::CellSlice& cs, ShardAccountBlocks::Record& data) const {
-  return t_HashmapAugE_256_AccountBlock_Grams.fetch_to(cs, data.x);
+  return t_HashmapAugE_256_AccountBlock_CurrencyCollection.fetch_to(cs, data.x);
 }
 
 bool ShardAccountBlocks::unpack_cons1(vm::CellSlice& cs, Ref<CellSlice>& x) const {
-  return t_HashmapAugE_256_AccountBlock_Grams.fetch_to(cs, x);
+  return t_HashmapAugE_256_AccountBlock_CurrencyCollection.fetch_to(cs, x);
 }
 
 bool ShardAccountBlocks::cell_unpack(Ref<vm::Cell> cell_ref, ShardAccountBlocks::Record& data) const {
@@ -7535,11 +7734,11 @@ bool ShardAccountBlocks::cell_unpack_cons1(Ref<vm::Cell> cell_ref, Ref<CellSlice
 }
 
 bool ShardAccountBlocks::pack(vm::CellBuilder& cb, const ShardAccountBlocks::Record& data) const {
-  return t_HashmapAugE_256_AccountBlock_Grams.store_from(cb, data.x);
+  return t_HashmapAugE_256_AccountBlock_CurrencyCollection.store_from(cb, data.x);
 }
 
 bool ShardAccountBlocks::pack_cons1(vm::CellBuilder& cb, Ref<CellSlice> x) const {
-  return t_HashmapAugE_256_AccountBlock_Grams.store_from(cb, x);
+  return t_HashmapAugE_256_AccountBlock_CurrencyCollection.store_from(cb, x);
 }
 
 bool ShardAccountBlocks::cell_pack(Ref<vm::Cell>& cell_ref, const ShardAccountBlocks::Record& data) const {
@@ -7555,7 +7754,7 @@ bool ShardAccountBlocks::cell_pack_cons1(Ref<vm::Cell>& cell_ref, Ref<CellSlice>
 bool ShardAccountBlocks::print_skip(PrettyPrinter& pp, vm::CellSlice& cs) const {
   return pp.open()
       && pp.field()
-      && t_HashmapAugE_256_AccountBlock_Grams.print_skip(pp, cs)
+      && t_HashmapAugE_256_AccountBlock_CurrencyCollection.print_skip(pp, cs)
       && pp.close();
 }
 
@@ -7575,10 +7774,10 @@ bool TrStoragePhase::skip(vm::CellSlice& cs) const {
       && t_AccStatusChange.skip(cs);
 }
 
-bool TrStoragePhase::validate_skip(vm::CellSlice& cs) const {
-  return t_Grams.validate_skip(cs)
-      && t_Maybe_Grams.validate_skip(cs)
-      && t_AccStatusChange.validate_skip(cs);
+bool TrStoragePhase::validate_skip(vm::CellSlice& cs, bool weak) const {
+  return t_Grams.validate_skip(cs, weak)
+      && t_Maybe_Grams.validate_skip(cs, weak)
+      && t_AccStatusChange.validate_skip(cs, weak);
 }
 
 bool TrStoragePhase::unpack(vm::CellSlice& cs, TrStoragePhase::Record& data) const {
@@ -7670,7 +7869,7 @@ bool AccStatusChange::skip(vm::CellSlice& cs) const {
   return false;
 }
 
-bool AccStatusChange::validate_skip(vm::CellSlice& cs) const {
+bool AccStatusChange::validate_skip(vm::CellSlice& cs, bool weak) const {
   switch (get_tag(cs)) {
   case acst_unchanged:
     return cs.advance(1);
@@ -7836,9 +8035,9 @@ bool TrCreditPhase::skip(vm::CellSlice& cs) const {
       && t_CurrencyCollection.skip(cs);
 }
 
-bool TrCreditPhase::validate_skip(vm::CellSlice& cs) const {
-  return t_Maybe_Grams.validate_skip(cs)
-      && t_CurrencyCollection.validate_skip(cs);
+bool TrCreditPhase::validate_skip(vm::CellSlice& cs, bool weak) const {
+  return t_Maybe_Grams.validate_skip(cs, weak)
+      && t_CurrencyCollection.validate_skip(cs, weak);
 }
 
 bool TrCreditPhase::unpack(vm::CellSlice& cs, TrCreditPhase::Record& data) const {
@@ -7911,12 +8110,12 @@ bool TrComputePhase_aux::skip(vm::CellSlice& cs) const {
       && cs.advance(544);
 }
 
-bool TrComputePhase_aux::validate_skip(vm::CellSlice& cs) const {
-  return t_VarUInteger_7.validate_skip(cs)
-      && t_VarUInteger_7.validate_skip(cs)
-      && t_Maybe_VarUInteger_3.validate_skip(cs)
+bool TrComputePhase_aux::validate_skip(vm::CellSlice& cs, bool weak) const {
+  return t_VarUInteger_7.validate_skip(cs, weak)
+      && t_VarUInteger_7.validate_skip(cs, weak)
+      && t_Maybe_VarUInteger_3.validate_skip(cs, weak)
       && cs.advance(40)
-      && t_Maybe_int32.validate_skip(cs)
+      && t_Maybe_int32.validate_skip(cs, weak)
       && cs.advance(544);
 }
 
@@ -8001,15 +8200,15 @@ bool TrComputePhase::skip(vm::CellSlice& cs) const {
   return false;
 }
 
-bool TrComputePhase::validate_skip(vm::CellSlice& cs) const {
+bool TrComputePhase::validate_skip(vm::CellSlice& cs, bool weak) const {
   switch (get_tag(cs)) {
   case tr_phase_compute_skipped:
     return cs.advance(1)
-        && t_ComputeSkipReason.validate_skip(cs);
+        && t_ComputeSkipReason.validate_skip(cs, weak);
   case tr_phase_compute_vm:
     return cs.advance(4)
-        && t_Grams.validate_skip(cs)
-        && t_TrComputePhase_aux.validate_skip_ref(cs);
+        && t_Grams.validate_skip(cs, weak)
+        && t_TrComputePhase_aux.validate_skip_ref(cs, weak);
   }
   return false;
 }
@@ -8128,7 +8327,7 @@ int ComputeSkipReason::check_tag(const vm::CellSlice& cs) const {
   return -1;
 }
 
-bool ComputeSkipReason::validate_skip(vm::CellSlice& cs) const {
+bool ComputeSkipReason::validate_skip(vm::CellSlice& cs, bool weak) const {
   switch (get_tag(cs)) {
   case cskip_no_state:
     return cs.advance(2);
@@ -8300,15 +8499,15 @@ bool TrActionPhase::skip(vm::CellSlice& cs) const {
       && t_StorageUsedShort.skip(cs);
 }
 
-bool TrActionPhase::validate_skip(vm::CellSlice& cs) const {
+bool TrActionPhase::validate_skip(vm::CellSlice& cs, bool weak) const {
   return cs.advance(3)
-      && t_AccStatusChange.validate_skip(cs)
-      && t_Maybe_Grams.validate_skip(cs)
-      && t_Maybe_Grams.validate_skip(cs)
+      && t_AccStatusChange.validate_skip(cs, weak)
+      && t_Maybe_Grams.validate_skip(cs, weak)
+      && t_Maybe_Grams.validate_skip(cs, weak)
       && cs.advance(32)
-      && t_Maybe_int32.validate_skip(cs)
+      && t_Maybe_int32.validate_skip(cs, weak)
       && cs.advance(320)
-      && t_StorageUsedShort.validate_skip(cs);
+      && t_StorageUsedShort.validate_skip(cs, weak);
 }
 
 bool TrActionPhase::unpack(vm::CellSlice& cs, TrActionPhase::Record& data) const {
@@ -8417,19 +8616,19 @@ bool TrBouncePhase::skip(vm::CellSlice& cs) const {
   return false;
 }
 
-bool TrBouncePhase::validate_skip(vm::CellSlice& cs) const {
+bool TrBouncePhase::validate_skip(vm::CellSlice& cs, bool weak) const {
   switch (get_tag(cs)) {
   case tr_phase_bounce_negfunds:
     return cs.advance(2);
   case tr_phase_bounce_nofunds:
     return cs.advance(2)
-        && t_StorageUsedShort.validate_skip(cs)
-        && t_Grams.validate_skip(cs);
+        && t_StorageUsedShort.validate_skip(cs, weak)
+        && t_Grams.validate_skip(cs, weak);
   case tr_phase_bounce_ok:
     return cs.advance(1)
-        && t_StorageUsedShort.validate_skip(cs)
-        && t_Grams.validate_skip(cs)
-        && t_Grams.validate_skip(cs);
+        && t_StorageUsedShort.validate_skip(cs, weak)
+        && t_Grams.validate_skip(cs, weak)
+        && t_Grams.validate_skip(cs, weak);
   }
   return false;
 }
@@ -8711,46 +8910,46 @@ bool TransactionDescr::skip(vm::CellSlice& cs) const {
   return false;
 }
 
-bool TransactionDescr::validate_skip(vm::CellSlice& cs) const {
+bool TransactionDescr::validate_skip(vm::CellSlice& cs, bool weak) const {
   switch (get_tag(cs)) {
   case trans_ord:
     return cs.advance(5)
-        && t_Maybe_TrStoragePhase.validate_skip(cs)
-        && t_Maybe_TrCreditPhase.validate_skip(cs)
-        && t_TrComputePhase.validate_skip(cs)
-        && t_Maybe_Ref_TrActionPhase.validate_skip(cs)
+        && t_Maybe_TrStoragePhase.validate_skip(cs, weak)
+        && t_Maybe_TrCreditPhase.validate_skip(cs, weak)
+        && t_TrComputePhase.validate_skip(cs, weak)
+        && t_Maybe_Ref_TrActionPhase.validate_skip(cs, weak)
         && cs.advance(1)
-        && t_Maybe_TrBouncePhase.validate_skip(cs)
+        && t_Maybe_TrBouncePhase.validate_skip(cs, weak)
         && cs.advance(1);
   case trans_storage:
     return cs.advance(4)
-        && t_TrStoragePhase.validate_skip(cs);
+        && t_TrStoragePhase.validate_skip(cs, weak);
   case trans_tick_tock:
     return cs.advance(4)
-        && t_TrStoragePhase.validate_skip(cs)
-        && t_TrComputePhase.validate_skip(cs)
-        && t_Maybe_Ref_TrActionPhase.validate_skip(cs)
+        && t_TrStoragePhase.validate_skip(cs, weak)
+        && t_TrComputePhase.validate_skip(cs, weak)
+        && t_Maybe_Ref_TrActionPhase.validate_skip(cs, weak)
         && cs.advance(2);
   case trans_split_prepare:
     return cs.advance(528)
-        && t_TrComputePhase.validate_skip(cs)
-        && t_Maybe_Ref_TrActionPhase.validate_skip(cs)
+        && t_TrComputePhase.validate_skip(cs, weak)
+        && t_Maybe_Ref_TrActionPhase.validate_skip(cs, weak)
         && cs.advance(2);
   case trans_split_install:
     return cs.advance(528)
-        && t_Transaction.validate_skip_ref(cs)
+        && t_Transaction.validate_skip_ref(cs, weak)
         && cs.advance(1);
   case trans_merge_prepare:
     return cs.advance(528)
-        && t_TrStoragePhase.validate_skip(cs)
+        && t_TrStoragePhase.validate_skip(cs, weak)
         && cs.advance(1);
   case trans_merge_install:
     return cs.fetch_ulong(4) == 7
         && cs.advance(524)
-        && t_Transaction.validate_skip_ref(cs)
-        && t_Maybe_TrCreditPhase.validate_skip(cs)
-        && t_TrComputePhase.validate_skip(cs)
-        && t_Maybe_Ref_TrActionPhase.validate_skip(cs)
+        && t_Transaction.validate_skip_ref(cs, weak)
+        && t_Maybe_TrCreditPhase.validate_skip(cs, weak)
+        && t_TrComputePhase.validate_skip(cs, weak)
+        && t_Maybe_Ref_TrActionPhase.validate_skip(cs, weak)
         && cs.advance(2);
   }
   return false;
@@ -9131,11 +9330,11 @@ bool SmartContractInfo::skip(vm::CellSlice& cs) const {
       && t_MsgAddressInt.skip(cs);
 }
 
-bool SmartContractInfo::validate_skip(vm::CellSlice& cs) const {
+bool SmartContractInfo::validate_skip(vm::CellSlice& cs, bool weak) const {
   return cs.fetch_ulong(32) == 0x76ef1ea
       && cs.advance(448)
-      && t_CurrencyCollection.validate_skip(cs)
-      && t_MsgAddressInt.validate_skip(cs);
+      && t_CurrencyCollection.validate_skip(cs, weak)
+      && t_MsgAddressInt.validate_skip(cs, weak);
 }
 
 bool SmartContractInfo::unpack(vm::CellSlice& cs, SmartContractInfo::Record& data) const {
@@ -9224,15 +9423,15 @@ bool OutList::skip(vm::CellSlice& cs) const {
   return false;
 }
 
-bool OutList::validate_skip(vm::CellSlice& cs) const {
+bool OutList::validate_skip(vm::CellSlice& cs, bool weak) const {
   switch (get_tag(cs)) {
   case out_list_empty:
     return m_ == 0;
   case out_list: {
     int n;
     return add_r1(n, 1, m_)
-        && OutList{n}.validate_skip_ref(cs)
-        && t_OutAction.validate_skip(cs);
+        && OutList{n}.validate_skip_ref(cs, weak)
+        && t_OutAction.validate_skip(cs, weak);
     }
   }
   return false;
@@ -9374,19 +9573,19 @@ bool OutAction::skip(vm::CellSlice& cs) const {
   return false;
 }
 
-bool OutAction::validate_skip(vm::CellSlice& cs) const {
+bool OutAction::validate_skip(vm::CellSlice& cs, bool weak) const {
   switch (get_tag(cs)) {
   case action_send_msg:
     return cs.fetch_ulong(32) == 0xec3c86d
         && cs.advance(8)
-        && t_MessageRelaxed_Any.validate_skip_ref(cs);
+        && t_MessageRelaxed_Any.validate_skip_ref(cs, weak);
   case action_set_code:
     return cs.fetch_ulong(32) == 0xad4de08eU
         && cs.advance_refs(1);
   case action_reserve_currency:
     return cs.fetch_ulong(32) == 0x36e6b809
         && cs.advance(8)
-        && t_CurrencyCollection.validate_skip(cs);
+        && t_CurrencyCollection.validate_skip(cs, weak);
   }
   return false;
 }
@@ -9572,9 +9771,9 @@ bool OutListNode::skip(vm::CellSlice& cs) const {
       && t_OutAction.skip(cs);
 }
 
-bool OutListNode::validate_skip(vm::CellSlice& cs) const {
+bool OutListNode::validate_skip(vm::CellSlice& cs, bool weak) const {
   return cs.advance_refs(1)
-      && t_OutAction.validate_skip(cs);
+      && t_OutAction.validate_skip(cs, weak);
 }
 
 bool OutListNode::unpack(vm::CellSlice& cs, OutListNode::Record& data) const {
@@ -9638,7 +9837,7 @@ int ShardIdent::check_tag(const vm::CellSlice& cs) const {
   return cs.prefetch_ulong(2) == 0 ? shard_ident : -1;
 }
 
-bool ShardIdent::validate_skip(vm::CellSlice& cs) const {
+bool ShardIdent::validate_skip(vm::CellSlice& cs, bool weak) const {
   int shard_pfx_bits;
   return cs.fetch_ulong(2) == 0
       && cs.fetch_uint_leq(60, shard_pfx_bits)
@@ -9760,8 +9959,8 @@ int BlockIdExt::check_tag(const vm::CellSlice& cs) const {
   return block_id_ext;
 }
 
-bool BlockIdExt::validate_skip(vm::CellSlice& cs) const {
-  return t_ShardIdent.validate_skip(cs)
+bool BlockIdExt::validate_skip(vm::CellSlice& cs, bool weak) const {
+  return t_ShardIdent.validate_skip(cs, weak)
       && cs.advance(544);
 }
 
@@ -9873,12 +10072,12 @@ bool ShardStateUnsplit_aux::skip(vm::CellSlice& cs) const {
       && t_Maybe_BlkMasterInfo.skip(cs);
 }
 
-bool ShardStateUnsplit_aux::validate_skip(vm::CellSlice& cs) const {
+bool ShardStateUnsplit_aux::validate_skip(vm::CellSlice& cs, bool weak) const {
   return cs.advance(128)
-      && t_CurrencyCollection.validate_skip(cs)
-      && t_CurrencyCollection.validate_skip(cs)
-      && t_HashmapE_256_LibDescr.validate_skip(cs)
-      && t_Maybe_BlkMasterInfo.validate_skip(cs);
+      && t_CurrencyCollection.validate_skip(cs, weak)
+      && t_CurrencyCollection.validate_skip(cs, weak)
+      && t_HashmapE_256_LibDescr.validate_skip(cs, weak)
+      && t_Maybe_BlkMasterInfo.validate_skip(cs, weak);
 }
 
 bool ShardStateUnsplit_aux::unpack(vm::CellSlice& cs, ShardStateUnsplit_aux::Record& data) const {
@@ -9933,30 +10132,28 @@ const ShardStateUnsplit_aux t_ShardStateUnsplit_aux;
 constexpr unsigned ShardStateUnsplit::cons_tag[1];
 
 int ShardStateUnsplit::check_tag(const vm::CellSlice& cs) const {
-  return cs.prefetch_ulong(32) == 0x9023afe1U ? shard_state : -1;
+  return cs.prefetch_ulong(32) == 0x9023afe2U ? shard_state : -1;
 }
 
 bool ShardStateUnsplit::skip(vm::CellSlice& cs) const {
-  return cs.advance_ext(0x10169)
-      && t_ShardAccounts.skip(cs)
-      && cs.advance_refs(1)
+  return cs.advance_ext(0x30169)
       && t_Maybe_Ref_McStateExtra.skip(cs);
 }
 
-bool ShardStateUnsplit::validate_skip(vm::CellSlice& cs) const {
-  return cs.fetch_ulong(32) == 0x9023afe1U
+bool ShardStateUnsplit::validate_skip(vm::CellSlice& cs, bool weak) const {
+  return cs.fetch_ulong(32) == 0x9023afe2U
       && cs.advance(32)
-      && t_ShardIdent.validate_skip(cs)
+      && t_ShardIdent.validate_skip(cs, weak)
       && cs.advance(192)
-      && t_OutMsgQueueInfo.validate_skip_ref(cs)
+      && t_OutMsgQueueInfo.validate_skip_ref(cs, weak)
       && cs.advance(1)
-      && t_ShardAccounts.validate_skip(cs)
-      && t_ShardStateUnsplit_aux.validate_skip_ref(cs)
-      && t_Maybe_Ref_McStateExtra.validate_skip(cs);
+      && t_ShardAccounts.validate_skip_ref(cs, weak)
+      && t_ShardStateUnsplit_aux.validate_skip_ref(cs, weak)
+      && t_Maybe_Ref_McStateExtra.validate_skip(cs, weak);
 }
 
 bool ShardStateUnsplit::unpack(vm::CellSlice& cs, ShardStateUnsplit::Record& data) const {
-  return cs.fetch_ulong(32) == 0x9023afe1U
+  return cs.fetch_ulong(32) == 0x9023afe2U
       && cs.fetch_int_to(32, data.global_id)
       && cs.fetch_subslice_to(104, data.shard_id)
       && cs.fetch_uint_to(32, data.seq_no)
@@ -9966,7 +10163,7 @@ bool ShardStateUnsplit::unpack(vm::CellSlice& cs, ShardStateUnsplit::Record& dat
       && cs.fetch_uint_to(32, data.min_ref_mc_seqno)
       && cs.fetch_ref_to(data.out_msg_queue_info)
       && cs.fetch_bool_to(data.before_split)
-      && t_ShardAccounts.fetch_to(cs, data.accounts)
+      && cs.fetch_ref_to(data.accounts)
       && t_ShardStateUnsplit_aux.cell_unpack(cs.fetch_ref(), data.r1)
       && t_Maybe_Ref_McStateExtra.fetch_to(cs, data.custom);
 }
@@ -9979,7 +10176,7 @@ bool ShardStateUnsplit::cell_unpack(Ref<vm::Cell> cell_ref, ShardStateUnsplit::R
 
 bool ShardStateUnsplit::pack(vm::CellBuilder& cb, const ShardStateUnsplit::Record& data) const {
   Ref<vm::Cell> tmp_cell;
-  return cb.store_long_bool(0x9023afe1U, 32)
+  return cb.store_long_bool(0x9023afe2U, 32)
       && cb.store_long_rchk_bool(data.global_id, 32)
       && cb.append_cellslice_chk(data.shard_id, 104)
       && cb.store_ulong_rchk_bool(data.seq_no, 32)
@@ -9989,7 +10186,7 @@ bool ShardStateUnsplit::pack(vm::CellBuilder& cb, const ShardStateUnsplit::Recor
       && cb.store_ulong_rchk_bool(data.min_ref_mc_seqno, 32)
       && cb.store_ref_bool(data.out_msg_queue_info)
       && cb.store_ulong_rchk_bool(data.before_split, 1)
-      && t_ShardAccounts.store_from(cb, data.accounts)
+      && cb.store_ref_bool(data.accounts)
       && t_ShardStateUnsplit_aux.cell_pack(tmp_cell, data.r1)
       && cb.store_ref_bool(std::move(tmp_cell))
       && t_Maybe_Ref_McStateExtra.store_from(cb, data.custom);
@@ -10002,7 +10199,7 @@ bool ShardStateUnsplit::cell_pack(Ref<vm::Cell>& cell_ref, const ShardStateUnspl
 
 bool ShardStateUnsplit::print_skip(PrettyPrinter& pp, vm::CellSlice& cs) const {
   int vert_seq_no, before_split;
-  return cs.fetch_ulong(32) == 0x9023afe1U
+  return cs.fetch_ulong(32) == 0x9023afe2U
       && pp.open("shard_state")
       && pp.fetch_int_field(cs, 32, "global_id")
       && pp.field("shard_id")
@@ -10018,7 +10215,7 @@ bool ShardStateUnsplit::print_skip(PrettyPrinter& pp, vm::CellSlice& cs) const {
       && cs.fetch_bool_to(before_split)
       && pp.field_int(before_split, "before_split")
       && pp.field("accounts")
-      && t_ShardAccounts.print_skip(pp, cs)
+      && t_ShardAccounts.print_ref(pp, cs.fetch_ref())
       && pp.field()
       && t_ShardStateUnsplit_aux.print_ref(pp, cs.fetch_ref())
       && pp.field("custom")
@@ -10054,14 +10251,14 @@ bool ShardState::skip(vm::CellSlice& cs) const {
   return false;
 }
 
-bool ShardState::validate_skip(vm::CellSlice& cs) const {
+bool ShardState::validate_skip(vm::CellSlice& cs, bool weak) const {
   switch (get_tag(cs)) {
   case cons1:
-    return t_ShardStateUnsplit.validate_skip(cs);
+    return t_ShardStateUnsplit.validate_skip(cs, weak);
   case split_state:
     return cs.fetch_ulong(32) == 0x5f327da5
-        && t_ShardStateUnsplit.validate_skip_ref(cs)
-        && t_ShardStateUnsplit.validate_skip_ref(cs);
+        && t_ShardStateUnsplit.validate_skip_ref(cs, weak)
+        && t_ShardStateUnsplit.validate_skip_ref(cs, weak);
   }
   return false;
 }
@@ -10184,10 +10381,10 @@ bool LibDescr::skip(vm::CellSlice& cs) const {
       && t_Hashmap_256_True.skip(cs);
 }
 
-bool LibDescr::validate_skip(vm::CellSlice& cs) const {
+bool LibDescr::validate_skip(vm::CellSlice& cs, bool weak) const {
   return cs.fetch_ulong(2) == 0
       && cs.advance_refs(1)
-      && t_Hashmap_256_True.validate_skip(cs);
+      && t_Hashmap_256_True.validate_skip(cs, weak);
 }
 
 bool LibDescr::unpack(vm::CellSlice& cs, LibDescr::Record& data) const {
@@ -10258,13 +10455,16 @@ int BlockInfo::check_tag(const vm::CellSlice& cs) const {
 }
 
 bool BlockInfo::skip(vm::CellSlice& cs) const {
-  int not_master, after_merge, seq_no, vert_seq_no, prev_seq_no;
+  int not_master, after_merge, vert_seqno_incr, seq_no, vert_seq_no, prev_seq_no;
   return cs.advance(64)
       && cs.fetch_bool_to(not_master)
       && cs.fetch_bool_to(after_merge)
-      && cs.advance(14)
+      && cs.advance(5)
+      && cs.fetch_bool_to(vert_seqno_incr)
+      && cs.advance(8)
       && cs.fetch_uint_to(32, seq_no)
       && cs.fetch_uint_to(32, vert_seq_no)
+      && vert_seqno_incr <= vert_seq_no
       && add_r1(prev_seq_no, 1, seq_no)
       && cs.advance(392)
       && (!not_master || cs.advance_refs(1))
@@ -10272,21 +10472,24 @@ bool BlockInfo::skip(vm::CellSlice& cs) const {
       && (!vert_seq_no || cs.advance_refs(1));
 }
 
-bool BlockInfo::validate_skip(vm::CellSlice& cs) const {
-  int not_master, after_merge, seq_no, vert_seq_no, prev_seq_no;
+bool BlockInfo::validate_skip(vm::CellSlice& cs, bool weak) const {
+  int not_master, after_merge, vert_seqno_incr, seq_no, vert_seq_no, prev_seq_no;
   return cs.fetch_ulong(32) == 0x9bc7a987U
       && cs.advance(32)
       && cs.fetch_bool_to(not_master)
       && cs.fetch_bool_to(after_merge)
-      && cs.advance(14)
+      && cs.advance(5)
+      && cs.fetch_bool_to(vert_seqno_incr)
+      && cs.advance(8)
       && cs.fetch_uint_to(32, seq_no)
       && cs.fetch_uint_to(32, vert_seq_no)
+      && vert_seqno_incr <= vert_seq_no
       && add_r1(prev_seq_no, 1, seq_no)
-      && t_ShardIdent.validate_skip(cs)
+      && t_ShardIdent.validate_skip(cs, weak)
       && cs.advance(288)
-      && (!not_master || t_BlkMasterInfo.validate_skip_ref(cs))
-      && BlkPrevInfo{after_merge}.validate_skip_ref(cs)
-      && (!vert_seq_no || t_BlkPrevInfo_0.validate_skip_ref(cs));
+      && (!not_master || t_BlkMasterInfo.validate_skip_ref(cs, weak))
+      && BlkPrevInfo{after_merge}.validate_skip_ref(cs, weak)
+      && (!vert_seq_no || t_BlkPrevInfo_0.validate_skip_ref(cs, weak));
 }
 
 bool BlockInfo::unpack(vm::CellSlice& cs, BlockInfo::Record& data) const {
@@ -10300,9 +10503,11 @@ bool BlockInfo::unpack(vm::CellSlice& cs, BlockInfo::Record& data) const {
       && cs.fetch_bool_to(data.want_split)
       && cs.fetch_bool_to(data.want_merge)
       && cs.fetch_bool_to(data.key_block)
-      && cs.fetch_uint_to(9, data.flags)
+      && cs.fetch_bool_to(data.vert_seqno_incr)
+      && cs.fetch_uint_to(8, data.flags)
       && cs.fetch_uint_to(32, data.seq_no)
       && cs.fetch_uint_to(32, data.vert_seq_no)
+      && data.vert_seqno_incr <= data.vert_seq_no
       && add_r1(prev_seq_no, 1, data.seq_no)
       && cs.fetch_subslice_to(104, data.shard)
       && cs.fetch_uint_to(32, data.gen_utime)
@@ -10334,9 +10539,11 @@ bool BlockInfo::pack(vm::CellBuilder& cb, const BlockInfo::Record& data) const {
       && cb.store_ulong_rchk_bool(data.want_split, 1)
       && cb.store_ulong_rchk_bool(data.want_merge, 1)
       && cb.store_ulong_rchk_bool(data.key_block, 1)
-      && cb.store_ulong_rchk_bool(data.flags, 9)
+      && cb.store_ulong_rchk_bool(data.vert_seqno_incr, 1)
+      && cb.store_ulong_rchk_bool(data.flags, 8)
       && cb.store_ulong_rchk_bool(data.seq_no, 32)
       && cb.store_ulong_rchk_bool(data.vert_seq_no, 32)
+      && data.vert_seqno_incr <= data.vert_seq_no
       && add_r1(prev_seq_no, 1, data.seq_no)
       && cb.append_cellslice_chk(data.shard, 104)
       && cb.store_ulong_rchk_bool(data.gen_utime, 32)
@@ -10357,7 +10564,7 @@ bool BlockInfo::cell_pack(Ref<vm::Cell>& cell_ref, const BlockInfo::Record& data
 }
 
 bool BlockInfo::print_skip(PrettyPrinter& pp, vm::CellSlice& cs) const {
-  int not_master, after_merge, before_split, after_split, flags, seq_no, vert_seq_no, prev_seq_no;
+  int not_master, after_merge, before_split, after_split, vert_seqno_incr, flags, seq_no, vert_seq_no, prev_seq_no;
   return cs.fetch_ulong(32) == 0x9bc7a987U
       && pp.open("block_info")
       && pp.fetch_uint_field(cs, 32, "version")
@@ -10372,12 +10579,15 @@ bool BlockInfo::print_skip(PrettyPrinter& pp, vm::CellSlice& cs) const {
       && pp.fetch_uint_field(cs, 1, "want_split")
       && pp.fetch_uint_field(cs, 1, "want_merge")
       && pp.fetch_uint_field(cs, 1, "key_block")
-      && cs.fetch_uint_to(9, flags)
+      && cs.fetch_bool_to(vert_seqno_incr)
+      && pp.field_int(vert_seqno_incr, "vert_seqno_incr")
+      && cs.fetch_uint_to(8, flags)
       && pp.field_int(flags, "flags")
       && cs.fetch_uint_to(32, seq_no)
       && pp.field_int(seq_no, "seq_no")
       && cs.fetch_uint_to(32, vert_seq_no)
       && pp.field_int(vert_seq_no, "vert_seq_no")
+      && vert_seqno_incr <= vert_seq_no
       && add_r1(prev_seq_no, 1, seq_no)
       && pp.field("shard")
       && t_ShardIdent.print_skip(pp, cs)
@@ -10434,14 +10644,14 @@ bool BlkPrevInfo::skip(vm::CellSlice& cs) const {
   return false;
 }
 
-bool BlkPrevInfo::validate_skip(vm::CellSlice& cs) const {
+bool BlkPrevInfo::validate_skip(vm::CellSlice& cs, bool weak) const {
   switch (get_tag(cs)) {
   case prev_blk_info:
     return cs.advance(608)
         && m_ == 0;
   case prev_blks_info:
-    return t_ExtBlkRef.validate_skip_ref(cs)
-        && t_ExtBlkRef.validate_skip_ref(cs)
+    return t_ExtBlkRef.validate_skip_ref(cs, weak)
+        && t_ExtBlkRef.validate_skip_ref(cs, weak)
         && m_ == 1;
   }
   return false;
@@ -10565,13 +10775,13 @@ int Block::check_tag(const vm::CellSlice& cs) const {
   return cs.prefetch_ulong(32) == 0x11ef55aa ? block : -1;
 }
 
-bool Block::validate_skip(vm::CellSlice& cs) const {
+bool Block::validate_skip(vm::CellSlice& cs, bool weak) const {
   return cs.fetch_ulong(32) == 0x11ef55aa
       && cs.advance(32)
-      && t_BlockInfo.validate_skip_ref(cs)
-      && t_ValueFlow.validate_skip_ref(cs)
-      && t_MERKLE_UPDATE_ShardState.validate_skip_ref(cs)
-      && t_BlockExtra.validate_skip_ref(cs);
+      && t_BlockInfo.validate_skip_ref(cs, weak)
+      && t_ValueFlow.validate_skip_ref(cs, weak)
+      && t_MERKLE_UPDATE_ShardState.validate_skip_ref(cs, weak)
+      && t_BlockExtra.validate_skip_ref(cs, weak);
 }
 
 bool Block::unpack(vm::CellSlice& cs, Block::Record& data) const {
@@ -10626,30 +10836,28 @@ const Block t_Block;
 constexpr unsigned BlockExtra::cons_tag[1];
 
 int BlockExtra::check_tag(const vm::CellSlice& cs) const {
-  return cs.prefetch_ulong(32) == 0xbbf81c17U ? block_extra : -1;
+  return cs.prefetch_ulong(32) == 0x4a33f6fd ? block_extra : -1;
 }
 
 bool BlockExtra::skip(vm::CellSlice& cs) const {
-  return cs.advance_ext(0x20020)
-      && t_ShardAccountBlocks.skip(cs)
-      && cs.advance(512)
+  return cs.advance_ext(0x30220)
       && t_Maybe_Ref_McBlockExtra.skip(cs);
 }
 
-bool BlockExtra::validate_skip(vm::CellSlice& cs) const {
-  return cs.fetch_ulong(32) == 0xbbf81c17U
-      && t_InMsgDescr.validate_skip_ref(cs)
-      && t_OutMsgDescr.validate_skip_ref(cs)
-      && t_ShardAccountBlocks.validate_skip(cs)
+bool BlockExtra::validate_skip(vm::CellSlice& cs, bool weak) const {
+  return cs.fetch_ulong(32) == 0x4a33f6fd
+      && t_InMsgDescr.validate_skip_ref(cs, weak)
+      && t_OutMsgDescr.validate_skip_ref(cs, weak)
+      && t_ShardAccountBlocks.validate_skip_ref(cs, weak)
       && cs.advance(512)
-      && t_Maybe_Ref_McBlockExtra.validate_skip(cs);
+      && t_Maybe_Ref_McBlockExtra.validate_skip(cs, weak);
 }
 
 bool BlockExtra::unpack(vm::CellSlice& cs, BlockExtra::Record& data) const {
-  return cs.fetch_ulong(32) == 0xbbf81c17U
+  return cs.fetch_ulong(32) == 0x4a33f6fd
       && cs.fetch_ref_to(data.in_msg_descr)
       && cs.fetch_ref_to(data.out_msg_descr)
-      && t_ShardAccountBlocks.fetch_to(cs, data.account_blocks)
+      && cs.fetch_ref_to(data.account_blocks)
       && cs.fetch_bits_to(data.rand_seed.bits(), 256)
       && cs.fetch_bits_to(data.created_by.bits(), 256)
       && t_Maybe_Ref_McBlockExtra.fetch_to(cs, data.custom);
@@ -10662,10 +10870,10 @@ bool BlockExtra::cell_unpack(Ref<vm::Cell> cell_ref, BlockExtra::Record& data) c
 }
 
 bool BlockExtra::pack(vm::CellBuilder& cb, const BlockExtra::Record& data) const {
-  return cb.store_long_bool(0xbbf81c17U, 32)
+  return cb.store_long_bool(0x4a33f6fd, 32)
       && cb.store_ref_bool(data.in_msg_descr)
       && cb.store_ref_bool(data.out_msg_descr)
-      && t_ShardAccountBlocks.store_from(cb, data.account_blocks)
+      && cb.store_ref_bool(data.account_blocks)
       && cb.store_bits_bool(data.rand_seed.cbits(), 256)
       && cb.store_bits_bool(data.created_by.cbits(), 256)
       && t_Maybe_Ref_McBlockExtra.store_from(cb, data.custom);
@@ -10677,14 +10885,14 @@ bool BlockExtra::cell_pack(Ref<vm::Cell>& cell_ref, const BlockExtra::Record& da
 }
 
 bool BlockExtra::print_skip(PrettyPrinter& pp, vm::CellSlice& cs) const {
-  return cs.fetch_ulong(32) == 0xbbf81c17U
+  return cs.fetch_ulong(32) == 0x4a33f6fd
       && pp.open("block_extra")
       && pp.field("in_msg_descr")
       && t_InMsgDescr.print_ref(pp, cs.fetch_ref())
       && pp.field("out_msg_descr")
       && t_OutMsgDescr.print_ref(pp, cs.fetch_ref())
       && pp.field("account_blocks")
-      && t_ShardAccountBlocks.print_skip(pp, cs)
+      && t_ShardAccountBlocks.print_ref(pp, cs.fetch_ref())
       && pp.fetch_bits_field(cs, 256, "rand_seed")
       && pp.fetch_bits_field(cs, 256, "created_by")
       && pp.field("custom")
@@ -10709,11 +10917,11 @@ bool ValueFlow_aux::skip(vm::CellSlice& cs) const {
       && t_CurrencyCollection.skip(cs);
 }
 
-bool ValueFlow_aux::validate_skip(vm::CellSlice& cs) const {
-  return t_CurrencyCollection.validate_skip(cs)
-      && t_CurrencyCollection.validate_skip(cs)
-      && t_CurrencyCollection.validate_skip(cs)
-      && t_CurrencyCollection.validate_skip(cs);
+bool ValueFlow_aux::validate_skip(vm::CellSlice& cs, bool weak) const {
+  return t_CurrencyCollection.validate_skip(cs, weak)
+      && t_CurrencyCollection.validate_skip(cs, weak)
+      && t_CurrencyCollection.validate_skip(cs, weak)
+      && t_CurrencyCollection.validate_skip(cs, weak);
 }
 
 bool ValueFlow_aux::unpack(vm::CellSlice& cs, ValueFlow_aux::Record& data) const {
@@ -10767,25 +10975,22 @@ int ValueFlow_aux1::check_tag(const vm::CellSlice& cs) const {
 bool ValueFlow_aux1::skip(vm::CellSlice& cs) const {
   return t_CurrencyCollection.skip(cs)
       && t_CurrencyCollection.skip(cs)
+      && t_CurrencyCollection.skip(cs)
       && t_CurrencyCollection.skip(cs);
 }
 
-bool ValueFlow_aux1::validate_skip(vm::CellSlice& cs) const {
-  return t_CurrencyCollection.validate_skip(cs)
-      && t_CurrencyCollection.validate_skip(cs)
-      && t_CurrencyCollection.validate_skip(cs);
+bool ValueFlow_aux1::validate_skip(vm::CellSlice& cs, bool weak) const {
+  return t_CurrencyCollection.validate_skip(cs, weak)
+      && t_CurrencyCollection.validate_skip(cs, weak)
+      && t_CurrencyCollection.validate_skip(cs, weak)
+      && t_CurrencyCollection.validate_skip(cs, weak);
 }
 
 bool ValueFlow_aux1::unpack(vm::CellSlice& cs, ValueFlow_aux1::Record& data) const {
   return t_CurrencyCollection.fetch_to(cs, data.fees_imported)
+      && t_CurrencyCollection.fetch_to(cs, data.recovered)
       && t_CurrencyCollection.fetch_to(cs, data.created)
       && t_CurrencyCollection.fetch_to(cs, data.minted);
-}
-
-bool ValueFlow_aux1::unpack_cons1(vm::CellSlice& cs, Ref<CellSlice>& fees_imported, Ref<CellSlice>& created, Ref<CellSlice>& minted) const {
-  return t_CurrencyCollection.fetch_to(cs, fees_imported)
-      && t_CurrencyCollection.fetch_to(cs, created)
-      && t_CurrencyCollection.fetch_to(cs, minted);
 }
 
 bool ValueFlow_aux1::cell_unpack(Ref<vm::Cell> cell_ref, ValueFlow_aux1::Record& data) const {
@@ -10794,22 +10999,11 @@ bool ValueFlow_aux1::cell_unpack(Ref<vm::Cell> cell_ref, ValueFlow_aux1::Record&
   return unpack(cs, data) && cs.empty_ext();
 }
 
-bool ValueFlow_aux1::cell_unpack_cons1(Ref<vm::Cell> cell_ref, Ref<CellSlice>& fees_imported, Ref<CellSlice>& created, Ref<CellSlice>& minted) const {
-  if (cell_ref.is_null()) { return false; }
-  auto cs = load_cell_slice(std::move(cell_ref));
-  return unpack_cons1(cs, fees_imported, created, minted) && cs.empty_ext();
-}
-
 bool ValueFlow_aux1::pack(vm::CellBuilder& cb, const ValueFlow_aux1::Record& data) const {
   return t_CurrencyCollection.store_from(cb, data.fees_imported)
+      && t_CurrencyCollection.store_from(cb, data.recovered)
       && t_CurrencyCollection.store_from(cb, data.created)
       && t_CurrencyCollection.store_from(cb, data.minted);
-}
-
-bool ValueFlow_aux1::pack_cons1(vm::CellBuilder& cb, Ref<CellSlice> fees_imported, Ref<CellSlice> created, Ref<CellSlice> minted) const {
-  return t_CurrencyCollection.store_from(cb, fees_imported)
-      && t_CurrencyCollection.store_from(cb, created)
-      && t_CurrencyCollection.store_from(cb, minted);
 }
 
 bool ValueFlow_aux1::cell_pack(Ref<vm::Cell>& cell_ref, const ValueFlow_aux1::Record& data) const {
@@ -10817,14 +11011,11 @@ bool ValueFlow_aux1::cell_pack(Ref<vm::Cell>& cell_ref, const ValueFlow_aux1::Re
   return pack(cb, data) && std::move(cb).finalize_to(cell_ref);
 }
 
-bool ValueFlow_aux1::cell_pack_cons1(Ref<vm::Cell>& cell_ref, Ref<CellSlice> fees_imported, Ref<CellSlice> created, Ref<CellSlice> minted) const {
-  vm::CellBuilder cb;
-  return pack_cons1(cb, std::move(fees_imported), std::move(created), std::move(minted)) && std::move(cb).finalize_to(cell_ref);
-}
-
 bool ValueFlow_aux1::print_skip(PrettyPrinter& pp, vm::CellSlice& cs) const {
   return pp.open()
       && pp.field("fees_imported")
+      && t_CurrencyCollection.print_skip(pp, cs)
+      && pp.field("recovered")
       && t_CurrencyCollection.print_skip(pp, cs)
       && pp.field("created")
       && t_CurrencyCollection.print_skip(pp, cs)
@@ -10841,7 +11032,7 @@ const ValueFlow_aux1 t_ValueFlow_aux1;
 constexpr unsigned ValueFlow::cons_tag[1];
 
 int ValueFlow::check_tag(const vm::CellSlice& cs) const {
-  return cs.prefetch_ulong(32) == 0x3fde65c8 ? value_flow : -1;
+  return cs.prefetch_ulong(32) == 0xb8e48dfbU ? value_flow : -1;
 }
 
 bool ValueFlow::skip(vm::CellSlice& cs) const {
@@ -10850,15 +11041,15 @@ bool ValueFlow::skip(vm::CellSlice& cs) const {
       && cs.advance_refs(1);
 }
 
-bool ValueFlow::validate_skip(vm::CellSlice& cs) const {
-  return cs.fetch_ulong(32) == 0x3fde65c8
-      && t_ValueFlow_aux.validate_skip_ref(cs)
-      && t_CurrencyCollection.validate_skip(cs)
-      && t_ValueFlow_aux1.validate_skip_ref(cs);
+bool ValueFlow::validate_skip(vm::CellSlice& cs, bool weak) const {
+  return cs.fetch_ulong(32) == 0xb8e48dfbU
+      && t_ValueFlow_aux.validate_skip_ref(cs, weak)
+      && t_CurrencyCollection.validate_skip(cs, weak)
+      && t_ValueFlow_aux1.validate_skip_ref(cs, weak);
 }
 
 bool ValueFlow::unpack(vm::CellSlice& cs, ValueFlow::Record& data) const {
-  return cs.fetch_ulong(32) == 0x3fde65c8
+  return cs.fetch_ulong(32) == 0xb8e48dfbU
       && t_ValueFlow_aux.cell_unpack(cs.fetch_ref(), data.r1)
       && t_CurrencyCollection.fetch_to(cs, data.fees_collected)
       && t_ValueFlow_aux1.cell_unpack(cs.fetch_ref(), data.r2);
@@ -10872,7 +11063,7 @@ bool ValueFlow::cell_unpack(Ref<vm::Cell> cell_ref, ValueFlow::Record& data) con
 
 bool ValueFlow::pack(vm::CellBuilder& cb, const ValueFlow::Record& data) const {
   Ref<vm::Cell> tmp_cell;
-  return cb.store_long_bool(0x3fde65c8, 32)
+  return cb.store_long_bool(0xb8e48dfbU, 32)
       && t_ValueFlow_aux.cell_pack(tmp_cell, data.r1)
       && cb.store_ref_bool(std::move(tmp_cell))
       && t_CurrencyCollection.store_from(cb, data.fees_collected)
@@ -10886,7 +11077,7 @@ bool ValueFlow::cell_pack(Ref<vm::Cell>& cell_ref, const ValueFlow::Record& data
 }
 
 bool ValueFlow::print_skip(PrettyPrinter& pp, vm::CellSlice& cs) const {
-  return cs.fetch_ulong(32) == 0x3fde65c8
+  return cs.fetch_ulong(32) == 0xb8e48dfbU
       && pp.open("value_flow")
       && pp.field()
       && t_ValueFlow_aux.print_ref(pp, cs.fetch_ref())
@@ -10924,15 +11115,15 @@ bool BinTree::skip(vm::CellSlice& cs) const {
   return false;
 }
 
-bool BinTree::validate_skip(vm::CellSlice& cs) const {
+bool BinTree::validate_skip(vm::CellSlice& cs, bool weak) const {
   switch (get_tag(cs)) {
   case bt_leaf:
     return cs.advance(1)
-        && X_.validate_skip(cs);
+        && X_.validate_skip(cs, weak);
   case bt_fork:
     return cs.advance(1)
-        && validate_skip_ref(cs)
-        && validate_skip_ref(cs);
+        && validate_skip_ref(cs, weak)
+        && validate_skip_ref(cs, weak);
   }
   return false;
 }
@@ -11076,7 +11267,7 @@ bool FutureSplitMerge::skip(vm::CellSlice& cs) const {
   return false;
 }
 
-bool FutureSplitMerge::validate_skip(vm::CellSlice& cs) const {
+bool FutureSplitMerge::validate_skip(vm::CellSlice& cs, bool weak) const {
   switch (get_tag(cs)) {
   case fsm_none:
     return cs.advance(1);
@@ -11244,31 +11435,39 @@ const FutureSplitMerge t_FutureSplitMerge;
 //
 // code for type `ShardDescr`
 //
+constexpr unsigned char ShardDescr::cons_tag[1];
 
 int ShardDescr::check_tag(const vm::CellSlice& cs) const {
-  return shard_descr;
+  return cs.prefetch_ulong(4) == 11 ? shard_descr : -1;
 }
 
 bool ShardDescr::skip(vm::CellSlice& cs) const {
   int flags;
-  return cs.advance(677)
+  return cs.advance(713)
       && cs.fetch_uint_to(3, flags)
       && flags == 0
       && cs.advance(160)
-      && t_FutureSplitMerge.skip(cs);
+      && t_FutureSplitMerge.skip(cs)
+      && t_CurrencyCollection.skip(cs)
+      && t_CurrencyCollection.skip(cs);
 }
 
-bool ShardDescr::validate_skip(vm::CellSlice& cs) const {
+bool ShardDescr::validate_skip(vm::CellSlice& cs, bool weak) const {
   int flags;
-  return cs.advance(677)
+  return cs.fetch_ulong(4) == 11
+      && cs.advance(709)
       && cs.fetch_uint_to(3, flags)
       && flags == 0
       && cs.advance(160)
-      && t_FutureSplitMerge.validate_skip(cs);
+      && t_FutureSplitMerge.validate_skip(cs, weak)
+      && t_CurrencyCollection.validate_skip(cs, weak)
+      && t_CurrencyCollection.validate_skip(cs, weak);
 }
 
 bool ShardDescr::unpack(vm::CellSlice& cs, ShardDescr::Record& data) const {
-  return cs.fetch_uint_to(32, data.seq_no)
+  return cs.fetch_ulong(4) == 11
+      && cs.fetch_uint_to(32, data.seq_no)
+      && cs.fetch_uint_to(32, data.reg_mc_seqno)
       && cs.fetch_uint_to(64, data.start_lt)
       && cs.fetch_uint_to(64, data.end_lt)
       && cs.fetch_bits_to(data.root_hash.bits(), 256)
@@ -11284,7 +11483,9 @@ bool ShardDescr::unpack(vm::CellSlice& cs, ShardDescr::Record& data) const {
       && cs.fetch_uint_to(64, data.next_validator_shard)
       && cs.fetch_uint_to(32, data.min_ref_mc_seqno)
       && cs.fetch_uint_to(32, data.gen_utime)
-      && t_FutureSplitMerge.fetch_to(cs, data.split_merge_at);
+      && t_FutureSplitMerge.fetch_to(cs, data.split_merge_at)
+      && t_CurrencyCollection.fetch_to(cs, data.fees_collected)
+      && t_CurrencyCollection.fetch_to(cs, data.funds_created);
 }
 
 bool ShardDescr::cell_unpack(Ref<vm::Cell> cell_ref, ShardDescr::Record& data) const {
@@ -11294,7 +11495,9 @@ bool ShardDescr::cell_unpack(Ref<vm::Cell> cell_ref, ShardDescr::Record& data) c
 }
 
 bool ShardDescr::pack(vm::CellBuilder& cb, const ShardDescr::Record& data) const {
-  return cb.store_ulong_rchk_bool(data.seq_no, 32)
+  return cb.store_long_bool(11, 4)
+      && cb.store_ulong_rchk_bool(data.seq_no, 32)
+      && cb.store_ulong_rchk_bool(data.reg_mc_seqno, 32)
       && cb.store_ulong_rchk_bool(data.start_lt, 64)
       && cb.store_ulong_rchk_bool(data.end_lt, 64)
       && cb.store_bits_bool(data.root_hash.cbits(), 256)
@@ -11310,7 +11513,9 @@ bool ShardDescr::pack(vm::CellBuilder& cb, const ShardDescr::Record& data) const
       && cb.store_ulong_rchk_bool(data.next_validator_shard, 64)
       && cb.store_ulong_rchk_bool(data.min_ref_mc_seqno, 32)
       && cb.store_ulong_rchk_bool(data.gen_utime, 32)
-      && t_FutureSplitMerge.store_from(cb, data.split_merge_at);
+      && t_FutureSplitMerge.store_from(cb, data.split_merge_at)
+      && t_CurrencyCollection.store_from(cb, data.fees_collected)
+      && t_CurrencyCollection.store_from(cb, data.funds_created);
 }
 
 bool ShardDescr::cell_pack(Ref<vm::Cell>& cell_ref, const ShardDescr::Record& data) const {
@@ -11320,8 +11525,10 @@ bool ShardDescr::cell_pack(Ref<vm::Cell>& cell_ref, const ShardDescr::Record& da
 
 bool ShardDescr::print_skip(PrettyPrinter& pp, vm::CellSlice& cs) const {
   int flags;
-  return pp.open("shard_descr")
+  return cs.fetch_ulong(4) == 11
+      && pp.open("shard_descr")
       && pp.fetch_uint_field(cs, 32, "seq_no")
+      && pp.fetch_uint_field(cs, 32, "reg_mc_seqno")
       && pp.fetch_uint_field(cs, 64, "start_lt")
       && pp.fetch_uint_field(cs, 64, "end_lt")
       && pp.fetch_bits_field(cs, 256, "root_hash")
@@ -11340,6 +11547,10 @@ bool ShardDescr::print_skip(PrettyPrinter& pp, vm::CellSlice& cs) const {
       && pp.fetch_uint_field(cs, 32, "gen_utime")
       && pp.field("split_merge_at")
       && t_FutureSplitMerge.print_skip(pp, cs)
+      && pp.field("fees_collected")
+      && t_CurrencyCollection.print_skip(pp, cs)
+      && pp.field("funds_created")
+      && t_CurrencyCollection.print_skip(pp, cs)
       && pp.close();
 }
 
@@ -11357,8 +11568,8 @@ bool ShardHashes::skip(vm::CellSlice& cs) const {
   return t_HashmapE_32_Ref_BinTree_ShardDescr.skip(cs);
 }
 
-bool ShardHashes::validate_skip(vm::CellSlice& cs) const {
-  return t_HashmapE_32_Ref_BinTree_ShardDescr.validate_skip(cs);
+bool ShardHashes::validate_skip(vm::CellSlice& cs, bool weak) const {
+  return t_HashmapE_32_Ref_BinTree_ShardDescr.validate_skip(cs, weak);
 }
 
 bool ShardHashes::unpack(vm::CellSlice& cs, ShardHashes::Record& data) const {
@@ -11426,8 +11637,8 @@ bool BinTreeAug::skip(vm::CellSlice& cs) const {
   switch (get_tag(cs)) {
   case bta_leaf:
     return cs.advance(1)
-        && X_.skip(cs)
-        && Y_.skip(cs);
+        && Y_.skip(cs)
+        && X_.skip(cs);
   case bta_fork:
     return cs.advance_ext(0x20001)
         && Y_.skip(cs);
@@ -11435,31 +11646,31 @@ bool BinTreeAug::skip(vm::CellSlice& cs) const {
   return false;
 }
 
-bool BinTreeAug::validate_skip(vm::CellSlice& cs) const {
+bool BinTreeAug::validate_skip(vm::CellSlice& cs, bool weak) const {
   switch (get_tag(cs)) {
   case bta_leaf:
     return cs.advance(1)
-        && X_.validate_skip(cs)
-        && Y_.validate_skip(cs);
+        && Y_.validate_skip(cs, weak)
+        && X_.validate_skip(cs, weak);
   case bta_fork:
     return cs.advance(1)
-        && validate_skip_ref(cs)
-        && validate_skip_ref(cs)
-        && Y_.validate_skip(cs);
+        && validate_skip_ref(cs, weak)
+        && validate_skip_ref(cs, weak)
+        && Y_.validate_skip(cs, weak);
   }
   return false;
 }
 
 bool BinTreeAug::unpack(vm::CellSlice& cs, BinTreeAug::Record_bta_leaf& data) const {
   return cs.fetch_ulong(1) == 0
-      && X_.fetch_to(cs, data.leaf)
-      && Y_.fetch_to(cs, data.extra);
+      && Y_.fetch_to(cs, data.extra)
+      && X_.fetch_to(cs, data.leaf);
 }
 
-bool BinTreeAug::unpack_bta_leaf(vm::CellSlice& cs, Ref<CellSlice>& leaf, Ref<CellSlice>& extra) const {
+bool BinTreeAug::unpack_bta_leaf(vm::CellSlice& cs, Ref<CellSlice>& extra, Ref<CellSlice>& leaf) const {
   return cs.fetch_ulong(1) == 0
-      && X_.fetch_to(cs, leaf)
-      && Y_.fetch_to(cs, extra);
+      && Y_.fetch_to(cs, extra)
+      && X_.fetch_to(cs, leaf);
 }
 
 bool BinTreeAug::cell_unpack(Ref<vm::Cell> cell_ref, BinTreeAug::Record_bta_leaf& data) const {
@@ -11468,10 +11679,10 @@ bool BinTreeAug::cell_unpack(Ref<vm::Cell> cell_ref, BinTreeAug::Record_bta_leaf
   return unpack(cs, data) && cs.empty_ext();
 }
 
-bool BinTreeAug::cell_unpack_bta_leaf(Ref<vm::Cell> cell_ref, Ref<CellSlice>& leaf, Ref<CellSlice>& extra) const {
+bool BinTreeAug::cell_unpack_bta_leaf(Ref<vm::Cell> cell_ref, Ref<CellSlice>& extra, Ref<CellSlice>& leaf) const {
   if (cell_ref.is_null()) { return false; }
   auto cs = load_cell_slice(std::move(cell_ref));
-  return unpack_bta_leaf(cs, leaf, extra) && cs.empty_ext();
+  return unpack_bta_leaf(cs, extra, leaf) && cs.empty_ext();
 }
 
 bool BinTreeAug::unpack(vm::CellSlice& cs, BinTreeAug::Record_bta_fork& data) const {
@@ -11502,14 +11713,14 @@ bool BinTreeAug::cell_unpack_bta_fork(Ref<vm::Cell> cell_ref, Ref<Cell>& left, R
 
 bool BinTreeAug::pack(vm::CellBuilder& cb, const BinTreeAug::Record_bta_leaf& data) const {
   return cb.store_long_bool(0, 1)
-      && X_.store_from(cb, data.leaf)
-      && Y_.store_from(cb, data.extra);
+      && Y_.store_from(cb, data.extra)
+      && X_.store_from(cb, data.leaf);
 }
 
-bool BinTreeAug::pack_bta_leaf(vm::CellBuilder& cb, Ref<CellSlice> leaf, Ref<CellSlice> extra) const {
+bool BinTreeAug::pack_bta_leaf(vm::CellBuilder& cb, Ref<CellSlice> extra, Ref<CellSlice> leaf) const {
   return cb.store_long_bool(0, 1)
-      && X_.store_from(cb, leaf)
-      && Y_.store_from(cb, extra);
+      && Y_.store_from(cb, extra)
+      && X_.store_from(cb, leaf);
 }
 
 bool BinTreeAug::cell_pack(Ref<vm::Cell>& cell_ref, const BinTreeAug::Record_bta_leaf& data) const {
@@ -11517,9 +11728,9 @@ bool BinTreeAug::cell_pack(Ref<vm::Cell>& cell_ref, const BinTreeAug::Record_bta
   return pack(cb, data) && std::move(cb).finalize_to(cell_ref);
 }
 
-bool BinTreeAug::cell_pack_bta_leaf(Ref<vm::Cell>& cell_ref, Ref<CellSlice> leaf, Ref<CellSlice> extra) const {
+bool BinTreeAug::cell_pack_bta_leaf(Ref<vm::Cell>& cell_ref, Ref<CellSlice> extra, Ref<CellSlice> leaf) const {
   vm::CellBuilder cb;
-  return pack_bta_leaf(cb, std::move(leaf), std::move(extra)) && std::move(cb).finalize_to(cell_ref);
+  return pack_bta_leaf(cb, std::move(extra), std::move(leaf)) && std::move(cb).finalize_to(cell_ref);
 }
 
 bool BinTreeAug::pack(vm::CellBuilder& cb, const BinTreeAug::Record_bta_fork& data) const {
@@ -11551,10 +11762,10 @@ bool BinTreeAug::print_skip(PrettyPrinter& pp, vm::CellSlice& cs) const {
   case bta_leaf:
     return cs.advance(1)
         && pp.open("bta_leaf")
-        && pp.field("leaf")
-        && X_.print_skip(pp, cs)
         && pp.field("extra")
         && Y_.print_skip(pp, cs)
+        && pp.field("leaf")
+        && X_.print_skip(pp, cs)
         && pp.close();
   case bta_fork:
     return cs.advance(1)
@@ -11572,6 +11783,77 @@ bool BinTreeAug::print_skip(PrettyPrinter& pp, vm::CellSlice& cs) const {
 
 
 //
+// code for type `ShardFeeCreated`
+//
+
+int ShardFeeCreated::check_tag(const vm::CellSlice& cs) const {
+  return cons1;
+}
+
+bool ShardFeeCreated::skip(vm::CellSlice& cs) const {
+  return t_CurrencyCollection.skip(cs)
+      && t_CurrencyCollection.skip(cs);
+}
+
+bool ShardFeeCreated::validate_skip(vm::CellSlice& cs, bool weak) const {
+  return t_CurrencyCollection.validate_skip(cs, weak)
+      && t_CurrencyCollection.validate_skip(cs, weak);
+}
+
+bool ShardFeeCreated::unpack(vm::CellSlice& cs, ShardFeeCreated::Record& data) const {
+  return t_CurrencyCollection.fetch_to(cs, data.fees)
+      && t_CurrencyCollection.fetch_to(cs, data.create);
+}
+
+bool ShardFeeCreated::unpack_cons1(vm::CellSlice& cs, Ref<CellSlice>& fees, Ref<CellSlice>& create) const {
+  return t_CurrencyCollection.fetch_to(cs, fees)
+      && t_CurrencyCollection.fetch_to(cs, create);
+}
+
+bool ShardFeeCreated::cell_unpack(Ref<vm::Cell> cell_ref, ShardFeeCreated::Record& data) const {
+  if (cell_ref.is_null()) { return false; }
+  auto cs = load_cell_slice(std::move(cell_ref));
+  return unpack(cs, data) && cs.empty_ext();
+}
+
+bool ShardFeeCreated::cell_unpack_cons1(Ref<vm::Cell> cell_ref, Ref<CellSlice>& fees, Ref<CellSlice>& create) const {
+  if (cell_ref.is_null()) { return false; }
+  auto cs = load_cell_slice(std::move(cell_ref));
+  return unpack_cons1(cs, fees, create) && cs.empty_ext();
+}
+
+bool ShardFeeCreated::pack(vm::CellBuilder& cb, const ShardFeeCreated::Record& data) const {
+  return t_CurrencyCollection.store_from(cb, data.fees)
+      && t_CurrencyCollection.store_from(cb, data.create);
+}
+
+bool ShardFeeCreated::pack_cons1(vm::CellBuilder& cb, Ref<CellSlice> fees, Ref<CellSlice> create) const {
+  return t_CurrencyCollection.store_from(cb, fees)
+      && t_CurrencyCollection.store_from(cb, create);
+}
+
+bool ShardFeeCreated::cell_pack(Ref<vm::Cell>& cell_ref, const ShardFeeCreated::Record& data) const {
+  vm::CellBuilder cb;
+  return pack(cb, data) && std::move(cb).finalize_to(cell_ref);
+}
+
+bool ShardFeeCreated::cell_pack_cons1(Ref<vm::Cell>& cell_ref, Ref<CellSlice> fees, Ref<CellSlice> create) const {
+  vm::CellBuilder cb;
+  return pack_cons1(cb, std::move(fees), std::move(create)) && std::move(cb).finalize_to(cell_ref);
+}
+
+bool ShardFeeCreated::print_skip(PrettyPrinter& pp, vm::CellSlice& cs) const {
+  return pp.open()
+      && pp.field("fees")
+      && t_CurrencyCollection.print_skip(pp, cs)
+      && pp.field("create")
+      && t_CurrencyCollection.print_skip(pp, cs)
+      && pp.close();
+}
+
+const ShardFeeCreated t_ShardFeeCreated;
+
+//
 // code for type `ShardFees`
 //
 
@@ -11580,19 +11862,19 @@ int ShardFees::check_tag(const vm::CellSlice& cs) const {
 }
 
 bool ShardFees::skip(vm::CellSlice& cs) const {
-  return t_HashmapAugE_32_Ref_BinTreeAug_True_CurrencyCollection_CurrencyCollection.skip(cs);
+  return t_HashmapAugE_96_ShardFeeCreated_ShardFeeCreated.skip(cs);
 }
 
-bool ShardFees::validate_skip(vm::CellSlice& cs) const {
-  return t_HashmapAugE_32_Ref_BinTreeAug_True_CurrencyCollection_CurrencyCollection.validate_skip(cs);
+bool ShardFees::validate_skip(vm::CellSlice& cs, bool weak) const {
+  return t_HashmapAugE_96_ShardFeeCreated_ShardFeeCreated.validate_skip(cs, weak);
 }
 
 bool ShardFees::unpack(vm::CellSlice& cs, ShardFees::Record& data) const {
-  return t_HashmapAugE_32_Ref_BinTreeAug_True_CurrencyCollection_CurrencyCollection.fetch_to(cs, data.x);
+  return t_HashmapAugE_96_ShardFeeCreated_ShardFeeCreated.fetch_to(cs, data.x);
 }
 
 bool ShardFees::unpack_cons1(vm::CellSlice& cs, Ref<CellSlice>& x) const {
-  return t_HashmapAugE_32_Ref_BinTreeAug_True_CurrencyCollection_CurrencyCollection.fetch_to(cs, x);
+  return t_HashmapAugE_96_ShardFeeCreated_ShardFeeCreated.fetch_to(cs, x);
 }
 
 bool ShardFees::cell_unpack(Ref<vm::Cell> cell_ref, ShardFees::Record& data) const {
@@ -11608,11 +11890,11 @@ bool ShardFees::cell_unpack_cons1(Ref<vm::Cell> cell_ref, Ref<CellSlice>& x) con
 }
 
 bool ShardFees::pack(vm::CellBuilder& cb, const ShardFees::Record& data) const {
-  return t_HashmapAugE_32_Ref_BinTreeAug_True_CurrencyCollection_CurrencyCollection.store_from(cb, data.x);
+  return t_HashmapAugE_96_ShardFeeCreated_ShardFeeCreated.store_from(cb, data.x);
 }
 
 bool ShardFees::pack_cons1(vm::CellBuilder& cb, Ref<CellSlice> x) const {
-  return t_HashmapAugE_32_Ref_BinTreeAug_True_CurrencyCollection_CurrencyCollection.store_from(cb, x);
+  return t_HashmapAugE_96_ShardFeeCreated_ShardFeeCreated.store_from(cb, x);
 }
 
 bool ShardFees::cell_pack(Ref<vm::Cell>& cell_ref, const ShardFees::Record& data) const {
@@ -11628,7 +11910,7 @@ bool ShardFees::cell_pack_cons1(Ref<vm::Cell>& cell_ref, Ref<CellSlice> x) const
 bool ShardFees::print_skip(PrettyPrinter& pp, vm::CellSlice& cs) const {
   return pp.open()
       && pp.field()
-      && t_HashmapAugE_32_Ref_BinTreeAug_True_CurrencyCollection_CurrencyCollection.print_skip(pp, cs)
+      && t_HashmapAugE_96_ShardFeeCreated_ShardFeeCreated.print_skip(pp, cs)
       && pp.close();
 }
 
@@ -11642,9 +11924,9 @@ int ConfigParams::check_tag(const vm::CellSlice& cs) const {
   return cons1;
 }
 
-bool ConfigParams::validate_skip(vm::CellSlice& cs) const {
+bool ConfigParams::validate_skip(vm::CellSlice& cs, bool weak) const {
   return cs.advance(256)
-      && t_Hashmap_32_Ref_Cell.validate_skip_ref(cs);
+      && t_Hashmap_32_Ref_Cell.validate_skip_ref(cs, weak);
 }
 
 bool ConfigParams::unpack(vm::CellSlice& cs, ConfigParams::Record& data) const {
@@ -11953,8 +12235,8 @@ bool OldMcBlocksInfo::skip(vm::CellSlice& cs) const {
   return t_HashmapAugE_32_KeyExtBlkRef_KeyMaxLt.skip(cs);
 }
 
-bool OldMcBlocksInfo::validate_skip(vm::CellSlice& cs) const {
-  return t_HashmapAugE_32_KeyExtBlkRef_KeyMaxLt.validate_skip(cs);
+bool OldMcBlocksInfo::validate_skip(vm::CellSlice& cs, bool weak) const {
+  return t_HashmapAugE_32_KeyExtBlkRef_KeyMaxLt.validate_skip(cs, weak);
 }
 
 bool OldMcBlocksInfo::unpack(vm::CellSlice& cs, OldMcBlocksInfo::Record& data) const {
@@ -12019,11 +12301,11 @@ bool McStateExtra_aux::skip(vm::CellSlice& cs) const {
       && t_Maybe_ExtBlkRef.skip(cs);
 }
 
-bool McStateExtra_aux::validate_skip(vm::CellSlice& cs) const {
+bool McStateExtra_aux::validate_skip(vm::CellSlice& cs, bool weak) const {
   return cs.advance(65)
-      && t_OldMcBlocksInfo.validate_skip(cs)
+      && t_OldMcBlocksInfo.validate_skip(cs, weak)
       && cs.advance(1)
-      && t_Maybe_ExtBlkRef.validate_skip(cs);
+      && t_Maybe_ExtBlkRef.validate_skip(cs, weak);
 }
 
 bool McStateExtra_aux::unpack(vm::CellSlice& cs, McStateExtra_aux::Record& data) const {
@@ -12071,30 +12353,30 @@ const McStateExtra_aux t_McStateExtra_aux;
 constexpr unsigned short McStateExtra::cons_tag[1];
 
 int McStateExtra::check_tag(const vm::CellSlice& cs) const {
-  return cs.prefetch_ulong(16) == 0xcc21 ? masterchain_state_extra : -1;
+  return cs.prefetch_ulong(16) == 0xcc25 ? masterchain_state_extra : -1;
 }
 
 bool McStateExtra::skip(vm::CellSlice& cs) const {
   return cs.advance(16)
       && t_ShardHashes.skip(cs)
-      && t_ShardFees.skip(cs)
-      && cs.advance_ext(0x20100);
+      && cs.advance_ext(0x20100)
+      && t_CurrencyCollection.skip(cs);
 }
 
-bool McStateExtra::validate_skip(vm::CellSlice& cs) const {
-  return cs.fetch_ulong(16) == 0xcc21
-      && t_ShardHashes.validate_skip(cs)
-      && t_ShardFees.validate_skip(cs)
-      && t_ConfigParams.validate_skip(cs)
-      && t_McStateExtra_aux.validate_skip_ref(cs);
+bool McStateExtra::validate_skip(vm::CellSlice& cs, bool weak) const {
+  return cs.fetch_ulong(16) == 0xcc25
+      && t_ShardHashes.validate_skip(cs, weak)
+      && t_ConfigParams.validate_skip(cs, weak)
+      && t_McStateExtra_aux.validate_skip_ref(cs, weak)
+      && t_CurrencyCollection.validate_skip(cs, weak);
 }
 
 bool McStateExtra::unpack(vm::CellSlice& cs, McStateExtra::Record& data) const {
-  return cs.fetch_ulong(16) == 0xcc21
+  return cs.fetch_ulong(16) == 0xcc25
       && t_ShardHashes.fetch_to(cs, data.shard_hashes)
-      && t_ShardFees.fetch_to(cs, data.shard_fees)
       && cs.fetch_subslice_ext_to(0x10100, data.config)
-      && t_McStateExtra_aux.cell_unpack(cs.fetch_ref(), data.r1);
+      && t_McStateExtra_aux.cell_unpack(cs.fetch_ref(), data.r1)
+      && t_CurrencyCollection.fetch_to(cs, data.global_balance);
 }
 
 bool McStateExtra::cell_unpack(Ref<vm::Cell> cell_ref, McStateExtra::Record& data) const {
@@ -12105,12 +12387,12 @@ bool McStateExtra::cell_unpack(Ref<vm::Cell> cell_ref, McStateExtra::Record& dat
 
 bool McStateExtra::pack(vm::CellBuilder& cb, const McStateExtra::Record& data) const {
   Ref<vm::Cell> tmp_cell;
-  return cb.store_long_bool(0xcc21, 16)
+  return cb.store_long_bool(0xcc25, 16)
       && t_ShardHashes.store_from(cb, data.shard_hashes)
-      && t_ShardFees.store_from(cb, data.shard_fees)
       && cb.append_cellslice_chk(data.config, 0x10100)
       && t_McStateExtra_aux.cell_pack(tmp_cell, data.r1)
-      && cb.store_ref_bool(std::move(tmp_cell));
+      && cb.store_ref_bool(std::move(tmp_cell))
+      && t_CurrencyCollection.store_from(cb, data.global_balance);
 }
 
 bool McStateExtra::cell_pack(Ref<vm::Cell>& cell_ref, const McStateExtra::Record& data) const {
@@ -12119,16 +12401,16 @@ bool McStateExtra::cell_pack(Ref<vm::Cell>& cell_ref, const McStateExtra::Record
 }
 
 bool McStateExtra::print_skip(PrettyPrinter& pp, vm::CellSlice& cs) const {
-  return cs.fetch_ulong(16) == 0xcc21
+  return cs.fetch_ulong(16) == 0xcc25
       && pp.open("masterchain_state_extra")
       && pp.field("shard_hashes")
       && t_ShardHashes.print_skip(pp, cs)
-      && pp.field("shard_fees")
-      && t_ShardFees.print_skip(pp, cs)
       && pp.field("config")
       && t_ConfigParams.print_skip(pp, cs)
       && pp.field()
       && t_McStateExtra_aux.print_ref(pp, cs.fetch_ref())
+      && pp.field("global_balance")
+      && t_CurrencyCollection.print_skip(pp, cs)
       && pp.close();
 }
 
@@ -12143,7 +12425,7 @@ int SigPubKey::check_tag(const vm::CellSlice& cs) const {
   return cs.prefetch_ulong(32) == 0x8e81278aU ? ed25519_pubkey : -1;
 }
 
-bool SigPubKey::validate_skip(vm::CellSlice& cs) const {
+bool SigPubKey::validate_skip(vm::CellSlice& cs, bool weak) const {
   return cs.fetch_ulong(32) == 0x8e81278aU
       && cs.advance(256);
 }
@@ -12208,7 +12490,7 @@ int CryptoSignatureSimple::check_tag(const vm::CellSlice& cs) const {
   return cs.prefetch_ulong(4) == 5 ? ed25519_signature : -1;
 }
 
-bool CryptoSignatureSimple::validate_skip(vm::CellSlice& cs) const {
+bool CryptoSignatureSimple::validate_skip(vm::CellSlice& cs, bool weak) const {
   return cs.fetch_ulong(4) == 5
       && cs.advance(512);
 }
@@ -12282,9 +12564,9 @@ bool CryptoSignaturePair::skip(vm::CellSlice& cs) const {
       && t_CryptoSignature.skip(cs);
 }
 
-bool CryptoSignaturePair::validate_skip(vm::CellSlice& cs) const {
+bool CryptoSignaturePair::validate_skip(vm::CellSlice& cs, bool weak) const {
   return cs.advance(256)
-      && t_CryptoSignature.validate_skip(cs);
+      && t_CryptoSignature.validate_skip(cs, weak);
 }
 
 bool CryptoSignaturePair::unpack(vm::CellSlice& cs, CryptoSignaturePair::Record& data) const {
@@ -12348,9 +12630,9 @@ int Certificate::check_tag(const vm::CellSlice& cs) const {
   return cs.prefetch_ulong(4) == 4 ? certificate : -1;
 }
 
-bool Certificate::validate_skip(vm::CellSlice& cs) const {
+bool Certificate::validate_skip(vm::CellSlice& cs, bool weak) const {
   return cs.fetch_ulong(4) == 4
-      && t_SigPubKey.validate_skip(cs)
+      && t_SigPubKey.validate_skip(cs, weak)
       && cs.advance(64);
 }
 
@@ -12425,9 +12707,9 @@ int CertificateEnv::check_tag(const vm::CellSlice& cs) const {
   return cs.prefetch_ulong(28) == 0xa419b7d ? certificate_env : -1;
 }
 
-bool CertificateEnv::validate_skip(vm::CellSlice& cs) const {
+bool CertificateEnv::validate_skip(vm::CellSlice& cs, bool weak) const {
   return cs.fetch_ulong(28) == 0xa419b7d
-      && t_Certificate.validate_skip(cs);
+      && t_Certificate.validate_skip(cs, weak);
 }
 
 bool CertificateEnv::unpack(vm::CellSlice& cs, CertificateEnv::Record& data) const {
@@ -12495,9 +12777,9 @@ bool SignedCertificate::skip(vm::CellSlice& cs) const {
       && t_CryptoSignature.skip(cs);
 }
 
-bool SignedCertificate::validate_skip(vm::CellSlice& cs) const {
-  return t_Certificate.validate_skip(cs)
-      && t_CryptoSignature.validate_skip(cs);
+bool SignedCertificate::validate_skip(vm::CellSlice& cs, bool weak) const {
+  return t_Certificate.validate_skip(cs, weak)
+      && t_CryptoSignature.validate_skip(cs, weak);
 }
 
 bool SignedCertificate::unpack(vm::CellSlice& cs, SignedCertificate::Record& data) const {
@@ -12579,14 +12861,14 @@ bool CryptoSignature::skip(vm::CellSlice& cs) const {
   return false;
 }
 
-bool CryptoSignature::validate_skip(vm::CellSlice& cs) const {
+bool CryptoSignature::validate_skip(vm::CellSlice& cs, bool weak) const {
   switch (get_tag(cs)) {
   case cons1:
-    return t_CryptoSignatureSimple.validate_skip(cs);
+    return t_CryptoSignatureSimple.validate_skip(cs, weak);
   case chained_signature:
     return cs.fetch_ulong(4) == 15
-        && t_SignedCertificate.validate_skip_ref(cs)
-        && t_CryptoSignatureSimple.validate_skip(cs);
+        && t_SignedCertificate.validate_skip_ref(cs, weak)
+        && t_CryptoSignatureSimple.validate_skip(cs, weak);
   }
   return false;
 }
@@ -12697,12 +12979,91 @@ bool CryptoSignature::print_skip(PrettyPrinter& pp, vm::CellSlice& cs) const {
 const CryptoSignature t_CryptoSignature;
 
 //
+// code for auxiliary type `McBlockExtra_aux`
+//
+
+int McBlockExtra_aux::check_tag(const vm::CellSlice& cs) const {
+  return cons1;
+}
+
+bool McBlockExtra_aux::skip(vm::CellSlice& cs) const {
+  return t_HashmapE_16_CryptoSignaturePair.skip(cs)
+      && t_Maybe_Ref_InMsg.skip(cs)
+      && t_Maybe_Ref_InMsg.skip(cs);
+}
+
+bool McBlockExtra_aux::validate_skip(vm::CellSlice& cs, bool weak) const {
+  return t_HashmapE_16_CryptoSignaturePair.validate_skip(cs, weak)
+      && t_Maybe_Ref_InMsg.validate_skip(cs, weak)
+      && t_Maybe_Ref_InMsg.validate_skip(cs, weak);
+}
+
+bool McBlockExtra_aux::unpack(vm::CellSlice& cs, McBlockExtra_aux::Record& data) const {
+  return t_HashmapE_16_CryptoSignaturePair.fetch_to(cs, data.prev_blk_signatures)
+      && t_Maybe_Ref_InMsg.fetch_to(cs, data.recover_create_msg)
+      && t_Maybe_Ref_InMsg.fetch_to(cs, data.mint_msg);
+}
+
+bool McBlockExtra_aux::unpack_cons1(vm::CellSlice& cs, Ref<CellSlice>& prev_blk_signatures, Ref<CellSlice>& recover_create_msg, Ref<CellSlice>& mint_msg) const {
+  return t_HashmapE_16_CryptoSignaturePair.fetch_to(cs, prev_blk_signatures)
+      && t_Maybe_Ref_InMsg.fetch_to(cs, recover_create_msg)
+      && t_Maybe_Ref_InMsg.fetch_to(cs, mint_msg);
+}
+
+bool McBlockExtra_aux::cell_unpack(Ref<vm::Cell> cell_ref, McBlockExtra_aux::Record& data) const {
+  if (cell_ref.is_null()) { return false; }
+  auto cs = load_cell_slice(std::move(cell_ref));
+  return unpack(cs, data) && cs.empty_ext();
+}
+
+bool McBlockExtra_aux::cell_unpack_cons1(Ref<vm::Cell> cell_ref, Ref<CellSlice>& prev_blk_signatures, Ref<CellSlice>& recover_create_msg, Ref<CellSlice>& mint_msg) const {
+  if (cell_ref.is_null()) { return false; }
+  auto cs = load_cell_slice(std::move(cell_ref));
+  return unpack_cons1(cs, prev_blk_signatures, recover_create_msg, mint_msg) && cs.empty_ext();
+}
+
+bool McBlockExtra_aux::pack(vm::CellBuilder& cb, const McBlockExtra_aux::Record& data) const {
+  return t_HashmapE_16_CryptoSignaturePair.store_from(cb, data.prev_blk_signatures)
+      && t_Maybe_Ref_InMsg.store_from(cb, data.recover_create_msg)
+      && t_Maybe_Ref_InMsg.store_from(cb, data.mint_msg);
+}
+
+bool McBlockExtra_aux::pack_cons1(vm::CellBuilder& cb, Ref<CellSlice> prev_blk_signatures, Ref<CellSlice> recover_create_msg, Ref<CellSlice> mint_msg) const {
+  return t_HashmapE_16_CryptoSignaturePair.store_from(cb, prev_blk_signatures)
+      && t_Maybe_Ref_InMsg.store_from(cb, recover_create_msg)
+      && t_Maybe_Ref_InMsg.store_from(cb, mint_msg);
+}
+
+bool McBlockExtra_aux::cell_pack(Ref<vm::Cell>& cell_ref, const McBlockExtra_aux::Record& data) const {
+  vm::CellBuilder cb;
+  return pack(cb, data) && std::move(cb).finalize_to(cell_ref);
+}
+
+bool McBlockExtra_aux::cell_pack_cons1(Ref<vm::Cell>& cell_ref, Ref<CellSlice> prev_blk_signatures, Ref<CellSlice> recover_create_msg, Ref<CellSlice> mint_msg) const {
+  vm::CellBuilder cb;
+  return pack_cons1(cb, std::move(prev_blk_signatures), std::move(recover_create_msg), std::move(mint_msg)) && std::move(cb).finalize_to(cell_ref);
+}
+
+bool McBlockExtra_aux::print_skip(PrettyPrinter& pp, vm::CellSlice& cs) const {
+  return pp.open()
+      && pp.field("prev_blk_signatures")
+      && t_HashmapE_16_CryptoSignaturePair.print_skip(pp, cs)
+      && pp.field("recover_create_msg")
+      && t_Maybe_Ref_InMsg.print_skip(pp, cs)
+      && pp.field("mint_msg")
+      && t_Maybe_Ref_InMsg.print_skip(pp, cs)
+      && pp.close();
+}
+
+const McBlockExtra_aux t_McBlockExtra_aux;
+
+//
 // code for type `McBlockExtra`
 //
 constexpr unsigned short McBlockExtra::cons_tag[1];
 
 int McBlockExtra::check_tag(const vm::CellSlice& cs) const {
-  return cs.prefetch_ulong(16) == 0xcca1 ? masterchain_block_extra : -1;
+  return cs.prefetch_ulong(16) == 0xcca5 ? masterchain_block_extra : -1;
 }
 
 bool McBlockExtra::skip(vm::CellSlice& cs) const {
@@ -12710,24 +13071,27 @@ bool McBlockExtra::skip(vm::CellSlice& cs) const {
   return cs.advance(16)
       && cs.fetch_bool_to(key_block)
       && t_ShardHashes.skip(cs)
-      && t_HashmapE_16_CryptoSignaturePair.skip(cs)
+      && t_ShardFees.skip(cs)
+      && cs.advance_refs(1)
       && (!key_block || t_ConfigParams.skip(cs));
 }
 
-bool McBlockExtra::validate_skip(vm::CellSlice& cs) const {
+bool McBlockExtra::validate_skip(vm::CellSlice& cs, bool weak) const {
   int key_block;
-  return cs.fetch_ulong(16) == 0xcca1
+  return cs.fetch_ulong(16) == 0xcca5
       && cs.fetch_bool_to(key_block)
-      && t_ShardHashes.validate_skip(cs)
-      && t_HashmapE_16_CryptoSignaturePair.validate_skip(cs)
-      && (!key_block || t_ConfigParams.validate_skip(cs));
+      && t_ShardHashes.validate_skip(cs, weak)
+      && t_ShardFees.validate_skip(cs, weak)
+      && t_McBlockExtra_aux.validate_skip_ref(cs, weak)
+      && (!key_block || t_ConfigParams.validate_skip(cs, weak));
 }
 
 bool McBlockExtra::unpack(vm::CellSlice& cs, McBlockExtra::Record& data) const {
-  return cs.fetch_ulong(16) == 0xcca1
+  return cs.fetch_ulong(16) == 0xcca5
       && cs.fetch_bool_to(data.key_block)
       && t_ShardHashes.fetch_to(cs, data.shard_hashes)
-      && t_HashmapE_16_CryptoSignaturePair.fetch_to(cs, data.prev_blk_signatures)
+      && t_ShardFees.fetch_to(cs, data.shard_fees)
+      && t_McBlockExtra_aux.cell_unpack(cs.fetch_ref(), data.r1)
       && (!data.key_block || t_ConfigParams.fetch_to(cs, data.config));
 }
 
@@ -12738,10 +13102,13 @@ bool McBlockExtra::cell_unpack(Ref<vm::Cell> cell_ref, McBlockExtra::Record& dat
 }
 
 bool McBlockExtra::pack(vm::CellBuilder& cb, const McBlockExtra::Record& data) const {
-  return cb.store_long_bool(0xcca1, 16)
+  Ref<vm::Cell> tmp_cell;
+  return cb.store_long_bool(0xcca5, 16)
       && cb.store_ulong_rchk_bool(data.key_block, 1)
       && t_ShardHashes.store_from(cb, data.shard_hashes)
-      && t_HashmapE_16_CryptoSignaturePair.store_from(cb, data.prev_blk_signatures)
+      && t_ShardFees.store_from(cb, data.shard_fees)
+      && t_McBlockExtra_aux.cell_pack(tmp_cell, data.r1)
+      && cb.store_ref_bool(std::move(tmp_cell))
       && (!data.key_block || t_ConfigParams.store_from(cb, data.config));
 }
 
@@ -12752,14 +13119,16 @@ bool McBlockExtra::cell_pack(Ref<vm::Cell>& cell_ref, const McBlockExtra::Record
 
 bool McBlockExtra::print_skip(PrettyPrinter& pp, vm::CellSlice& cs) const {
   int key_block;
-  return cs.fetch_ulong(16) == 0xcca1
+  return cs.fetch_ulong(16) == 0xcca5
       && pp.open("masterchain_block_extra")
       && cs.fetch_bool_to(key_block)
       && pp.field_int(key_block, "key_block")
       && pp.field("shard_hashes")
       && t_ShardHashes.print_skip(pp, cs)
-      && pp.field("prev_blk_signatures")
-      && t_HashmapE_16_CryptoSignaturePair.print_skip(pp, cs)
+      && pp.field("shard_fees")
+      && t_ShardFees.print_skip(pp, cs)
+      && pp.field()
+      && t_McBlockExtra_aux.print_ref(pp, cs.fetch_ref())
       && (!key_block || (pp.field("config") && t_ConfigParams.print_skip(pp, cs)))
       && pp.close();
 }
@@ -12791,15 +13160,15 @@ bool ValidatorDescr::skip(vm::CellSlice& cs) const {
   return false;
 }
 
-bool ValidatorDescr::validate_skip(vm::CellSlice& cs) const {
+bool ValidatorDescr::validate_skip(vm::CellSlice& cs, bool weak) const {
   switch (get_tag(cs)) {
   case validator:
     return cs.fetch_ulong(8) == 0x53
-        && t_SigPubKey.validate_skip(cs)
+        && t_SigPubKey.validate_skip(cs, weak)
         && cs.advance(64);
   case validator_addr:
     return cs.fetch_ulong(8) == 0x73
-        && t_SigPubKey.validate_skip(cs)
+        && t_SigPubKey.validate_skip(cs, weak)
         && cs.advance(320);
   }
   return false;
@@ -12943,7 +13312,7 @@ bool ValidatorSet::skip(vm::CellSlice& cs) const {
       && t_Hashmap_16_ValidatorDescr.skip(cs);
 }
 
-bool ValidatorSet::validate_skip(vm::CellSlice& cs) const {
+bool ValidatorSet::validate_skip(vm::CellSlice& cs, bool weak) const {
   int total, main;
   return cs.fetch_ulong(8) == 17
       && cs.advance(64)
@@ -12951,7 +13320,7 @@ bool ValidatorSet::validate_skip(vm::CellSlice& cs) const {
       && cs.fetch_uint_to(16, main)
       && main <= total
       && 1 <= main
-      && t_Hashmap_16_ValidatorDescr.validate_skip(cs);
+      && t_Hashmap_16_ValidatorDescr.validate_skip(cs, weak);
 }
 
 bool ValidatorSet::unpack(vm::CellSlice& cs, ValidatorSet::Record& data) const {
@@ -13043,7 +13412,7 @@ bool WorkchainFormat::skip(vm::CellSlice& cs) const {
   return false;
 }
 
-bool WorkchainFormat::validate_skip(vm::CellSlice& cs) const {
+bool WorkchainFormat::validate_skip(vm::CellSlice& cs, bool weak) const {
   switch (get_tag(cs)) {
   case wfmt_basic:
     return cs.fetch_ulong(4) == 1
@@ -13214,7 +13583,7 @@ bool WorkchainDescr::skip(vm::CellSlice& cs) const {
       && WorkchainFormat{basic}.skip(cs);
 }
 
-bool WorkchainDescr::validate_skip(vm::CellSlice& cs) const {
+bool WorkchainDescr::validate_skip(vm::CellSlice& cs, bool weak) const {
   int actual_min_split, min_split, basic, flags;
   return cs.fetch_ulong(8) == 0xa6
       && cs.advance(32)
@@ -13227,7 +13596,7 @@ bool WorkchainDescr::validate_skip(vm::CellSlice& cs) const {
       && cs.fetch_uint_to(13, flags)
       && flags == 0
       && cs.advance(544)
-      && WorkchainFormat{basic}.validate_skip(cs);
+      && WorkchainFormat{basic}.validate_skip(cs, weak);
 }
 
 bool WorkchainDescr::unpack(vm::CellSlice& cs, WorkchainDescr::Record& data) const {
@@ -13307,6 +13676,85 @@ bool WorkchainDescr::print_skip(PrettyPrinter& pp, vm::CellSlice& cs) const {
 const WorkchainDescr t_WorkchainDescr;
 
 //
+// code for type `BlockCreateFees`
+//
+constexpr unsigned char BlockCreateFees::cons_tag[1];
+
+int BlockCreateFees::check_tag(const vm::CellSlice& cs) const {
+  return cs.prefetch_ulong(8) == 0x6b ? block_grams_created : -1;
+}
+
+bool BlockCreateFees::skip(vm::CellSlice& cs) const {
+  return cs.advance(8)
+      && t_Grams.skip(cs)
+      && t_Grams.skip(cs);
+}
+
+bool BlockCreateFees::validate_skip(vm::CellSlice& cs, bool weak) const {
+  return cs.fetch_ulong(8) == 0x6b
+      && t_Grams.validate_skip(cs, weak)
+      && t_Grams.validate_skip(cs, weak);
+}
+
+bool BlockCreateFees::unpack(vm::CellSlice& cs, BlockCreateFees::Record& data) const {
+  return cs.fetch_ulong(8) == 0x6b
+      && t_Grams.fetch_to(cs, data.masterchain_block_fee)
+      && t_Grams.fetch_to(cs, data.basechain_block_fee);
+}
+
+bool BlockCreateFees::unpack_block_grams_created(vm::CellSlice& cs, Ref<CellSlice>& masterchain_block_fee, Ref<CellSlice>& basechain_block_fee) const {
+  return cs.fetch_ulong(8) == 0x6b
+      && t_Grams.fetch_to(cs, masterchain_block_fee)
+      && t_Grams.fetch_to(cs, basechain_block_fee);
+}
+
+bool BlockCreateFees::cell_unpack(Ref<vm::Cell> cell_ref, BlockCreateFees::Record& data) const {
+  if (cell_ref.is_null()) { return false; }
+  auto cs = load_cell_slice(std::move(cell_ref));
+  return unpack(cs, data) && cs.empty_ext();
+}
+
+bool BlockCreateFees::cell_unpack_block_grams_created(Ref<vm::Cell> cell_ref, Ref<CellSlice>& masterchain_block_fee, Ref<CellSlice>& basechain_block_fee) const {
+  if (cell_ref.is_null()) { return false; }
+  auto cs = load_cell_slice(std::move(cell_ref));
+  return unpack_block_grams_created(cs, masterchain_block_fee, basechain_block_fee) && cs.empty_ext();
+}
+
+bool BlockCreateFees::pack(vm::CellBuilder& cb, const BlockCreateFees::Record& data) const {
+  return cb.store_long_bool(0x6b, 8)
+      && t_Grams.store_from(cb, data.masterchain_block_fee)
+      && t_Grams.store_from(cb, data.basechain_block_fee);
+}
+
+bool BlockCreateFees::pack_block_grams_created(vm::CellBuilder& cb, Ref<CellSlice> masterchain_block_fee, Ref<CellSlice> basechain_block_fee) const {
+  return cb.store_long_bool(0x6b, 8)
+      && t_Grams.store_from(cb, masterchain_block_fee)
+      && t_Grams.store_from(cb, basechain_block_fee);
+}
+
+bool BlockCreateFees::cell_pack(Ref<vm::Cell>& cell_ref, const BlockCreateFees::Record& data) const {
+  vm::CellBuilder cb;
+  return pack(cb, data) && std::move(cb).finalize_to(cell_ref);
+}
+
+bool BlockCreateFees::cell_pack_block_grams_created(Ref<vm::Cell>& cell_ref, Ref<CellSlice> masterchain_block_fee, Ref<CellSlice> basechain_block_fee) const {
+  vm::CellBuilder cb;
+  return pack_block_grams_created(cb, std::move(masterchain_block_fee), std::move(basechain_block_fee)) && std::move(cb).finalize_to(cell_ref);
+}
+
+bool BlockCreateFees::print_skip(PrettyPrinter& pp, vm::CellSlice& cs) const {
+  return cs.fetch_ulong(8) == 0x6b
+      && pp.open("block_grams_created")
+      && pp.field("masterchain_block_fee")
+      && t_Grams.print_skip(pp, cs)
+      && pp.field("basechain_block_fee")
+      && t_Grams.print_skip(pp, cs)
+      && pp.close();
+}
+
+const BlockCreateFees t_BlockCreateFees;
+
+//
 // code for type `StoragePrices`
 //
 constexpr unsigned char StoragePrices::cons_tag[1];
@@ -13315,7 +13763,7 @@ int StoragePrices::check_tag(const vm::CellSlice& cs) const {
   return cs.prefetch_ulong(8) == 0xcc ? cons1 : -1;
 }
 
-bool StoragePrices::validate_skip(vm::CellSlice& cs) const {
+bool StoragePrices::validate_skip(vm::CellSlice& cs, bool weak) const {
   return cs.fetch_ulong(8) == 0xcc
       && cs.advance(288);
 }
@@ -13371,7 +13819,7 @@ int GasLimitsPrices::check_tag(const vm::CellSlice& cs) const {
   return cs.prefetch_ulong(8) == 0xdd ? gas_prices : -1;
 }
 
-bool GasLimitsPrices::validate_skip(vm::CellSlice& cs) const {
+bool GasLimitsPrices::validate_skip(vm::CellSlice& cs, bool weak) const {
   return cs.fetch_ulong(8) == 0xdd
       && cs.advance(384);
 }
@@ -13430,7 +13878,7 @@ int ParamLimits::check_tag(const vm::CellSlice& cs) const {
   return cs.prefetch_ulong(8) == 0xc3 ? param_limits : -1;
 }
 
-bool ParamLimits::validate_skip(vm::CellSlice& cs) const {
+bool ParamLimits::validate_skip(vm::CellSlice& cs, bool weak) const {
   int underload, soft_limit, hard_limit;
   return cs.fetch_ulong(8) == 0xc3
       && cs.fetch_uint_to(32, underload)
@@ -13524,11 +13972,11 @@ int BlockLimits::check_tag(const vm::CellSlice& cs) const {
   return cs.prefetch_ulong(8) == 0x5d ? block_limits : -1;
 }
 
-bool BlockLimits::validate_skip(vm::CellSlice& cs) const {
+bool BlockLimits::validate_skip(vm::CellSlice& cs, bool weak) const {
   return cs.fetch_ulong(8) == 0x5d
-      && t_ParamLimits.validate_skip(cs)
-      && t_ParamLimits.validate_skip(cs)
-      && t_ParamLimits.validate_skip(cs);
+      && t_ParamLimits.validate_skip(cs, weak)
+      && t_ParamLimits.validate_skip(cs, weak)
+      && t_ParamLimits.validate_skip(cs, weak);
 }
 
 bool BlockLimits::unpack(vm::CellSlice& cs, BlockLimits::Record& data) const {
@@ -13604,7 +14052,7 @@ int MsgForwardPrices::check_tag(const vm::CellSlice& cs) const {
   return cs.prefetch_ulong(8) == 0xea ? msg_forward_prices : -1;
 }
 
-bool MsgForwardPrices::validate_skip(vm::CellSlice& cs) const {
+bool MsgForwardPrices::validate_skip(vm::CellSlice& cs, bool weak) const {
   return cs.fetch_ulong(8) == 0xea
       && cs.advance(256);
 }
@@ -13663,7 +14111,7 @@ int CatchainConfig::check_tag(const vm::CellSlice& cs) const {
   return cs.prefetch_ulong(8) == 0xc1 ? catchain_config : -1;
 }
 
-bool CatchainConfig::validate_skip(vm::CellSlice& cs) const {
+bool CatchainConfig::validate_skip(vm::CellSlice& cs, bool weak) const {
   return cs.fetch_ulong(8) == 0xc1
       && cs.advance(128);
 }
@@ -13708,6 +14156,79 @@ bool CatchainConfig::print_skip(PrettyPrinter& pp, vm::CellSlice& cs) const {
 const CatchainConfig t_CatchainConfig;
 
 //
+// code for type `ConsensusConfig`
+//
+constexpr unsigned char ConsensusConfig::cons_tag[1];
+
+int ConsensusConfig::check_tag(const vm::CellSlice& cs) const {
+  return cs.prefetch_ulong(8) == 0xd6 ? consensus_config : -1;
+}
+
+bool ConsensusConfig::validate_skip(vm::CellSlice& cs, bool weak) const {
+  int round_candidates;
+  return cs.fetch_ulong(8) == 0xd6
+      && cs.fetch_uint_to(32, round_candidates)
+      && 1 <= round_candidates
+      && cs.advance(224);
+}
+
+bool ConsensusConfig::unpack(vm::CellSlice& cs, ConsensusConfig::Record& data) const {
+  return cs.fetch_ulong(8) == 0xd6
+      && cs.fetch_uint_to(32, data.round_candidates)
+      && 1 <= data.round_candidates
+      && cs.fetch_uint_to(32, data.next_candidate_delay_ms)
+      && cs.fetch_uint_to(32, data.consensus_timeout_ms)
+      && cs.fetch_uint_to(32, data.fast_attempts)
+      && cs.fetch_uint_to(32, data.attempt_duration)
+      && cs.fetch_uint_to(32, data.catchain_max_deps)
+      && cs.fetch_uint_to(32, data.max_block_bytes)
+      && cs.fetch_uint_to(32, data.max_collated_bytes);
+}
+
+bool ConsensusConfig::cell_unpack(Ref<vm::Cell> cell_ref, ConsensusConfig::Record& data) const {
+  if (cell_ref.is_null()) { return false; }
+  auto cs = load_cell_slice(std::move(cell_ref));
+  return unpack(cs, data) && cs.empty_ext();
+}
+
+bool ConsensusConfig::pack(vm::CellBuilder& cb, const ConsensusConfig::Record& data) const {
+  return cb.store_long_bool(0xd6, 8)
+      && cb.store_ulong_rchk_bool(data.round_candidates, 32)
+      && 1 <= data.round_candidates
+      && cb.store_ulong_rchk_bool(data.next_candidate_delay_ms, 32)
+      && cb.store_ulong_rchk_bool(data.consensus_timeout_ms, 32)
+      && cb.store_ulong_rchk_bool(data.fast_attempts, 32)
+      && cb.store_ulong_rchk_bool(data.attempt_duration, 32)
+      && cb.store_ulong_rchk_bool(data.catchain_max_deps, 32)
+      && cb.store_ulong_rchk_bool(data.max_block_bytes, 32)
+      && cb.store_ulong_rchk_bool(data.max_collated_bytes, 32);
+}
+
+bool ConsensusConfig::cell_pack(Ref<vm::Cell>& cell_ref, const ConsensusConfig::Record& data) const {
+  vm::CellBuilder cb;
+  return pack(cb, data) && std::move(cb).finalize_to(cell_ref);
+}
+
+bool ConsensusConfig::print_skip(PrettyPrinter& pp, vm::CellSlice& cs) const {
+  int round_candidates;
+  return cs.fetch_ulong(8) == 0xd6
+      && pp.open("consensus_config")
+      && cs.fetch_uint_to(32, round_candidates)
+      && pp.field_int(round_candidates, "round_candidates")
+      && 1 <= round_candidates
+      && pp.fetch_uint_field(cs, 32, "next_candidate_delay_ms")
+      && pp.fetch_uint_field(cs, 32, "consensus_timeout_ms")
+      && pp.fetch_uint_field(cs, 32, "fast_attempts")
+      && pp.fetch_uint_field(cs, 32, "attempt_duration")
+      && pp.fetch_uint_field(cs, 32, "catchain_max_deps")
+      && pp.fetch_uint_field(cs, 32, "max_block_bytes")
+      && pp.fetch_uint_field(cs, 32, "max_collated_bytes")
+      && pp.close();
+}
+
+const ConsensusConfig t_ConsensusConfig;
+
+//
 // code for type `ValidatorTempKey`
 //
 constexpr unsigned char ValidatorTempKey::cons_tag[1];
@@ -13716,10 +14237,10 @@ int ValidatorTempKey::check_tag(const vm::CellSlice& cs) const {
   return cs.prefetch_ulong(4) == 3 ? validator_temp_key : -1;
 }
 
-bool ValidatorTempKey::validate_skip(vm::CellSlice& cs) const {
+bool ValidatorTempKey::validate_skip(vm::CellSlice& cs, bool weak) const {
   return cs.fetch_ulong(4) == 3
       && cs.advance(256)
-      && t_SigPubKey.validate_skip(cs)
+      && t_SigPubKey.validate_skip(cs, weak)
       && cs.advance(64);
 }
 
@@ -13779,10 +14300,10 @@ bool ValidatorSignedTempKey::skip(vm::CellSlice& cs) const {
       && t_CryptoSignature.skip(cs);
 }
 
-bool ValidatorSignedTempKey::validate_skip(vm::CellSlice& cs) const {
+bool ValidatorSignedTempKey::validate_skip(vm::CellSlice& cs, bool weak) const {
   return cs.fetch_ulong(4) == 4
-      && t_ValidatorTempKey.validate_skip_ref(cs)
-      && t_CryptoSignature.validate_skip(cs);
+      && t_ValidatorTempKey.validate_skip_ref(cs, weak)
+      && t_CryptoSignature.validate_skip(cs, weak);
 }
 
 bool ValidatorSignedTempKey::unpack(vm::CellSlice& cs, ValidatorSignedTempKey::Record& data) const {
@@ -13853,8 +14374,20 @@ int ConfigParam::get_tag(const vm::CellSlice& cs) const {
     return cons0;
   case 1:
     return cons1;
+  case 2:
+    return cons2;
+  case 3:
+    return cons3;
+  case 6:
+    return cons6;
+  case 7:
+    return cons7;
   case 12:
     return cons12;
+  case 14:
+    return cons14;
+  case 15:
+    return cons15;
   case 16:
     return cons16;
   case 17:
@@ -13875,6 +14408,8 @@ int ConfigParam::get_tag(const vm::CellSlice& cs) const {
     return config_fwd_prices;
   case 28:
     return cons28;
+  case 29:
+    return cons29;
   case 31:
     return cons31;
   case 32:
@@ -13902,8 +14437,20 @@ int ConfigParam::check_tag(const vm::CellSlice& cs) const {
     return cons0;
   case cons1:
     return cons1;
+  case cons2:
+    return cons2;
+  case cons3:
+    return cons3;
+  case cons6:
+    return cons6;
+  case cons7:
+    return cons7;
   case cons12:
     return cons12;
+  case cons14:
+    return cons14;
+  case cons15:
+    return cons15;
   case cons16:
     return cons16;
   case cons17:
@@ -13924,6 +14471,8 @@ int ConfigParam::check_tag(const vm::CellSlice& cs) const {
     return config_fwd_prices;
   case cons28:
     return cons28;
+  case cons29:
+    return cons29;
   case cons31:
     return cons31;
   case cons32:
@@ -13952,9 +14501,28 @@ bool ConfigParam::skip(vm::CellSlice& cs) const {
   case cons1:
     return cs.advance(256)
         && m_ == 1;
+  case cons2:
+    return cs.advance(256)
+        && m_ == 2;
+  case cons3:
+    return cs.advance(256)
+        && m_ == 3;
+  case cons6:
+    return t_Grams.skip(cs)
+        && t_Grams.skip(cs)
+        && m_ == 6;
+  case cons7:
+    return t_ExtraCurrencyCollection.skip(cs)
+        && m_ == 7;
   case cons12:
     return t_HashmapE_32_WorkchainDescr.skip(cs)
         && m_ == 12;
+  case cons14:
+    return t_BlockCreateFees.skip(cs)
+        && m_ == 14;
+  case cons15:
+    return cs.advance(128)
+        && m_ == 15;
   case cons16: {
     int max_validators, max_main_validators, min_validators;
     return cs.fetch_uint_to(16, max_validators)
@@ -13967,6 +14535,7 @@ bool ConfigParam::skip(vm::CellSlice& cs) const {
     }
   case cons17:
     return t_Grams.skip(cs)
+        && t_Grams.skip(cs)
         && t_Grams.skip(cs)
         && cs.advance(32)
         && m_ == 17;
@@ -13994,6 +14563,9 @@ bool ConfigParam::skip(vm::CellSlice& cs) const {
   case cons28:
     return cs.advance(136)
         && m_ == 28;
+  case cons29:
+    return cs.advance(264)
+        && m_ == 29;
   case cons31:
     return t_HashmapE_256_True.skip(cs)
         && m_ == 31;
@@ -14022,7 +14594,7 @@ bool ConfigParam::skip(vm::CellSlice& cs) const {
   return false;
 }
 
-bool ConfigParam::validate_skip(vm::CellSlice& cs) const {
+bool ConfigParam::validate_skip(vm::CellSlice& cs, bool weak) const {
   switch (get_tag(cs)) {
   case cons0:
     return cs.advance(256)
@@ -14030,9 +14602,28 @@ bool ConfigParam::validate_skip(vm::CellSlice& cs) const {
   case cons1:
     return cs.advance(256)
         && m_ == 1;
+  case cons2:
+    return cs.advance(256)
+        && m_ == 2;
+  case cons3:
+    return cs.advance(256)
+        && m_ == 3;
+  case cons6:
+    return t_Grams.validate_skip(cs, weak)
+        && t_Grams.validate_skip(cs, weak)
+        && m_ == 6;
+  case cons7:
+    return t_ExtraCurrencyCollection.validate_skip(cs, weak)
+        && m_ == 7;
   case cons12:
-    return t_HashmapE_32_WorkchainDescr.validate_skip(cs)
+    return t_HashmapE_32_WorkchainDescr.validate_skip(cs, weak)
         && m_ == 12;
+  case cons14:
+    return t_BlockCreateFees.validate_skip(cs, weak)
+        && m_ == 14;
+  case cons15:
+    return cs.advance(128)
+        && m_ == 15;
   case cons16: {
     int max_validators, max_main_validators, min_validators;
     return cs.fetch_uint_to(16, max_validators)
@@ -14044,57 +14635,61 @@ bool ConfigParam::validate_skip(vm::CellSlice& cs) const {
         && m_ == 16;
     }
   case cons17:
-    return t_Grams.validate_skip(cs)
-        && t_Grams.validate_skip(cs)
+    return t_Grams.validate_skip(cs, weak)
+        && t_Grams.validate_skip(cs, weak)
+        && t_Grams.validate_skip(cs, weak)
         && cs.advance(32)
         && m_ == 17;
   case cons18:
-    return t_Hashmap_32_StoragePrices.validate_skip(cs)
+    return t_Hashmap_32_StoragePrices.validate_skip(cs, weak)
         && m_ == 18;
   case config_mc_gas_prices:
-    return t_GasLimitsPrices.validate_skip(cs)
+    return t_GasLimitsPrices.validate_skip(cs, weak)
         && m_ == 20;
   case config_gas_prices:
-    return t_GasLimitsPrices.validate_skip(cs)
+    return t_GasLimitsPrices.validate_skip(cs, weak)
         && m_ == 21;
   case config_mc_block_limits:
-    return t_BlockLimits.validate_skip(cs)
+    return t_BlockLimits.validate_skip(cs, weak)
         && m_ == 22;
   case config_block_limits:
-    return t_BlockLimits.validate_skip(cs)
+    return t_BlockLimits.validate_skip(cs, weak)
         && m_ == 23;
   case config_mc_fwd_prices:
-    return t_MsgForwardPrices.validate_skip(cs)
+    return t_MsgForwardPrices.validate_skip(cs, weak)
         && m_ == 24;
   case config_fwd_prices:
-    return t_MsgForwardPrices.validate_skip(cs)
+    return t_MsgForwardPrices.validate_skip(cs, weak)
         && m_ == 25;
   case cons28:
-    return t_CatchainConfig.validate_skip(cs)
+    return t_CatchainConfig.validate_skip(cs, weak)
         && m_ == 28;
+  case cons29:
+    return t_ConsensusConfig.validate_skip(cs, weak)
+        && m_ == 29;
   case cons31:
-    return t_HashmapE_256_True.validate_skip(cs)
+    return t_HashmapE_256_True.validate_skip(cs, weak)
         && m_ == 31;
   case cons32:
-    return t_ValidatorSet.validate_skip(cs)
+    return t_ValidatorSet.validate_skip(cs, weak)
         && m_ == 32;
   case cons33:
-    return t_ValidatorSet.validate_skip(cs)
+    return t_ValidatorSet.validate_skip(cs, weak)
         && m_ == 33;
   case cons34:
-    return t_ValidatorSet.validate_skip(cs)
+    return t_ValidatorSet.validate_skip(cs, weak)
         && m_ == 34;
   case cons35:
-    return t_ValidatorSet.validate_skip(cs)
+    return t_ValidatorSet.validate_skip(cs, weak)
         && m_ == 35;
   case cons36:
-    return t_ValidatorSet.validate_skip(cs)
+    return t_ValidatorSet.validate_skip(cs, weak)
         && m_ == 36;
   case cons37:
-    return t_ValidatorSet.validate_skip(cs)
+    return t_ValidatorSet.validate_skip(cs, weak)
         && m_ == 37;
   case cons39:
-    return t_HashmapE_256_ValidatorSignedTempKey.validate_skip(cs)
+    return t_HashmapE_256_ValidatorSignedTempKey.validate_skip(cs, weak)
         && m_ == 39;
   }
   return false;
@@ -14144,6 +14739,96 @@ bool ConfigParam::cell_unpack_cons1(Ref<vm::Cell> cell_ref, td::BitArray<256>& e
   return unpack_cons1(cs, elector_addr) && cs.empty_ext();
 }
 
+bool ConfigParam::unpack(vm::CellSlice& cs, ConfigParam::Record_cons2& data) const {
+  return cs.fetch_bits_to(data.minter_addr.bits(), 256)
+      && m_ == 2;
+}
+
+bool ConfigParam::unpack_cons2(vm::CellSlice& cs, td::BitArray<256>& minter_addr) const {
+  return cs.fetch_bits_to(minter_addr.bits(), 256)
+      && m_ == 2;
+}
+
+bool ConfigParam::cell_unpack(Ref<vm::Cell> cell_ref, ConfigParam::Record_cons2& data) const {
+  if (cell_ref.is_null()) { return false; }
+  auto cs = load_cell_slice(std::move(cell_ref));
+  return unpack(cs, data) && cs.empty_ext();
+}
+
+bool ConfigParam::cell_unpack_cons2(Ref<vm::Cell> cell_ref, td::BitArray<256>& minter_addr) const {
+  if (cell_ref.is_null()) { return false; }
+  auto cs = load_cell_slice(std::move(cell_ref));
+  return unpack_cons2(cs, minter_addr) && cs.empty_ext();
+}
+
+bool ConfigParam::unpack(vm::CellSlice& cs, ConfigParam::Record_cons3& data) const {
+  return cs.fetch_bits_to(data.fee_collector_addr.bits(), 256)
+      && m_ == 3;
+}
+
+bool ConfigParam::unpack_cons3(vm::CellSlice& cs, td::BitArray<256>& fee_collector_addr) const {
+  return cs.fetch_bits_to(fee_collector_addr.bits(), 256)
+      && m_ == 3;
+}
+
+bool ConfigParam::cell_unpack(Ref<vm::Cell> cell_ref, ConfigParam::Record_cons3& data) const {
+  if (cell_ref.is_null()) { return false; }
+  auto cs = load_cell_slice(std::move(cell_ref));
+  return unpack(cs, data) && cs.empty_ext();
+}
+
+bool ConfigParam::cell_unpack_cons3(Ref<vm::Cell> cell_ref, td::BitArray<256>& fee_collector_addr) const {
+  if (cell_ref.is_null()) { return false; }
+  auto cs = load_cell_slice(std::move(cell_ref));
+  return unpack_cons3(cs, fee_collector_addr) && cs.empty_ext();
+}
+
+bool ConfigParam::unpack(vm::CellSlice& cs, ConfigParam::Record_cons6& data) const {
+  return t_Grams.fetch_to(cs, data.mint_new_price)
+      && t_Grams.fetch_to(cs, data.mint_add_price)
+      && m_ == 6;
+}
+
+bool ConfigParam::unpack_cons6(vm::CellSlice& cs, Ref<CellSlice>& mint_new_price, Ref<CellSlice>& mint_add_price) const {
+  return t_Grams.fetch_to(cs, mint_new_price)
+      && t_Grams.fetch_to(cs, mint_add_price)
+      && m_ == 6;
+}
+
+bool ConfigParam::cell_unpack(Ref<vm::Cell> cell_ref, ConfigParam::Record_cons6& data) const {
+  if (cell_ref.is_null()) { return false; }
+  auto cs = load_cell_slice(std::move(cell_ref));
+  return unpack(cs, data) && cs.empty_ext();
+}
+
+bool ConfigParam::cell_unpack_cons6(Ref<vm::Cell> cell_ref, Ref<CellSlice>& mint_new_price, Ref<CellSlice>& mint_add_price) const {
+  if (cell_ref.is_null()) { return false; }
+  auto cs = load_cell_slice(std::move(cell_ref));
+  return unpack_cons6(cs, mint_new_price, mint_add_price) && cs.empty_ext();
+}
+
+bool ConfigParam::unpack(vm::CellSlice& cs, ConfigParam::Record_cons7& data) const {
+  return t_ExtraCurrencyCollection.fetch_to(cs, data.to_mint)
+      && m_ == 7;
+}
+
+bool ConfigParam::unpack_cons7(vm::CellSlice& cs, Ref<CellSlice>& to_mint) const {
+  return t_ExtraCurrencyCollection.fetch_to(cs, to_mint)
+      && m_ == 7;
+}
+
+bool ConfigParam::cell_unpack(Ref<vm::Cell> cell_ref, ConfigParam::Record_cons7& data) const {
+  if (cell_ref.is_null()) { return false; }
+  auto cs = load_cell_slice(std::move(cell_ref));
+  return unpack(cs, data) && cs.empty_ext();
+}
+
+bool ConfigParam::cell_unpack_cons7(Ref<vm::Cell> cell_ref, Ref<CellSlice>& to_mint) const {
+  if (cell_ref.is_null()) { return false; }
+  auto cs = load_cell_slice(std::move(cell_ref));
+  return unpack_cons7(cs, to_mint) && cs.empty_ext();
+}
+
 bool ConfigParam::unpack(vm::CellSlice& cs, ConfigParam::Record_cons12& data) const {
   return t_HashmapE_32_WorkchainDescr.fetch_to(cs, data.workchains)
       && m_ == 12;
@@ -14164,6 +14849,42 @@ bool ConfigParam::cell_unpack_cons12(Ref<vm::Cell> cell_ref, Ref<CellSlice>& wor
   if (cell_ref.is_null()) { return false; }
   auto cs = load_cell_slice(std::move(cell_ref));
   return unpack_cons12(cs, workchains) && cs.empty_ext();
+}
+
+bool ConfigParam::unpack(vm::CellSlice& cs, ConfigParam::Record_cons14& data) const {
+  return t_BlockCreateFees.fetch_to(cs, data.x)
+      && m_ == 14;
+}
+
+bool ConfigParam::unpack_cons14(vm::CellSlice& cs, Ref<CellSlice>& x) const {
+  return t_BlockCreateFees.fetch_to(cs, x)
+      && m_ == 14;
+}
+
+bool ConfigParam::cell_unpack(Ref<vm::Cell> cell_ref, ConfigParam::Record_cons14& data) const {
+  if (cell_ref.is_null()) { return false; }
+  auto cs = load_cell_slice(std::move(cell_ref));
+  return unpack(cs, data) && cs.empty_ext();
+}
+
+bool ConfigParam::cell_unpack_cons14(Ref<vm::Cell> cell_ref, Ref<CellSlice>& x) const {
+  if (cell_ref.is_null()) { return false; }
+  auto cs = load_cell_slice(std::move(cell_ref));
+  return unpack_cons14(cs, x) && cs.empty_ext();
+}
+
+bool ConfigParam::unpack(vm::CellSlice& cs, ConfigParam::Record_cons15& data) const {
+  return cs.fetch_uint_to(32, data.validators_elected_for)
+      && cs.fetch_uint_to(32, data.elections_start_before)
+      && cs.fetch_uint_to(32, data.elections_end_before)
+      && cs.fetch_uint_to(32, data.stake_held_for)
+      && m_ == 15;
+}
+
+bool ConfigParam::cell_unpack(Ref<vm::Cell> cell_ref, ConfigParam::Record_cons15& data) const {
+  if (cell_ref.is_null()) { return false; }
+  auto cs = load_cell_slice(std::move(cell_ref));
+  return unpack(cs, data) && cs.empty_ext();
 }
 
 bool ConfigParam::unpack(vm::CellSlice& cs, ConfigParam::Record_cons16& data) const {
@@ -14201,14 +14922,8 @@ bool ConfigParam::cell_unpack_cons16(Ref<vm::Cell> cell_ref, int& max_validators
 bool ConfigParam::unpack(vm::CellSlice& cs, ConfigParam::Record_cons17& data) const {
   return t_Grams.fetch_to(cs, data.min_stake)
       && t_Grams.fetch_to(cs, data.max_stake)
+      && t_Grams.fetch_to(cs, data.min_total_stake)
       && cs.fetch_uint_to(32, data.max_stake_factor)
-      && m_ == 17;
-}
-
-bool ConfigParam::unpack_cons17(vm::CellSlice& cs, Ref<CellSlice>& min_stake, Ref<CellSlice>& max_stake, unsigned& max_stake_factor) const {
-  return t_Grams.fetch_to(cs, min_stake)
-      && t_Grams.fetch_to(cs, max_stake)
-      && cs.fetch_uint_to(32, max_stake_factor)
       && m_ == 17;
 }
 
@@ -14216,12 +14931,6 @@ bool ConfigParam::cell_unpack(Ref<vm::Cell> cell_ref, ConfigParam::Record_cons17
   if (cell_ref.is_null()) { return false; }
   auto cs = load_cell_slice(std::move(cell_ref));
   return unpack(cs, data) && cs.empty_ext();
-}
-
-bool ConfigParam::cell_unpack_cons17(Ref<vm::Cell> cell_ref, Ref<CellSlice>& min_stake, Ref<CellSlice>& max_stake, unsigned& max_stake_factor) const {
-  if (cell_ref.is_null()) { return false; }
-  auto cs = load_cell_slice(std::move(cell_ref));
-  return unpack_cons17(cs, min_stake, max_stake, max_stake_factor) && cs.empty_ext();
 }
 
 bool ConfigParam::unpack(vm::CellSlice& cs, ConfigParam::Record_cons18& data) const {
@@ -14398,6 +15107,28 @@ bool ConfigParam::cell_unpack_cons28(Ref<vm::Cell> cell_ref, Ref<CellSlice>& x) 
   if (cell_ref.is_null()) { return false; }
   auto cs = load_cell_slice(std::move(cell_ref));
   return unpack_cons28(cs, x) && cs.empty_ext();
+}
+
+bool ConfigParam::unpack(vm::CellSlice& cs, ConfigParam::Record_cons29& data) const {
+  return cs.fetch_subslice_to(264, data.x)
+      && m_ == 29;
+}
+
+bool ConfigParam::unpack_cons29(vm::CellSlice& cs, Ref<CellSlice>& x) const {
+  return cs.fetch_subslice_to(264, x)
+      && m_ == 29;
+}
+
+bool ConfigParam::cell_unpack(Ref<vm::Cell> cell_ref, ConfigParam::Record_cons29& data) const {
+  if (cell_ref.is_null()) { return false; }
+  auto cs = load_cell_slice(std::move(cell_ref));
+  return unpack(cs, data) && cs.empty_ext();
+}
+
+bool ConfigParam::cell_unpack_cons29(Ref<vm::Cell> cell_ref, Ref<CellSlice>& x) const {
+  if (cell_ref.is_null()) { return false; }
+  auto cs = load_cell_slice(std::move(cell_ref));
+  return unpack_cons29(cs, x) && cs.empty_ext();
 }
 
 bool ConfigParam::unpack(vm::CellSlice& cs, ConfigParam::Record_cons31& data) const {
@@ -14616,6 +15347,88 @@ bool ConfigParam::cell_pack_cons1(Ref<vm::Cell>& cell_ref, td::BitArray<256> ele
   return pack_cons1(cb, elector_addr) && std::move(cb).finalize_to(cell_ref);
 }
 
+bool ConfigParam::pack(vm::CellBuilder& cb, const ConfigParam::Record_cons2& data) const {
+  return cb.store_bits_bool(data.minter_addr.cbits(), 256)
+      && m_ == 2;
+}
+
+bool ConfigParam::pack_cons2(vm::CellBuilder& cb, td::BitArray<256> minter_addr) const {
+  return cb.store_bits_bool(minter_addr.cbits(), 256)
+      && m_ == 2;
+}
+
+bool ConfigParam::cell_pack(Ref<vm::Cell>& cell_ref, const ConfigParam::Record_cons2& data) const {
+  vm::CellBuilder cb;
+  return pack(cb, data) && std::move(cb).finalize_to(cell_ref);
+}
+
+bool ConfigParam::cell_pack_cons2(Ref<vm::Cell>& cell_ref, td::BitArray<256> minter_addr) const {
+  vm::CellBuilder cb;
+  return pack_cons2(cb, minter_addr) && std::move(cb).finalize_to(cell_ref);
+}
+
+bool ConfigParam::pack(vm::CellBuilder& cb, const ConfigParam::Record_cons3& data) const {
+  return cb.store_bits_bool(data.fee_collector_addr.cbits(), 256)
+      && m_ == 3;
+}
+
+bool ConfigParam::pack_cons3(vm::CellBuilder& cb, td::BitArray<256> fee_collector_addr) const {
+  return cb.store_bits_bool(fee_collector_addr.cbits(), 256)
+      && m_ == 3;
+}
+
+bool ConfigParam::cell_pack(Ref<vm::Cell>& cell_ref, const ConfigParam::Record_cons3& data) const {
+  vm::CellBuilder cb;
+  return pack(cb, data) && std::move(cb).finalize_to(cell_ref);
+}
+
+bool ConfigParam::cell_pack_cons3(Ref<vm::Cell>& cell_ref, td::BitArray<256> fee_collector_addr) const {
+  vm::CellBuilder cb;
+  return pack_cons3(cb, fee_collector_addr) && std::move(cb).finalize_to(cell_ref);
+}
+
+bool ConfigParam::pack(vm::CellBuilder& cb, const ConfigParam::Record_cons6& data) const {
+  return t_Grams.store_from(cb, data.mint_new_price)
+      && t_Grams.store_from(cb, data.mint_add_price)
+      && m_ == 6;
+}
+
+bool ConfigParam::pack_cons6(vm::CellBuilder& cb, Ref<CellSlice> mint_new_price, Ref<CellSlice> mint_add_price) const {
+  return t_Grams.store_from(cb, mint_new_price)
+      && t_Grams.store_from(cb, mint_add_price)
+      && m_ == 6;
+}
+
+bool ConfigParam::cell_pack(Ref<vm::Cell>& cell_ref, const ConfigParam::Record_cons6& data) const {
+  vm::CellBuilder cb;
+  return pack(cb, data) && std::move(cb).finalize_to(cell_ref);
+}
+
+bool ConfigParam::cell_pack_cons6(Ref<vm::Cell>& cell_ref, Ref<CellSlice> mint_new_price, Ref<CellSlice> mint_add_price) const {
+  vm::CellBuilder cb;
+  return pack_cons6(cb, std::move(mint_new_price), std::move(mint_add_price)) && std::move(cb).finalize_to(cell_ref);
+}
+
+bool ConfigParam::pack(vm::CellBuilder& cb, const ConfigParam::Record_cons7& data) const {
+  return t_ExtraCurrencyCollection.store_from(cb, data.to_mint)
+      && m_ == 7;
+}
+
+bool ConfigParam::pack_cons7(vm::CellBuilder& cb, Ref<CellSlice> to_mint) const {
+  return t_ExtraCurrencyCollection.store_from(cb, to_mint)
+      && m_ == 7;
+}
+
+bool ConfigParam::cell_pack(Ref<vm::Cell>& cell_ref, const ConfigParam::Record_cons7& data) const {
+  vm::CellBuilder cb;
+  return pack(cb, data) && std::move(cb).finalize_to(cell_ref);
+}
+
+bool ConfigParam::cell_pack_cons7(Ref<vm::Cell>& cell_ref, Ref<CellSlice> to_mint) const {
+  vm::CellBuilder cb;
+  return pack_cons7(cb, std::move(to_mint)) && std::move(cb).finalize_to(cell_ref);
+}
+
 bool ConfigParam::pack(vm::CellBuilder& cb, const ConfigParam::Record_cons12& data) const {
   return t_HashmapE_32_WorkchainDescr.store_from(cb, data.workchains)
       && m_ == 12;
@@ -14634,6 +15447,39 @@ bool ConfigParam::cell_pack(Ref<vm::Cell>& cell_ref, const ConfigParam::Record_c
 bool ConfigParam::cell_pack_cons12(Ref<vm::Cell>& cell_ref, Ref<CellSlice> workchains) const {
   vm::CellBuilder cb;
   return pack_cons12(cb, std::move(workchains)) && std::move(cb).finalize_to(cell_ref);
+}
+
+bool ConfigParam::pack(vm::CellBuilder& cb, const ConfigParam::Record_cons14& data) const {
+  return t_BlockCreateFees.store_from(cb, data.x)
+      && m_ == 14;
+}
+
+bool ConfigParam::pack_cons14(vm::CellBuilder& cb, Ref<CellSlice> x) const {
+  return t_BlockCreateFees.store_from(cb, x)
+      && m_ == 14;
+}
+
+bool ConfigParam::cell_pack(Ref<vm::Cell>& cell_ref, const ConfigParam::Record_cons14& data) const {
+  vm::CellBuilder cb;
+  return pack(cb, data) && std::move(cb).finalize_to(cell_ref);
+}
+
+bool ConfigParam::cell_pack_cons14(Ref<vm::Cell>& cell_ref, Ref<CellSlice> x) const {
+  vm::CellBuilder cb;
+  return pack_cons14(cb, std::move(x)) && std::move(cb).finalize_to(cell_ref);
+}
+
+bool ConfigParam::pack(vm::CellBuilder& cb, const ConfigParam::Record_cons15& data) const {
+  return cb.store_ulong_rchk_bool(data.validators_elected_for, 32)
+      && cb.store_ulong_rchk_bool(data.elections_start_before, 32)
+      && cb.store_ulong_rchk_bool(data.elections_end_before, 32)
+      && cb.store_ulong_rchk_bool(data.stake_held_for, 32)
+      && m_ == 15;
+}
+
+bool ConfigParam::cell_pack(Ref<vm::Cell>& cell_ref, const ConfigParam::Record_cons15& data) const {
+  vm::CellBuilder cb;
+  return pack(cb, data) && std::move(cb).finalize_to(cell_ref);
 }
 
 bool ConfigParam::pack(vm::CellBuilder& cb, const ConfigParam::Record_cons16& data) const {
@@ -14669,25 +15515,14 @@ bool ConfigParam::cell_pack_cons16(Ref<vm::Cell>& cell_ref, int max_validators, 
 bool ConfigParam::pack(vm::CellBuilder& cb, const ConfigParam::Record_cons17& data) const {
   return t_Grams.store_from(cb, data.min_stake)
       && t_Grams.store_from(cb, data.max_stake)
+      && t_Grams.store_from(cb, data.min_total_stake)
       && cb.store_ulong_rchk_bool(data.max_stake_factor, 32)
-      && m_ == 17;
-}
-
-bool ConfigParam::pack_cons17(vm::CellBuilder& cb, Ref<CellSlice> min_stake, Ref<CellSlice> max_stake, unsigned max_stake_factor) const {
-  return t_Grams.store_from(cb, min_stake)
-      && t_Grams.store_from(cb, max_stake)
-      && cb.store_ulong_rchk_bool(max_stake_factor, 32)
       && m_ == 17;
 }
 
 bool ConfigParam::cell_pack(Ref<vm::Cell>& cell_ref, const ConfigParam::Record_cons17& data) const {
   vm::CellBuilder cb;
   return pack(cb, data) && std::move(cb).finalize_to(cell_ref);
-}
-
-bool ConfigParam::cell_pack_cons17(Ref<vm::Cell>& cell_ref, Ref<CellSlice> min_stake, Ref<CellSlice> max_stake, unsigned max_stake_factor) const {
-  vm::CellBuilder cb;
-  return pack_cons17(cb, std::move(min_stake), std::move(max_stake), max_stake_factor) && std::move(cb).finalize_to(cell_ref);
 }
 
 bool ConfigParam::pack(vm::CellBuilder& cb, const ConfigParam::Record_cons18& data) const {
@@ -14848,6 +15683,26 @@ bool ConfigParam::cell_pack(Ref<vm::Cell>& cell_ref, const ConfigParam::Record_c
 bool ConfigParam::cell_pack_cons28(Ref<vm::Cell>& cell_ref, Ref<CellSlice> x) const {
   vm::CellBuilder cb;
   return pack_cons28(cb, std::move(x)) && std::move(cb).finalize_to(cell_ref);
+}
+
+bool ConfigParam::pack(vm::CellBuilder& cb, const ConfigParam::Record_cons29& data) const {
+  return cb.append_cellslice_chk(data.x, 264)
+      && m_ == 29;
+}
+
+bool ConfigParam::pack_cons29(vm::CellBuilder& cb, Ref<CellSlice> x) const {
+  return cb.append_cellslice_chk(x, 264)
+      && m_ == 29;
+}
+
+bool ConfigParam::cell_pack(Ref<vm::Cell>& cell_ref, const ConfigParam::Record_cons29& data) const {
+  vm::CellBuilder cb;
+  return pack(cb, data) && std::move(cb).finalize_to(cell_ref);
+}
+
+bool ConfigParam::cell_pack_cons29(Ref<vm::Cell>& cell_ref, Ref<CellSlice> x) const {
+  vm::CellBuilder cb;
+  return pack_cons29(cb, std::move(x)) && std::move(cb).finalize_to(cell_ref);
 }
 
 bool ConfigParam::pack(vm::CellBuilder& cb, const ConfigParam::Record_cons31& data) const {
@@ -15022,11 +15877,49 @@ bool ConfigParam::print_skip(PrettyPrinter& pp, vm::CellSlice& cs) const {
         && pp.fetch_bits_field(cs, 256, "elector_addr")
         && m_ == 1
         && pp.close();
+  case cons2:
+    return pp.open()
+        && pp.fetch_bits_field(cs, 256, "minter_addr")
+        && m_ == 2
+        && pp.close();
+  case cons3:
+    return pp.open()
+        && pp.fetch_bits_field(cs, 256, "fee_collector_addr")
+        && m_ == 3
+        && pp.close();
+  case cons6:
+    return pp.open()
+        && pp.field("mint_new_price")
+        && t_Grams.print_skip(pp, cs)
+        && pp.field("mint_add_price")
+        && t_Grams.print_skip(pp, cs)
+        && m_ == 6
+        && pp.close();
+  case cons7:
+    return pp.open()
+        && pp.field("to_mint")
+        && t_ExtraCurrencyCollection.print_skip(pp, cs)
+        && m_ == 7
+        && pp.close();
   case cons12:
     return pp.open()
         && pp.field("workchains")
         && t_HashmapE_32_WorkchainDescr.print_skip(pp, cs)
         && m_ == 12
+        && pp.close();
+  case cons14:
+    return pp.open()
+        && pp.field()
+        && t_BlockCreateFees.print_skip(pp, cs)
+        && m_ == 14
+        && pp.close();
+  case cons15:
+    return pp.open()
+        && pp.fetch_uint_field(cs, 32, "validators_elected_for")
+        && pp.fetch_uint_field(cs, 32, "elections_start_before")
+        && pp.fetch_uint_field(cs, 32, "elections_end_before")
+        && pp.fetch_uint_field(cs, 32, "stake_held_for")
+        && m_ == 15
         && pp.close();
   case cons16: {
     int max_validators, max_main_validators, min_validators;
@@ -15048,6 +15941,8 @@ bool ConfigParam::print_skip(PrettyPrinter& pp, vm::CellSlice& cs) const {
         && pp.field("min_stake")
         && t_Grams.print_skip(pp, cs)
         && pp.field("max_stake")
+        && t_Grams.print_skip(pp, cs)
+        && pp.field("min_total_stake")
         && t_Grams.print_skip(pp, cs)
         && pp.fetch_uint_field(cs, 32, "max_stake_factor")
         && m_ == 17
@@ -15099,6 +15994,12 @@ bool ConfigParam::print_skip(PrettyPrinter& pp, vm::CellSlice& cs) const {
         && pp.field()
         && t_CatchainConfig.print_skip(pp, cs)
         && m_ == 28
+        && pp.close();
+  case cons29:
+    return pp.open()
+        && pp.field()
+        && t_ConsensusConfig.print_skip(pp, cs)
+        && m_ == 29
         && pp.close();
   case cons31:
     return pp.open()
@@ -15166,9 +16067,9 @@ bool BlockSignaturesPure::skip(vm::CellSlice& cs) const {
       && t_HashmapE_16_CryptoSignaturePair.skip(cs);
 }
 
-bool BlockSignaturesPure::validate_skip(vm::CellSlice& cs) const {
+bool BlockSignaturesPure::validate_skip(vm::CellSlice& cs, bool weak) const {
   return cs.advance(96)
-      && t_HashmapE_16_CryptoSignaturePair.validate_skip(cs);
+      && t_HashmapE_16_CryptoSignaturePair.validate_skip(cs, weak);
 }
 
 bool BlockSignaturesPure::unpack(vm::CellSlice& cs, BlockSignaturesPure::Record& data) const {
@@ -15242,10 +16143,10 @@ bool BlockSignatures::skip(vm::CellSlice& cs) const {
       && t_BlockSignaturesPure.skip(cs);
 }
 
-bool BlockSignatures::validate_skip(vm::CellSlice& cs) const {
+bool BlockSignatures::validate_skip(vm::CellSlice& cs, bool weak) const {
   return cs.fetch_ulong(8) == 17
       && cs.advance(64)
-      && t_BlockSignaturesPure.validate_skip(cs);
+      && t_BlockSignaturesPure.validate_skip(cs, weak);
 }
 
 bool BlockSignatures::unpack(vm::CellSlice& cs, BlockSignatures::Record& data) const {
@@ -15320,11 +16221,11 @@ bool BlockProof::skip(vm::CellSlice& cs) const {
       && t_Maybe_Ref_BlockSignatures.skip(cs);
 }
 
-bool BlockProof::validate_skip(vm::CellSlice& cs) const {
+bool BlockProof::validate_skip(vm::CellSlice& cs, bool weak) const {
   return cs.fetch_ulong(8) == 0xc3
-      && t_BlockIdExt.validate_skip(cs)
+      && t_BlockIdExt.validate_skip(cs, weak)
       && cs.advance_refs(1)
-      && t_Maybe_Ref_BlockSignatures.validate_skip(cs);
+      && t_Maybe_Ref_BlockSignatures.validate_skip(cs, weak);
 }
 
 bool BlockProof::unpack(vm::CellSlice& cs, BlockProof::Record& data) const {
@@ -15424,7 +16325,7 @@ bool ProofChain::skip(vm::CellSlice& cs) const {
   return false;
 }
 
-bool ProofChain::validate_skip(vm::CellSlice& cs) const {
+bool ProofChain::validate_skip(vm::CellSlice& cs, bool weak) const {
   switch (get_tag(cs)) {
   case chain_empty:
     return m_ == 0;
@@ -15432,7 +16333,7 @@ bool ProofChain::validate_skip(vm::CellSlice& cs) const {
     int n;
     return add_r1(n, 1, m_)
         && cs.advance_refs(1)
-        && (!n || ProofChain{n}.validate_skip_ref(cs));
+        && (!n || ProofChain{n}.validate_skip_ref(cs, weak));
     }
   }
   return false;
@@ -15562,15 +16463,15 @@ bool TopBlockDescr::skip(vm::CellSlice& cs) const {
       && ProofChain{len}.skip(cs);
 }
 
-bool TopBlockDescr::validate_skip(vm::CellSlice& cs) const {
+bool TopBlockDescr::validate_skip(vm::CellSlice& cs, bool weak) const {
   int len;
   return cs.fetch_ulong(8) == 0xd5
-      && t_BlockIdExt.validate_skip(cs)
-      && t_Maybe_Ref_BlockSignatures.validate_skip(cs)
+      && t_BlockIdExt.validate_skip(cs, weak)
+      && t_Maybe_Ref_BlockSignatures.validate_skip(cs, weak)
       && cs.fetch_uint_to(8, len)
       && 1 <= len
       && len <= 8
-      && ProofChain{len}.validate_skip(cs);
+      && ProofChain{len}.validate_skip(cs, weak);
 }
 
 bool TopBlockDescr::unpack(vm::CellSlice& cs, TopBlockDescr::Record& data) const {
@@ -15637,9 +16538,9 @@ bool TopBlockDescrSet::skip(vm::CellSlice& cs) const {
       && t_HashmapE_96_Ref_TopBlockDescr.skip(cs);
 }
 
-bool TopBlockDescrSet::validate_skip(vm::CellSlice& cs) const {
+bool TopBlockDescrSet::validate_skip(vm::CellSlice& cs, bool weak) const {
   return cs.fetch_ulong(32) == 0x4ac789f3
-      && t_HashmapE_96_Ref_TopBlockDescr.validate_skip(cs);
+      && t_HashmapE_96_Ref_TopBlockDescr.validate_skip(cs, weak);
 }
 
 bool TopBlockDescrSet::unpack(vm::CellSlice& cs, TopBlockDescrSet::Record& data) const {
@@ -15734,15 +16635,16 @@ const HashmapAugE t_HashmapAugE_256_ShardAccount_DepthBalanceInfo{256, t_ShardAc
 const UInt t_uint15{15};
 const Maybe t_Maybe_Ref_Message_Any{t_Ref_Message_Any};
 const HashmapE t_HashmapE_15_Ref_Message_Any{15, t_Ref_Message_Any};
+const RefT t_Ref_TYPE_1613{t_Transaction_aux};
 const HASH_UPDATE t_HASH_UPDATE_Account{t_Account};
 const RefT t_Ref_HASH_UPDATE_Account{t_HASH_UPDATE_Account};
 const RefT t_Ref_TransactionDescr{t_TransactionDescr};
-const HashmapAug t_HashmapAug_64_Ref_Transaction_Grams{64, t_Ref_Transaction, t_Grams};
-const HashmapAugE t_HashmapAugE_256_AccountBlock_Grams{256, t_AccountBlock, t_Grams};
+const HashmapAug t_HashmapAug_64_Ref_Transaction_CurrencyCollection{64, t_Ref_Transaction, t_CurrencyCollection};
+const HashmapAugE t_HashmapAugE_256_AccountBlock_CurrencyCollection{256, t_AccountBlock, t_CurrencyCollection};
 const VarUInteger t_VarUInteger_3{3};
 const Maybe t_Maybe_VarUInteger_3{t_VarUInteger_3};
 const Maybe t_Maybe_int32{t_int32};
-const RefT t_Ref_TYPE_1621{t_TrComputePhase_aux};
+const RefT t_Ref_TYPE_1624{t_TrComputePhase_aux};
 const UInt t_uint16{16};
 const Maybe t_Maybe_TrStoragePhase{t_TrStoragePhase};
 const Maybe t_Maybe_TrCreditPhase{t_TrCreditPhase};
@@ -15755,9 +16657,10 @@ const MessageRelaxed t_MessageRelaxed_Any{t_Anything};
 const RefT t_Ref_MessageRelaxed_Any{t_MessageRelaxed_Any};
 const NatLeq t_natleq_60{60};
 const RefT t_Ref_OutMsgQueueInfo{t_OutMsgQueueInfo};
+const RefT t_Ref_ShardAccounts{t_ShardAccounts};
 const HashmapE t_HashmapE_256_LibDescr{256, t_LibDescr};
 const Maybe t_Maybe_BlkMasterInfo{t_BlkMasterInfo};
-const RefT t_Ref_TYPE_1634{t_ShardStateUnsplit_aux};
+const RefT t_Ref_TYPE_1637{t_ShardStateUnsplit_aux};
 const RefT t_Ref_McStateExtra{t_McStateExtra};
 const Maybe t_Maybe_Ref_McStateExtra{t_Ref_McStateExtra};
 const RefT t_Ref_ShardStateUnsplit{t_ShardStateUnsplit};
@@ -15773,24 +16676,25 @@ const RefT t_Ref_MERKLE_UPDATE_ShardState{t_MERKLE_UPDATE_ShardState};
 const RefT t_Ref_BlockExtra{t_BlockExtra};
 const RefT t_Ref_InMsgDescr{t_InMsgDescr};
 const RefT t_Ref_OutMsgDescr{t_OutMsgDescr};
+const RefT t_Ref_ShardAccountBlocks{t_ShardAccountBlocks};
 const RefT t_Ref_McBlockExtra{t_McBlockExtra};
 const Maybe t_Maybe_Ref_McBlockExtra{t_Ref_McBlockExtra};
-const RefT t_Ref_TYPE_1644{t_ValueFlow_aux};
-const RefT t_Ref_TYPE_1645{t_ValueFlow_aux1};
+const RefT t_Ref_TYPE_1647{t_ValueFlow_aux};
+const RefT t_Ref_TYPE_1648{t_ValueFlow_aux1};
 const NatWidth t_natwidth_3{3};
 const BinTree t_BinTree_ShardDescr{t_ShardDescr};
 const RefT t_Ref_BinTree_ShardDescr{t_BinTree_ShardDescr};
 const HashmapE t_HashmapE_32_Ref_BinTree_ShardDescr{32, t_Ref_BinTree_ShardDescr};
-const BinTreeAug t_BinTreeAug_True_CurrencyCollection{t_True, t_CurrencyCollection};
-const RefT t_Ref_BinTreeAug_True_CurrencyCollection{t_BinTreeAug_True_CurrencyCollection};
-const HashmapAugE t_HashmapAugE_32_Ref_BinTreeAug_True_CurrencyCollection_CurrencyCollection{32, t_Ref_BinTreeAug_True_CurrencyCollection, t_CurrencyCollection};
+const HashmapAugE t_HashmapAugE_96_ShardFeeCreated_ShardFeeCreated{96, t_ShardFeeCreated, t_ShardFeeCreated};
 const Hashmap t_Hashmap_32_Ref_Cell{32, t_RefCell};
 const RefT t_Ref_Hashmap_32_Ref_Cell{t_Hashmap_32_Ref_Cell};
 const HashmapAugE t_HashmapAugE_32_KeyExtBlkRef_KeyMaxLt{32, t_KeyExtBlkRef, t_KeyMaxLt};
 const Maybe t_Maybe_ExtBlkRef{t_ExtBlkRef};
-const RefT t_Ref_TYPE_1658{t_McStateExtra_aux};
+const RefT t_Ref_TYPE_1662{t_McStateExtra_aux};
 const RefT t_Ref_SignedCertificate{t_SignedCertificate};
 const HashmapE t_HashmapE_16_CryptoSignaturePair{16, t_CryptoSignaturePair};
+const Maybe t_Maybe_Ref_InMsg{t_Ref_InMsg};
+const RefT t_Ref_TYPE_1670{t_McBlockExtra_aux};
 const NatWidth t_natwidth_16{16};
 const Hashmap t_Hashmap_16_ValidatorDescr{16, t_ValidatorDescr};
 const NatWidth t_natwidth_12{12};

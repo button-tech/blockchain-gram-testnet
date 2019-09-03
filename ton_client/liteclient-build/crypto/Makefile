@@ -68,6 +68,18 @@ install/strip/fast: preinstall/fast
 	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip/fast
 
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
+
+# Special rule for the target install/local
+install/local/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local/fast
+
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
@@ -78,16 +90,6 @@ edit_cache:
 edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
-
-# Special rule for the target list_install_components
-list_install_components:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
-.PHONY : list_install_components
-
-# Special rule for the target list_install_components
-list_install_components/fast: list_install_components
-
-.PHONY : list_install_components/fast
 
 # Special rule for the target test
 test:
@@ -100,17 +102,15 @@ test/fast: test
 
 .PHONY : test/fast
 
-# Special rule for the target install/local
-install/local: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local
+# Special rule for the target list_install_components
+list_install_components:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
+.PHONY : list_install_components
 
-# Special rule for the target install/local
-install/local/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local/fast
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
+
+.PHONY : list_install_components/fast
 
 # Special rule for the target rebuild_cache
 rebuild_cache:
@@ -168,19 +168,34 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-crypto/CMakeFiles/src_parser.dir/rule:
-	cd /root/liteclient-build && $(MAKE) -f CMakeFiles/Makefile2 crypto/CMakeFiles/src_parser.dir/rule
-.PHONY : crypto/CMakeFiles/src_parser.dir/rule
+crypto/CMakeFiles/test-block.dir/rule:
+	cd /root/liteclient-build && $(MAKE) -f CMakeFiles/Makefile2 crypto/CMakeFiles/test-block.dir/rule
+.PHONY : crypto/CMakeFiles/test-block.dir/rule
 
 # Convenience name for target.
-src_parser: crypto/CMakeFiles/src_parser.dir/rule
+test-block: crypto/CMakeFiles/test-block.dir/rule
 
-.PHONY : src_parser
+.PHONY : test-block
 
 # fast build rule for target.
-src_parser/fast:
-	cd /root/liteclient-build && $(MAKE) -f crypto/CMakeFiles/src_parser.dir/build.make crypto/CMakeFiles/src_parser.dir/build
-.PHONY : src_parser/fast
+test-block/fast:
+	cd /root/liteclient-build && $(MAKE) -f crypto/CMakeFiles/test-block.dir/build.make crypto/CMakeFiles/test-block.dir/build
+.PHONY : test-block/fast
+
+# Convenience name for target.
+crypto/CMakeFiles/gen_fif_smartcont_config_code_fif.dir/rule:
+	cd /root/liteclient-build && $(MAKE) -f CMakeFiles/Makefile2 crypto/CMakeFiles/gen_fif_smartcont_config_code_fif.dir/rule
+.PHONY : crypto/CMakeFiles/gen_fif_smartcont_config_code_fif.dir/rule
+
+# Convenience name for target.
+gen_fif_smartcont_config_code_fif: crypto/CMakeFiles/gen_fif_smartcont_config_code_fif.dir/rule
+
+.PHONY : gen_fif_smartcont_config_code_fif
+
+# fast build rule for target.
+gen_fif_smartcont_config_code_fif/fast:
+	cd /root/liteclient-build && $(MAKE) -f crypto/CMakeFiles/gen_fif_smartcont_config_code_fif.dir/build.make crypto/CMakeFiles/gen_fif_smartcont_config_code_fif.dir/build
+.PHONY : gen_fif_smartcont_config_code_fif/fast
 
 # Convenience name for target.
 crypto/CMakeFiles/test-ed25519-crypto.dir/rule:
@@ -211,6 +226,21 @@ fift-lib: crypto/CMakeFiles/fift-lib.dir/rule
 fift-lib/fast:
 	cd /root/liteclient-build && $(MAKE) -f crypto/CMakeFiles/fift-lib.dir/build.make crypto/CMakeFiles/fift-lib.dir/build
 .PHONY : fift-lib/fast
+
+# Convenience name for target.
+crypto/CMakeFiles/create-state.dir/rule:
+	cd /root/liteclient-build && $(MAKE) -f CMakeFiles/Makefile2 crypto/CMakeFiles/create-state.dir/rule
+.PHONY : crypto/CMakeFiles/create-state.dir/rule
+
+# Convenience name for target.
+create-state: crypto/CMakeFiles/create-state.dir/rule
+
+.PHONY : create-state
+
+# fast build rule for target.
+create-state/fast:
+	cd /root/liteclient-build && $(MAKE) -f crypto/CMakeFiles/create-state.dir/build.make crypto/CMakeFiles/create-state.dir/build
+.PHONY : create-state/fast
 
 # Convenience name for target.
 crypto/CMakeFiles/ton_crypto.dir/rule:
@@ -316,6 +346,81 @@ ton_block: crypto/CMakeFiles/ton_block.dir/rule
 ton_block/fast:
 	cd /root/liteclient-build && $(MAKE) -f crypto/CMakeFiles/ton_block.dir/build.make crypto/CMakeFiles/ton_block.dir/build
 .PHONY : ton_block/fast
+
+# Convenience name for target.
+crypto/CMakeFiles/gen_fif_smartcont_simple_wallet_code_fif.dir/rule:
+	cd /root/liteclient-build && $(MAKE) -f CMakeFiles/Makefile2 crypto/CMakeFiles/gen_fif_smartcont_simple_wallet_code_fif.dir/rule
+.PHONY : crypto/CMakeFiles/gen_fif_smartcont_simple_wallet_code_fif.dir/rule
+
+# Convenience name for target.
+gen_fif_smartcont_simple_wallet_code_fif: crypto/CMakeFiles/gen_fif_smartcont_simple_wallet_code_fif.dir/rule
+
+.PHONY : gen_fif_smartcont_simple_wallet_code_fif
+
+# fast build rule for target.
+gen_fif_smartcont_simple_wallet_code_fif/fast:
+	cd /root/liteclient-build && $(MAKE) -f crypto/CMakeFiles/gen_fif_smartcont_simple_wallet_code_fif.dir/build.make crypto/CMakeFiles/gen_fif_smartcont_simple_wallet_code_fif.dir/build
+.PHONY : gen_fif_smartcont_simple_wallet_code_fif/fast
+
+# Convenience name for target.
+crypto/CMakeFiles/gen_fif.dir/rule:
+	cd /root/liteclient-build && $(MAKE) -f CMakeFiles/Makefile2 crypto/CMakeFiles/gen_fif.dir/rule
+.PHONY : crypto/CMakeFiles/gen_fif.dir/rule
+
+# Convenience name for target.
+gen_fif: crypto/CMakeFiles/gen_fif.dir/rule
+
+.PHONY : gen_fif
+
+# fast build rule for target.
+gen_fif/fast:
+	cd /root/liteclient-build && $(MAKE) -f crypto/CMakeFiles/gen_fif.dir/build.make crypto/CMakeFiles/gen_fif.dir/build
+.PHONY : gen_fif/fast
+
+# Convenience name for target.
+crypto/CMakeFiles/gen_fif_smartcont_wallet_code_fif.dir/rule:
+	cd /root/liteclient-build && $(MAKE) -f CMakeFiles/Makefile2 crypto/CMakeFiles/gen_fif_smartcont_wallet_code_fif.dir/rule
+.PHONY : crypto/CMakeFiles/gen_fif_smartcont_wallet_code_fif.dir/rule
+
+# Convenience name for target.
+gen_fif_smartcont_wallet_code_fif: crypto/CMakeFiles/gen_fif_smartcont_wallet_code_fif.dir/rule
+
+.PHONY : gen_fif_smartcont_wallet_code_fif
+
+# fast build rule for target.
+gen_fif_smartcont_wallet_code_fif/fast:
+	cd /root/liteclient-build && $(MAKE) -f crypto/CMakeFiles/gen_fif_smartcont_wallet_code_fif.dir/build.make crypto/CMakeFiles/gen_fif_smartcont_wallet_code_fif.dir/build
+.PHONY : gen_fif_smartcont_wallet_code_fif/fast
+
+# Convenience name for target.
+crypto/CMakeFiles/src_parser.dir/rule:
+	cd /root/liteclient-build && $(MAKE) -f CMakeFiles/Makefile2 crypto/CMakeFiles/src_parser.dir/rule
+.PHONY : crypto/CMakeFiles/src_parser.dir/rule
+
+# Convenience name for target.
+src_parser: crypto/CMakeFiles/src_parser.dir/rule
+
+.PHONY : src_parser
+
+# fast build rule for target.
+src_parser/fast:
+	cd /root/liteclient-build && $(MAKE) -f crypto/CMakeFiles/src_parser.dir/build.make crypto/CMakeFiles/src_parser.dir/build
+.PHONY : src_parser/fast
+
+# Convenience name for target.
+crypto/CMakeFiles/gen_fif_smartcont_elector_code_fif.dir/rule:
+	cd /root/liteclient-build && $(MAKE) -f CMakeFiles/Makefile2 crypto/CMakeFiles/gen_fif_smartcont_elector_code_fif.dir/rule
+.PHONY : crypto/CMakeFiles/gen_fif_smartcont_elector_code_fif.dir/rule
+
+# Convenience name for target.
+gen_fif_smartcont_elector_code_fif: crypto/CMakeFiles/gen_fif_smartcont_elector_code_fif.dir/rule
+
+.PHONY : gen_fif_smartcont_elector_code_fif
+
+# fast build rule for target.
+gen_fif_smartcont_elector_code_fif/fast:
+	cd /root/liteclient-build && $(MAKE) -f crypto/CMakeFiles/gen_fif_smartcont_elector_code_fif.dir/build.make crypto/CMakeFiles/gen_fif_smartcont_elector_code_fif.dir/build
+.PHONY : gen_fif_smartcont_elector_code_fif/fast
 
 Ed25519.o: Ed25519.cpp.o
 
@@ -506,6 +611,33 @@ block/check-proof.cpp.s:
 	cd /root/liteclient-build && $(MAKE) -f crypto/CMakeFiles/ton_block.dir/build.make crypto/CMakeFiles/ton_block.dir/block/check-proof.cpp.s
 .PHONY : block/check-proof.cpp.s
 
+block/create-state.o: block/create-state.cpp.o
+
+.PHONY : block/create-state.o
+
+# target to build an object file
+block/create-state.cpp.o:
+	cd /root/liteclient-build && $(MAKE) -f crypto/CMakeFiles/create-state.dir/build.make crypto/CMakeFiles/create-state.dir/block/create-state.cpp.o
+.PHONY : block/create-state.cpp.o
+
+block/create-state.i: block/create-state.cpp.i
+
+.PHONY : block/create-state.i
+
+# target to preprocess a source file
+block/create-state.cpp.i:
+	cd /root/liteclient-build && $(MAKE) -f crypto/CMakeFiles/create-state.dir/build.make crypto/CMakeFiles/create-state.dir/block/create-state.cpp.i
+.PHONY : block/create-state.cpp.i
+
+block/create-state.s: block/create-state.cpp.s
+
+.PHONY : block/create-state.s
+
+# target to generate assembly for a file
+block/create-state.cpp.s:
+	cd /root/liteclient-build && $(MAKE) -f crypto/CMakeFiles/create-state.dir/build.make crypto/CMakeFiles/create-state.dir/block/create-state.cpp.s
+.PHONY : block/create-state.cpp.s
+
 block/mc-config.o: block/mc-config.cpp.o
 
 .PHONY : block/mc-config.o
@@ -559,6 +691,33 @@ block/output-queue-merger.s: block/output-queue-merger.cpp.s
 block/output-queue-merger.cpp.s:
 	cd /root/liteclient-build && $(MAKE) -f crypto/CMakeFiles/ton_block.dir/build.make crypto/CMakeFiles/ton_block.dir/block/output-queue-merger.cpp.s
 .PHONY : block/output-queue-merger.cpp.s
+
+block/test-block.o: block/test-block.cpp.o
+
+.PHONY : block/test-block.o
+
+# target to build an object file
+block/test-block.cpp.o:
+	cd /root/liteclient-build && $(MAKE) -f crypto/CMakeFiles/test-block.dir/build.make crypto/CMakeFiles/test-block.dir/block/test-block.cpp.o
+.PHONY : block/test-block.cpp.o
+
+block/test-block.i: block/test-block.cpp.i
+
+.PHONY : block/test-block.i
+
+# target to preprocess a source file
+block/test-block.cpp.i:
+	cd /root/liteclient-build && $(MAKE) -f crypto/CMakeFiles/test-block.dir/build.make crypto/CMakeFiles/test-block.dir/block/test-block.cpp.i
+.PHONY : block/test-block.cpp.i
+
+block/test-block.s: block/test-block.cpp.s
+
+.PHONY : block/test-block.s
+
+# target to generate assembly for a file
+block/test-block.cpp.s:
+	cd /root/liteclient-build && $(MAKE) -f crypto/CMakeFiles/test-block.dir/build.make crypto/CMakeFiles/test-block.dir/block/test-block.cpp.s
+.PHONY : block/test-block.cpp.s
 
 block/transaction.o: block/transaction.cpp.o
 
@@ -2430,22 +2589,29 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... install/strip"
-	@echo "... src_parser"
+	@echo "... install/local"
 	@echo "... edit_cache"
+	@echo "... test"
+	@echo "... test-block"
+	@echo "... list_install_components"
+	@echo "... gen_fif_smartcont_config_code_fif"
 	@echo "... test-ed25519-crypto"
 	@echo "... fift-lib"
+	@echo "... rebuild_cache"
+	@echo "... create-state"
 	@echo "... ton_crypto"
 	@echo "... ton_db"
-	@echo "... list_install_components"
 	@echo "... tlb_generate_block"
-	@echo "... test"
-	@echo "... install/local"
 	@echo "... func"
 	@echo "... tlbc"
-	@echo "... rebuild_cache"
 	@echo "... fift"
 	@echo "... ton_block"
 	@echo "... install"
+	@echo "... gen_fif_smartcont_simple_wallet_code_fif"
+	@echo "... gen_fif"
+	@echo "... gen_fif_smartcont_wallet_code_fif"
+	@echo "... src_parser"
+	@echo "... gen_fif_smartcont_elector_code_fif"
 	@echo "... Ed25519.o"
 	@echo "... Ed25519.i"
 	@echo "... Ed25519.s"
@@ -2467,12 +2633,18 @@ help:
 	@echo "... block/check-proof.o"
 	@echo "... block/check-proof.i"
 	@echo "... block/check-proof.s"
+	@echo "... block/create-state.o"
+	@echo "... block/create-state.i"
+	@echo "... block/create-state.s"
 	@echo "... block/mc-config.o"
 	@echo "... block/mc-config.i"
 	@echo "... block/mc-config.s"
 	@echo "... block/output-queue-merger.o"
 	@echo "... block/output-queue-merger.i"
 	@echo "... block/output-queue-merger.s"
+	@echo "... block/test-block.o"
+	@echo "... block/test-block.i"
+	@echo "... block/test-block.s"
 	@echo "... block/transaction.o"
 	@echo "... block/transaction.i"
 	@echo "... block/transaction.s"

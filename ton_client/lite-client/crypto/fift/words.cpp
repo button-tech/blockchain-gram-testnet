@@ -1,3 +1,21 @@
+/*
+    This file is part of TON Blockchain Library.
+
+    TON Blockchain Library is free software: you can redistribute it and/or modify
+    it under the terms of the GNU Lesser General Public License as published by
+    the Free Software Foundation, either version 2 of the License, or
+    (at your option) any later version.
+
+    TON Blockchain Library is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU Lesser General Public License for more details.
+
+    You should have received a copy of the GNU Lesser General Public License
+    along with TON Blockchain Library.  If not, see <http://www.gnu.org/licenses/>.
+
+    Copyright 2017-2019 Telegram Systems LLP
+*/
 #include "words.h"
 
 #include "Dictionary.h"
@@ -32,6 +50,8 @@
 #include "td/utils/Timer.h"
 #include "td/utils/tl_helpers.h"
 
+#include <ctime>
+
 namespace fift {
 
 void show_total_cells(std::ostream& stream) {
@@ -45,8 +65,8 @@ void interpret_dot(IntCtx& ctx, bool space_after) {
   *ctx.output_stream << dec_string2(ctx.stack.pop_int()) << (space_after ? " " : "");
 }
 
-void interpret_dothex(IntCtx& ctx, bool space_after) {
-  *ctx.output_stream << hex_string(ctx.stack.pop_int()) << (space_after ? " " : "");
+void interpret_dothex(IntCtx& ctx, bool upcase, bool space_after) {
+  *ctx.output_stream << hex_string(ctx.stack.pop_int(), upcase) << (space_after ? " " : "");
 }
 
 void interpret_dotbinary(IntCtx& ctx, bool space_after) {
@@ -96,8 +116,8 @@ void interpret_dot_internal(vm::Stack& stack) {
   stack.push_string(dec_string2(stack.pop_int()));
 }
 
-void interpret_dothex_internal(vm::Stack& stack) {
-  stack.push_string(hex_string(stack.pop_int()));
+void interpret_dothex_internal(vm::Stack& stack, bool upcase) {
+  stack.push_string(hex_string(stack.pop_int(), upcase));
 }
 
 void interpret_dotbinary_internal(vm::Stack& stack) {
@@ -935,13 +955,15 @@ void interpret_fetch_ref(vm::Stack& stack, int mode) {
     }
   } else {
     auto cell = (mode & 2) ? cs.write().fetch_ref() : cs.write().prefetch_ref();
+    if (mode & 2) {
+      stack.push(std::move(cs));
+    }
     if (mode & 1) {
       Ref<vm::CellSlice> new_cs{true, vm::NoVm(), std::move(cell)};
       stack.push(std::move(new_cs));
     } else {
       stack.push_cell(std::move(cell));
     }
-    stack.push(std::move(cs));
     if (mode & 4) {
       stack.push_bool(true);
     }
@@ -1012,7 +1034,7 @@ void interpret_tuple_len(vm::Stack& stack) {
 void interpret_tuple_index(vm::Stack& stack) {
   auto idx = stack.pop_long_range(std::numeric_limits<long long>::max());
   auto tuple = stack.pop_tuple();
-  if ((std::size_t)idx >= tuple->size()) {
+  if ((td::uint64)idx >= tuple->size()) {
     throw vm::VmError{vm::Excno::range_chk, "array index out of range"};
   }
   stack.push((*tuple)[idx]);
@@ -1022,7 +1044,7 @@ void interpret_tuple_set(vm::Stack& stack) {
   auto idx = stack.pop_long_range(std::numeric_limits<long long>::max());
   auto val = stack.pop_chk();
   auto tuple = stack.pop_tuple();
-  if ((std::size_t)idx >= tuple->size()) {
+  if ((td::uint64)idx >= tuple->size()) {
     throw vm::VmError{vm::Excno::range_chk, "array index out of range"};
   }
   tuple.write()[idx] = std::move(val);
@@ -1051,7 +1073,7 @@ void interpret_tuple_explode(vm::Stack& stack, bool pop_count) {
     if (n > 255) {
       throw IntError{"tuple too large to be exploded"};
     }
-  } else if (tuple.size() != (unsigned)n) {
+  } else if (tuple.size() != n) {
     throw IntError{"tuple size mismatch"};
   }
   if (ref.is_unique()) {
@@ -1065,7 +1087,7 @@ void interpret_tuple_explode(vm::Stack& stack, bool pop_count) {
     }
   }
   if (!pop_count) {
-    stack.push_smallint((int)n);
+    stack.push_smallint((td::int32)n);
   }
 }
 
@@ -1207,7 +1229,7 @@ void interpret_file_exists(IntCtx& ctx) {
 // custom and crypto
 
 void interpret_now(vm::Stack& stack) {
-  stack.push_smallint(time(0));
+  stack.push_smallint(std::time(nullptr));
 }
 
 void interpret_new_keypair(vm::Stack& stack) {
@@ -1292,6 +1314,19 @@ void interpret_dict_to_slice(vm::Stack& stack) {
   vm::CellBuilder cb;
   cb.store_maybe_ref(stack.pop_maybe_cell());
   stack.push_cellslice(vm::load_cell_slice_ref(cb.finalize()));
+}
+
+void interpret_load_dict(vm::Stack& stack, bool fetch) {
+  auto cs = stack.pop_cellslice();
+  Ref<vm::Cell> dict;
+  bool non_empty;
+  if (!(cs.write().fetch_bool_to(non_empty) && (!non_empty || cs.write().fetch_ref_to(dict)))) {
+    throw IntError{"cell underflow"};
+  }
+  stack.push_maybe_cell(std::move(dict));
+  if (fetch) {
+    stack.push_cellslice(std::move(cs));
+  }
 }
 
 void interpret_store_dict(vm::Stack& stack) {
@@ -1774,6 +1809,16 @@ void interpret_parse_number(vm::Stack& stack) {
   stack.push_smallint(res);
 }
 
+void interpret_parse_hex_number(vm::Stack& stack) {
+  td::RefInt256 x{true};
+  auto str = stack.pop_string();
+  bool ok = (str.size() <= 65535) && x.unique_write().parse_hex(str.data(), (int)str.size()) == (int)str.size();
+  if (ok) {
+    stack.push_int(std::move(x));
+  }
+  stack.push_smallint(ok);
+}
+
 void interpret_quit(IntCtx& ctx) {
   throw Quit{0};
 }
@@ -2179,7 +2224,7 @@ void interpret_compile_internal(vm::Stack& stack) {
 void do_compile(vm::Stack& stack, Ref<WordDef> word_def) {
   Ref<WordList> wl_ref = pop_word_list(stack);
   if (word_def != Dictionary::nop_word_def) {
-    if ((std::size_t)word_def->list_size() <= 1) {
+    if ((td::uint64)word_def->list_size() <= 1) {
       // inline short definitions
       wl_ref.write().append(*(word_def->get_list()));
     } else {
@@ -2227,8 +2272,10 @@ void init_words_common(Dictionary& d) {
   // stack print/dump words
   d.def_ctx_word(". ", std::bind(interpret_dot, _1, true));
   d.def_ctx_word("._ ", std::bind(interpret_dot, _1, false));
-  d.def_ctx_word("x. ", std::bind(interpret_dothex, _1, true));
-  d.def_ctx_word("x._ ", std::bind(interpret_dothex, _1, false));
+  d.def_ctx_word("x. ", std::bind(interpret_dothex, _1, false, true));
+  d.def_ctx_word("x._ ", std::bind(interpret_dothex, _1, false, false));
+  d.def_ctx_word("X. ", std::bind(interpret_dothex, _1, true, true));
+  d.def_ctx_word("X._ ", std::bind(interpret_dothex, _1, true, false));
   d.def_ctx_word("b. ", std::bind(interpret_dotbinary, _1, true));
   d.def_ctx_word("b._ ", std::bind(interpret_dotbinary, _1, false));
   d.def_ctx_word("csr. ", interpret_dot_cellslice_rec);
@@ -2239,7 +2286,8 @@ void init_words_common(Dictionary& d) {
   d.def_ctx_word(".tc ", interpret_dottc);
   d.def_stack_word("(dump) ", interpret_dump_internal);
   d.def_stack_word("(.) ", interpret_dot_internal);
-  d.def_stack_word("(x.) ", interpret_dothex_internal);
+  d.def_stack_word("(x.) ", std::bind(interpret_dothex_internal, _1, false));
+  d.def_stack_word("(X.) ", std::bind(interpret_dothex_internal, _1, true));
   d.def_stack_word("(b.) ", interpret_dotbinary_internal);
   // stack manipulation
   d.def_stack_word("drop ", interpret_drop);
@@ -2279,6 +2327,8 @@ void init_words_common(Dictionary& d) {
   d.def_stack_word("/c ", std::bind(interpret_div, _1, 1));
   d.def_stack_word("/r ", std::bind(interpret_div, _1, 0));
   d.def_stack_word("mod ", std::bind(interpret_mod, _1, -1));
+  d.def_stack_word("rmod ", std::bind(interpret_mod, _1, 0));
+  d.def_stack_word("cmod ", std::bind(interpret_mod, _1, 1));
   d.def_stack_word("/mod ", std::bind(interpret_divmod, _1, -1));
   d.def_stack_word("/cmod ", std::bind(interpret_divmod, _1, 1));
   d.def_stack_word("/rmod ", std::bind(interpret_divmod, _1, 0));
@@ -2348,6 +2398,7 @@ void init_words_common(Dictionary& d) {
   d.def_stack_word("chr ", interpret_chr);
   d.def_stack_word("hold ", interpret_hold);
   d.def_stack_word("(number) ", interpret_parse_number);
+  d.def_stack_word("(hex-number) ", interpret_parse_hex_number);
   d.def_stack_word("$| ", interpret_str_split);
   d.def_stack_word("$+ ", interpret_str_concat);
   d.def_stack_word("$= ", interpret_str_equal);
@@ -2445,6 +2496,8 @@ void init_words_common(Dictionary& d) {
   d.def_stack_word("dictnew ", interpret_dict_new);
   d.def_stack_word("dict>s ", interpret_dict_to_slice);
   d.def_stack_word("dict, ", interpret_store_dict);
+  d.def_stack_word("dict@ ", std::bind(interpret_load_dict, _1, false));
+  d.def_stack_word("dict@+ ", std::bind(interpret_load_dict, _1, true));
   d.def_stack_word("udict!+ ", std::bind(interpret_dict_add_u, _1, vm::Dictionary::SetMode::Add, false, false));
   d.def_stack_word("udict! ", std::bind(interpret_dict_add_u, _1, vm::Dictionary::SetMode::Set, false, false));
   d.def_stack_word("b>udict!+ ", std::bind(interpret_dict_add_u, _1, vm::Dictionary::SetMode::Add, true, false));

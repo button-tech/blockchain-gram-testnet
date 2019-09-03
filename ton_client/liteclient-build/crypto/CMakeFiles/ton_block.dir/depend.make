@@ -22,6 +22,7 @@ crypto/CMakeFiles/ton_block.dir/block/Binlog.cpp.o: /root/lite-client/tdutils/td
 crypto/CMakeFiles/ton_block.dir/block/Binlog.cpp.o: /root/lite-client/tdutils/td/utils/int_types.h
 crypto/CMakeFiles/ton_block.dir/block/Binlog.cpp.o: /root/lite-client/tdutils/td/utils/invoke.h
 crypto/CMakeFiles/ton_block.dir/block/Binlog.cpp.o: /root/lite-client/tdutils/td/utils/logging.h
+crypto/CMakeFiles/ton_block.dir/block/Binlog.cpp.o: /root/lite-client/tdutils/td/utils/misc.h
 crypto/CMakeFiles/ton_block.dir/block/Binlog.cpp.o: /root/lite-client/tdutils/td/utils/port/FileFd.h
 crypto/CMakeFiles/ton_block.dir/block/Binlog.cpp.o: /root/lite-client/tdutils/td/utils/port/IoSlice.h
 crypto/CMakeFiles/ton_block.dir/block/Binlog.cpp.o: /root/lite-client/tdutils/td/utils/port/PollFlags.h
@@ -332,6 +333,7 @@ crypto/CMakeFiles/ton_block.dir/block/block.cpp.o: /root/lite-client/tdutils/td/
 crypto/CMakeFiles/ton_block.dir/block/block.cpp.o: /root/lite-client/tdutils/td/utils/Span.h
 crypto/CMakeFiles/ton_block.dir/block/block.cpp.o: /root/lite-client/tdutils/td/utils/StackAllocator.h
 crypto/CMakeFiles/ton_block.dir/block/block.cpp.o: /root/lite-client/tdutils/td/utils/Status.h
+crypto/CMakeFiles/ton_block.dir/block/block.cpp.o: /root/lite-client/tdutils/td/utils/StorerBase.h
 crypto/CMakeFiles/ton_block.dir/block/block.cpp.o: /root/lite-client/tdutils/td/utils/StringBuilder.h
 crypto/CMakeFiles/ton_block.dir/block/block.cpp.o: /root/lite-client/tdutils/td/utils/ThreadLocalStorage.h
 crypto/CMakeFiles/ton_block.dir/block/block.cpp.o: /root/lite-client/tdutils/td/utils/ThreadSafeCounter.h
@@ -353,6 +355,7 @@ crypto/CMakeFiles/ton_block.dir/block/block.cpp.o: /root/lite-client/tdutils/td/
 crypto/CMakeFiles/ton_block.dir/block/block.cpp.o: /root/lite-client/tdutils/td/utils/port/platform.h
 crypto/CMakeFiles/ton_block.dir/block/block.cpp.o: /root/lite-client/tdutils/td/utils/port/thread.h
 crypto/CMakeFiles/ton_block.dir/block/block.cpp.o: /root/lite-client/tdutils/td/utils/port/thread_local.h
+crypto/CMakeFiles/ton_block.dir/block/block.cpp.o: /root/lite-client/tdutils/td/utils/tl_storers.h
 crypto/CMakeFiles/ton_block.dir/block/block.cpp.o: /root/lite-client/tdutils/td/utils/uint128.h
 crypto/CMakeFiles/ton_block.dir/block/block.cpp.o: /root/lite-client/tdutils/td/utils/unique_ptr.h
 crypto/CMakeFiles/ton_block.dir/block/block.cpp.o: tdutils/td/utils/config.h

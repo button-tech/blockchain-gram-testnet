@@ -36,23 +36,18 @@
 },
 {
   "directory": "/root/liteclient-build",
-  "command": "/usr/bin/c++  -D_FILE_OFFSET_BITS=64 -I/root/lite-client/tdutils -I/root/liteclient-build/tdutils -I/root/lite-client/memprof   -march=native -pthread -std=c++14 -fno-omit-frame-pointer -ffunction-sections -fdata-sections -Wall -Wextra -Wimplicit-fallthrough=2 -Wpointer-arith -Wcast-qual -Wsign-compare -Wduplicated-branches -Wduplicated-cond -Walloc-zero -Wlogical-op -Wno-tautological-compare -Wpointer-arith -Wvla -Wnon-virtual-dtor -Wno-unused-parameter -Wconversion -Wno-sign-conversion -fPIE   -o CMakeFiles/test-tdutils.dir/tdutils/test/crypto.cpp.o -c /root/lite-client/tdutils/test/crypto.cpp",
-  "file": "/root/lite-client/tdutils/test/crypto.cpp"
-},
-{
-  "directory": "/root/liteclient-build",
   "command": "/usr/bin/c++  -D_FILE_OFFSET_BITS=64 -I/root/lite-client/tdutils -I/root/liteclient-build/tdutils -I/root/lite-client/memprof   -march=native -pthread -std=c++14 -fno-omit-frame-pointer -ffunction-sections -fdata-sections -Wall -Wextra -Wimplicit-fallthrough=2 -Wpointer-arith -Wcast-qual -Wsign-compare -Wduplicated-branches -Wduplicated-cond -Walloc-zero -Wlogical-op -Wno-tautological-compare -Wpointer-arith -Wvla -Wnon-virtual-dtor -Wno-unused-parameter -Wconversion -Wno-sign-conversion -fPIE   -o CMakeFiles/test-tdutils.dir/tdutils/test/ConcurrentHashMap.cpp.o -c /root/lite-client/tdutils/test/ConcurrentHashMap.cpp",
   "file": "/root/lite-client/tdutils/test/ConcurrentHashMap.cpp"
 },
 {
   "directory": "/root/liteclient-build",
-  "command": "/usr/bin/c++  -D_FILE_OFFSET_BITS=64 -I/root/lite-client/tdutils -I/root/liteclient-build/tdutils -I/root/lite-client/memprof   -march=native -pthread -std=c++14 -fno-omit-frame-pointer -ffunction-sections -fdata-sections -Wall -Wextra -Wimplicit-fallthrough=2 -Wpointer-arith -Wcast-qual -Wsign-compare -Wduplicated-branches -Wduplicated-cond -Walloc-zero -Wlogical-op -Wno-tautological-compare -Wpointer-arith -Wvla -Wnon-virtual-dtor -Wno-unused-parameter -Wconversion -Wno-sign-conversion -fPIE   -o CMakeFiles/test-tdutils.dir/tdutils/test/Enumerator.cpp.o -c /root/lite-client/tdutils/test/Enumerator.cpp",
-  "file": "/root/lite-client/tdutils/test/Enumerator.cpp"
+  "command": "/usr/bin/c++  -D_FILE_OFFSET_BITS=64 -I/root/lite-client/tdutils -I/root/liteclient-build/tdutils -I/root/lite-client/memprof   -march=native -pthread -std=c++14 -fno-omit-frame-pointer -ffunction-sections -fdata-sections -Wall -Wextra -Wimplicit-fallthrough=2 -Wpointer-arith -Wcast-qual -Wsign-compare -Wduplicated-branches -Wduplicated-cond -Walloc-zero -Wlogical-op -Wno-tautological-compare -Wpointer-arith -Wvla -Wnon-virtual-dtor -Wno-unused-parameter -Wconversion -Wno-sign-conversion -fPIE   -o CMakeFiles/test-tdutils.dir/tdutils/test/crypto.cpp.o -c /root/lite-client/tdutils/test/crypto.cpp",
+  "file": "/root/lite-client/tdutils/test/crypto.cpp"
 },
 {
   "directory": "/root/liteclient-build",
-  "command": "/usr/bin/c++  -D_FILE_OFFSET_BITS=64 -I/root/lite-client/tdutils -I/root/liteclient-build/tdutils -I/root/lite-client/memprof   -march=native -pthread -std=c++14 -fno-omit-frame-pointer -ffunction-sections -fdata-sections -Wall -Wextra -Wimplicit-fallthrough=2 -Wpointer-arith -Wcast-qual -Wsign-compare -Wduplicated-branches -Wduplicated-cond -Walloc-zero -Wlogical-op -Wno-tautological-compare -Wpointer-arith -Wvla -Wnon-virtual-dtor -Wno-unused-parameter -Wconversion -Wno-sign-conversion -fPIE   -o CMakeFiles/test-tdutils.dir/tdutils/test/EpochBasedMemoryReclamation.cpp.o -c /root/lite-client/tdutils/test/EpochBasedMemoryReclamation.cpp",
-  "file": "/root/lite-client/tdutils/test/EpochBasedMemoryReclamation.cpp"
+  "command": "/usr/bin/c++  -D_FILE_OFFSET_BITS=64 -I/root/lite-client/tdutils -I/root/liteclient-build/tdutils -I/root/lite-client/memprof   -march=native -pthread -std=c++14 -fno-omit-frame-pointer -ffunction-sections -fdata-sections -Wall -Wextra -Wimplicit-fallthrough=2 -Wpointer-arith -Wcast-qual -Wsign-compare -Wduplicated-branches -Wduplicated-cond -Walloc-zero -Wlogical-op -Wno-tautological-compare -Wpointer-arith -Wvla -Wnon-virtual-dtor -Wno-unused-parameter -Wconversion -Wno-sign-conversion -fPIE   -o CMakeFiles/test-tdutils.dir/tdutils/test/Enumerator.cpp.o -c /root/lite-client/tdutils/test/Enumerator.cpp",
+  "file": "/root/lite-client/tdutils/test/Enumerator.cpp"
 },
 {
   "directory": "/root/liteclient-build",
@@ -446,11 +441,6 @@
 },
 {
   "directory": "/root/liteclient-build/tdutils",
-  "command": "/usr/bin/c++  -D_FILE_OFFSET_BITS=64 -I/root/lite-client/tdutils -I/root/liteclient-build/tdutils -I/root/lite-client/third-party/crc32c/include   -march=native -pthread -std=c++14 -fno-omit-frame-pointer -ffunction-sections -fdata-sections -Wall -Wextra -Wimplicit-fallthrough=2 -Wpointer-arith -Wcast-qual -Wsign-compare -Wduplicated-branches -Wduplicated-cond -Walloc-zero -Wlogical-op -Wno-tautological-compare -Wpointer-arith -Wvla -Wnon-virtual-dtor -Wno-unused-parameter -Wconversion -Wno-sign-conversion -fPIC   -o CMakeFiles/tdutils.dir/td/utils/tests.cpp.o -c /root/lite-client/tdutils/td/utils/tests.cpp",
-  "file": "/root/lite-client/tdutils/td/utils/tests.cpp"
-},
-{
-  "directory": "/root/liteclient-build/tdutils",
   "command": "/usr/bin/c++  -D_FILE_OFFSET_BITS=64 -I/root/lite-client/tdutils -I/root/liteclient-build/tdutils -I/root/lite-client/third-party/crc32c/include   -march=native -pthread -std=c++14 -fno-omit-frame-pointer -ffunction-sections -fdata-sections -Wall -Wextra -Wimplicit-fallthrough=2 -Wpointer-arith -Wcast-qual -Wsign-compare -Wduplicated-branches -Wduplicated-cond -Walloc-zero -Wlogical-op -Wno-tautological-compare -Wpointer-arith -Wvla -Wnon-virtual-dtor -Wno-unused-parameter -Wconversion -Wno-sign-conversion -fPIC   -o CMakeFiles/tdutils.dir/td/utils/Time.cpp.o -c /root/lite-client/tdutils/td/utils/Time.cpp",
   "file": "/root/lite-client/tdutils/td/utils/Time.cpp"
 },
@@ -463,6 +453,11 @@
   "directory": "/root/liteclient-build/tdutils",
   "command": "/usr/bin/c++  -D_FILE_OFFSET_BITS=64 -I/root/lite-client/tdutils -I/root/liteclient-build/tdutils -I/root/lite-client/third-party/crc32c/include   -march=native -pthread -std=c++14 -fno-omit-frame-pointer -ffunction-sections -fdata-sections -Wall -Wextra -Wimplicit-fallthrough=2 -Wpointer-arith -Wcast-qual -Wsign-compare -Wduplicated-branches -Wduplicated-cond -Walloc-zero -Wlogical-op -Wno-tautological-compare -Wpointer-arith -Wvla -Wnon-virtual-dtor -Wno-unused-parameter -Wconversion -Wno-sign-conversion -fPIC   -o CMakeFiles/tdutils.dir/td/utils/TsFileLog.cpp.o -c /root/lite-client/tdutils/td/utils/TsFileLog.cpp",
   "file": "/root/lite-client/tdutils/td/utils/TsFileLog.cpp"
+},
+{
+  "directory": "/root/liteclient-build/tdutils",
+  "command": "/usr/bin/c++  -D_FILE_OFFSET_BITS=64 -I/root/lite-client/tdutils -I/root/liteclient-build/tdutils -I/root/lite-client/third-party/crc32c/include   -march=native -pthread -std=c++14 -fno-omit-frame-pointer -ffunction-sections -fdata-sections -Wall -Wextra -Wimplicit-fallthrough=2 -Wpointer-arith -Wcast-qual -Wsign-compare -Wduplicated-branches -Wduplicated-cond -Walloc-zero -Wlogical-op -Wno-tautological-compare -Wpointer-arith -Wvla -Wnon-virtual-dtor -Wno-unused-parameter -Wconversion -Wno-sign-conversion -fPIC   -o CMakeFiles/tdutils.dir/td/utils/tests.cpp.o -c /root/lite-client/tdutils/td/utils/tests.cpp",
+  "file": "/root/lite-client/tdutils/td/utils/tests.cpp"
 },
 {
   "directory": "/root/liteclient-build/tdutils",
@@ -761,18 +756,8 @@
 },
 {
   "directory": "/root/liteclient-build/crypto",
-  "command": "/usr/bin/c++  -D_FILE_OFFSET_BITS=64 -I/root/lite-client/crypto -I/root/lite-client/crypto/.. -I/root/lite-client/tdutils -I/root/liteclient-build/tdutils   -march=native -pthread -std=c++14 -fno-omit-frame-pointer -ffunction-sections -fdata-sections -Wall -Wextra -Wimplicit-fallthrough=2 -Wpointer-arith -Wcast-qual -Wsign-compare -Wduplicated-branches -Wduplicated-cond -Walloc-zero -Wlogical-op -Wno-tautological-compare -Wpointer-arith -Wvla -Wnon-virtual-dtor -Wno-unused-parameter -Wconversion -Wno-sign-conversion -fPIC   -o CMakeFiles/src_parser.dir/parser/srcread.cpp.o -c /root/lite-client/crypto/parser/srcread.cpp",
-  "file": "/root/lite-client/crypto/parser/srcread.cpp"
-},
-{
-  "directory": "/root/liteclient-build/crypto",
-  "command": "/usr/bin/c++  -D_FILE_OFFSET_BITS=64 -I/root/lite-client/crypto -I/root/lite-client/crypto/.. -I/root/lite-client/tdutils -I/root/liteclient-build/tdutils   -march=native -pthread -std=c++14 -fno-omit-frame-pointer -ffunction-sections -fdata-sections -Wall -Wextra -Wimplicit-fallthrough=2 -Wpointer-arith -Wcast-qual -Wsign-compare -Wduplicated-branches -Wduplicated-cond -Walloc-zero -Wlogical-op -Wno-tautological-compare -Wpointer-arith -Wvla -Wnon-virtual-dtor -Wno-unused-parameter -Wconversion -Wno-sign-conversion -fPIC   -o CMakeFiles/src_parser.dir/parser/lexer.cpp.o -c /root/lite-client/crypto/parser/lexer.cpp",
-  "file": "/root/lite-client/crypto/parser/lexer.cpp"
-},
-{
-  "directory": "/root/liteclient-build/crypto",
-  "command": "/usr/bin/c++  -D_FILE_OFFSET_BITS=64 -I/root/lite-client/crypto -I/root/lite-client/crypto/.. -I/root/lite-client/tdutils -I/root/liteclient-build/tdutils   -march=native -pthread -std=c++14 -fno-omit-frame-pointer -ffunction-sections -fdata-sections -Wall -Wextra -Wimplicit-fallthrough=2 -Wpointer-arith -Wcast-qual -Wsign-compare -Wduplicated-branches -Wduplicated-cond -Walloc-zero -Wlogical-op -Wno-tautological-compare -Wpointer-arith -Wvla -Wnon-virtual-dtor -Wno-unused-parameter -Wconversion -Wno-sign-conversion -fPIC   -o CMakeFiles/src_parser.dir/parser/symtable.cpp.o -c /root/lite-client/crypto/parser/symtable.cpp",
-  "file": "/root/lite-client/crypto/parser/symtable.cpp"
+  "command": "/usr/bin/c++  -D_FILE_OFFSET_BITS=64 -I/root/lite-client/crypto -I/root/lite-client/crypto/.. -I/root/lite-client/tdutils -I/root/liteclient-build/tdutils -I/root/lite-client/tddb -I/root/lite-client/tdactor -I/root/lite-client/crypto/block -I/root/lite-client/tl -I/root/lite-client/tl/.. -I/root/lite-client/tl/../crypto -I/root/lite-client/tl/generate   -march=native -pthread -std=c++14 -fno-omit-frame-pointer -ffunction-sections -fdata-sections -Wall -Wextra -Wimplicit-fallthrough=2 -Wpointer-arith -Wcast-qual -Wsign-compare -Wduplicated-branches -Wduplicated-cond -Walloc-zero -Wlogical-op -Wno-tautological-compare -Wpointer-arith -Wvla -Wnon-virtual-dtor -Wno-unused-parameter -Wconversion -Wno-sign-conversion -fPIE   -o CMakeFiles/test-block.dir/block/test-block.cpp.o -c /root/lite-client/crypto/block/test-block.cpp",
+  "file": "/root/lite-client/crypto/block/test-block.cpp"
 },
 {
   "directory": "/root/liteclient-build/crypto",
@@ -808,6 +793,11 @@
   "directory": "/root/liteclient-build/crypto",
   "command": "/usr/bin/c++  -D_FILE_OFFSET_BITS=64 -I/root/lite-client/crypto -I/root/lite-client/crypto/.. -I/root/lite-client/tdutils -I/root/liteclient-build/tdutils -I/root/lite-client/tddb -I/root/lite-client/tdactor -I/root/lite-client/crypto/block -I/root/lite-client/tl -I/root/lite-client/tl/.. -I/root/lite-client/tl/../crypto -I/root/lite-client/tl/generate   -march=native -pthread -std=c++14 -fno-omit-frame-pointer -ffunction-sections -fdata-sections -Wall -Wextra -Wimplicit-fallthrough=2 -Wpointer-arith -Wcast-qual -Wsign-compare -Wduplicated-branches -Wduplicated-cond -Walloc-zero -Wlogical-op -Wno-tautological-compare -Wpointer-arith -Wvla -Wnon-virtual-dtor -Wno-unused-parameter -Wconversion -Wno-sign-conversion -fPIC   -o CMakeFiles/fift-lib.dir/fift/words.cpp.o -c /root/lite-client/crypto/fift/words.cpp",
   "file": "/root/lite-client/crypto/fift/words.cpp"
+},
+{
+  "directory": "/root/liteclient-build/crypto",
+  "command": "/usr/bin/c++  -D_FILE_OFFSET_BITS=64 -I/root/lite-client/crypto -I/root/lite-client/crypto/.. -I/root/lite-client/tdutils -I/root/liteclient-build/tdutils -I/root/lite-client/tddb -I/root/lite-client/tdactor -I/root/lite-client/crypto/block -I/root/lite-client/tl -I/root/lite-client/tl/.. -I/root/lite-client/tl/../crypto -I/root/lite-client/tl/generate   -march=native -pthread -std=c++14 -fno-omit-frame-pointer -ffunction-sections -fdata-sections -Wall -Wextra -Wimplicit-fallthrough=2 -Wpointer-arith -Wcast-qual -Wsign-compare -Wduplicated-branches -Wduplicated-cond -Walloc-zero -Wlogical-op -Wno-tautological-compare -Wpointer-arith -Wvla -Wnon-virtual-dtor -Wno-unused-parameter -Wconversion -Wno-sign-conversion -fPIE   -o CMakeFiles/create-state.dir/block/create-state.cpp.o -c /root/lite-client/crypto/block/create-state.cpp",
+  "file": "/root/lite-client/crypto/block/create-state.cpp"
 },
 {
   "directory": "/root/liteclient-build/crypto",
@@ -1148,6 +1138,21 @@
   "directory": "/root/liteclient-build/crypto",
   "command": "/usr/bin/c++  -D_FILE_OFFSET_BITS=64 -I/root/lite-client/crypto -I/root/lite-client/crypto/block -I/root/lite-client/crypto/.. -I/root/lite-client/tdutils -I/root/liteclient-build/tdutils -I/root/lite-client/tdactor -I/root/lite-client/tl -I/root/lite-client/tl/.. -I/root/lite-client/tl/../crypto -I/root/lite-client/tl/generate   -march=native -pthread -std=c++14 -fno-omit-frame-pointer -ffunction-sections -fdata-sections -Wall -Wextra -Wimplicit-fallthrough=2 -Wpointer-arith -Wcast-qual -Wsign-compare -Wduplicated-branches -Wduplicated-cond -Walloc-zero -Wlogical-op -Wno-tautological-compare -Wpointer-arith -Wvla -Wnon-virtual-dtor -Wno-unused-parameter -Wconversion -Wno-sign-conversion -fPIC   -o CMakeFiles/ton_block.dir/block/block-auto.cpp.o -c /root/lite-client/crypto/block/block-auto.cpp",
   "file": "/root/lite-client/crypto/block/block-auto.cpp"
+},
+{
+  "directory": "/root/liteclient-build/crypto",
+  "command": "/usr/bin/c++  -D_FILE_OFFSET_BITS=64 -I/root/lite-client/crypto -I/root/lite-client/crypto/.. -I/root/lite-client/tdutils -I/root/liteclient-build/tdutils   -march=native -pthread -std=c++14 -fno-omit-frame-pointer -ffunction-sections -fdata-sections -Wall -Wextra -Wimplicit-fallthrough=2 -Wpointer-arith -Wcast-qual -Wsign-compare -Wduplicated-branches -Wduplicated-cond -Walloc-zero -Wlogical-op -Wno-tautological-compare -Wpointer-arith -Wvla -Wnon-virtual-dtor -Wno-unused-parameter -Wconversion -Wno-sign-conversion -fPIC   -o CMakeFiles/src_parser.dir/parser/srcread.cpp.o -c /root/lite-client/crypto/parser/srcread.cpp",
+  "file": "/root/lite-client/crypto/parser/srcread.cpp"
+},
+{
+  "directory": "/root/liteclient-build/crypto",
+  "command": "/usr/bin/c++  -D_FILE_OFFSET_BITS=64 -I/root/lite-client/crypto -I/root/lite-client/crypto/.. -I/root/lite-client/tdutils -I/root/liteclient-build/tdutils   -march=native -pthread -std=c++14 -fno-omit-frame-pointer -ffunction-sections -fdata-sections -Wall -Wextra -Wimplicit-fallthrough=2 -Wpointer-arith -Wcast-qual -Wsign-compare -Wduplicated-branches -Wduplicated-cond -Walloc-zero -Wlogical-op -Wno-tautological-compare -Wpointer-arith -Wvla -Wnon-virtual-dtor -Wno-unused-parameter -Wconversion -Wno-sign-conversion -fPIC   -o CMakeFiles/src_parser.dir/parser/lexer.cpp.o -c /root/lite-client/crypto/parser/lexer.cpp",
+  "file": "/root/lite-client/crypto/parser/lexer.cpp"
+},
+{
+  "directory": "/root/liteclient-build/crypto",
+  "command": "/usr/bin/c++  -D_FILE_OFFSET_BITS=64 -I/root/lite-client/crypto -I/root/lite-client/crypto/.. -I/root/lite-client/tdutils -I/root/liteclient-build/tdutils   -march=native -pthread -std=c++14 -fno-omit-frame-pointer -ffunction-sections -fdata-sections -Wall -Wextra -Wimplicit-fallthrough=2 -Wpointer-arith -Wcast-qual -Wsign-compare -Wduplicated-branches -Wduplicated-cond -Walloc-zero -Wlogical-op -Wno-tautological-compare -Wpointer-arith -Wvla -Wnon-virtual-dtor -Wno-unused-parameter -Wconversion -Wno-sign-conversion -fPIC   -o CMakeFiles/src_parser.dir/parser/symtable.cpp.o -c /root/lite-client/crypto/parser/symtable.cpp",
+  "file": "/root/lite-client/crypto/parser/symtable.cpp"
 },
 {
   "directory": "/root/liteclient-build/lite-client",

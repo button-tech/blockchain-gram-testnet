@@ -57,9 +57,18 @@ include crypto/CMakeFiles/ton_block.dir/progress.make
 # Include the compile flags for this target's objects.
 include crypto/CMakeFiles/ton_block.dir/flags.make
 
+/root/lite-client/crypto/block/block-auto.cpp: crypto/tlbc
+/root/lite-client/crypto/block/block-auto.cpp: /root/lite-client/crypto/block/block.tlb
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --blue --bold --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Generate block tlb source files"
+	cd /root/lite-client/crypto/block && cd .
+	cd /root/lite-client/crypto/block && /root/liteclient-build/crypto/tlbc -o block-auto -n block::gen -z block.tlb
+
+/root/lite-client/crypto/block/block-auto.h: /root/lite-client/crypto/block/block-auto.cpp
+	@$(CMAKE_COMMAND) -E touch_nocreate /root/lite-client/crypto/block/block-auto.h
+
 crypto/CMakeFiles/ton_block.dir/block/Binlog.cpp.o: crypto/CMakeFiles/ton_block.dir/flags.make
 crypto/CMakeFiles/ton_block.dir/block/Binlog.cpp.o: /root/lite-client/crypto/block/Binlog.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object crypto/CMakeFiles/ton_block.dir/block/Binlog.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object crypto/CMakeFiles/ton_block.dir/block/Binlog.cpp.o"
 	cd /root/liteclient-build/crypto && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ton_block.dir/block/Binlog.cpp.o -c /root/lite-client/crypto/block/Binlog.cpp
 
 crypto/CMakeFiles/ton_block.dir/block/Binlog.cpp.i: cmake_force
@@ -83,7 +92,7 @@ crypto/CMakeFiles/ton_block.dir/block/Binlog.cpp.o.provides.build: crypto/CMakeF
 
 crypto/CMakeFiles/ton_block.dir/block/block.cpp.o: crypto/CMakeFiles/ton_block.dir/flags.make
 crypto/CMakeFiles/ton_block.dir/block/block.cpp.o: /root/lite-client/crypto/block/block.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object crypto/CMakeFiles/ton_block.dir/block/block.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object crypto/CMakeFiles/ton_block.dir/block/block.cpp.o"
 	cd /root/liteclient-build/crypto && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ton_block.dir/block/block.cpp.o -c /root/lite-client/crypto/block/block.cpp
 
 crypto/CMakeFiles/ton_block.dir/block/block.cpp.i: cmake_force
@@ -107,7 +116,7 @@ crypto/CMakeFiles/ton_block.dir/block/block.cpp.o.provides.build: crypto/CMakeFi
 
 crypto/CMakeFiles/ton_block.dir/block/block-db.cpp.o: crypto/CMakeFiles/ton_block.dir/flags.make
 crypto/CMakeFiles/ton_block.dir/block/block-db.cpp.o: /root/lite-client/crypto/block/block-db.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object crypto/CMakeFiles/ton_block.dir/block/block-db.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object crypto/CMakeFiles/ton_block.dir/block/block-db.cpp.o"
 	cd /root/liteclient-build/crypto && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ton_block.dir/block/block-db.cpp.o -c /root/lite-client/crypto/block/block-db.cpp
 
 crypto/CMakeFiles/ton_block.dir/block/block-db.cpp.i: cmake_force
@@ -131,7 +140,7 @@ crypto/CMakeFiles/ton_block.dir/block/block-db.cpp.o.provides.build: crypto/CMak
 
 crypto/CMakeFiles/ton_block.dir/block/block-parse.cpp.o: crypto/CMakeFiles/ton_block.dir/flags.make
 crypto/CMakeFiles/ton_block.dir/block/block-parse.cpp.o: /root/lite-client/crypto/block/block-parse.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object crypto/CMakeFiles/ton_block.dir/block/block-parse.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object crypto/CMakeFiles/ton_block.dir/block/block-parse.cpp.o"
 	cd /root/liteclient-build/crypto && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ton_block.dir/block/block-parse.cpp.o -c /root/lite-client/crypto/block/block-parse.cpp
 
 crypto/CMakeFiles/ton_block.dir/block/block-parse.cpp.i: cmake_force
@@ -155,7 +164,7 @@ crypto/CMakeFiles/ton_block.dir/block/block-parse.cpp.o.provides.build: crypto/C
 
 crypto/CMakeFiles/ton_block.dir/block/check-proof.cpp.o: crypto/CMakeFiles/ton_block.dir/flags.make
 crypto/CMakeFiles/ton_block.dir/block/check-proof.cpp.o: /root/lite-client/crypto/block/check-proof.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object crypto/CMakeFiles/ton_block.dir/block/check-proof.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object crypto/CMakeFiles/ton_block.dir/block/check-proof.cpp.o"
 	cd /root/liteclient-build/crypto && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ton_block.dir/block/check-proof.cpp.o -c /root/lite-client/crypto/block/check-proof.cpp
 
 crypto/CMakeFiles/ton_block.dir/block/check-proof.cpp.i: cmake_force
@@ -179,7 +188,7 @@ crypto/CMakeFiles/ton_block.dir/block/check-proof.cpp.o.provides.build: crypto/C
 
 crypto/CMakeFiles/ton_block.dir/block/mc-config.cpp.o: crypto/CMakeFiles/ton_block.dir/flags.make
 crypto/CMakeFiles/ton_block.dir/block/mc-config.cpp.o: /root/lite-client/crypto/block/mc-config.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object crypto/CMakeFiles/ton_block.dir/block/mc-config.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object crypto/CMakeFiles/ton_block.dir/block/mc-config.cpp.o"
 	cd /root/liteclient-build/crypto && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ton_block.dir/block/mc-config.cpp.o -c /root/lite-client/crypto/block/mc-config.cpp
 
 crypto/CMakeFiles/ton_block.dir/block/mc-config.cpp.i: cmake_force
@@ -203,7 +212,7 @@ crypto/CMakeFiles/ton_block.dir/block/mc-config.cpp.o.provides.build: crypto/CMa
 
 crypto/CMakeFiles/ton_block.dir/block/output-queue-merger.cpp.o: crypto/CMakeFiles/ton_block.dir/flags.make
 crypto/CMakeFiles/ton_block.dir/block/output-queue-merger.cpp.o: /root/lite-client/crypto/block/output-queue-merger.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object crypto/CMakeFiles/ton_block.dir/block/output-queue-merger.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object crypto/CMakeFiles/ton_block.dir/block/output-queue-merger.cpp.o"
 	cd /root/liteclient-build/crypto && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ton_block.dir/block/output-queue-merger.cpp.o -c /root/lite-client/crypto/block/output-queue-merger.cpp
 
 crypto/CMakeFiles/ton_block.dir/block/output-queue-merger.cpp.i: cmake_force
@@ -227,7 +236,7 @@ crypto/CMakeFiles/ton_block.dir/block/output-queue-merger.cpp.o.provides.build: 
 
 crypto/CMakeFiles/ton_block.dir/block/transaction.cpp.o: crypto/CMakeFiles/ton_block.dir/flags.make
 crypto/CMakeFiles/ton_block.dir/block/transaction.cpp.o: /root/lite-client/crypto/block/transaction.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object crypto/CMakeFiles/ton_block.dir/block/transaction.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object crypto/CMakeFiles/ton_block.dir/block/transaction.cpp.o"
 	cd /root/liteclient-build/crypto && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ton_block.dir/block/transaction.cpp.o -c /root/lite-client/crypto/block/transaction.cpp
 
 crypto/CMakeFiles/ton_block.dir/block/transaction.cpp.i: cmake_force
@@ -251,7 +260,7 @@ crypto/CMakeFiles/ton_block.dir/block/transaction.cpp.o.provides.build: crypto/C
 
 crypto/CMakeFiles/ton_block.dir/block/block-auto.cpp.o: crypto/CMakeFiles/ton_block.dir/flags.make
 crypto/CMakeFiles/ton_block.dir/block/block-auto.cpp.o: /root/lite-client/crypto/block/block-auto.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object crypto/CMakeFiles/ton_block.dir/block/block-auto.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object crypto/CMakeFiles/ton_block.dir/block/block-auto.cpp.o"
 	cd /root/liteclient-build/crypto && /usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/ton_block.dir/block/block-auto.cpp.o -c /root/lite-client/crypto/block/block-auto.cpp
 
 crypto/CMakeFiles/ton_block.dir/block/block-auto.cpp.i: cmake_force
@@ -299,7 +308,7 @@ crypto/libton_block.a: crypto/CMakeFiles/ton_block.dir/block/transaction.cpp.o
 crypto/libton_block.a: crypto/CMakeFiles/ton_block.dir/block/block-auto.cpp.o
 crypto/libton_block.a: crypto/CMakeFiles/ton_block.dir/build.make
 crypto/libton_block.a: crypto/CMakeFiles/ton_block.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking CXX static library libton_block.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Linking CXX static library libton_block.a"
 	cd /root/liteclient-build/crypto && $(CMAKE_COMMAND) -P CMakeFiles/ton_block.dir/cmake_clean_target.cmake
 	cd /root/liteclient-build/crypto && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/ton_block.dir/link.txt --verbose=$(VERBOSE)
 
@@ -324,7 +333,8 @@ crypto/CMakeFiles/ton_block.dir/clean:
 	cd /root/liteclient-build/crypto && $(CMAKE_COMMAND) -P CMakeFiles/ton_block.dir/cmake_clean.cmake
 .PHONY : crypto/CMakeFiles/ton_block.dir/clean
 
-crypto/CMakeFiles/ton_block.dir/depend:
+crypto/CMakeFiles/ton_block.dir/depend: /root/lite-client/crypto/block/block-auto.cpp
+crypto/CMakeFiles/ton_block.dir/depend: /root/lite-client/crypto/block/block-auto.h
 	cd /root/liteclient-build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /root/lite-client /root/lite-client/crypto /root/liteclient-build /root/liteclient-build/crypto /root/liteclient-build/crypto/CMakeFiles/ton_block.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : crypto/CMakeFiles/ton_block.dir/depend
 

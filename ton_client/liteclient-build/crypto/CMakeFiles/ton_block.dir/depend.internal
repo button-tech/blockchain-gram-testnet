@@ -23,6 +23,7 @@ crypto/CMakeFiles/ton_block.dir/block/Binlog.cpp.o
  /root/lite-client/tdutils/td/utils/int_types.h
  /root/lite-client/tdutils/td/utils/invoke.h
  /root/lite-client/tdutils/td/utils/logging.h
+ /root/lite-client/tdutils/td/utils/misc.h
  /root/lite-client/tdutils/td/utils/port/FileFd.h
  /root/lite-client/tdutils/td/utils/port/IoSlice.h
  /root/lite-client/tdutils/td/utils/port/PollFlags.h
@@ -333,6 +334,7 @@ crypto/CMakeFiles/ton_block.dir/block/block.cpp.o
  /root/lite-client/tdutils/td/utils/Span.h
  /root/lite-client/tdutils/td/utils/StackAllocator.h
  /root/lite-client/tdutils/td/utils/Status.h
+ /root/lite-client/tdutils/td/utils/StorerBase.h
  /root/lite-client/tdutils/td/utils/StringBuilder.h
  /root/lite-client/tdutils/td/utils/ThreadLocalStorage.h
  /root/lite-client/tdutils/td/utils/ThreadSafeCounter.h
@@ -354,6 +356,7 @@ crypto/CMakeFiles/ton_block.dir/block/block.cpp.o
  /root/lite-client/tdutils/td/utils/port/platform.h
  /root/lite-client/tdutils/td/utils/port/thread.h
  /root/lite-client/tdutils/td/utils/port/thread_local.h
+ /root/lite-client/tdutils/td/utils/tl_storers.h
  /root/lite-client/tdutils/td/utils/uint128.h
  /root/lite-client/tdutils/td/utils/unique_ptr.h
  tdutils/td/utils/config.h

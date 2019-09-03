@@ -1577,6 +1577,7 @@ crypto/CMakeFiles/ton_crypto.dir/vm/tonops.cpp.o: /root/lite-client/crypto/vm/ce
 crypto/CMakeFiles/ton_crypto.dir/vm/tonops.cpp.o: /root/lite-client/crypto/vm/cells/VirtualizationParameters.h
 crypto/CMakeFiles/ton_crypto.dir/vm/tonops.cpp.o: /root/lite-client/crypto/vm/cellslice.h
 crypto/CMakeFiles/ton_crypto.dir/vm/tonops.cpp.o: /root/lite-client/crypto/vm/continuation.h
+crypto/CMakeFiles/ton_crypto.dir/vm/tonops.cpp.o: /root/lite-client/crypto/vm/dict.h
 crypto/CMakeFiles/ton_crypto.dir/vm/tonops.cpp.o: /root/lite-client/crypto/vm/dispatch.h
 crypto/CMakeFiles/ton_crypto.dir/vm/tonops.cpp.o: /root/lite-client/crypto/vm/excno.hpp
 crypto/CMakeFiles/ton_crypto.dir/vm/tonops.cpp.o: /root/lite-client/crypto/vm/log.h

@@ -115,8 +115,6 @@ td/utils/uint128.h
 /root/lite-client/crypto/common/bitstring.cpp
 common/bitstring.h
 /root/lite-client/crypto/common/common/bitstring.h
-cassert
--
 cstring
 -
 limits
@@ -191,6 +189,8 @@ string
 /root/lite-client/crypto/common/util.cpp
 util.h
 /root/lite-client/crypto/common/util.h
+limits
+-
 
 /root/lite-client/crypto/common/util.h
 string
@@ -779,6 +779,8 @@ td/utils/port/RwMutex.h
 /root/lite-client/crypto/vm/db/td/utils/port/RwMutex.h
 td/utils/port/MemoryMapping.h
 /root/lite-client/crypto/vm/db/td/utils/port/MemoryMapping.h
+limits
+-
 mutex
 -
 
@@ -795,14 +797,18 @@ vm/boc.h
 /root/lite-client/crypto/vm/db/vm/boc.h
 vm/cells/ExtCell.h
 /root/lite-client/crypto/vm/db/vm/cells/ExtCell.h
-td/utils/format.h
-/root/lite-client/crypto/vm/db/td/utils/format.h
 td/utils/crypto.h
 /root/lite-client/crypto/vm/db/td/utils/crypto.h
+td/utils/format.h
+/root/lite-client/crypto/vm/db/td/utils/format.h
+td/utils/misc.h
+/root/lite-client/crypto/vm/db/td/utils/misc.h
 td/utils/port/RwMutex.h
 /root/lite-client/crypto/vm/db/td/utils/port/RwMutex.h
 td/utils/ConcurrentHashTable.h
 /root/lite-client/crypto/vm/db/td/utils/ConcurrentHashTable.h
+limits
+-
 
 /root/lite-client/crypto/vm/db/StaticBagOfCellsDb.h
 vm/cells.h
@@ -1009,6 +1015,8 @@ vm/continuation.h
 /root/lite-client/crypto/vm/vm/continuation.h
 vm/excno.hpp
 /root/lite-client/crypto/vm/vm/excno.hpp
+vm/dict.h
+/root/lite-client/crypto/vm/vm/dict.h
 Ed25519.h
 /root/lite-client/crypto/vm/Ed25519.h
 
@@ -1049,15 +1057,19 @@ td/utils/StringBuilder.h
 /root/lite-client/tdutils/td/utils/td/utils/StringBuilder.h
 
 /root/lite-client/tdutils/td/utils/ConcurrentHashTable.h
+td/utils/common.h
+/root/lite-client/tdutils/td/utils/td/utils/common.h
 td/utils/HazardPointers.h
 /root/lite-client/tdutils/td/utils/td/utils/HazardPointers.h
-mutex
--
+td/utils/logging.h
+/root/lite-client/tdutils/td/utils/td/utils/logging.h
+td/utils/port/thread_local.h
+/root/lite-client/tdutils/td/utils/td/utils/port/thread_local.h
 atomic
 -
 condition_variable
 -
-vector
+mutex
 -
 
 /root/lite-client/tdutils/td/utils/Context.h
@@ -1076,6 +1088,8 @@ utility
 td/utils/common.h
 /root/lite-client/tdutils/td/utils/td/utils/common.h
 absl/hash/hash.h
+-
+utility
 -
 
 /root/lite-client/tdutils/td/utils/HashMap.h
@@ -1144,8 +1158,6 @@ memory
 td/utils/common.h
 /root/lite-client/tdutils/td/utils/td/utils/common.h
 type_traits
--
-limits
 -
 
 /root/lite-client/tdutils/td/utils/Slice.h
@@ -1243,8 +1255,6 @@ td/utils/ThreadLocalStorage.h
 /root/lite-client/tdutils/td/utils/td/utils/ThreadLocalStorage.h
 td/utils/StringBuilder.h
 /root/lite-client/tdutils/td/utils/td/utils/StringBuilder.h
-atomic
--
 array
 -
 mutex
@@ -1269,8 +1279,6 @@ td/utils/Status.h
 /root/lite-client/tdutils/td/utils/bits.h
 td/utils/common.h
 /root/lite-client/tdutils/td/utils/td/utils/common.h
-td/utils/check.h
-/root/lite-client/tdutils/td/utils/td/utils/check.h
 intrin.h
 -
 
@@ -1287,8 +1295,6 @@ td/utils/Slice.h
 /root/lite-client/tdutils/td/utils/td/utils/Slice.h
 atomic
 -
-cstring
--
 limits
 -
 memory
@@ -1301,11 +1307,11 @@ td/utils/config.h
 /root/lite-client/tdutils/td/utils/td/utils/config.h
 td/utils/port/platform.h
 /root/lite-client/tdutils/td/utils/td/utils/port/platform.h
-Winsock2.h
+WinSock2.h
 -
-ws2tcpip.h
+WS2tcpip.h
 -
-Mswsock.h
+MSWSock.h
 -
 Windows.h
 -
@@ -1403,10 +1409,10 @@ type_traits
 -
 utility
 -
-string
--
 
 /root/lite-client/tdutils/td/utils/optional.h
+td/utils/common.h
+/root/lite-client/tdutils/td/utils/td/utils/common.h
 td/utils/Status.h
 /root/lite-client/tdutils/td/utils/td/utils/Status.h
 type_traits
@@ -1423,10 +1429,10 @@ td/utils/port/detail/NativeFd.h
 /root/lite-client/tdutils/td/utils/port/td/utils/port/detail/NativeFd.h
 td/utils/port/detail/PollableFd.h
 /root/lite-client/tdutils/td/utils/port/td/utils/port/detail/PollableFd.h
-td/utils/port/Stat.h
-/root/lite-client/tdutils/td/utils/port/td/utils/port/Stat.h
 td/utils/port/IoSlice.h
 /root/lite-client/tdutils/td/utils/port/td/utils/port/IoSlice.h
+td/utils/port/Stat.h
+/root/lite-client/tdutils/td/utils/port/td/utils/port/Stat.h
 td/utils/Slice.h
 /root/lite-client/tdutils/td/utils/port/td/utils/Slice.h
 td/utils/Span.h
@@ -1437,8 +1443,6 @@ td/utils/Status.h
 /root/lite-client/tdutils/td/utils/port/IoSlice.h
 td/utils/Slice.h
 /root/lite-client/tdutils/td/utils/port/td/utils/Slice.h
-td/utils/Span.h
-/root/lite-client/tdutils/td/utils/port/td/utils/Span.h
 sys/uio.h
 -
 
@@ -1599,10 +1603,14 @@ utility
 -
 
 /root/lite-client/tdutils/td/utils/uint128.h
-td/utils/common.h
-/root/lite-client/tdutils/td/utils/td/utils/common.h
 td/utils/bits.h
 /root/lite-client/tdutils/td/utils/td/utils/bits.h
+td/utils/common.h
+/root/lite-client/tdutils/td/utils/td/utils/common.h
+limits
+-
+type_traits
+-
 
 /root/lite-client/tdutils/td/utils/unique_ptr.h
 cstddef

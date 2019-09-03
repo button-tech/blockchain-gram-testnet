@@ -1,4 +1,6 @@
 file(REMOVE_RECURSE
+  "/root/lite-client/crypto/block/block-auto.cpp"
+  "/root/lite-client/crypto/block/block-auto.h"
   "CMakeFiles/ton_block.dir/block/Binlog.cpp.o"
   "CMakeFiles/ton_block.dir/block/block.cpp.o"
   "CMakeFiles/ton_block.dir/block/block-db.cpp.o"

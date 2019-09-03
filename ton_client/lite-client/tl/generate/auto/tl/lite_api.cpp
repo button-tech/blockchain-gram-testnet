@@ -38,6 +38,10 @@ object_ptr<Object> Object::fetch(td::TlParser &p) {
       return liteServer_blockData::fetch(p);
     case liteServer_blockHeader::ID:
       return liteServer_blockHeader::fetch(p);
+    case liteServer_blockLinkBack::ID:
+      return liteServer_blockLinkBack::fetch(p);
+    case liteServer_blockLinkForward::ID:
+      return liteServer_blockLinkForward::fetch(p);
     case liteServer_blockState::ID:
       return liteServer_blockState::fetch(p);
     case liteServer_blockTransactions::ID:
@@ -48,10 +52,16 @@ object_ptr<Object> Object::fetch(td::TlParser &p) {
       return liteServer_error::fetch(p);
     case liteServer_masterchainInfo::ID:
       return liteServer_masterchainInfo::fetch(p);
+    case liteServer_partialBlockProof::ID:
+      return liteServer_partialBlockProof::fetch(p);
     case liteServer_sendMsgStatus::ID:
       return liteServer_sendMsgStatus::fetch(p);
     case liteServer_shardInfo::ID:
       return liteServer_shardInfo::fetch(p);
+    case liteServer_signature::ID:
+      return liteServer_signature::fetch(p);
+    case liteServer_signatureSet::ID:
+      return liteServer_signatureSet::fetch(p);
     case liteServer_transactionId::ID:
       return liteServer_transactionId::fetch(p);
     case liteServer_transactionId3::ID:
@@ -78,8 +88,6 @@ object_ptr<Function> Function::fetch(td::TlParser &p) {
 #define FAIL(error) p.set_error(error); return nullptr;
   int constructor = p.fetch_int();
   switch (constructor) {
-    case liteServer_debug_setVerbosity::ID:
-      return liteServer_debug_setVerbosity::fetch(p);
     case liteServer_getAccountState::ID:
       return liteServer_getAccountState::fetch(p);
     case liteServer_getAllShardsInfo::ID:
@@ -88,6 +96,8 @@ object_ptr<Function> Function::fetch(td::TlParser &p) {
       return liteServer_getBlock::fetch(p);
     case liteServer_getBlockHeader::ID:
       return liteServer_getBlockHeader::fetch(p);
+    case liteServer_getBlockProof::ID:
+      return liteServer_getBlockProof::fetch(p);
     case liteServer_getMasterchainInfo::ID:
       return liteServer_getMasterchainInfo::fetch(p);
     case liteServer_getOneTransaction::ID:
@@ -469,6 +479,156 @@ void liteServer_blockHeader::store(td::TlStorerToString &s, const char *field_na
   }
 }
 
+object_ptr<liteServer_BlockLink> liteServer_BlockLink::fetch(td::TlParser &p) {
+#define FAIL(error) p.set_error(error); return nullptr;
+  int constructor = p.fetch_int();
+  switch (constructor) {
+    case liteServer_blockLinkBack::ID:
+      return liteServer_blockLinkBack::fetch(p);
+    case liteServer_blockLinkForward::ID:
+      return liteServer_blockLinkForward::fetch(p);
+    default:
+      FAIL(PSTRING() << "Unknown constructor found " << td::format::as_hex(constructor));
+  }
+#undef FAIL
+}
+
+liteServer_blockLinkBack::liteServer_blockLinkBack()
+  : to_key_block_()
+  , from_()
+  , to_()
+  , dest_proof_()
+  , shard_proof_()
+  , proof_()
+{}
+
+liteServer_blockLinkBack::liteServer_blockLinkBack(bool to_key_block_, object_ptr<tonNode_blockIdExt> &&from_, object_ptr<tonNode_blockIdExt> &&to_, td::BufferSlice &&dest_proof_, td::BufferSlice &&shard_proof_, td::BufferSlice &&proof_)
+  : to_key_block_(to_key_block_)
+  , from_(std::move(from_))
+  , to_(std::move(to_))
+  , dest_proof_(std::move(dest_proof_))
+  , shard_proof_(std::move(shard_proof_))
+  , proof_(std::move(proof_))
+{}
+
+const std::int32_t liteServer_blockLinkBack::ID;
+
+object_ptr<liteServer_BlockLink> liteServer_blockLinkBack::fetch(td::TlParser &p) {
+  return make_object<liteServer_blockLinkBack>(p);
+}
+
+liteServer_blockLinkBack::liteServer_blockLinkBack(td::TlParser &p)
+#define FAIL(error) p.set_error(error)
+  : to_key_block_(TlFetchBool::parse(p))
+  , from_(TlFetchObject<tonNode_blockIdExt>::parse(p))
+  , to_(TlFetchObject<tonNode_blockIdExt>::parse(p))
+  , dest_proof_(TlFetchBytes<td::BufferSlice>::parse(p))
+  , shard_proof_(TlFetchBytes<td::BufferSlice>::parse(p))
+  , proof_(TlFetchBytes<td::BufferSlice>::parse(p))
+#undef FAIL
+{}
+
+void liteServer_blockLinkBack::store(td::TlStorerCalcLength &s) const {
+  (void)sizeof(s);
+  TlStoreBool::store(to_key_block_, s);
+  TlStoreObject::store(from_, s);
+  TlStoreObject::store(to_, s);
+  TlStoreString::store(dest_proof_, s);
+  TlStoreString::store(shard_proof_, s);
+  TlStoreString::store(proof_, s);
+}
+
+void liteServer_blockLinkBack::store(td::TlStorerUnsafe &s) const {
+  (void)sizeof(s);
+  TlStoreBool::store(to_key_block_, s);
+  TlStoreObject::store(from_, s);
+  TlStoreObject::store(to_, s);
+  TlStoreString::store(dest_proof_, s);
+  TlStoreString::store(shard_proof_, s);
+  TlStoreString::store(proof_, s);
+}
+
+void liteServer_blockLinkBack::store(td::TlStorerToString &s, const char *field_name) const {
+  if (!LOG_IS_STRIPPED(ERROR)) {
+    s.store_class_begin(field_name, "liteServer_blockLinkBack");
+    s.store_field("to_key_block", to_key_block_);
+    if (from_ == nullptr) { s.store_field("from", "null"); } else { from_->store(s, "from"); }
+    if (to_ == nullptr) { s.store_field("to", "null"); } else { to_->store(s, "to"); }
+    s.store_bytes_field("dest_proof", dest_proof_);
+    s.store_bytes_field("shard_proof", shard_proof_);
+    s.store_bytes_field("proof", proof_);
+    s.store_class_end();
+  }
+}
+
+liteServer_blockLinkForward::liteServer_blockLinkForward()
+  : to_key_block_()
+  , from_()
+  , to_()
+  , dest_proof_()
+  , config_proof_()
+  , signatures_()
+{}
+
+liteServer_blockLinkForward::liteServer_blockLinkForward(bool to_key_block_, object_ptr<tonNode_blockIdExt> &&from_, object_ptr<tonNode_blockIdExt> &&to_, td::BufferSlice &&dest_proof_, td::BufferSlice &&config_proof_, object_ptr<liteServer_signatureSet> &&signatures_)
+  : to_key_block_(to_key_block_)
+  , from_(std::move(from_))
+  , to_(std::move(to_))
+  , dest_proof_(std::move(dest_proof_))
+  , config_proof_(std::move(config_proof_))
+  , signatures_(std::move(signatures_))
+{}
+
+const std::int32_t liteServer_blockLinkForward::ID;
+
+object_ptr<liteServer_BlockLink> liteServer_blockLinkForward::fetch(td::TlParser &p) {
+  return make_object<liteServer_blockLinkForward>(p);
+}
+
+liteServer_blockLinkForward::liteServer_blockLinkForward(td::TlParser &p)
+#define FAIL(error) p.set_error(error)
+  : to_key_block_(TlFetchBool::parse(p))
+  , from_(TlFetchObject<tonNode_blockIdExt>::parse(p))
+  , to_(TlFetchObject<tonNode_blockIdExt>::parse(p))
+  , dest_proof_(TlFetchBytes<td::BufferSlice>::parse(p))
+  , config_proof_(TlFetchBytes<td::BufferSlice>::parse(p))
+  , signatures_(TlFetchObject<liteServer_signatureSet>::parse(p))
+#undef FAIL
+{}
+
+void liteServer_blockLinkForward::store(td::TlStorerCalcLength &s) const {
+  (void)sizeof(s);
+  TlStoreBool::store(to_key_block_, s);
+  TlStoreObject::store(from_, s);
+  TlStoreObject::store(to_, s);
+  TlStoreString::store(dest_proof_, s);
+  TlStoreString::store(config_proof_, s);
+  TlStoreObject::store(signatures_, s);
+}
+
+void liteServer_blockLinkForward::store(td::TlStorerUnsafe &s) const {
+  (void)sizeof(s);
+  TlStoreBool::store(to_key_block_, s);
+  TlStoreObject::store(from_, s);
+  TlStoreObject::store(to_, s);
+  TlStoreString::store(dest_proof_, s);
+  TlStoreString::store(config_proof_, s);
+  TlStoreObject::store(signatures_, s);
+}
+
+void liteServer_blockLinkForward::store(td::TlStorerToString &s, const char *field_name) const {
+  if (!LOG_IS_STRIPPED(ERROR)) {
+    s.store_class_begin(field_name, "liteServer_blockLinkForward");
+    s.store_field("to_key_block", to_key_block_);
+    if (from_ == nullptr) { s.store_field("from", "null"); } else { from_->store(s, "from"); }
+    if (to_ == nullptr) { s.store_field("to", "null"); } else { to_->store(s, "to"); }
+    s.store_bytes_field("dest_proof", dest_proof_);
+    s.store_bytes_field("config_proof", config_proof_);
+    if (signatures_ == nullptr) { s.store_field("signatures", "null"); } else { signatures_->store(s, "signatures"); }
+    s.store_class_end();
+  }
+}
+
 liteServer_blockState::liteServer_blockState()
   : id_()
   , root_hash_()
@@ -722,6 +882,62 @@ void liteServer_masterchainInfo::store(td::TlStorerToString &s, const char *fiel
   }
 }
 
+liteServer_partialBlockProof::liteServer_partialBlockProof()
+  : complete_()
+  , from_()
+  , to_()
+  , steps_()
+{}
+
+liteServer_partialBlockProof::liteServer_partialBlockProof(bool complete_, object_ptr<tonNode_blockIdExt> &&from_, object_ptr<tonNode_blockIdExt> &&to_, std::vector<object_ptr<liteServer_BlockLink>> &&steps_)
+  : complete_(complete_)
+  , from_(std::move(from_))
+  , to_(std::move(to_))
+  , steps_(std::move(steps_))
+{}
+
+const std::int32_t liteServer_partialBlockProof::ID;
+
+object_ptr<liteServer_partialBlockProof> liteServer_partialBlockProof::fetch(td::TlParser &p) {
+  return make_object<liteServer_partialBlockProof>(p);
+}
+
+liteServer_partialBlockProof::liteServer_partialBlockProof(td::TlParser &p)
+#define FAIL(error) p.set_error(error)
+  : complete_(TlFetchBool::parse(p))
+  , from_(TlFetchObject<tonNode_blockIdExt>::parse(p))
+  , to_(TlFetchObject<tonNode_blockIdExt>::parse(p))
+  , steps_(TlFetchVector<TlFetchObject<liteServer_BlockLink>>::parse(p))
+#undef FAIL
+{}
+
+void liteServer_partialBlockProof::store(td::TlStorerCalcLength &s) const {
+  (void)sizeof(s);
+  TlStoreBool::store(complete_, s);
+  TlStoreObject::store(from_, s);
+  TlStoreObject::store(to_, s);
+  TlStoreVector<TlStoreBoxedUnknown<TlStoreObject>>::store(steps_, s);
+}
+
+void liteServer_partialBlockProof::store(td::TlStorerUnsafe &s) const {
+  (void)sizeof(s);
+  TlStoreBool::store(complete_, s);
+  TlStoreObject::store(from_, s);
+  TlStoreObject::store(to_, s);
+  TlStoreVector<TlStoreBoxedUnknown<TlStoreObject>>::store(steps_, s);
+}
+
+void liteServer_partialBlockProof::store(td::TlStorerToString &s, const char *field_name) const {
+  if (!LOG_IS_STRIPPED(ERROR)) {
+    s.store_class_begin(field_name, "liteServer_partialBlockProof");
+    s.store_field("complete", complete_);
+    if (from_ == nullptr) { s.store_field("from", "null"); } else { from_->store(s, "from"); }
+    if (to_ == nullptr) { s.store_field("to", "null"); } else { to_->store(s, "to"); }
+    { const std::vector<object_ptr<liteServer_BlockLink>> &v = steps_; const std::uint32_t multiplicity = static_cast<std::uint32_t>(v.size()); const auto vector_name = "vector[" + td::to_string(multiplicity)+ "]"; s.store_class_begin("steps", vector_name.c_str()); for (std::uint32_t i = 0; i < multiplicity; i++) { if (v[i] == nullptr) { s.store_field("", "null"); } else { v[i]->store(s, ""); } } s.store_class_end(); }
+    s.store_class_end();
+  }
+}
+
 liteServer_sendMsgStatus::liteServer_sendMsgStatus()
   : status_()
 {}
@@ -812,6 +1028,100 @@ void liteServer_shardInfo::store(td::TlStorerToString &s, const char *field_name
     if (shardblk_ == nullptr) { s.store_field("shardblk", "null"); } else { shardblk_->store(s, "shardblk"); }
     s.store_bytes_field("shard_proof", shard_proof_);
     s.store_bytes_field("shard_descr", shard_descr_);
+    s.store_class_end();
+  }
+}
+
+liteServer_signature::liteServer_signature()
+  : node_id_short_()
+  , signature_()
+{}
+
+liteServer_signature::liteServer_signature(td::Bits256 const &node_id_short_, td::BufferSlice &&signature_)
+  : node_id_short_(node_id_short_)
+  , signature_(std::move(signature_))
+{}
+
+const std::int32_t liteServer_signature::ID;
+
+object_ptr<liteServer_signature> liteServer_signature::fetch(td::TlParser &p) {
+  return make_object<liteServer_signature>(p);
+}
+
+liteServer_signature::liteServer_signature(td::TlParser &p)
+#define FAIL(error) p.set_error(error)
+  : node_id_short_(TlFetchInt256::parse(p))
+  , signature_(TlFetchBytes<td::BufferSlice>::parse(p))
+#undef FAIL
+{}
+
+void liteServer_signature::store(td::TlStorerCalcLength &s) const {
+  (void)sizeof(s);
+  TlStoreBinary::store(node_id_short_, s);
+  TlStoreString::store(signature_, s);
+}
+
+void liteServer_signature::store(td::TlStorerUnsafe &s) const {
+  (void)sizeof(s);
+  TlStoreBinary::store(node_id_short_, s);
+  TlStoreString::store(signature_, s);
+}
+
+void liteServer_signature::store(td::TlStorerToString &s, const char *field_name) const {
+  if (!LOG_IS_STRIPPED(ERROR)) {
+    s.store_class_begin(field_name, "liteServer_signature");
+    s.store_field("node_id_short", node_id_short_);
+    s.store_bytes_field("signature", signature_);
+    s.store_class_end();
+  }
+}
+
+liteServer_signatureSet::liteServer_signatureSet()
+  : validator_set_hash_()
+  , catchain_seqno_()
+  , signatures_()
+{}
+
+liteServer_signatureSet::liteServer_signatureSet(std::int32_t validator_set_hash_, std::int32_t catchain_seqno_, std::vector<object_ptr<liteServer_signature>> &&signatures_)
+  : validator_set_hash_(validator_set_hash_)
+  , catchain_seqno_(catchain_seqno_)
+  , signatures_(std::move(signatures_))
+{}
+
+const std::int32_t liteServer_signatureSet::ID;
+
+object_ptr<liteServer_signatureSet> liteServer_signatureSet::fetch(td::TlParser &p) {
+  return make_object<liteServer_signatureSet>(p);
+}
+
+liteServer_signatureSet::liteServer_signatureSet(td::TlParser &p)
+#define FAIL(error) p.set_error(error)
+  : validator_set_hash_(TlFetchInt::parse(p))
+  , catchain_seqno_(TlFetchInt::parse(p))
+  , signatures_(TlFetchVector<TlFetchObject<liteServer_signature>>::parse(p))
+#undef FAIL
+{}
+
+void liteServer_signatureSet::store(td::TlStorerCalcLength &s) const {
+  (void)sizeof(s);
+  TlStoreBinary::store(validator_set_hash_, s);
+  TlStoreBinary::store(catchain_seqno_, s);
+  TlStoreVector<TlStoreObject>::store(signatures_, s);
+}
+
+void liteServer_signatureSet::store(td::TlStorerUnsafe &s) const {
+  (void)sizeof(s);
+  TlStoreBinary::store(validator_set_hash_, s);
+  TlStoreBinary::store(catchain_seqno_, s);
+  TlStoreVector<TlStoreObject>::store(signatures_, s);
+}
+
+void liteServer_signatureSet::store(td::TlStorerToString &s, const char *field_name) const {
+  if (!LOG_IS_STRIPPED(ERROR)) {
+    s.store_class_begin(field_name, "liteServer_signatureSet");
+    s.store_field("validator_set_hash", validator_set_hash_);
+    s.store_field("catchain_seqno", catchain_seqno_);
+    { const std::vector<object_ptr<liteServer_signature>> &v = signatures_; const std::uint32_t multiplicity = static_cast<std::uint32_t>(v.size()); const auto vector_name = "vector[" + td::to_string(multiplicity)+ "]"; s.store_class_begin("signatures", vector_name.c_str()); for (std::uint32_t i = 0; i < multiplicity; i++) { if (v[i] == nullptr) { s.store_field("", "null"); } else { v[i]->store(s, ""); } } s.store_class_end(); }
     s.store_class_end();
   }
 }
@@ -1213,52 +1523,6 @@ void tonNode_zeroStateIdExt::store(td::TlStorerToString &s, const char *field_na
   }
 }
 
-liteServer_debug_setVerbosity::liteServer_debug_setVerbosity()
-  : verbosity_()
-{}
-
-liteServer_debug_setVerbosity::liteServer_debug_setVerbosity(object_ptr<liteServer_debug_verbosity> &&verbosity_)
-  : verbosity_(std::move(verbosity_))
-{}
-
-const std::int32_t liteServer_debug_setVerbosity::ID;
-
-object_ptr<liteServer_debug_setVerbosity> liteServer_debug_setVerbosity::fetch(td::TlParser &p) {
-  return make_object<liteServer_debug_setVerbosity>(p);
-}
-
-liteServer_debug_setVerbosity::liteServer_debug_setVerbosity(td::TlParser &p)
-#define FAIL(error) p.set_error(error)
-  : verbosity_(TlFetchObject<liteServer_debug_verbosity>::parse(p))
-#undef FAIL
-{}
-
-void liteServer_debug_setVerbosity::store(td::TlStorerCalcLength &s) const {
-  (void)sizeof(s);
-  s.store_binary(462775286);
-  TlStoreObject::store(verbosity_, s);
-}
-
-void liteServer_debug_setVerbosity::store(td::TlStorerUnsafe &s) const {
-  (void)sizeof(s);
-  s.store_binary(462775286);
-  TlStoreObject::store(verbosity_, s);
-}
-
-void liteServer_debug_setVerbosity::store(td::TlStorerToString &s, const char *field_name) const {
-  if (!LOG_IS_STRIPPED(ERROR)) {
-    s.store_class_begin(field_name, "liteServer_debug_setVerbosity");
-    if (verbosity_ == nullptr) { s.store_field("verbosity", "null"); } else { verbosity_->store(s, "verbosity"); }
-    s.store_class_end();
-  }
-}
-
-liteServer_debug_setVerbosity::ReturnType liteServer_debug_setVerbosity::fetch_result(td::TlParser &p) {
-#define FAIL(error) p.set_error(error); return ReturnType()
-  return TlFetchBoxed<TlFetchObject<liteServer_debug_verbosity>, 1564493619>::parse(p);
-#undef FAIL
-}
-
 liteServer_getAccountState::liteServer_getAccountState()
   : id_()
   , account_()
@@ -1452,6 +1716,64 @@ void liteServer_getBlockHeader::store(td::TlStorerToString &s, const char *field
 liteServer_getBlockHeader::ReturnType liteServer_getBlockHeader::fetch_result(td::TlParser &p) {
 #define FAIL(error) p.set_error(error); return ReturnType()
   return TlFetchBoxed<TlFetchObject<liteServer_blockHeader>, 1965916697>::parse(p);
+#undef FAIL
+}
+
+liteServer_getBlockProof::liteServer_getBlockProof()
+  : mode_()
+  , known_block_()
+  , target_block_()
+{}
+
+liteServer_getBlockProof::liteServer_getBlockProof(std::int32_t mode_, object_ptr<tonNode_blockIdExt> &&known_block_, object_ptr<tonNode_blockIdExt> &&target_block_)
+  : mode_(mode_)
+  , known_block_(std::move(known_block_))
+  , target_block_(std::move(target_block_))
+{}
+
+const std::int32_t liteServer_getBlockProof::ID;
+
+object_ptr<liteServer_getBlockProof> liteServer_getBlockProof::fetch(td::TlParser &p) {
+#define FAIL(error) p.set_error(error); return nullptr;
+  object_ptr<liteServer_getBlockProof> res = make_object<liteServer_getBlockProof>();
+  std::int32_t var0;
+  if ((var0 = res->mode_ = TlFetchInt::parse(p)) < 0) { FAIL("Variable of type # can't be negative"); }
+  res->known_block_ = TlFetchObject<tonNode_blockIdExt>::parse(p);
+  if (var0 & 1) { res->target_block_ = TlFetchObject<tonNode_blockIdExt>::parse(p); }
+  if (p.get_error()) { FAIL(""); }
+  return res;
+#undef FAIL
+}
+
+void liteServer_getBlockProof::store(td::TlStorerCalcLength &s) const {
+  (void)sizeof(s);
+  s.store_binary(-1964336060);
+  TlStoreBinary::store((var0 = mode_), s);
+  TlStoreObject::store(known_block_, s);
+  if (var0 & 1) { TlStoreObject::store(target_block_, s); }
+}
+
+void liteServer_getBlockProof::store(td::TlStorerUnsafe &s) const {
+  (void)sizeof(s);
+  s.store_binary(-1964336060);
+  TlStoreBinary::store((var0 = mode_), s);
+  TlStoreObject::store(known_block_, s);
+  if (var0 & 1) { TlStoreObject::store(target_block_, s); }
+}
+
+void liteServer_getBlockProof::store(td::TlStorerToString &s, const char *field_name) const {
+  if (!LOG_IS_STRIPPED(ERROR)) {
+    s.store_class_begin(field_name, "liteServer_getBlockProof");
+    s.store_field("mode", (var0 = mode_));
+    if (known_block_ == nullptr) { s.store_field("known_block", "null"); } else { known_block_->store(s, "known_block"); }
+    if (var0 & 1) { if (target_block_ == nullptr) { s.store_field("target_block", "null"); } else { target_block_->store(s, "target_block"); } }
+    s.store_class_end();
+  }
+}
+
+liteServer_getBlockProof::ReturnType liteServer_getBlockProof::fetch_result(td::TlParser &p) {
+#define FAIL(error) p.set_error(error); return ReturnType()
+  return TlFetchBoxed<TlFetchObject<liteServer_partialBlockProof>, -1898917183>::parse(p);
 #undef FAIL
 }
 

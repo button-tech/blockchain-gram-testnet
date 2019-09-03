@@ -6,3 +6,4 @@
 #define TD_HAVE_COROUTINES 0
 #define TD_HAVE_ABSL 0
 #define TD_HAVE_GETOPT 1
+#define TD_FD_DEBUG 0

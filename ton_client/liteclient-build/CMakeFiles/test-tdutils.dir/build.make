@@ -105,33 +105,9 @@ CMakeFiles/test-tdutils.dir/tdutils/test/buffer.cpp.o.provides: CMakeFiles/test-
 CMakeFiles/test-tdutils.dir/tdutils/test/buffer.cpp.o.provides.build: CMakeFiles/test-tdutils.dir/tdutils/test/buffer.cpp.o
 
 
-CMakeFiles/test-tdutils.dir/tdutils/test/crypto.cpp.o: CMakeFiles/test-tdutils.dir/flags.make
-CMakeFiles/test-tdutils.dir/tdutils/test/crypto.cpp.o: /root/lite-client/tdutils/test/crypto.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/test-tdutils.dir/tdutils/test/crypto.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test-tdutils.dir/tdutils/test/crypto.cpp.o -c /root/lite-client/tdutils/test/crypto.cpp
-
-CMakeFiles/test-tdutils.dir/tdutils/test/crypto.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/test-tdutils.dir/tdutils/test/crypto.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /root/lite-client/tdutils/test/crypto.cpp > CMakeFiles/test-tdutils.dir/tdutils/test/crypto.cpp.i
-
-CMakeFiles/test-tdutils.dir/tdutils/test/crypto.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/test-tdutils.dir/tdutils/test/crypto.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /root/lite-client/tdutils/test/crypto.cpp -o CMakeFiles/test-tdutils.dir/tdutils/test/crypto.cpp.s
-
-CMakeFiles/test-tdutils.dir/tdutils/test/crypto.cpp.o.requires:
-
-.PHONY : CMakeFiles/test-tdutils.dir/tdutils/test/crypto.cpp.o.requires
-
-CMakeFiles/test-tdutils.dir/tdutils/test/crypto.cpp.o.provides: CMakeFiles/test-tdutils.dir/tdutils/test/crypto.cpp.o.requires
-	$(MAKE) -f CMakeFiles/test-tdutils.dir/build.make CMakeFiles/test-tdutils.dir/tdutils/test/crypto.cpp.o.provides.build
-.PHONY : CMakeFiles/test-tdutils.dir/tdutils/test/crypto.cpp.o.provides
-
-CMakeFiles/test-tdutils.dir/tdutils/test/crypto.cpp.o.provides.build: CMakeFiles/test-tdutils.dir/tdutils/test/crypto.cpp.o
-
-
 CMakeFiles/test-tdutils.dir/tdutils/test/ConcurrentHashMap.cpp.o: CMakeFiles/test-tdutils.dir/flags.make
 CMakeFiles/test-tdutils.dir/tdutils/test/ConcurrentHashMap.cpp.o: /root/lite-client/tdutils/test/ConcurrentHashMap.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/test-tdutils.dir/tdutils/test/ConcurrentHashMap.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/test-tdutils.dir/tdutils/test/ConcurrentHashMap.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test-tdutils.dir/tdutils/test/ConcurrentHashMap.cpp.o -c /root/lite-client/tdutils/test/ConcurrentHashMap.cpp
 
 CMakeFiles/test-tdutils.dir/tdutils/test/ConcurrentHashMap.cpp.i: cmake_force
@@ -151,6 +127,30 @@ CMakeFiles/test-tdutils.dir/tdutils/test/ConcurrentHashMap.cpp.o.provides: CMake
 .PHONY : CMakeFiles/test-tdutils.dir/tdutils/test/ConcurrentHashMap.cpp.o.provides
 
 CMakeFiles/test-tdutils.dir/tdutils/test/ConcurrentHashMap.cpp.o.provides.build: CMakeFiles/test-tdutils.dir/tdutils/test/ConcurrentHashMap.cpp.o
+
+
+CMakeFiles/test-tdutils.dir/tdutils/test/crypto.cpp.o: CMakeFiles/test-tdutils.dir/flags.make
+CMakeFiles/test-tdutils.dir/tdutils/test/crypto.cpp.o: /root/lite-client/tdutils/test/crypto.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/test-tdutils.dir/tdutils/test/crypto.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test-tdutils.dir/tdutils/test/crypto.cpp.o -c /root/lite-client/tdutils/test/crypto.cpp
+
+CMakeFiles/test-tdutils.dir/tdutils/test/crypto.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/test-tdutils.dir/tdutils/test/crypto.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /root/lite-client/tdutils/test/crypto.cpp > CMakeFiles/test-tdutils.dir/tdutils/test/crypto.cpp.i
+
+CMakeFiles/test-tdutils.dir/tdutils/test/crypto.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/test-tdutils.dir/tdutils/test/crypto.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /root/lite-client/tdutils/test/crypto.cpp -o CMakeFiles/test-tdutils.dir/tdutils/test/crypto.cpp.s
+
+CMakeFiles/test-tdutils.dir/tdutils/test/crypto.cpp.o.requires:
+
+.PHONY : CMakeFiles/test-tdutils.dir/tdutils/test/crypto.cpp.o.requires
+
+CMakeFiles/test-tdutils.dir/tdutils/test/crypto.cpp.o.provides: CMakeFiles/test-tdutils.dir/tdutils/test/crypto.cpp.o.requires
+	$(MAKE) -f CMakeFiles/test-tdutils.dir/build.make CMakeFiles/test-tdutils.dir/tdutils/test/crypto.cpp.o.provides.build
+.PHONY : CMakeFiles/test-tdutils.dir/tdutils/test/crypto.cpp.o.provides
+
+CMakeFiles/test-tdutils.dir/tdutils/test/crypto.cpp.o.provides.build: CMakeFiles/test-tdutils.dir/tdutils/test/crypto.cpp.o
 
 
 CMakeFiles/test-tdutils.dir/tdutils/test/Enumerator.cpp.o: CMakeFiles/test-tdutils.dir/flags.make
@@ -177,33 +177,9 @@ CMakeFiles/test-tdutils.dir/tdutils/test/Enumerator.cpp.o.provides: CMakeFiles/t
 CMakeFiles/test-tdutils.dir/tdutils/test/Enumerator.cpp.o.provides.build: CMakeFiles/test-tdutils.dir/tdutils/test/Enumerator.cpp.o
 
 
-CMakeFiles/test-tdutils.dir/tdutils/test/EpochBasedMemoryReclamation.cpp.o: CMakeFiles/test-tdutils.dir/flags.make
-CMakeFiles/test-tdutils.dir/tdutils/test/EpochBasedMemoryReclamation.cpp.o: /root/lite-client/tdutils/test/EpochBasedMemoryReclamation.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/test-tdutils.dir/tdutils/test/EpochBasedMemoryReclamation.cpp.o"
-	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test-tdutils.dir/tdutils/test/EpochBasedMemoryReclamation.cpp.o -c /root/lite-client/tdutils/test/EpochBasedMemoryReclamation.cpp
-
-CMakeFiles/test-tdutils.dir/tdutils/test/EpochBasedMemoryReclamation.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/test-tdutils.dir/tdutils/test/EpochBasedMemoryReclamation.cpp.i"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /root/lite-client/tdutils/test/EpochBasedMemoryReclamation.cpp > CMakeFiles/test-tdutils.dir/tdutils/test/EpochBasedMemoryReclamation.cpp.i
-
-CMakeFiles/test-tdutils.dir/tdutils/test/EpochBasedMemoryReclamation.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/test-tdutils.dir/tdutils/test/EpochBasedMemoryReclamation.cpp.s"
-	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /root/lite-client/tdutils/test/EpochBasedMemoryReclamation.cpp -o CMakeFiles/test-tdutils.dir/tdutils/test/EpochBasedMemoryReclamation.cpp.s
-
-CMakeFiles/test-tdutils.dir/tdutils/test/EpochBasedMemoryReclamation.cpp.o.requires:
-
-.PHONY : CMakeFiles/test-tdutils.dir/tdutils/test/EpochBasedMemoryReclamation.cpp.o.requires
-
-CMakeFiles/test-tdutils.dir/tdutils/test/EpochBasedMemoryReclamation.cpp.o.provides: CMakeFiles/test-tdutils.dir/tdutils/test/EpochBasedMemoryReclamation.cpp.o.requires
-	$(MAKE) -f CMakeFiles/test-tdutils.dir/build.make CMakeFiles/test-tdutils.dir/tdutils/test/EpochBasedMemoryReclamation.cpp.o.provides.build
-.PHONY : CMakeFiles/test-tdutils.dir/tdutils/test/EpochBasedMemoryReclamation.cpp.o.provides
-
-CMakeFiles/test-tdutils.dir/tdutils/test/EpochBasedMemoryReclamation.cpp.o.provides.build: CMakeFiles/test-tdutils.dir/tdutils/test/EpochBasedMemoryReclamation.cpp.o
-
-
 CMakeFiles/test-tdutils.dir/tdutils/test/filesystem.cpp.o: CMakeFiles/test-tdutils.dir/flags.make
 CMakeFiles/test-tdutils.dir/tdutils/test/filesystem.cpp.o: /root/lite-client/tdutils/test/filesystem.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/test-tdutils.dir/tdutils/test/filesystem.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/test-tdutils.dir/tdutils/test/filesystem.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test-tdutils.dir/tdutils/test/filesystem.cpp.o -c /root/lite-client/tdutils/test/filesystem.cpp
 
 CMakeFiles/test-tdutils.dir/tdutils/test/filesystem.cpp.i: cmake_force
@@ -227,7 +203,7 @@ CMakeFiles/test-tdutils.dir/tdutils/test/filesystem.cpp.o.provides.build: CMakeF
 
 CMakeFiles/test-tdutils.dir/tdutils/test/gzip.cpp.o: CMakeFiles/test-tdutils.dir/flags.make
 CMakeFiles/test-tdutils.dir/tdutils/test/gzip.cpp.o: /root/lite-client/tdutils/test/gzip.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/test-tdutils.dir/tdutils/test/gzip.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/test-tdutils.dir/tdutils/test/gzip.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test-tdutils.dir/tdutils/test/gzip.cpp.o -c /root/lite-client/tdutils/test/gzip.cpp
 
 CMakeFiles/test-tdutils.dir/tdutils/test/gzip.cpp.i: cmake_force
@@ -251,7 +227,7 @@ CMakeFiles/test-tdutils.dir/tdutils/test/gzip.cpp.o.provides.build: CMakeFiles/t
 
 CMakeFiles/test-tdutils.dir/tdutils/test/HazardPointers.cpp.o: CMakeFiles/test-tdutils.dir/flags.make
 CMakeFiles/test-tdutils.dir/tdutils/test/HazardPointers.cpp.o: /root/lite-client/tdutils/test/HazardPointers.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/test-tdutils.dir/tdutils/test/HazardPointers.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object CMakeFiles/test-tdutils.dir/tdutils/test/HazardPointers.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test-tdutils.dir/tdutils/test/HazardPointers.cpp.o -c /root/lite-client/tdutils/test/HazardPointers.cpp
 
 CMakeFiles/test-tdutils.dir/tdutils/test/HazardPointers.cpp.i: cmake_force
@@ -275,7 +251,7 @@ CMakeFiles/test-tdutils.dir/tdutils/test/HazardPointers.cpp.o.provides.build: CM
 
 CMakeFiles/test-tdutils.dir/tdutils/test/heap.cpp.o: CMakeFiles/test-tdutils.dir/flags.make
 CMakeFiles/test-tdutils.dir/tdutils/test/heap.cpp.o: /root/lite-client/tdutils/test/heap.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/test-tdutils.dir/tdutils/test/heap.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object CMakeFiles/test-tdutils.dir/tdutils/test/heap.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test-tdutils.dir/tdutils/test/heap.cpp.o -c /root/lite-client/tdutils/test/heap.cpp
 
 CMakeFiles/test-tdutils.dir/tdutils/test/heap.cpp.i: cmake_force
@@ -299,7 +275,7 @@ CMakeFiles/test-tdutils.dir/tdutils/test/heap.cpp.o.provides.build: CMakeFiles/t
 
 CMakeFiles/test-tdutils.dir/tdutils/test/json.cpp.o: CMakeFiles/test-tdutils.dir/flags.make
 CMakeFiles/test-tdutils.dir/tdutils/test/json.cpp.o: /root/lite-client/tdutils/test/json.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/test-tdutils.dir/tdutils/test/json.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CXX object CMakeFiles/test-tdutils.dir/tdutils/test/json.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test-tdutils.dir/tdutils/test/json.cpp.o -c /root/lite-client/tdutils/test/json.cpp
 
 CMakeFiles/test-tdutils.dir/tdutils/test/json.cpp.i: cmake_force
@@ -323,7 +299,7 @@ CMakeFiles/test-tdutils.dir/tdutils/test/json.cpp.o.provides.build: CMakeFiles/t
 
 CMakeFiles/test-tdutils.dir/tdutils/test/log.cpp.o: CMakeFiles/test-tdutils.dir/flags.make
 CMakeFiles/test-tdutils.dir/tdutils/test/log.cpp.o: /root/lite-client/tdutils/test/log.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/test-tdutils.dir/tdutils/test/log.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CXX object CMakeFiles/test-tdutils.dir/tdutils/test/log.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test-tdutils.dir/tdutils/test/log.cpp.o -c /root/lite-client/tdutils/test/log.cpp
 
 CMakeFiles/test-tdutils.dir/tdutils/test/log.cpp.i: cmake_force
@@ -347,7 +323,7 @@ CMakeFiles/test-tdutils.dir/tdutils/test/log.cpp.o.provides.build: CMakeFiles/te
 
 CMakeFiles/test-tdutils.dir/tdutils/test/misc.cpp.o: CMakeFiles/test-tdutils.dir/flags.make
 CMakeFiles/test-tdutils.dir/tdutils/test/misc.cpp.o: /root/lite-client/tdutils/test/misc.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/test-tdutils.dir/tdutils/test/misc.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/test-tdutils.dir/tdutils/test/misc.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test-tdutils.dir/tdutils/test/misc.cpp.o -c /root/lite-client/tdutils/test/misc.cpp
 
 CMakeFiles/test-tdutils.dir/tdutils/test/misc.cpp.i: cmake_force
@@ -371,7 +347,7 @@ CMakeFiles/test-tdutils.dir/tdutils/test/misc.cpp.o.provides.build: CMakeFiles/t
 
 CMakeFiles/test-tdutils.dir/tdutils/test/MpmcQueue.cpp.o: CMakeFiles/test-tdutils.dir/flags.make
 CMakeFiles/test-tdutils.dir/tdutils/test/MpmcQueue.cpp.o: /root/lite-client/tdutils/test/MpmcQueue.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/test-tdutils.dir/tdutils/test/MpmcQueue.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/test-tdutils.dir/tdutils/test/MpmcQueue.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test-tdutils.dir/tdutils/test/MpmcQueue.cpp.o -c /root/lite-client/tdutils/test/MpmcQueue.cpp
 
 CMakeFiles/test-tdutils.dir/tdutils/test/MpmcQueue.cpp.i: cmake_force
@@ -395,7 +371,7 @@ CMakeFiles/test-tdutils.dir/tdutils/test/MpmcQueue.cpp.o.provides.build: CMakeFi
 
 CMakeFiles/test-tdutils.dir/tdutils/test/MpmcWaiter.cpp.o: CMakeFiles/test-tdutils.dir/flags.make
 CMakeFiles/test-tdutils.dir/tdutils/test/MpmcWaiter.cpp.o: /root/lite-client/tdutils/test/MpmcWaiter.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/test-tdutils.dir/tdutils/test/MpmcWaiter.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/test-tdutils.dir/tdutils/test/MpmcWaiter.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test-tdutils.dir/tdutils/test/MpmcWaiter.cpp.o -c /root/lite-client/tdutils/test/MpmcWaiter.cpp
 
 CMakeFiles/test-tdutils.dir/tdutils/test/MpmcWaiter.cpp.i: cmake_force
@@ -419,7 +395,7 @@ CMakeFiles/test-tdutils.dir/tdutils/test/MpmcWaiter.cpp.o.provides.build: CMakeF
 
 CMakeFiles/test-tdutils.dir/tdutils/test/MpscLinkQueue.cpp.o: CMakeFiles/test-tdutils.dir/flags.make
 CMakeFiles/test-tdutils.dir/tdutils/test/MpscLinkQueue.cpp.o: /root/lite-client/tdutils/test/MpscLinkQueue.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/test-tdutils.dir/tdutils/test/MpscLinkQueue.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CXX object CMakeFiles/test-tdutils.dir/tdutils/test/MpscLinkQueue.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test-tdutils.dir/tdutils/test/MpscLinkQueue.cpp.o -c /root/lite-client/tdutils/test/MpscLinkQueue.cpp
 
 CMakeFiles/test-tdutils.dir/tdutils/test/MpscLinkQueue.cpp.i: cmake_force
@@ -443,7 +419,7 @@ CMakeFiles/test-tdutils.dir/tdutils/test/MpscLinkQueue.cpp.o.provides.build: CMa
 
 CMakeFiles/test-tdutils.dir/tdutils/test/OrderedEventsProcessor.cpp.o: CMakeFiles/test-tdutils.dir/flags.make
 CMakeFiles/test-tdutils.dir/tdutils/test/OrderedEventsProcessor.cpp.o: /root/lite-client/tdutils/test/OrderedEventsProcessor.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/test-tdutils.dir/tdutils/test/OrderedEventsProcessor.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CXX object CMakeFiles/test-tdutils.dir/tdutils/test/OrderedEventsProcessor.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test-tdutils.dir/tdutils/test/OrderedEventsProcessor.cpp.o -c /root/lite-client/tdutils/test/OrderedEventsProcessor.cpp
 
 CMakeFiles/test-tdutils.dir/tdutils/test/OrderedEventsProcessor.cpp.i: cmake_force
@@ -467,7 +443,7 @@ CMakeFiles/test-tdutils.dir/tdutils/test/OrderedEventsProcessor.cpp.o.provides.b
 
 CMakeFiles/test-tdutils.dir/tdutils/test/port.cpp.o: CMakeFiles/test-tdutils.dir/flags.make
 CMakeFiles/test-tdutils.dir/tdutils/test/port.cpp.o: /root/lite-client/tdutils/test/port.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/test-tdutils.dir/tdutils/test/port.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CXX object CMakeFiles/test-tdutils.dir/tdutils/test/port.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test-tdutils.dir/tdutils/test/port.cpp.o -c /root/lite-client/tdutils/test/port.cpp
 
 CMakeFiles/test-tdutils.dir/tdutils/test/port.cpp.i: cmake_force
@@ -491,7 +467,7 @@ CMakeFiles/test-tdutils.dir/tdutils/test/port.cpp.o.provides.build: CMakeFiles/t
 
 CMakeFiles/test-tdutils.dir/tdutils/test/pq.cpp.o: CMakeFiles/test-tdutils.dir/flags.make
 CMakeFiles/test-tdutils.dir/tdutils/test/pq.cpp.o: /root/lite-client/tdutils/test/pq.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building CXX object CMakeFiles/test-tdutils.dir/tdutils/test/pq.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CXX object CMakeFiles/test-tdutils.dir/tdutils/test/pq.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test-tdutils.dir/tdutils/test/pq.cpp.o -c /root/lite-client/tdutils/test/pq.cpp
 
 CMakeFiles/test-tdutils.dir/tdutils/test/pq.cpp.i: cmake_force
@@ -515,7 +491,7 @@ CMakeFiles/test-tdutils.dir/tdutils/test/pq.cpp.o.provides.build: CMakeFiles/tes
 
 CMakeFiles/test-tdutils.dir/tdutils/test/SharedObjectPool.cpp.o: CMakeFiles/test-tdutils.dir/flags.make
 CMakeFiles/test-tdutils.dir/tdutils/test/SharedObjectPool.cpp.o: /root/lite-client/tdutils/test/SharedObjectPool.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building CXX object CMakeFiles/test-tdutils.dir/tdutils/test/SharedObjectPool.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building CXX object CMakeFiles/test-tdutils.dir/tdutils/test/SharedObjectPool.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test-tdutils.dir/tdutils/test/SharedObjectPool.cpp.o -c /root/lite-client/tdutils/test/SharedObjectPool.cpp
 
 CMakeFiles/test-tdutils.dir/tdutils/test/SharedObjectPool.cpp.i: cmake_force
@@ -539,7 +515,7 @@ CMakeFiles/test-tdutils.dir/tdutils/test/SharedObjectPool.cpp.o.provides.build: 
 
 CMakeFiles/test-tdutils.dir/tdutils/test/SharedSlice.cpp.o: CMakeFiles/test-tdutils.dir/flags.make
 CMakeFiles/test-tdutils.dir/tdutils/test/SharedSlice.cpp.o: /root/lite-client/tdutils/test/SharedSlice.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building CXX object CMakeFiles/test-tdutils.dir/tdutils/test/SharedSlice.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building CXX object CMakeFiles/test-tdutils.dir/tdutils/test/SharedSlice.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test-tdutils.dir/tdutils/test/SharedSlice.cpp.o -c /root/lite-client/tdutils/test/SharedSlice.cpp
 
 CMakeFiles/test-tdutils.dir/tdutils/test/SharedSlice.cpp.i: cmake_force
@@ -563,7 +539,7 @@ CMakeFiles/test-tdutils.dir/tdutils/test/SharedSlice.cpp.o.provides.build: CMake
 
 CMakeFiles/test-tdutils.dir/tdutils/test/variant.cpp.o: CMakeFiles/test-tdutils.dir/flags.make
 CMakeFiles/test-tdutils.dir/tdutils/test/variant.cpp.o: /root/lite-client/tdutils/test/variant.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building CXX object CMakeFiles/test-tdutils.dir/tdutils/test/variant.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building CXX object CMakeFiles/test-tdutils.dir/tdutils/test/variant.cpp.o"
 	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/test-tdutils.dir/tdutils/test/variant.cpp.o -c /root/lite-client/tdutils/test/variant.cpp
 
 CMakeFiles/test-tdutils.dir/tdutils/test/variant.cpp.i: cmake_force
@@ -589,10 +565,9 @@ CMakeFiles/test-tdutils.dir/tdutils/test/variant.cpp.o.provides.build: CMakeFile
 test__tdutils_OBJECTS = \
 "CMakeFiles/test-tdutils.dir/test/test-td-main.cpp.o" \
 "CMakeFiles/test-tdutils.dir/tdutils/test/buffer.cpp.o" \
-"CMakeFiles/test-tdutils.dir/tdutils/test/crypto.cpp.o" \
 "CMakeFiles/test-tdutils.dir/tdutils/test/ConcurrentHashMap.cpp.o" \
+"CMakeFiles/test-tdutils.dir/tdutils/test/crypto.cpp.o" \
 "CMakeFiles/test-tdutils.dir/tdutils/test/Enumerator.cpp.o" \
-"CMakeFiles/test-tdutils.dir/tdutils/test/EpochBasedMemoryReclamation.cpp.o" \
 "CMakeFiles/test-tdutils.dir/tdutils/test/filesystem.cpp.o" \
 "CMakeFiles/test-tdutils.dir/tdutils/test/gzip.cpp.o" \
 "CMakeFiles/test-tdutils.dir/tdutils/test/HazardPointers.cpp.o" \
@@ -615,10 +590,9 @@ test__tdutils_EXTERNAL_OBJECTS =
 
 test-tdutils: CMakeFiles/test-tdutils.dir/test/test-td-main.cpp.o
 test-tdutils: CMakeFiles/test-tdutils.dir/tdutils/test/buffer.cpp.o
-test-tdutils: CMakeFiles/test-tdutils.dir/tdutils/test/crypto.cpp.o
 test-tdutils: CMakeFiles/test-tdutils.dir/tdutils/test/ConcurrentHashMap.cpp.o
+test-tdutils: CMakeFiles/test-tdutils.dir/tdutils/test/crypto.cpp.o
 test-tdutils: CMakeFiles/test-tdutils.dir/tdutils/test/Enumerator.cpp.o
-test-tdutils: CMakeFiles/test-tdutils.dir/tdutils/test/EpochBasedMemoryReclamation.cpp.o
 test-tdutils: CMakeFiles/test-tdutils.dir/tdutils/test/filesystem.cpp.o
 test-tdutils: CMakeFiles/test-tdutils.dir/tdutils/test/gzip.cpp.o
 test-tdutils: CMakeFiles/test-tdutils.dir/tdutils/test/HazardPointers.cpp.o
@@ -643,7 +617,7 @@ test-tdutils: /usr/lib/x86_64-linux-gnu/libcrypto.so
 test-tdutils: /usr/lib/x86_64-linux-gnu/libz.so
 test-tdutils: third-party/crc32c/libcrc32c.a
 test-tdutils: CMakeFiles/test-tdutils.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Linking CXX executable test-tdutils"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/root/liteclient-build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Linking CXX executable test-tdutils"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/test-tdutils.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -653,10 +627,9 @@ CMakeFiles/test-tdutils.dir/build: test-tdutils
 
 CMakeFiles/test-tdutils.dir/requires: CMakeFiles/test-tdutils.dir/test/test-td-main.cpp.o.requires
 CMakeFiles/test-tdutils.dir/requires: CMakeFiles/test-tdutils.dir/tdutils/test/buffer.cpp.o.requires
-CMakeFiles/test-tdutils.dir/requires: CMakeFiles/test-tdutils.dir/tdutils/test/crypto.cpp.o.requires
 CMakeFiles/test-tdutils.dir/requires: CMakeFiles/test-tdutils.dir/tdutils/test/ConcurrentHashMap.cpp.o.requires
+CMakeFiles/test-tdutils.dir/requires: CMakeFiles/test-tdutils.dir/tdutils/test/crypto.cpp.o.requires
 CMakeFiles/test-tdutils.dir/requires: CMakeFiles/test-tdutils.dir/tdutils/test/Enumerator.cpp.o.requires
-CMakeFiles/test-tdutils.dir/requires: CMakeFiles/test-tdutils.dir/tdutils/test/EpochBasedMemoryReclamation.cpp.o.requires
 CMakeFiles/test-tdutils.dir/requires: CMakeFiles/test-tdutils.dir/tdutils/test/filesystem.cpp.o.requires
 CMakeFiles/test-tdutils.dir/requires: CMakeFiles/test-tdutils.dir/tdutils/test/gzip.cpp.o.requires
 CMakeFiles/test-tdutils.dir/requires: CMakeFiles/test-tdutils.dir/tdutils/test/HazardPointers.cpp.o.requires

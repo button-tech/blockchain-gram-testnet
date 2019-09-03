@@ -74,6 +74,12 @@ class adnl_nodes;
 
 class adnl_packetContents;
 
+class adnl_Proxy;
+
+class adnl_proxyToFastHash;
+
+class adnl_proxyToFast;
+
 class adnl_config_global;
 
 class adnl_db_node_key;
@@ -190,7 +196,7 @@ class dht_db_key_bucket;
 
 class dummyworkchain0_config_global;
 
-class engine_addr;
+class engine_Addr;
 
 class engine_adnl;
 
@@ -199,8 +205,6 @@ class engine_controlInterface;
 class engine_controlProcess;
 
 class engine_dht;
-
-class engine_fullNode;
 
 class engine_gc;
 
@@ -212,11 +216,17 @@ class engine_validatorAdnlAddress;
 
 class engine_validatorTempKey;
 
+class engine_adnlProxy_config;
+
+class engine_adnlProxy_port;
+
 class engine_dht_config;
 
 class engine_validator_config;
 
 class engine_validator_controlQueryError;
+
+class engine_validator_jsonConfig;
 
 class engine_validator_keyHash;
 
@@ -276,35 +286,7 @@ class tcp_Message;
 
 class tcp_pong;
 
-class test0_proof;
-
-class test0_proofLink;
-
-class test0_shardchain_block;
-
-class test0_shardchain_state;
-
-class test_validatorSession_block;
-
-class test0_blockSignatures;
-
-class test0_extMessage;
-
-class test0_MasterchainBlockExtra;
-
-class test0_MasterchainStateExtra;
-
-class test0_topShardBlockDescription;
-
-class test0_validatorSessionId;
-
-class test0_validatorSet;
-
-class test0_validatorSetItem;
-
-class test0_masterchain_shardInfo;
-
-class ton_blockId;
+class ton_BlockId;
 
 class tonNode_BlockDescription;
 
@@ -348,7 +330,7 @@ class validatorSession_candidate;
 
 class validatorSession_candidateId;
 
-class validatorSession_id;
+class validatorSession_config;
 
 class validatorSession_Message;
 
@@ -554,12 +536,13 @@ class hashable_validatorSessionOldRound final : public Hashable {
   std::int32_t seqno_;
   std::int32_t block_;
   std::int32_t signatures_;
+  std::int32_t approve_signatures_;
 
   hashable_validatorSessionOldRound();
 
-  hashable_validatorSessionOldRound(std::int32_t seqno_, std::int32_t block_, std::int32_t signatures_);
+  hashable_validatorSessionOldRound(std::int32_t seqno_, std::int32_t block_, std::int32_t signatures_, std::int32_t approve_signatures_);
 
-  static const std::int32_t ID = 1479622531;
+  static const std::int32_t ID = 1200318377;
   std::int32_t get_id() const final {
     return ID;
   }
@@ -580,12 +563,14 @@ class hashable_validatorSessionRoundAttempt final : public Hashable {
   std::int32_t seqno_;
   std::int32_t votes_;
   std::int32_t precommitted_;
+  std::int32_t vote_for_inited_;
+  std::int32_t vote_for_;
 
   hashable_validatorSessionRoundAttempt();
 
-  hashable_validatorSessionRoundAttempt(std::int32_t seqno_, std::int32_t votes_, std::int32_t precommitted_);
+  hashable_validatorSessionRoundAttempt(std::int32_t seqno_, std::int32_t votes_, std::int32_t precommitted_, std::int32_t vote_for_inited_, std::int32_t vote_for_);
 
-  static const std::int32_t ID = -555220893;
+  static const std::int32_t ID = 1276247981;
   std::int32_t get_id() const final {
     return ID;
   }
@@ -746,6 +731,31 @@ class hashable_blockCandidate final : public Hashable {
   static object_ptr<Hashable> fetch(td::TlParser &p);
 
   explicit hashable_blockCandidate(td::TlParser &p);
+
+  void store(td::TlStorerCalcLength &s) const final;
+
+  void store(td::TlStorerUnsafe &s) const final;
+
+  void store(td::TlStorerToString &s, const char *field_name) const final;
+};
+
+class hashable_blockVoteCandidate final : public Hashable {
+ public:
+  std::int32_t block_;
+  std::int32_t approved_;
+
+  hashable_blockVoteCandidate();
+
+  hashable_blockVoteCandidate(std::int32_t block_, std::int32_t approved_);
+
+  static const std::int32_t ID = -821202971;
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+  static object_ptr<Hashable> fetch(td::TlParser &p);
+
+  explicit hashable_blockVoteCandidate(td::TlParser &p);
 
   void store(td::TlStorerCalcLength &s) const final;
 
@@ -1535,6 +1545,112 @@ class adnl_packetContents final : public Object {
   void store(td::TlStorerToString &s, const char *field_name) const final;
 };
 
+class adnl_Proxy: public Object {
+ public:
+
+  static object_ptr<adnl_Proxy> fetch(td::TlParser &p);
+};
+
+class adnl_proxy_none final : public adnl_Proxy {
+ public:
+
+  adnl_proxy_none();
+
+  static const std::int32_t ID = -90551726;
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+  static object_ptr<adnl_Proxy> fetch(td::TlParser &p);
+
+  explicit adnl_proxy_none(td::TlParser &p);
+
+  void store(td::TlStorerCalcLength &s) const final;
+
+  void store(td::TlStorerUnsafe &s) const final;
+
+  void store(td::TlStorerToString &s, const char *field_name) const final;
+};
+
+class adnl_proxy_fast final : public adnl_Proxy {
+ public:
+  td::BufferSlice shared_secret_;
+
+  adnl_proxy_fast();
+
+  explicit adnl_proxy_fast(td::BufferSlice &&shared_secret_);
+
+  static const std::int32_t ID = 554536094;
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+  static object_ptr<adnl_Proxy> fetch(td::TlParser &p);
+
+  explicit adnl_proxy_fast(td::TlParser &p);
+
+  void store(td::TlStorerCalcLength &s) const final;
+
+  void store(td::TlStorerUnsafe &s) const final;
+
+  void store(td::TlStorerToString &s, const char *field_name) const final;
+};
+
+class adnl_proxyToFastHash final : public Object {
+ public:
+  std::int32_t ip_;
+  std::int32_t port_;
+  std::int32_t date_;
+  td::Bits256 data_hash_;
+  td::Bits256 shared_secret_;
+
+  adnl_proxyToFastHash();
+
+  adnl_proxyToFastHash(std::int32_t ip_, std::int32_t port_, std::int32_t date_, td::Bits256 const &data_hash_, td::Bits256 const &shared_secret_);
+
+  static const std::int32_t ID = -574752674;
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+  static object_ptr<adnl_proxyToFastHash> fetch(td::TlParser &p);
+
+  explicit adnl_proxyToFastHash(td::TlParser &p);
+
+  void store(td::TlStorerCalcLength &s) const final;
+
+  void store(td::TlStorerUnsafe &s) const final;
+
+  void store(td::TlStorerToString &s, const char *field_name) const final;
+};
+
+class adnl_proxyToFast final : public Object {
+ public:
+  std::int32_t ip_;
+  std::int32_t port_;
+  std::int32_t date_;
+  td::Bits256 signature_;
+
+  adnl_proxyToFast();
+
+  adnl_proxyToFast(std::int32_t ip_, std::int32_t port_, std::int32_t date_, td::Bits256 const &signature_);
+
+  static const std::int32_t ID = -1259462186;
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+  static object_ptr<adnl_proxyToFast> fetch(td::TlParser &p);
+
+  explicit adnl_proxyToFast(td::TlParser &p);
+
+  void store(td::TlStorerCalcLength &s) const final;
+
+  void store(td::TlStorerUnsafe &s) const final;
+
+  void store(td::TlStorerToString &s, const char *field_name) const final;
+};
+
 class adnl_config_global final : public Object {
  public:
   object_ptr<adnl_nodes> static_nodes_;
@@ -2152,15 +2268,16 @@ class control_config_local final : public Object {
 
 class db_candidate final : public Object {
  public:
+  object_ptr<PublicKey> source_;
   object_ptr<tonNode_blockIdExt> id_;
   td::BufferSlice data_;
   td::BufferSlice collated_data_;
 
   db_candidate();
 
-  db_candidate(object_ptr<tonNode_blockIdExt> &&id_, td::BufferSlice &&data_, td::BufferSlice &&collated_data_);
+  db_candidate(object_ptr<PublicKey> &&source_, object_ptr<tonNode_blockIdExt> &&id_, td::BufferSlice &&data_, td::BufferSlice &&collated_data_);
 
-  static const std::int32_t ID = 329181652;
+  static const std::int32_t ID = 1708747482;
   std::int32_t get_id() const final {
     return ID;
   }
@@ -2345,14 +2462,15 @@ class db_blockdb_value final : public Object {
 
 class db_candidate_id final : public Object {
  public:
+  object_ptr<PublicKey> source_;
   object_ptr<tonNode_blockIdExt> id_;
   td::Bits256 collated_data_file_hash_;
 
   db_candidate_id();
 
-  db_candidate_id(object_ptr<tonNode_blockIdExt> &&id_, td::Bits256 const &collated_data_file_hash_);
+  db_candidate_id(object_ptr<PublicKey> &&source_, object_ptr<tonNode_blockIdExt> &&id_, td::Bits256 const &collated_data_file_hash_);
 
-  static const std::int32_t ID = -562931756;
+  static const std::int32_t ID = 935375495;
   std::int32_t get_id() const final {
     return ID;
   }
@@ -3681,26 +3799,61 @@ class dummyworkchain0_config_global final : public Object {
   void store(td::TlStorerToString &s, const char *field_name) const final;
 };
 
-class engine_addr final : public Object {
+class engine_Addr: public Object {
+ public:
+
+  static object_ptr<engine_Addr> fetch(td::TlParser &p);
+};
+
+class engine_addr final : public engine_Addr {
  public:
   std::int32_t ip_;
   std::int32_t port_;
-  bool is_proxy_;
   std::vector<std::int32_t> categories_;
   std::vector<std::int32_t> priority_categories_;
 
   engine_addr();
 
-  engine_addr(std::int32_t ip_, std::int32_t port_, bool is_proxy_, std::vector<std::int32_t> &&categories_, std::vector<std::int32_t> &&priority_categories_);
+  engine_addr(std::int32_t ip_, std::int32_t port_, std::vector<std::int32_t> &&categories_, std::vector<std::int32_t> &&priority_categories_);
 
-  static const std::int32_t ID = -1740086985;
+  static const std::int32_t ID = -281993236;
   std::int32_t get_id() const final {
     return ID;
   }
 
-  static object_ptr<engine_addr> fetch(td::TlParser &p);
+  static object_ptr<engine_Addr> fetch(td::TlParser &p);
 
   explicit engine_addr(td::TlParser &p);
+
+  void store(td::TlStorerCalcLength &s) const final;
+
+  void store(td::TlStorerUnsafe &s) const final;
+
+  void store(td::TlStorerToString &s, const char *field_name) const final;
+};
+
+class engine_addrProxy final : public engine_Addr {
+ public:
+  std::int32_t in_ip_;
+  std::int32_t in_port_;
+  std::int32_t out_ip_;
+  std::int32_t out_port_;
+  object_ptr<adnl_Proxy> proxy_type_;
+  std::vector<std::int32_t> categories_;
+  std::vector<std::int32_t> priority_categories_;
+
+  engine_addrProxy();
+
+  engine_addrProxy(std::int32_t in_ip_, std::int32_t in_port_, std::int32_t out_ip_, std::int32_t out_port_, object_ptr<adnl_Proxy> &&proxy_type_, std::vector<std::int32_t> &&categories_, std::vector<std::int32_t> &&priority_categories_);
+
+  static const std::int32_t ID = -1965071031;
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+  static object_ptr<engine_Addr> fetch(td::TlParser &p);
+
+  explicit engine_addrProxy(td::TlParser &p);
 
   void store(td::TlStorerCalcLength &s) const final;
 
@@ -3801,32 +3954,6 @@ class engine_dht final : public Object {
   static object_ptr<engine_dht> fetch(td::TlParser &p);
 
   explicit engine_dht(td::TlParser &p);
-
-  void store(td::TlStorerCalcLength &s) const final;
-
-  void store(td::TlStorerUnsafe &s) const final;
-
-  void store(td::TlStorerToString &s, const char *field_name) const final;
-};
-
-class engine_fullNode final : public Object {
- public:
-  td::Bits256 id_;
-  td::Bits256 adnl_;
-  std::int32_t expire_at_;
-
-  engine_fullNode();
-
-  engine_fullNode(td::Bits256 const &id_, td::Bits256 const &adnl_, std::int32_t expire_at_);
-
-  static const std::int32_t ID = 274327986;
-  std::int32_t get_id() const final {
-    return ID;
-  }
-
-  static object_ptr<engine_fullNode> fetch(td::TlParser &p);
-
-  explicit engine_fullNode(td::TlParser &p);
 
   void store(td::TlStorerCalcLength &s) const final;
 
@@ -3961,6 +4088,58 @@ class engine_validatorTempKey final : public Object {
   void store(td::TlStorerToString &s, const char *field_name) const final;
 };
 
+class engine_adnlProxy_config final : public Object {
+ public:
+  std::vector<object_ptr<engine_adnlProxy_port>> ports_;
+
+  engine_adnlProxy_config();
+
+  explicit engine_adnlProxy_config(std::vector<object_ptr<engine_adnlProxy_port>> &&ports_);
+
+  static const std::int32_t ID = 1848000769;
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+  static object_ptr<engine_adnlProxy_config> fetch(td::TlParser &p);
+
+  explicit engine_adnlProxy_config(td::TlParser &p);
+
+  void store(td::TlStorerCalcLength &s) const final;
+
+  void store(td::TlStorerUnsafe &s) const final;
+
+  void store(td::TlStorerToString &s, const char *field_name) const final;
+};
+
+class engine_adnlProxy_port final : public Object {
+ public:
+  std::int32_t in_port_;
+  std::int32_t out_port_;
+  std::int32_t dst_ip_;
+  std::int32_t dst_port_;
+  object_ptr<adnl_Proxy> proxy_type_;
+
+  engine_adnlProxy_port();
+
+  engine_adnlProxy_port(std::int32_t in_port_, std::int32_t out_port_, std::int32_t dst_ip_, std::int32_t dst_port_, object_ptr<adnl_Proxy> &&proxy_type_);
+
+  static const std::int32_t ID = -117344950;
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+  static object_ptr<engine_adnlProxy_port> fetch(td::TlParser &p);
+
+  explicit engine_adnlProxy_port(td::TlParser &p);
+
+  void store(td::TlStorerCalcLength &s) const final;
+
+  void store(td::TlStorerUnsafe &s) const final;
+
+  void store(td::TlStorerToString &s, const char *field_name) const final;
+};
+
 class engine_dht_config final : public Object {
  public:
   std::vector<object_ptr<engine_dht>> dht_;
@@ -3988,20 +4167,21 @@ class engine_dht_config final : public Object {
 
 class engine_validator_config final : public Object {
  public:
-  std::vector<object_ptr<engine_addr>> addrs_;
+  std::int32_t out_port_;
+  std::vector<object_ptr<engine_Addr>> addrs_;
   std::vector<object_ptr<engine_adnl>> adnl_;
   std::vector<object_ptr<engine_dht>> dht_;
-  object_ptr<engine_fullNode> fullnode_;
   std::vector<object_ptr<engine_validator>> validators_;
+  td::Bits256 fullnode_;
   std::vector<object_ptr<engine_liteServer>> liteservers_;
   std::vector<object_ptr<engine_controlInterface>> control_;
   object_ptr<engine_gc> gc_;
 
   engine_validator_config();
 
-  engine_validator_config(std::vector<object_ptr<engine_addr>> &&addrs_, std::vector<object_ptr<engine_adnl>> &&adnl_, std::vector<object_ptr<engine_dht>> &&dht_, object_ptr<engine_fullNode> &&fullnode_, std::vector<object_ptr<engine_validator>> &&validators_, std::vector<object_ptr<engine_liteServer>> &&liteservers_, std::vector<object_ptr<engine_controlInterface>> &&control_, object_ptr<engine_gc> &&gc_);
+  engine_validator_config(std::int32_t out_port_, std::vector<object_ptr<engine_Addr>> &&addrs_, std::vector<object_ptr<engine_adnl>> &&adnl_, std::vector<object_ptr<engine_dht>> &&dht_, std::vector<object_ptr<engine_validator>> &&validators_, td::Bits256 const &fullnode_, std::vector<object_ptr<engine_liteServer>> &&liteservers_, std::vector<object_ptr<engine_controlInterface>> &&control_, object_ptr<engine_gc> &&gc_);
 
-  static const std::int32_t ID = 1480644694;
+  static const std::int32_t ID = -1061804008;
   std::int32_t get_id() const final {
     return ID;
   }
@@ -4034,6 +4214,30 @@ class engine_validator_controlQueryError final : public Object {
   static object_ptr<engine_validator_controlQueryError> fetch(td::TlParser &p);
 
   explicit engine_validator_controlQueryError(td::TlParser &p);
+
+  void store(td::TlStorerCalcLength &s) const final;
+
+  void store(td::TlStorerUnsafe &s) const final;
+
+  void store(td::TlStorerToString &s, const char *field_name) const final;
+};
+
+class engine_validator_jsonConfig final : public Object {
+ public:
+  std::string data_;
+
+  engine_validator_jsonConfig();
+
+  explicit engine_validator_jsonConfig(std::string const &data_);
+
+  static const std::int32_t ID = 321753611;
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+  static object_ptr<engine_validator_jsonConfig> fetch(td::TlParser &p);
+
+  explicit engine_validator_jsonConfig(td::TlParser &p);
 
   void store(td::TlStorerCalcLength &s) const final;
 
@@ -4295,12 +4499,13 @@ class id_config_local final : public Object {
 class liteclient_config_global final : public Object {
  public:
   std::vector<object_ptr<liteserver_desc>> liteservers_;
+  object_ptr<validator_config_global> validator_;
 
   liteclient_config_global();
 
-  explicit liteclient_config_global(std::vector<object_ptr<liteserver_desc>> &&liteservers_);
+  liteclient_config_global(std::vector<object_ptr<liteserver_desc>> &&liteservers_, object_ptr<validator_config_global> &&validator_);
 
-  static const std::int32_t ID = -909718307;
+  static const std::int32_t ID = 143507704;
   std::int32_t get_id() const final {
     return ID;
   }
@@ -4981,14 +5186,15 @@ class rldp_message final : public rldp_Message {
 class rldp_query final : public rldp_Message {
  public:
   td::Bits256 query_id_;
+  std::int64_t max_answer_size_;
   std::int32_t timeout_;
   td::BufferSlice data_;
 
   rldp_query();
 
-  rldp_query(td::Bits256 const &query_id_, std::int32_t timeout_, td::BufferSlice &&data_);
+  rldp_query(td::Bits256 const &query_id_, std::int64_t max_answer_size_, std::int32_t timeout_, td::BufferSlice &&data_);
 
-  static const std::int32_t ID = -1478977815;
+  static const std::int32_t ID = -1971761815;
   std::int32_t get_id() const final {
     return ID;
   }
@@ -5218,445 +5424,13 @@ class tcp_pong final : public Object {
   void store(td::TlStorerToString &s, const char *field_name) const final;
 };
 
-class test0_proof final : public Object {
- public:
-  object_ptr<test0_proofLink> link_;
-  std::int32_t catchain_seqno_;
-  std::int32_t validator_set_hash_;
-  object_ptr<test0_blockSignatures> signatures_;
-
-  test0_proof();
-
-  test0_proof(object_ptr<test0_proofLink> &&link_, std::int32_t catchain_seqno_, std::int32_t validator_set_hash_, object_ptr<test0_blockSignatures> &&signatures_);
-
-  static const std::int32_t ID = 240739136;
-  std::int32_t get_id() const final {
-    return ID;
-  }
-
-  static object_ptr<test0_proof> fetch(td::TlParser &p);
-
-  explicit test0_proof(td::TlParser &p);
-
-  void store(td::TlStorerCalcLength &s) const final;
-
-  void store(td::TlStorerUnsafe &s) const final;
-
-  void store(td::TlStorerToString &s, const char *field_name) const final;
-};
-
-class test0_proofLink final : public Object {
- public:
-  object_ptr<tonNode_blockIdExt> id_;
-  std::vector<object_ptr<tonNode_blockIdExt>> prev_;
-  td::Bits256 state_;
-  bool split_;
-
-  test0_proofLink();
-
-  test0_proofLink(object_ptr<tonNode_blockIdExt> &&id_, std::vector<object_ptr<tonNode_blockIdExt>> &&prev_, td::Bits256 const &state_, bool split_);
-
-  static const std::int32_t ID = 198411810;
-  std::int32_t get_id() const final {
-    return ID;
-  }
-
-  static object_ptr<test0_proofLink> fetch(td::TlParser &p);
-
-  explicit test0_proofLink(td::TlParser &p);
-
-  void store(td::TlStorerCalcLength &s) const final;
-
-  void store(td::TlStorerUnsafe &s) const final;
-
-  void store(td::TlStorerToString &s, const char *field_name) const final;
-};
-
-class test0_shardchain_block final : public Object {
- public:
-  std::int32_t workchain_;
-  std::int64_t shard_;
-  std::int32_t seqno_;
-  std::vector<object_ptr<tonNode_blockIdExt>> prev_;
-  bool split_;
-  std::int32_t ts_;
-  td::Bits256 state_;
-  std::int32_t catchain_seqno_;
-  std::int32_t validator_set_hash_;
-  td::BufferSlice pad_;
-  object_ptr<test0_MasterchainBlockExtra> extra_;
-
-  test0_shardchain_block();
-
-  test0_shardchain_block(std::int32_t workchain_, std::int64_t shard_, std::int32_t seqno_, std::vector<object_ptr<tonNode_blockIdExt>> &&prev_, bool split_, std::int32_t ts_, td::Bits256 const &state_, std::int32_t catchain_seqno_, std::int32_t validator_set_hash_, td::BufferSlice &&pad_, object_ptr<test0_MasterchainBlockExtra> &&extra_);
-
-  static const std::int32_t ID = 168970719;
-  std::int32_t get_id() const final {
-    return ID;
-  }
-
-  static object_ptr<test0_shardchain_block> fetch(td::TlParser &p);
-
-  explicit test0_shardchain_block(td::TlParser &p);
-
-  void store(td::TlStorerCalcLength &s) const final;
-
-  void store(td::TlStorerUnsafe &s) const final;
-
-  void store(td::TlStorerToString &s, const char *field_name) const final;
-};
-
-class test0_shardchain_state final : public Object {
- public:
-  std::int32_t workchain_;
-  std::int64_t shard_;
-  std::int32_t seqno_;
-  std::int32_t ts_;
-  bool split_;
-  object_ptr<test0_MasterchainStateExtra> extra_;
-
-  test0_shardchain_state();
-
-  test0_shardchain_state(std::int32_t workchain_, std::int64_t shard_, std::int32_t seqno_, std::int32_t ts_, bool split_, object_ptr<test0_MasterchainStateExtra> &&extra_);
-
-  static const std::int32_t ID = -1819502437;
-  std::int32_t get_id() const final {
-    return ID;
-  }
-
-  static object_ptr<test0_shardchain_state> fetch(td::TlParser &p);
-
-  explicit test0_shardchain_state(td::TlParser &p);
-
-  void store(td::TlStorerCalcLength &s) const final;
-
-  void store(td::TlStorerUnsafe &s) const final;
-
-  void store(td::TlStorerToString &s, const char *field_name) const final;
-};
-
-class test_validatorSession_block final : public Object {
- public:
-  td::Bits256 root_hash_;
-  std::int64_t height_;
-  td::BufferSlice data_;
-
-  test_validatorSession_block();
-
-  test_validatorSession_block(td::Bits256 const &root_hash_, std::int64_t height_, td::BufferSlice &&data_);
-
-  static const std::int32_t ID = -1418990707;
-  std::int32_t get_id() const final {
-    return ID;
-  }
-
-  static object_ptr<test_validatorSession_block> fetch(td::TlParser &p);
-
-  explicit test_validatorSession_block(td::TlParser &p);
-
-  void store(td::TlStorerCalcLength &s) const final;
-
-  void store(td::TlStorerUnsafe &s) const final;
-
-  void store(td::TlStorerToString &s, const char *field_name) const final;
-};
-
-class test0_blockSignatures final : public Object {
- public:
-  std::vector<object_ptr<tonNode_blockSignature>> signatures_;
-
-  test0_blockSignatures();
-
-  explicit test0_blockSignatures(std::vector<object_ptr<tonNode_blockSignature>> &&signatures_);
-
-  static const std::int32_t ID = -1512447916;
-  std::int32_t get_id() const final {
-    return ID;
-  }
-
-  static object_ptr<test0_blockSignatures> fetch(td::TlParser &p);
-
-  explicit test0_blockSignatures(td::TlParser &p);
-
-  void store(td::TlStorerCalcLength &s) const final;
-
-  void store(td::TlStorerUnsafe &s) const final;
-
-  void store(td::TlStorerToString &s, const char *field_name) const final;
-};
-
-class test0_extMessage final : public Object {
- public:
-  std::int32_t workchain_;
-  std::int64_t shard_;
-  td::BufferSlice data_;
-
-  test0_extMessage();
-
-  test0_extMessage(std::int32_t workchain_, std::int64_t shard_, td::BufferSlice &&data_);
-
-  static const std::int32_t ID = -424680397;
-  std::int32_t get_id() const final {
-    return ID;
-  }
-
-  static object_ptr<test0_extMessage> fetch(td::TlParser &p);
-
-  explicit test0_extMessage(td::TlParser &p);
-
-  void store(td::TlStorerCalcLength &s) const final;
-
-  void store(td::TlStorerUnsafe &s) const final;
-
-  void store(td::TlStorerToString &s, const char *field_name) const final;
-};
-
-class test0_MasterchainBlockExtra: public Object {
+class ton_BlockId: public Object {
  public:
 
-  static object_ptr<test0_MasterchainBlockExtra> fetch(td::TlParser &p);
+  static object_ptr<ton_BlockId> fetch(td::TlParser &p);
 };
 
-class test0_masterchainBlockExtra_empty final : public test0_MasterchainBlockExtra {
- public:
-
-  test0_masterchainBlockExtra_empty();
-
-  static const std::int32_t ID = -1793623372;
-  std::int32_t get_id() const final {
-    return ID;
-  }
-
-  static object_ptr<test0_MasterchainBlockExtra> fetch(td::TlParser &p);
-
-  explicit test0_masterchainBlockExtra_empty(td::TlParser &p);
-
-  void store(td::TlStorerCalcLength &s) const final;
-
-  void store(td::TlStorerUnsafe &s) const final;
-
-  void store(td::TlStorerToString &s, const char *field_name) const final;
-};
-
-class test0_masterchainBlockExtra_extra final : public test0_MasterchainBlockExtra {
- public:
-  std::int32_t randseed_;
-  bool rotate_;
-  std::vector<object_ptr<test0_masterchain_shardInfo>> shards_;
-
-  test0_masterchainBlockExtra_extra();
-
-  test0_masterchainBlockExtra_extra(std::int32_t randseed_, bool rotate_, std::vector<object_ptr<test0_masterchain_shardInfo>> &&shards_);
-
-  static const std::int32_t ID = -2070859848;
-  std::int32_t get_id() const final {
-    return ID;
-  }
-
-  static object_ptr<test0_MasterchainBlockExtra> fetch(td::TlParser &p);
-
-  explicit test0_masterchainBlockExtra_extra(td::TlParser &p);
-
-  void store(td::TlStorerCalcLength &s) const final;
-
-  void store(td::TlStorerUnsafe &s) const final;
-
-  void store(td::TlStorerToString &s, const char *field_name) const final;
-};
-
-class test0_MasterchainStateExtra: public Object {
- public:
-
-  static object_ptr<test0_MasterchainStateExtra> fetch(td::TlParser &p);
-};
-
-class test0_masterchainStateExtra_empty final : public test0_MasterchainStateExtra {
- public:
-
-  test0_masterchainStateExtra_empty();
-
-  static const std::int32_t ID = -1491361123;
-  std::int32_t get_id() const final {
-    return ID;
-  }
-
-  static object_ptr<test0_MasterchainStateExtra> fetch(td::TlParser &p);
-
-  explicit test0_masterchainStateExtra_empty(td::TlParser &p);
-
-  void store(td::TlStorerCalcLength &s) const final;
-
-  void store(td::TlStorerUnsafe &s) const final;
-
-  void store(td::TlStorerToString &s, const char *field_name) const final;
-};
-
-class test0_masterchainStateExtra_extra final : public test0_MasterchainStateExtra {
- public:
-  std::int32_t validator_ts_;
-  std::int32_t validator_randseed_;
-  std::int32_t next_randseed_;
-  std::int32_t next_rotate_at_;
-  std::vector<object_ptr<tonNode_blockIdExt>> prev_blocks_;
-  std::vector<object_ptr<test0_masterchain_shardInfo>> shards_;
-  std::vector<object_ptr<PublicKey>> pool_;
-
-  test0_masterchainStateExtra_extra();
-
-  test0_masterchainStateExtra_extra(std::int32_t validator_ts_, std::int32_t validator_randseed_, std::int32_t next_randseed_, std::int32_t next_rotate_at_, std::vector<object_ptr<tonNode_blockIdExt>> &&prev_blocks_, std::vector<object_ptr<test0_masterchain_shardInfo>> &&shards_, std::vector<object_ptr<PublicKey>> &&pool_);
-
-  static const std::int32_t ID = -1205072155;
-  std::int32_t get_id() const final {
-    return ID;
-  }
-
-  static object_ptr<test0_MasterchainStateExtra> fetch(td::TlParser &p);
-
-  explicit test0_masterchainStateExtra_extra(td::TlParser &p);
-
-  void store(td::TlStorerCalcLength &s) const final;
-
-  void store(td::TlStorerUnsafe &s) const final;
-
-  void store(td::TlStorerToString &s, const char *field_name) const final;
-};
-
-class test0_topShardBlockDescription final : public Object {
- public:
-  object_ptr<tonNode_blockIdExt> block_id_;
-  bool after_split_;
-  bool after_merge_;
-  bool before_split_;
-  std::int32_t catchain_seqno_;
-  std::int32_t validator_set_hash_;
-  td::BufferSlice signatures_;
-
-  test0_topShardBlockDescription();
-
-  test0_topShardBlockDescription(object_ptr<tonNode_blockIdExt> &&block_id_, bool after_split_, bool after_merge_, bool before_split_, std::int32_t catchain_seqno_, std::int32_t validator_set_hash_, td::BufferSlice &&signatures_);
-
-  static const std::int32_t ID = 723951200;
-  std::int32_t get_id() const final {
-    return ID;
-  }
-
-  static object_ptr<test0_topShardBlockDescription> fetch(td::TlParser &p);
-
-  explicit test0_topShardBlockDescription(td::TlParser &p);
-
-  void store(td::TlStorerCalcLength &s) const final;
-
-  void store(td::TlStorerUnsafe &s) const final;
-
-  void store(td::TlStorerToString &s, const char *field_name) const final;
-};
-
-class test0_validatorSessionId final : public Object {
- public:
-  std::int32_t workchain_;
-  std::int64_t shard_;
-  std::int64_t shard_from_;
-  std::int32_t ts_;
-
-  test0_validatorSessionId();
-
-  test0_validatorSessionId(std::int32_t workchain_, std::int64_t shard_, std::int64_t shard_from_, std::int32_t ts_);
-
-  static const std::int32_t ID = -1695860169;
-  std::int32_t get_id() const final {
-    return ID;
-  }
-
-  static object_ptr<test0_validatorSessionId> fetch(td::TlParser &p);
-
-  explicit test0_validatorSessionId(td::TlParser &p);
-
-  void store(td::TlStorerCalcLength &s) const final;
-
-  void store(td::TlStorerUnsafe &s) const final;
-
-  void store(td::TlStorerToString &s, const char *field_name) const final;
-};
-
-class test0_validatorSet final : public Object {
- public:
-  std::int32_t ts_;
-  std::vector<object_ptr<test0_validatorSetItem>> validators_;
-
-  test0_validatorSet();
-
-  test0_validatorSet(std::int32_t ts_, std::vector<object_ptr<test0_validatorSetItem>> &&validators_);
-
-  static const std::int32_t ID = -1877581587;
-  std::int32_t get_id() const final {
-    return ID;
-  }
-
-  static object_ptr<test0_validatorSet> fetch(td::TlParser &p);
-
-  explicit test0_validatorSet(td::TlParser &p);
-
-  void store(td::TlStorerCalcLength &s) const final;
-
-  void store(td::TlStorerUnsafe &s) const final;
-
-  void store(td::TlStorerToString &s, const char *field_name) const final;
-};
-
-class test0_validatorSetItem final : public Object {
- public:
-  td::Bits256 id_;
-  std::int64_t weight_;
-
-  test0_validatorSetItem();
-
-  test0_validatorSetItem(td::Bits256 const &id_, std::int64_t weight_);
-
-  static const std::int32_t ID = 408501132;
-  std::int32_t get_id() const final {
-    return ID;
-  }
-
-  static object_ptr<test0_validatorSetItem> fetch(td::TlParser &p);
-
-  explicit test0_validatorSetItem(td::TlParser &p);
-
-  void store(td::TlStorerCalcLength &s) const final;
-
-  void store(td::TlStorerUnsafe &s) const final;
-
-  void store(td::TlStorerToString &s, const char *field_name) const final;
-};
-
-class test0_masterchain_shardInfo final : public Object {
- public:
-  object_ptr<tonNode_blockIdExt> last_block_;
-  bool before_merge_;
-  bool before_split_;
-  bool after_merge_;
-  bool after_split_;
-
-  test0_masterchain_shardInfo();
-
-  test0_masterchain_shardInfo(object_ptr<tonNode_blockIdExt> &&last_block_, bool before_merge_, bool before_split_, bool after_merge_, bool after_split_);
-
-  static const std::int32_t ID = 262681349;
-  std::int32_t get_id() const final {
-    return ID;
-  }
-
-  static object_ptr<test0_masterchain_shardInfo> fetch(td::TlParser &p);
-
-  explicit test0_masterchain_shardInfo(td::TlParser &p);
-
-  void store(td::TlStorerCalcLength &s) const final;
-
-  void store(td::TlStorerUnsafe &s) const final;
-
-  void store(td::TlStorerToString &s, const char *field_name) const final;
-};
-
-class ton_blockId final : public Object {
+class ton_blockId final : public ton_BlockId {
  public:
   td::Bits256 root_cell_hash_;
   td::Bits256 file_hash_;
@@ -5670,9 +5444,34 @@ class ton_blockId final : public Object {
     return ID;
   }
 
-  static object_ptr<ton_blockId> fetch(td::TlParser &p);
+  static object_ptr<ton_BlockId> fetch(td::TlParser &p);
 
   explicit ton_blockId(td::TlParser &p);
+
+  void store(td::TlStorerCalcLength &s) const final;
+
+  void store(td::TlStorerUnsafe &s) const final;
+
+  void store(td::TlStorerToString &s, const char *field_name) const final;
+};
+
+class ton_blockIdApprove final : public ton_BlockId {
+ public:
+  td::Bits256 root_cell_hash_;
+  td::Bits256 file_hash_;
+
+  ton_blockIdApprove();
+
+  ton_blockIdApprove(td::Bits256 const &root_cell_hash_, td::Bits256 const &file_hash_);
+
+  static const std::int32_t ID = 768887369;
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+  static object_ptr<ton_BlockId> fetch(td::TlParser &p);
+
+  explicit ton_blockIdApprove(td::TlParser &p);
 
   void store(td::TlStorerCalcLength &s) const final;
 
@@ -6211,14 +6010,14 @@ class tonNode_sessionId final : public Object {
  public:
   std::int32_t workchain_;
   std::int64_t shard_;
-  std::int32_t utime_from_;
-  std::int32_t utime_to_;
+  std::int32_t cc_seqno_;
+  td::Bits256 opts_hash_;
 
   tonNode_sessionId();
 
-  tonNode_sessionId(std::int32_t workchain_, std::int64_t shard_, std::int32_t utime_from_, std::int32_t utime_to_);
+  tonNode_sessionId(std::int32_t workchain_, std::int64_t shard_, std::int32_t cc_seqno_, td::Bits256 const &opts_hash_);
 
-  static const std::int32_t ID = -880136334;
+  static const std::int32_t ID = 2056402618;
   std::int32_t get_id() const final {
     return ID;
   }
@@ -6290,12 +6089,13 @@ class validator_config_global final : public Object {
  public:
   object_ptr<tonNode_blockIdExt> zero_state_;
   object_ptr<tonNode_blockIdExt> init_block_;
+  std::vector<object_ptr<tonNode_blockIdExt>> hardforks_;
 
   validator_config_global();
 
-  validator_config_global(object_ptr<tonNode_blockIdExt> &&zero_state_, object_ptr<tonNode_blockIdExt> &&init_block_);
+  validator_config_global(object_ptr<tonNode_blockIdExt> &&zero_state_, object_ptr<tonNode_blockIdExt> &&init_block_, std::vector<object_ptr<tonNode_blockIdExt>> &&hardforks_);
 
-  static const std::int32_t ID = 1136592817;
+  static const std::int32_t ID = -2038562966;
   std::int32_t get_id() const final {
     return ID;
   }
@@ -6446,25 +6246,29 @@ class validatorSession_candidateId final : public Object {
   void store(td::TlStorerToString &s, const char *field_name) const final;
 };
 
-class validatorSession_id final : public Object {
+class validatorSession_config final : public Object {
  public:
-  td::Bits256 slice_;
-  std::int32_t start_time_;
-  std::int32_t end_time_;
-  std::vector<td::Bits256> participants_;
+  double catchain_idle_timeout_;
+  std::int32_t catchain_max_deps_;
+  std::int32_t round_candidates_;
+  double next_candidate_delay_;
+  std::int32_t round_attempt_duration_;
+  std::int32_t max_round_attempts_;
+  std::int32_t max_block_size_;
+  std::int32_t max_collated_data_size_;
 
-  validatorSession_id();
+  validatorSession_config();
 
-  validatorSession_id(td::Bits256 const &slice_, std::int32_t start_time_, std::int32_t end_time_, std::vector<td::Bits256> &&participants_);
+  validatorSession_config(double catchain_idle_timeout_, std::int32_t catchain_max_deps_, std::int32_t round_candidates_, double next_candidate_delay_, std::int32_t round_attempt_duration_, std::int32_t max_round_attempts_, std::int32_t max_block_size_, std::int32_t max_collated_data_size_);
 
-  static const std::int32_t ID = -22534276;
+  static const std::int32_t ID = -1235092029;
   std::int32_t get_id() const final {
     return ID;
   }
 
-  static object_ptr<validatorSession_id> fetch(td::TlParser &p);
+  static object_ptr<validatorSession_config> fetch(td::TlParser &p);
 
-  explicit validatorSession_id(td::TlParser &p);
+  explicit validatorSession_config(td::TlParser &p);
 
   void store(td::TlStorerCalcLength &s) const final;
 
@@ -6609,12 +6413,13 @@ class validatorSession_message_approvedBlock final : public validatorSession_rou
  public:
   std::int32_t round_;
   td::Bits256 candidate_;
+  td::BufferSlice signature_;
 
   validatorSession_message_approvedBlock();
 
-  validatorSession_message_approvedBlock(std::int32_t round_, td::Bits256 const &candidate_);
+  validatorSession_message_approvedBlock(std::int32_t round_, td::Bits256 const &candidate_, td::BufferSlice &&signature_);
 
-  static const std::int32_t ID = 1571844585;
+  static const std::int32_t ID = 77968769;
   std::int32_t get_id() const final {
     return ID;
   }
@@ -6700,6 +6505,32 @@ class validatorSession_message_vote final : public validatorSession_round_Messag
   static object_ptr<validatorSession_round_Message> fetch(td::TlParser &p);
 
   explicit validatorSession_message_vote(td::TlParser &p);
+
+  void store(td::TlStorerCalcLength &s) const final;
+
+  void store(td::TlStorerUnsafe &s) const final;
+
+  void store(td::TlStorerToString &s, const char *field_name) const final;
+};
+
+class validatorSession_message_voteFor final : public validatorSession_round_Message {
+ public:
+  std::int32_t round_;
+  std::int32_t attempt_;
+  td::Bits256 candidate_;
+
+  validatorSession_message_voteFor();
+
+  validatorSession_message_voteFor(std::int32_t round_, std::int32_t attempt_, td::Bits256 const &candidate_);
+
+  static const std::int32_t ID = 1643183663;
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+  static object_ptr<validatorSession_round_Message> fetch(td::TlParser &p);
+
+  explicit validatorSession_message_voteFor(td::TlParser &p);
 
   void store(td::TlStorerCalcLength &s) const final;
 
@@ -6961,12 +6792,12 @@ class dht_getSignedAddressList final : public Function {
 
   dht_getSignedAddressList();
 
-  static const std::int32_t ID = 960283782;
+  static const std::int32_t ID = -1451669267;
   std::int32_t get_id() const final {
     return ID;
   }
 
-  using ReturnType = object_ptr<adnl_node>;
+  using ReturnType = object_ptr<dht_node>;
 
   static object_ptr<dht_getSignedAddressList> fetch(td::TlParser &p);
 
@@ -7094,6 +6925,66 @@ class engine_validator_addAdnlId final : public Function {
   static ReturnType fetch_result(td::TlParser &p);
 };
 
+class engine_validator_addControlInterface final : public Function {
+ public:
+  td::Bits256 key_hash_;
+  std::int32_t port_;
+
+  engine_validator_addControlInterface();
+
+  engine_validator_addControlInterface(td::Bits256 const &key_hash_, std::int32_t port_);
+
+  static const std::int32_t ID = 881587196;
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+  using ReturnType = object_ptr<engine_validator_success>;
+
+  static object_ptr<engine_validator_addControlInterface> fetch(td::TlParser &p);
+
+  explicit engine_validator_addControlInterface(td::TlParser &p);
+
+  void store(td::TlStorerCalcLength &s) const final;
+
+  void store(td::TlStorerUnsafe &s) const final;
+
+  void store(td::TlStorerToString &s, const char *field_name) const final;
+
+  static ReturnType fetch_result(td::TlParser &p);
+};
+
+class engine_validator_addControlProcess final : public Function {
+ public:
+  td::Bits256 key_hash_;
+  std::int32_t port_;
+  td::Bits256 peer_key_;
+  std::int32_t permissions_;
+
+  engine_validator_addControlProcess();
+
+  engine_validator_addControlProcess(td::Bits256 const &key_hash_, std::int32_t port_, td::Bits256 const &peer_key_, std::int32_t permissions_);
+
+  static const std::int32_t ID = 1524692816;
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+  using ReturnType = object_ptr<engine_validator_success>;
+
+  static object_ptr<engine_validator_addControlProcess> fetch(td::TlParser &p);
+
+  explicit engine_validator_addControlProcess(td::TlParser &p);
+
+  void store(td::TlStorerCalcLength &s) const final;
+
+  void store(td::TlStorerUnsafe &s) const final;
+
+  void store(td::TlStorerToString &s, const char *field_name) const final;
+
+  static ReturnType fetch_result(td::TlParser &p);
+};
+
 class engine_validator_addDhtId final : public Function {
  public:
   td::Bits256 key_hash_;
@@ -7153,17 +7044,50 @@ class engine_validator_addListeningPort final : public Function {
   static ReturnType fetch_result(td::TlParser &p);
 };
 
+class engine_validator_addLiteserver final : public Function {
+ public:
+  td::Bits256 key_hash_;
+  std::int32_t port_;
+
+  engine_validator_addLiteserver();
+
+  engine_validator_addLiteserver(td::Bits256 const &key_hash_, std::int32_t port_);
+
+  static const std::int32_t ID = -259387577;
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+  using ReturnType = object_ptr<engine_validator_success>;
+
+  static object_ptr<engine_validator_addLiteserver> fetch(td::TlParser &p);
+
+  explicit engine_validator_addLiteserver(td::TlParser &p);
+
+  void store(td::TlStorerCalcLength &s) const final;
+
+  void store(td::TlStorerUnsafe &s) const final;
+
+  void store(td::TlStorerToString &s, const char *field_name) const final;
+
+  static ReturnType fetch_result(td::TlParser &p);
+};
+
 class engine_validator_addProxy final : public Function {
  public:
-  std::int32_t ip_;
-  std::int32_t port_;
+  std::int32_t in_ip_;
+  std::int32_t in_port_;
+  std::int32_t out_ip_;
+  std::int32_t out_port_;
+  object_ptr<adnl_Proxy> proxy_;
   std::vector<std::int32_t> categories_;
+  std::vector<std::int32_t> priority_categories_;
 
   engine_validator_addProxy();
 
-  engine_validator_addProxy(std::int32_t ip_, std::int32_t port_, std::vector<std::int32_t> &&categories_);
+  engine_validator_addProxy(std::int32_t in_ip_, std::int32_t in_port_, std::int32_t out_ip_, std::int32_t out_port_, object_ptr<adnl_Proxy> &&proxy_, std::vector<std::int32_t> &&categories_, std::vector<std::int32_t> &&priority_categories_);
 
-  static const std::int32_t ID = -928278296;
+  static const std::int32_t ID = -151178251;
   std::int32_t get_id() const final {
     return ID;
   }
@@ -7272,25 +7196,24 @@ class engine_validator_addValidatorTempKey final : public Function {
   static ReturnType fetch_result(td::TlParser &p);
 };
 
-class engine_validator_changePassword final : public Function {
+class engine_validator_changeFullNodeAdnlAddress final : public Function {
  public:
-  td::BufferSlice old_password_;
-  td::BufferSlice new_password_;
+  td::Bits256 adnl_id_;
 
-  engine_validator_changePassword();
+  engine_validator_changeFullNodeAdnlAddress();
 
-  engine_validator_changePassword(td::BufferSlice &&old_password_, td::BufferSlice &&new_password_);
+  explicit engine_validator_changeFullNodeAdnlAddress(td::Bits256 const &adnl_id_);
 
-  static const std::int32_t ID = 2123920564;
+  static const std::int32_t ID = -1094268539;
   std::int32_t get_id() const final {
     return ID;
   }
 
   using ReturnType = object_ptr<engine_validator_success>;
 
-  static object_ptr<engine_validator_changePassword> fetch(td::TlParser &p);
+  static object_ptr<engine_validator_changeFullNodeAdnlAddress> fetch(td::TlParser &p);
 
-  explicit engine_validator_changePassword(td::TlParser &p);
+  explicit engine_validator_changeFullNodeAdnlAddress(td::TlParser &p);
 
   void store(td::TlStorerCalcLength &s) const final;
 
@@ -7331,10 +7254,13 @@ class engine_validator_controlQuery final : public Function {
 
 class engine_validator_delAdnlId final : public Function {
  public:
+  td::Bits256 key_hash_;
 
   engine_validator_delAdnlId();
 
-  static const std::int32_t ID = 1513520476;
+  explicit engine_validator_delAdnlId(td::Bits256 const &key_hash_);
+
+  static const std::int32_t ID = 691696882;
   std::int32_t get_id() const final {
     return ID;
   }
@@ -7344,6 +7270,34 @@ class engine_validator_delAdnlId final : public Function {
   static object_ptr<engine_validator_delAdnlId> fetch(td::TlParser &p);
 
   explicit engine_validator_delAdnlId(td::TlParser &p);
+
+  void store(td::TlStorerCalcLength &s) const final;
+
+  void store(td::TlStorerUnsafe &s) const final;
+
+  void store(td::TlStorerToString &s, const char *field_name) const final;
+
+  static ReturnType fetch_result(td::TlParser &p);
+};
+
+class engine_validator_delDhtId final : public Function {
+ public:
+  td::Bits256 key_hash_;
+
+  engine_validator_delDhtId();
+
+  explicit engine_validator_delDhtId(td::Bits256 const &key_hash_);
+
+  static const std::int32_t ID = -2063770818;
+  std::int32_t get_id() const final {
+    return ID;
+  }
+
+  using ReturnType = object_ptr<engine_validator_success>;
+
+  static object_ptr<engine_validator_delDhtId> fetch(td::TlParser &p);
+
+  explicit engine_validator_delDhtId(td::TlParser &p);
 
   void store(td::TlStorerCalcLength &s) const final;
 
@@ -7387,15 +7341,16 @@ class engine_validator_delListeningPort final : public Function {
 
 class engine_validator_delProxy final : public Function {
  public:
-  std::int32_t ip_;
-  std::int32_t port_;
+  std::int32_t out_ip_;
+  std::int32_t out_port_;
   std::vector<std::int32_t> categories_;
+  std::vector<std::int32_t> priority_categories_;
 
   engine_validator_delProxy();
 
-  engine_validator_delProxy(std::int32_t ip_, std::int32_t port_, std::vector<std::int32_t> &&categories_);
+  engine_validator_delProxy(std::int32_t out_ip_, std::int32_t out_port_, std::vector<std::int32_t> &&categories_, std::vector<std::int32_t> &&priority_categories_);
 
-  static const std::int32_t ID = -1614543923;
+  static const std::int32_t ID = 1970850941;
   std::int32_t get_id() const final {
     return ID;
   }
@@ -7417,13 +7372,14 @@ class engine_validator_delProxy final : public Function {
 
 class engine_validator_delValidatorAdnlAddress final : public Function {
  public:
+  td::Bits256 permanent_key_hash_;
   td::Bits256 key_hash_;
 
   engine_validator_delValidatorAdnlAddress();
 
-  explicit engine_validator_delValidatorAdnlAddress(td::Bits256 const &key_hash_);
+  engine_validator_delValidatorAdnlAddress(td::Bits256 const &permanent_key_hash_, td::Bits256 const &key_hash_);
 
-  static const std::int32_t ID = -658732960;
+  static const std::int32_t ID = -150453414;
   std::int32_t get_id() const final {
     return ID;
   }
@@ -7473,13 +7429,14 @@ class engine_validator_delValidatorPermanentKey final : public Function {
 
 class engine_validator_delValidatorTempKey final : public Function {
  public:
+  td::Bits256 permanent_key_hash_;
   td::Bits256 key_hash_;
 
   engine_validator_delValidatorTempKey();
 
-  explicit engine_validator_delValidatorTempKey(td::Bits256 const &key_hash_);
+  engine_validator_delValidatorTempKey(td::Bits256 const &permanent_key_hash_, td::Bits256 const &key_hash_);
 
-  static const std::int32_t ID = 737279708;
+  static const std::int32_t ID = -1595481903;
   std::int32_t get_id() const final {
     return ID;
   }
@@ -7585,12 +7542,12 @@ class engine_validator_getConfig final : public Function {
 
   engine_validator_getConfig();
 
-  static const std::int32_t ID = -665383871;
+  static const std::int32_t ID = 1504518693;
   std::int32_t get_id() const final {
     return ID;
   }
 
-  using ReturnType = object_ptr<engine_validator_config>;
+  using ReturnType = object_ptr<engine_validator_jsonConfig>;
 
   static object_ptr<engine_validator_getConfig> fetch(td::TlParser &p);
 
@@ -7655,34 +7612,6 @@ class engine_validator_getTime final : public Function {
   static ReturnType fetch_result(td::TlParser &p);
 };
 
-class engine_validator_importLocalKey final : public Function {
- public:
-  td::Bits256 key_hash_;
-
-  engine_validator_importLocalKey();
-
-  explicit engine_validator_importLocalKey(td::Bits256 const &key_hash_);
-
-  static const std::int32_t ID = 202835227;
-  std::int32_t get_id() const final {
-    return ID;
-  }
-
-  using ReturnType = object_ptr<engine_validator_keyHash>;
-
-  static object_ptr<engine_validator_importLocalKey> fetch(td::TlParser &p);
-
-  explicit engine_validator_importLocalKey(td::TlParser &p);
-
-  void store(td::TlStorerCalcLength &s) const final;
-
-  void store(td::TlStorerUnsafe &s) const final;
-
-  void store(td::TlStorerToString &s, const char *field_name) const final;
-
-  static ReturnType fetch_result(td::TlParser &p);
-};
-
 class engine_validator_importPrivateKey final : public Function {
  public:
   object_ptr<PrivateKey> key_;
@@ -7711,24 +7640,24 @@ class engine_validator_importPrivateKey final : public Function {
   static ReturnType fetch_result(td::TlParser &p);
 };
 
-class engine_validator_setPassword final : public Function {
+class engine_validator_setVerbosity final : public Function {
  public:
-  td::BufferSlice password_;
+  std::int32_t verbosity_;
 
-  engine_validator_setPassword();
+  engine_validator_setVerbosity();
 
-  explicit engine_validator_setPassword(td::BufferSlice &&password_);
+  explicit engine_validator_setVerbosity(std::int32_t verbosity_);
 
-  static const std::int32_t ID = -989159111;
+  static const std::int32_t ID = -1316856190;
   std::int32_t get_id() const final {
     return ID;
   }
 
   using ReturnType = object_ptr<engine_validator_success>;
 
-  static object_ptr<engine_validator_setPassword> fetch(td::TlParser &p);
+  static object_ptr<engine_validator_setVerbosity> fetch(td::TlParser &p);
 
-  explicit engine_validator_setPassword(td::TlParser &p);
+  explicit engine_validator_setVerbosity(td::TlParser &p);
 
   void store(td::TlStorerCalcLength &s) const final;
 
@@ -7741,13 +7670,14 @@ class engine_validator_setPassword final : public Function {
 
 class engine_validator_sign final : public Function {
  public:
+  td::Bits256 key_hash_;
   td::BufferSlice data_;
 
   engine_validator_sign();
 
-  explicit engine_validator_sign(td::BufferSlice &&data_);
+  engine_validator_sign(td::Bits256 const &key_hash_, td::BufferSlice &&data_);
 
-  static const std::int32_t ID = -187292451;
+  static const std::int32_t ID = 451549736;
   std::int32_t get_id() const final {
     return ID;
   }

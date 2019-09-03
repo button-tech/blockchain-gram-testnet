@@ -1,10 +1,9 @@
 file(REMOVE_RECURSE
   "CMakeFiles/test-tdutils.dir/test/test-td-main.cpp.o"
   "CMakeFiles/test-tdutils.dir/tdutils/test/buffer.cpp.o"
-  "CMakeFiles/test-tdutils.dir/tdutils/test/crypto.cpp.o"
   "CMakeFiles/test-tdutils.dir/tdutils/test/ConcurrentHashMap.cpp.o"
+  "CMakeFiles/test-tdutils.dir/tdutils/test/crypto.cpp.o"
   "CMakeFiles/test-tdutils.dir/tdutils/test/Enumerator.cpp.o"
-  "CMakeFiles/test-tdutils.dir/tdutils/test/EpochBasedMemoryReclamation.cpp.o"
   "CMakeFiles/test-tdutils.dir/tdutils/test/filesystem.cpp.o"
   "CMakeFiles/test-tdutils.dir/tdutils/test/gzip.cpp.o"
   "CMakeFiles/test-tdutils.dir/tdutils/test/HazardPointers.cpp.o"

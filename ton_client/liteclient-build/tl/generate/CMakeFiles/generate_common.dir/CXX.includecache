@@ -119,8 +119,6 @@ td/utils/common.h
 /root/lite-client/tdutils/td/utils/td/utils/common.h
 type_traits
 -
-limits
--
 
 /root/lite-client/tdutils/td/utils/Slice.h
 td/utils/common.h
@@ -199,8 +197,6 @@ td/utils/Slice.h
 /root/lite-client/tdutils/td/utils/td/utils/Slice.h
 atomic
 -
-cstring
--
 limits
 -
 memory
@@ -213,11 +209,11 @@ td/utils/config.h
 /root/lite-client/tdutils/td/utils/td/utils/config.h
 td/utils/port/platform.h
 /root/lite-client/tdutils/td/utils/td/utils/port/platform.h
-Winsock2.h
+WinSock2.h
 -
-ws2tcpip.h
+WS2tcpip.h
 -
-Mswsock.h
+MSWSock.h
 -
 Windows.h
 -
@@ -286,8 +282,6 @@ limits
 type_traits
 -
 utility
--
-string
 -
 
 /root/lite-client/tdutils/td/utils/port/config.h

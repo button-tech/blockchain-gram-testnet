@@ -35,6 +35,12 @@ bool downcast_call(Object &obj, const T &func) {
     case liteServer_blockHeader::ID:
       func(static_cast<liteServer_blockHeader &>(obj));
       return true;
+    case liteServer_blockLinkBack::ID:
+      func(static_cast<liteServer_blockLinkBack &>(obj));
+      return true;
+    case liteServer_blockLinkForward::ID:
+      func(static_cast<liteServer_blockLinkForward &>(obj));
+      return true;
     case liteServer_blockState::ID:
       func(static_cast<liteServer_blockState &>(obj));
       return true;
@@ -50,11 +56,20 @@ bool downcast_call(Object &obj, const T &func) {
     case liteServer_masterchainInfo::ID:
       func(static_cast<liteServer_masterchainInfo &>(obj));
       return true;
+    case liteServer_partialBlockProof::ID:
+      func(static_cast<liteServer_partialBlockProof &>(obj));
+      return true;
     case liteServer_sendMsgStatus::ID:
       func(static_cast<liteServer_sendMsgStatus &>(obj));
       return true;
     case liteServer_shardInfo::ID:
       func(static_cast<liteServer_shardInfo &>(obj));
+      return true;
+    case liteServer_signature::ID:
+      func(static_cast<liteServer_signature &>(obj));
+      return true;
+    case liteServer_signatureSet::ID:
+      func(static_cast<liteServer_signatureSet &>(obj));
       return true;
     case liteServer_transactionId::ID:
       func(static_cast<liteServer_transactionId &>(obj));
@@ -94,9 +109,6 @@ bool downcast_call(Object &obj, const T &func) {
 template <class T>
 bool downcast_call(Function &obj, const T &func) {
   switch (obj.get_id()) {
-    case liteServer_debug_setVerbosity::ID:
-      func(static_cast<liteServer_debug_setVerbosity &>(obj));
-      return true;
     case liteServer_getAccountState::ID:
       func(static_cast<liteServer_getAccountState &>(obj));
       return true;
@@ -108,6 +120,9 @@ bool downcast_call(Function &obj, const T &func) {
       return true;
     case liteServer_getBlockHeader::ID:
       func(static_cast<liteServer_getBlockHeader &>(obj));
+      return true;
+    case liteServer_getBlockProof::ID:
+      func(static_cast<liteServer_getBlockProof &>(obj));
       return true;
     case liteServer_getMasterchainInfo::ID:
       func(static_cast<liteServer_getMasterchainInfo &>(obj));
@@ -158,6 +173,26 @@ bool downcast_call(adnl_Message &obj, const T &func) {
       return true;
     case adnl_message_answer::ID:
       func(static_cast<adnl_message_answer &>(obj));
+      return true;
+    default:
+      return false;
+  }
+}
+
+/**
+ * Calls specified function object with the specified object downcasted to the most-derived type.
+ * \param[in] obj Object to pass as an argument to the function object.
+ * \param[in] func Function object to which the object will be passed.
+ * \returns whether function object call has happened. Should always return true for correct parameters.
+ */
+template <class T>
+bool downcast_call(liteServer_BlockLink &obj, const T &func) {
+  switch (obj.get_id()) {
+    case liteServer_blockLinkBack::ID:
+      func(static_cast<liteServer_blockLinkBack &>(obj));
+      return true;
+    case liteServer_blockLinkForward::ID:
+      func(static_cast<liteServer_blockLinkForward &>(obj));
       return true;
     default:
       return false;

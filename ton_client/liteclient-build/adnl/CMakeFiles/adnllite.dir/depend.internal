@@ -48,7 +48,6 @@ adnl/CMakeFiles/adnllite.dir/adnl-ext-client.cpp.o
  /root/lite-client/tdutils/td/utils/Destructor.h
  /root/lite-client/tdutils/td/utils/HazardPointers.h
  /root/lite-client/tdutils/td/utils/Heap.h
- /root/lite-client/tdutils/td/utils/JsonBuilder.h
  /root/lite-client/tdutils/td/utils/List.h
  /root/lite-client/tdutils/td/utils/MovableValue.h
  /root/lite-client/tdutils/td/utils/MpmcQueue.h
@@ -56,7 +55,6 @@ adnl/CMakeFiles/adnllite.dir/adnl-ext-client.cpp.o
  /root/lite-client/tdutils/td/utils/MpscLinkQueue.h
  /root/lite-client/tdutils/td/utils/MpscPollableQueue.h
  /root/lite-client/tdutils/td/utils/Observer.h
- /root/lite-client/tdutils/td/utils/Parser.h
  /root/lite-client/tdutils/td/utils/Random.h
  /root/lite-client/tdutils/td/utils/ScopeGuard.h
  /root/lite-client/tdutils/td/utils/SharedObjectPool.h
