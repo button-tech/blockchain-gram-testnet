@@ -2,7 +2,7 @@
 
 # for debian dep
 apt-get update && apt-get upgrade
-apt-get install tmux fish libssl-dev zlib1g-dev cmake g++ less
+apt-get install tmux fish libssl-dev zlib1g-dev cmake g++ less gperf
 
 # download tar and unpack
 wget https://test.ton.org/ton-test-liteclient-full.tar.xz
