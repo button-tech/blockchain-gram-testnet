@@ -1,4 +1,8 @@
 #!/bin/bash
+
+
+apt-get update && apt-get upgrade
+apt-get install tmux fish libssl-dev zlib1g-dev cmake g++ less gperf
 cd /root
 wget https://test.ton.org/ton-blockchain-full.tar.xz
 tar -xvf ton-blockchain-full.tar.xz
