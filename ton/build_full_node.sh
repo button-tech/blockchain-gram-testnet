@@ -28,5 +28,3 @@ ExecStart=/root/ton-build/validator-engine/validator-engine -C /var/ton-work/etc
 WantedBy=multi-user.target
 EOF
 systemctl daemon-reload
-systemctl enable ton-node
-service ton-node start
