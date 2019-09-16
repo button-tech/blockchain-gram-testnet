@@ -1,8 +1,7 @@
 #!/bin/bash
 
-
-apt-get update && apt-get upgrade
-apt-get install tmux fish libssl-dev zlib1g-dev cmake g++ less gperf
+apt-get update
+apt-get install tmux fish libssl-dev zlib1g-dev cmake g++ less gperf -y
 cd /root
 wget https://test.ton.org/ton-blockchain-full.tar.xz
 tar -xvf ton-blockchain-full.tar.xz
@@ -32,3 +31,7 @@ ExecStart=/root/ton-build/validator-engine/validator-engine -C /var/ton-work/etc
 WantedBy=multi-user.target
 EOF
 systemctl daemon-reload
+# service ton-node start
+
+# for generate keypair
+# /root/ton-build/utils/generate-random-id -m keys -n liteserver

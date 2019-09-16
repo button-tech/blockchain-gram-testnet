@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# for debian dep
 apt-get update && apt-get upgrade
 apt-get install tmux fish libssl-dev zlib1g-dev cmake g++ less gperf
 
