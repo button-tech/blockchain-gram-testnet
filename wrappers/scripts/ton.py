@@ -43,7 +43,7 @@ def gen_addr_and_get_faucet(catalog_id, network="-1"):
 
             data["catalogId"] = catalog_id
 
-            nonce_first = get_nonce("8156775b79325e5d62e742d9b96c30b6515a5cd2f1f64c5da4b193c03f070e0d")
+            nonce_first = get_nonce("FCB91A3A3816D0F7B8C2C76108B8A9BC5A6B7A55BD79F8AB101C52DB29232260")
 
             ### get test grams
 
@@ -246,7 +246,7 @@ def create_giver_file(sender_id, pub, nonce, network="-1"):
     text = '''
             "''' + workdir + '''/lite-client/crypto/fift/lib/TonUtil.fif" include
             // "testgiver.addr" load-address 
-            Masterchain 0x8156775b79325e5d62e742d9b96c30b6515a5cd2f1f64c5da4b193c03f070e0d
+            Masterchain 0xFCB91A3A3816D0F7B8C2C76108B8A9BC5A6B7A55BD79F8AB101C52DB29232260
             2constant giver_addr
             ."Test giver address = " giver_addr 2dup .addr cr 6 .Addr cr
 
