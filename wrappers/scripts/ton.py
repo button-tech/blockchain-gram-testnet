@@ -187,7 +187,7 @@ def send(content):
             if create_send_fift(sender_id, pub_rec, pub_sender, amount, nonce, network) != True:
                     return False
 
-            os.system(f"{workdir}/liteclient-build/crypto/fift -I {workdir}/lite-client/crypto/fift/lib/ {workdir}/{chain}/{sender_id}/send.fift 1>/dev/null")
+            os.system(f"{workdir}/liteclient-build/crypto/fift -I {workdir}/lite-client/crypto/fift/lib/ -s {workdir}/{chain}/{sender_id}/send.fift {sender_id} {network + pub_rec} {nonce} {amount} 1>/dev/null")
             os.system(f"mv {workdir}/send-{pub_sender}-{pub_rec}.boc {workdir}/{chain}/{sender_id}")
 
             _ = subprocess.getoutput(f"{workdir}/cli_exec/last {workdir}")
@@ -357,35 +357,52 @@ def create_send_fift(catalog_id, pub_rec, pub_sender, amount, nonce, network="-1
 
     path = f"{workdir}/{chain}/{catalog_id}/"
 
-    text = ''' "''' + path + catalog_id + '''.addr" file>B 256 B>u@ dup constant wallet_addr
-    ."Wallet address = " x. cr
-    "''' + path + catalog_id + '''.pk" file>B dup Blen 32 <> abort"Private key must be exactly 32 bytes long"
-    constant wallet_pk
+    text =  '''
+    "TonUtil.fif" include
 
-    0x''' + pub_rec + ''' constant dest_addr
-    ''' + network +''' constant wc
-    0x''' + nonce + ''' constant seqno
+{ ."usage: " @' $0 type ." <filename-base> <dest-addr> <seqno> <amount> [-B <body-boc>] [<savefile>]" cr
+  ."Creates a request to simple wallet created by new-wallet.fif, with private key loaded from file <filename-base>.pk "
+  ."and address from <filename-base>.addr, and saves it into <savefile>.boc ('wallet-query.boc' by default)" cr 1 halt
+} : usage
+  $# dup 4 < swap 5 > or ' usage if
+  def? $6 { @' $5 "-B" $= { @' $6 =: body-boc-file [forget] $6 def? $7 { @' $7 =: $5 [forget] $7 } { [forget] $5 } cond
+   @' $# 2- =: $# } if } if
 
-    1000000000 constant Gram
-    { Gram swap */ } : Gram*/
+   true constant bounce
 
-    '''+ amount + ''' Gram*/ constant amount
+   $1 =: file-base
+   $2 bounce parse-load-address =: bounce 2=: dest_addr
+    $3 =: seqno
+$4 $>GR =: amount
+def? $5 { @' $5 } { "wallet-query" } cond constant savefile
 
-    // b x --> b'  ( serializes a Gram amount )
-    { -1 { 1+ 2dup 8 * ufits } until
-    rot over 4 u, -rot 8 * u, } : Gram,
+file-base +".addr" load-address
+2dup 2constant wallet_addr
+."Source wallet address = " 2dup .addr cr 6 .Addr cr
+file-base +".pk" load-keypair nip constant wallet_pk
 
-    // create a message
-    <b b{011000100} s, wc 8 i, dest_addr 256 u, amount Gram, 0 9 64 32 + + 1+ 1+ u, "TEST" $, b>
-    <b seqno 32 u, 1 8 u, swap ref, b>
-    dup ."signing message: " <s csr. cr
-    dup hash wallet_pk ed25519_sign_uint
-    <b b{1000100} s, wc 8 i, wallet_addr 256 u, 0 Gram, b{00} s,
-    swap B, swap <s s, b>
-    dup ."resulting external message: " <s csr. cr
-    2 boc+>B dup Bx. cr
-    "send-''' + pub_sender + "-" + pub_rec + '''.boc" B>file'''
+def? body-boc-file { @' body-boc-file file>B B>boc } { <b "TEST" $, b> } cond
+constant body-cell
 
+."Transferring " amount .GR ."to account "
+dest_addr 2dup bounce 7 + .Addr ." = " .addr 
+."bounce=" bounce . cr
+."Body of transfer message is " body-cell <s csr. cr
+  
+// create a message
+<b b{01} s, bounce 1 i, b{000100} s, dest_addr addr, amount Gram, 0 9 64 32 + + 1+ u, 
+  body-cell <s 2dup s-fits? not rot over 1 i, -rot { drop body-cell ref, } { s, } cond
+b>
+<b seqno 32 u, 1 8 u, swap ref, b>
+dup ."signing message: " <s csr. cr
+dup hash wallet_pk ed25519_sign_uint
+<b b{1000100} s, wallet_addr addr, 0 Gram, b{00} s,
+   swap B, swap <s s, b>
+dup ."resulting external message: " <s csr. cr
+2 boc+>B dup Bx. cr
+"send-''' + pub_sender + "-" + pub_rec + '''.boc" tuck B>file
+."(Saved to file " type .")" cr
+'''
     try:
         with open(f'{workdir}/{chain}/{catalog_id}/send.fift', "w") as f:
             f.write(text)

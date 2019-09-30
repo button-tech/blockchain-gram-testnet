@@ -267,6 +267,19 @@ func main() {
 		c.Data(resp.Response().StatusCode, "application/json", resp.Bytes())
 	})
 
+	r.POST("/sendGrams", func(c *gin.Context) {
+
+		host := rr.Next()
+
+		resp, err := req.Post(host.Host+"/sendGrams", jsonHeader, c.Request.Body)
+		if err != nil {
+			c.JSON(500, err.Error())
+			return
+		}
+
+		c.Data(resp.Response().StatusCode, "application/json", resp.Bytes())
+	})
+
 	if err := r.Run(":80"); err != nil {
 		log.Println(err)
 		os.Exit(1)

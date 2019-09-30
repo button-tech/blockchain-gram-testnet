@@ -474,6 +474,52 @@ func main() {
 
 	})
 
+	r.POST("/sendGrams", func(c *gin.Context) {
+		var p TxParams
+
+		err := c.BindJSON(&p)
+		if err != nil {
+			c.JSON(500, err)
+			return
+		}
+
+		if len(p.Network) == 0 {
+			p.Network = "-1"
+		}
+
+		cmd := exec.Command(workdir+"/send_grams.py", p.SenderId, p.SenderPub, p.RecipientPub, p.Amount, p.Network)
+		stdout, err := cmd.Output()
+		if err != nil {
+			c.JSON(500, err.Error())
+			return
+		}
+
+		if string(stdout) == "error\n" {
+			c.JSON(500, err.Error())
+			return
+		}
+
+		txResult := struct {
+			SenderTxHash    string `json:"senderTxHash"`
+			RecipientTxHash string `json:"recipientTxHash"`
+		}{}
+
+		hash := strings.TrimSuffix(string(stdout), "\n")
+		hash = strings.Replace(hash, "'", "\"", -1)
+
+		err = json.Unmarshal([]byte(hash), &txResult)
+		if err != nil {
+			c.JSON(500, err.Error())
+			return
+		}
+
+		p.SenderTxHash = txResult.SenderTxHash
+		p.RecipientTxHash = txResult.RecipientTxHash
+		p.Success = true
+
+		c.JSON(200, p)
+	})
+
 	if err := r.Run(":80"); err != nil {
 		log.Println(err)
 		os.Exit(1)
