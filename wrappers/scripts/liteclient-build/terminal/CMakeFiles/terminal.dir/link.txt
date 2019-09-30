@@ -1,2 +1,0 @@
-ccache /Library/Developer/CommandLineTools/usr/bin/ar qc libterminal.a  CMakeFiles/terminal.dir/terminal.cpp.o
-ccache /Library/Developer/CommandLineTools/usr/bin/ranlib libterminal.a

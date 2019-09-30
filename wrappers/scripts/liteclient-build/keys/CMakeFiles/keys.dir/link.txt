@@ -1,2 +1,0 @@
-ccache /Library/Developer/CommandLineTools/usr/bin/ar qc libkeys.a  CMakeFiles/keys.dir/keys.cpp.o CMakeFiles/keys.dir/encryptor.cpp.o
-ccache /Library/Developer/CommandLineTools/usr/bin/ranlib libkeys.a
