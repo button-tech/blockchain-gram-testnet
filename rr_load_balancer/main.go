@@ -190,6 +190,19 @@ func main() {
 		c.Data(resp.Response().StatusCode, "application/json", resp.Bytes())
 	})
 
+	r.GET("/regAccount/:catalog", func(c *gin.Context) {
+
+		host := rr.Next()
+
+		resp, err := req.Get(UrlGen(c.Request.URL.Query().Get("network"), "regAccount", host.Host, c.Param("catalog")))
+		if err != nil {
+			c.JSON(500, err.Error())
+			return
+		}
+
+		c.Data(resp.Response().StatusCode, "application/json", resp.Bytes())
+	})
+
 	r.POST("/generateAccount", func(c *gin.Context) {
 
 		host := rr.Next()

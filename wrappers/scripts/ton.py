@@ -52,7 +52,6 @@ def generate_addr(catalog_id, network="-1"):
             data["catalogId"] = catalog_id
 
             os.system(f"rm {workdir}/{chain}/{catalog_id}/*.fift")
-            os.system(f"rm {workdir}/{chain}/{catalog_id}/*.boc")
 
             with open(f'{workdir}/{chain}/{catalog_id}/pub.json', 'w') as f:
                 json.dump(data, f)   
@@ -462,3 +461,19 @@ def get_three_addresses(pub, network, catalog_id):
         return stdoutdata.split("\n")
     except:
         return False
+
+def reg_account(catalog_id, network):
+    chain = ""
+
+    if network == "-1":
+        chain = "masterchain"
+    elif network == "0":
+        chain = "basechain"
+    try:
+        subprocess.getoutput(f"{workdir}/cli_exec/send_address {workdir} {catalog_id} {chain}")
+        subprocess.getoutput(f"{workdir}/cli_exec/last {workdir}")
+        return True
+    except:
+        return False
+
+

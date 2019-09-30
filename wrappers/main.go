@@ -362,24 +362,6 @@ func main() {
 		c.JSON(200, result)
 	})
 
-	r.POST("/sGenerateAndFaucet", func(c *gin.Context) {
-		var p GeneratedAccount
-
-		err := c.BindJSON(&p)
-		if err != nil {
-			c.JSON(500, err)
-			return
-		}
-
-		result, err := sGenerate(p, "gen_and_faucet.py")
-		if err != nil {
-			c.JSON(500, err)
-			return
-		}
-
-		c.JSON(200, result)
-	})
-
 	r.GET("/getLastTxHash/:address", func(c *gin.Context) {
 
 		network := c.Request.URL.Query().Get("network")
@@ -406,6 +388,51 @@ func main() {
 		hash := strings.TrimSuffix(string(stdout), "\n")
 
 		c.JSON(200, gin.H{"txHash": hash})
+	})
+
+	r.GET("/regAccount/:catalog", func(c *gin.Context) {
+		network := c.Request.URL.Query().Get("network")
+
+		if network == "masterchain" {
+			network = "-1"
+		} else if network == "basechain" {
+			network = "0"
+		} else if len(network) == 0 {
+			network = "-1"
+		}
+
+		cmd := exec.Command(workdir+"/reg_account.py", c.Param("catalog"), network)
+		stdout, err := cmd.Output()
+		if err != nil {
+			c.JSON(500, err.Error())
+			return
+		}
+		if string(stdout) == "False\n" {
+			c.JSON(500, gin.H{"reg": "error"})
+			return
+		} else if string(stdout) == "True\n" {
+			c.JSON(200, gin.H{"reg": "nice"})
+			return
+		}
+
+	})
+
+	r.POST("/sGenerateAndFaucet", func(c *gin.Context) {
+		var p GeneratedAccount
+
+		err := c.BindJSON(&p)
+		if err != nil {
+			c.JSON(500, err)
+			return
+		}
+
+		result, err := sGenerate(p, "gen_and_faucet.py")
+		if err != nil {
+			c.JSON(500, err)
+			return
+		}
+
+		c.JSON(200, result)
 	})
 
 	r.POST("/send", func(c *gin.Context) {
