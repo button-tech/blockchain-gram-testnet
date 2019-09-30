@@ -35,7 +35,7 @@ def generate_addr(catalog_id, network="-1"):
 
             public_key_f = stdoutdata[begin:begin + 64]
 
-            if len(public_key_f) != 64:
+            if len(public_key_f) != 64 or public_key_f[len(ppublic_key_f)-1] == " ":
                 return False
 
             addresses_list = get_three_addresses(public_key_f, catalog_id, network)
@@ -89,7 +89,7 @@ def gen_addr_and_get_faucet(catalog_id, network="-1"):
 
             public_key_f = stdoutdata[begin:begin + 64]
 
-            if len(public_key_f) != 64:
+            if len(public_key_f) != 64 or public_key_f[len(ppublic_key_f)-1] == " ":
                 return False
 
             addresses_list = get_three_addresses(public_key_f, catalog_id, network)
