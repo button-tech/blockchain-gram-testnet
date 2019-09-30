@@ -112,6 +112,19 @@ func main() {
 		c.Data(resp.Response().StatusCode, "application/json", resp.Bytes())
 	})
 
+	r.GET("/giverBalance", func(c *gin.Context) {
+
+		host := rr.Next()
+
+		resp, err := req.Get(UrlGen("-1", "getBalance", host.Host, "fcb91a3a3816d0f7b8c2c76108b8a9bc5a6b7a55bd79f8ab101c52db29232260"))
+		if err != nil {
+			c.JSON(500, err.Error())
+			return
+		}
+
+		c.Data(resp.Response().StatusCode, "application/json", resp.Bytes())
+	})
+
 	r.GET("/getAccount/:catalog", func(c *gin.Context) {
 
 		host := rr.Next()
@@ -195,6 +208,19 @@ func main() {
 		host := rr.Next()
 
 		resp, err := req.Post(host.Host+"/sGenerate", jsonHeader, c.Request.Body)
+		if err != nil {
+			c.JSON(500, err.Error())
+			return
+		}
+
+		c.Data(resp.Response().StatusCode, "application/json", resp.Bytes())
+	})
+
+	r.POST("/sGenerateAndFaucet", func(c *gin.Context) {
+
+		host := rr.Next()
+
+		resp, err := req.Post(host.Host+"/sGenerateAndFaucet", jsonHeader, c.Request.Body)
 		if err != nil {
 			c.JSON(500, err.Error())
 			return

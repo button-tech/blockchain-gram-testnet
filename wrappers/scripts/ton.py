@@ -5,6 +5,53 @@ import time
 
 workdir = os.environ["WORKDIR"]
 
+def generate_addr(catalog_id, network="-1"):
+    try:
+
+        chain = ""
+
+        if network == "-1":
+            chain = "masterchain"
+        elif network == "0":
+            chain = "basechain"
+
+        data = {}
+
+        if os.path.isdir(f'{workdir}/{chain}/{catalog_id}') == False:
+            os.system(f'mkdir -p {workdir}/{chain}/{catalog_id}')
+            if create_new_wallet_file(catalog_id, network) != True:
+                return False
+
+            stdoutdata = subprocess.getoutput(f"{workdir}/liteclient-build/crypto/fift -I {workdir}/lite-client/crypto/fift/lib/ {workdir}/{chain}/{catalog_id}/create_wallet.fift")
+
+            os.system(f"mv {workdir}/{catalog_id}.* {workdir}/{chain}/{catalog_id}")
+
+            begin = stdoutdata.find(f"new wallet address = {network} :")
+
+            if network == "0":
+                begin += 25
+            else:
+                begin += 26    
+
+            public_key_f = stdoutdata[begin:begin + 64]
+
+            public_key_s = stdoutdata[begin + 66:begin + 114]
+
+            data["publicKeyF"] = public_key_f
+
+            data["publicKeyS"] = public_key_s
+
+            data["catalogId"] = catalog_id
+
+            os.system(f"rm {workdir}/{chain}/{catalog_id}/*.fift")
+            os.system(f"rm {workdir}/{chain}/{catalog_id}/*.boc")
+
+            with open(f'{workdir}/{chain}/{catalog_id}/pub.json', 'w') as f:
+                json.dump(data, f)   
+            return data
+    except:
+        return False
+
 def gen_addr_and_get_faucet(catalog_id, network="-1"):
     try:
 

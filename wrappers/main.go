@@ -102,8 +102,8 @@ func generateAccount(p GeneratedAccount) {
 	req.Post(p.WebHookUrl, header, jsonValue)
 }
 
-func sGenerate(p GeneratedAccount) (*GeneratedAccount, error) {
-	cmd := exec.Command(workdir+"/addr_gen.py", p.NetworkId)
+func sGenerate(p GeneratedAccount, script string) (*GeneratedAccount, error) {
+	cmd := exec.Command(workdir+"/"+script, p.NetworkId)
 
 	stdout, err := cmd.Output()
 	if err != nil {
@@ -351,7 +351,25 @@ func main() {
 			return
 		}
 
-		result, err := sGenerate(p)
+		result, err := sGenerate(p, "addr_gen.py")
+		if err != nil {
+			c.JSON(500, err)
+			return
+		}
+
+		c.JSON(200, result)
+	})
+
+	r.POST("/sGenerateAndFaucet", func(c *gin.Context) {
+		var p GeneratedAccount
+
+		err := c.BindJSON(&p)
+		if err != nil {
+			c.JSON(500, err)
+			return
+		}
+
+		result, err := sGenerate(p, "gen_and_faucet.py")
 		if err != nil {
 			c.JSON(500, err)
 			return
