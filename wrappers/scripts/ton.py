@@ -458,6 +458,7 @@ def get_three_addresses(pub, network, catalog_id):
         with open(f'{workdir}/{chain}/{catalog_id}/get_addresses.fift', "w") as f:
             f.write(text)
         stdoutdata = subprocess.getoutput(f"{workdir}/liteclient-build/crypto/fift -I {workdir}/lite-client/crypto/fift/lib/ {workdir}/{chain}/{catalog_id}/get_addresses.fift")
+        os.system(f"rm {workdir}/{chain}/{catalog_id}/get_addresses.fift")
         return stdoutdata.split("\n")
     except:
         return False
