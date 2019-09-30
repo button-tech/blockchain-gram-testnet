@@ -390,18 +390,16 @@ func main() {
 		c.JSON(200, gin.H{"txHash": hash})
 	})
 
-	r.GET("/regAccount/:catalog", func(c *gin.Context) {
-		network := c.Request.URL.Query().Get("network")
+	r.POST("/regAccount", func(c *gin.Context) {
+		var p GeneratedAccount
 
-		if network == "masterchain" {
-			network = "-1"
-		} else if network == "basechain" {
-			network = "0"
-		} else if len(network) == 0 {
-			network = "-1"
+		err := c.BindJSON(&p)
+		if err != nil {
+			c.JSON(500, err)
+			return
 		}
 
-		cmd := exec.Command(workdir+"/reg_account.py", c.Param("catalog"), network)
+		cmd := exec.Command(workdir+"/reg_account.py", p.CatalogId, p.NetworkId)
 		stdout, err := cmd.Output()
 		if err != nil {
 			c.JSON(500, err.Error())
