@@ -417,6 +417,32 @@ func main() {
 
 	})
 
+	r.GET("/checkSeqno/:address", func(c *gin.Context) {
+		network := c.Request.URL.Query().Get("network")
+
+		if network == "masterchain" {
+			network = "-1"
+		} else if network == "basechain" {
+			network = "0"
+		} else if len(network) == 0 {
+			network = "-1"
+		}
+
+		cmd := exec.Command(workdir+"/check_seqno.py", c.Param("address"), network)
+		stdout, err := cmd.Output()
+		if err != nil {
+			c.JSON(500, err.Error())
+			return
+		}
+		if string(stdout) == "False\n" {
+			c.JSON(500, gin.H{"ready": "no"})
+			return
+		} else if string(stdout) == "True\n" {
+			c.JSON(200, gin.H{"ready": "yes"})
+			return
+		}
+	})
+
 	r.POST("/sGenerateAndFaucet", func(c *gin.Context) {
 		var p GeneratedAccount
 

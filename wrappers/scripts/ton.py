@@ -38,7 +38,7 @@ def generate_addr(catalog_id, network="-1"):
             if len(public_key_f) != 64:
                 return False
 
-            addresses_list = get_three_addresses(public_key_f, network, catalog_id)
+            addresses_list = get_three_addresses(public_key_f, catalog_id, network)
 
             if len(addresses_list) == False or len(addresses_list) != 3:
                 return False
@@ -92,7 +92,7 @@ def gen_addr_and_get_faucet(catalog_id, network="-1"):
             if len(public_key_f) != 64:
                 return False
 
-            addresses_list = get_three_addresses(public_key_f, network, catalog_id)
+            addresses_list = get_three_addresses(public_key_f, catalog_id, network)
 
             if len(addresses_list) == False or len(addresses_list) != 3:
                 return False
@@ -434,7 +434,7 @@ def get_last_tx_hash(pub, network="-1"):
            return False 
 
        return result
-def get_three_addresses(pub, network, catalog_id):
+def get_three_addresses(pub, catalog_id, network="-1",):
     chain = ""
 
     if network == "-1":
@@ -462,7 +462,7 @@ def get_three_addresses(pub, network, catalog_id):
     except:
         return False
 
-def reg_account(catalog_id, network):
+def reg_account(catalog_id, network="-1"):
     chain = ""
 
     if network == "-1":
@@ -476,4 +476,11 @@ def reg_account(catalog_id, network):
     except:
         return False
 
+def check_account_seqno(pub, network):
+    stdoutdata = subprocess.getoutput(f"{workdir}/cli_exec/getaccount {workdir} {network} {pub}")
+
+    if stdoutdata.find("data:") == -1:
+        return False
+
+    return True    
 

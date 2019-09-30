@@ -203,6 +203,18 @@ func main() {
 		c.Data(resp.Response().StatusCode, "application/json", resp.Bytes())
 	})
 
+	r.GET("/checkSeqno/:address", func(c *gin.Context) {
+		host := rr.Next()
+
+		resp, err := req.Get(UrlGen(c.Request.URL.Query().Get("network"), "checkSeqno", host.Host, c.Param("address")))
+		if err != nil {
+			c.JSON(500, err.Error())
+			return
+		}
+
+		c.Data(resp.Response().StatusCode, "application/json", resp.Bytes())
+	})
+
 	r.POST("/generateAccount", func(c *gin.Context) {
 
 		host := rr.Next()
