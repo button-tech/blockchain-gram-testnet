@@ -35,11 +35,19 @@ def generate_addr(catalog_id, network="-1"):
 
             public_key_f = stdoutdata[begin:begin + 64]
 
-            public_key_s = stdoutdata[begin + 66:begin + 114]
+            if len(public_key_f) != 64:
+                return False
+
+            addresses_list = get_three_addresses(public_key_f, network, catalog_id)
+
+            if len(addresses_list) == False or len(addresses_list) != 3:
+                return False
 
             data["publicKeyF"] = public_key_f
 
-            data["publicKeyS"] = public_key_s
+            data["publicKeyS"] = addresses_list[2]
+
+            data["forInit"] = addresses_list[1]
 
             data["catalogId"] = catalog_id
 
@@ -82,11 +90,19 @@ def gen_addr_and_get_faucet(catalog_id, network="-1"):
 
             public_key_f = stdoutdata[begin:begin + 64]
 
-            public_key_s = stdoutdata[begin + 66:begin + 114]
+            if len(public_key_f) != 64:
+                return False
+
+            addresses_list = get_three_addresses(public_key_f, network, catalog_id)
+
+            if len(addresses_list) == False or len(addresses_list) != 3:
+                return False
 
             data["publicKeyF"] = public_key_f
 
-            data["publicKeyS"] = public_key_s
+            data["publicKeyS"] = addresses_list[2]
+
+            data["forInit"] = addresses_list[1]
 
             data["catalogId"] = catalog_id
 
@@ -419,3 +435,29 @@ def get_last_tx_hash(pub, network="-1"):
            return False 
 
        return result
+def get_three_addresses(pub, network, catalog_id):
+    chain = ""
+
+    if network == "-1":
+        chain = "masterchain"
+    elif network == "0":
+        chain = "basechain"
+   
+    text = '''
+    "TonUtil.fif" include
+
+    '''+ network +''' constant bounce
+    0x'''+ pub +''' constant wallet_addr
+
+    wallet_addr
+    ."" bounce ._ .":" x. cr
+    bounce wallet_addr 2dup 7 .Addr cr
+    6 .Addr
+    '''
+    try:
+        with open(f'{workdir}/{chain}/{catalog_id}/get_addresses.fift', "w") as f:
+            f.write(text)
+        stdoutdata = subprocess.getoutput(f"{workdir}/liteclient-build/crypto/fift -I {workdir}/lite-client/crypto/fift/lib/ {workdir}/{chain}/{catalog_id}/get_addresses.fift")
+        return stdoutdata.split("\n")
+    except:
+        return False

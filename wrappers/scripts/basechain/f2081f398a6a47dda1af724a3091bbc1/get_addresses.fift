@@ -1,0 +1,11 @@
+
+    "TonUtil.fif" include
+
+    0 constant bounce
+    0xa53f6d835df84ce45466c1c1f2aacb0ff6ec1e6a2e05c6bf7dde309c066d5cff constant wallet_addr
+
+    wallet_addr
+    ."" bounce ._ .":" x. cr
+    bounce wallet_addr 2dup 7 .Addr cr
+    6 .Addr
+    

@@ -38,11 +38,13 @@ type TxParams struct {
 type Account struct {
 	PublicKeyF string `json:"publicKeyF"`
 	PublicKeyS string `json:"publicKeyS"`
+	ForInit    string `json:"forInit"`
 }
 
 type GeneratedAccount struct {
 	PublicKeyF string `json:"publicKeyF"`
 	PublicKeyS string `json:"publicKeyS"`
+	ForInit    string `json:"forInit"`
 	CatalogId  string `json:"catalogId"`
 	UserId     int64  `json:"userId"`
 	Chain      string `json:"chain"`
