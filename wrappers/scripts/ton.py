@@ -361,7 +361,7 @@ def create_send_fift(catalog_id, pub_rec, pub_sender, amount, nonce, network="-1
 
     if network == "-1":
         chain = "masterchain"
-         util_lib = "TonUtil2.fif"
+        util_lib = "TonUtil2.fif"
     elif network == "0":
         chain = "basechain"
         util_lib = "TonUtil.fif"
