@@ -6,7 +6,6 @@ WORKDIR /build
 
 RUN go build -o bin/main ./wrappers
 
-
 FROM python:3.7-stretch
 
 ADD . /app
@@ -24,6 +23,7 @@ RUN apt-get -y install libssl-dev zlib1g-dev cmake g++ build-essential libncurse
 RUN wget https://test.ton.org/ton-test-liteclient-full.tar.xz
 RUN tar -xvf ton-test-liteclient-full.tar.xz
 RUN mkdir liteclient-build
+RUN cp /app/ton/fift_examples/TonUtils2.fif /app/wrappers/scripts/lite-client/crypto/fift/lib
 
 WORKDIR /app/wrappers/scripts/liteclient-build
 RUN cmake /app/wrappers/scripts/lite-client
@@ -32,5 +32,6 @@ RUN cmake --build . --target fift
 RUN wget https://test.ton.org/ton-lite-client-test1.config.json
 
 WORKDIR /app/wrappers/scripts
+
 
 CMD ["/app/wrappers/main"]

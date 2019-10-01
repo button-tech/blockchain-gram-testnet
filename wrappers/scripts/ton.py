@@ -357,16 +357,19 @@ def create_giver_file(sender_id, pub, nonce, network="-1"):
 def create_send_fift(catalog_id, pub_rec, pub_sender, amount, nonce, network="-1"):
 
     chain = ""
+    util_lib = ""
 
     if network == "-1":
         chain = "masterchain"
+         util_lib = "TonUtil2.fif"
     elif network == "0":
         chain = "basechain"
+        util_lib = "TonUtil.fif"
 
     path = f"{workdir}/{chain}/{catalog_id}/"
 
     text =  '''
-    "TonUtil.fif" include
+    "''' + util_lib + '''" include
 
 { ."usage: " @' $0 type ." <filename-base> <dest-addr> <seqno> <amount> [-B <body-boc>] [<savefile>]" cr
   ."Creates a request to simple wallet created by new-wallet.fif, with private key loaded from file <filename-base>.pk "
