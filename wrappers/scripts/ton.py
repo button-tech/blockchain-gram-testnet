@@ -195,13 +195,14 @@ def send(content):
             os.system(f"{workdir}/liteclient-build/crypto/fift -I {workdir}/lite-client/crypto/fift/lib/ -s {workdir}/{chain}/{sender_id}/send.fift {file_base} {full_reciever_address} {nonce_int} {amount} 1>/dev/null")
             os.system(f"mv {workdir}/send-{pub_sender}-{pub_rec}.boc {workdir}/{chain}/{sender_id}")
 
-            _ = subprocess.getoutput(f"{workdir}/cli_exec/last {workdir}")
-            _ = subprocess.getoutput(f"{workdir}/cli_exec/last {workdir}")
             _ = subprocess.getoutput(f"{workdir}/cli_exec/send_grams {workdir} {sender_id} {pub_sender} {pub_rec} {chain}")
             _ = subprocess.getoutput(f"{workdir}/cli_exec/last {workdir}")
+            time.sleep(1)
             _ = subprocess.getoutput(f"{workdir}/cli_exec/last {workdir}")
+            time.sleep(1)
+            _ = subprocess.getoutput(f"{workdir}/cli_exec/last {workdir}")
+            time.sleep(1)
 
-            time.sleep(2)
             sender_last_tx_hash_after = get_last_tx_hash(pub_sender, network)
             if sender_last_tx_hash_after == False:
                 return False
@@ -217,6 +218,8 @@ def send(content):
                 return {"senderTxHash":sender_last_tx_hash_after, "recipientTxHash":recipient_last_tx_hash}
 
             else:
+                time.sleep(2)
+                _ = subprocess.getoutput(f"{workdir}/cli_exec/last {workdir}")
                 time.sleep(2)
                 second_try = get_last_tx_hash(pub_sender, network)
                 if sender_last_tx_hash_before != second_try:
