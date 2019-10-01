@@ -190,8 +190,9 @@ def send(content):
             if create_send_fift(sender_id, pub_rec, pub_sender, amount, nonce, network) != True:
                     return False 
 
-            full_reciever_address = network +":"+ pub_rec        
-            os.system(f"{workdir}/liteclient-build/crypto/fift -I {workdir}/lite-client/crypto/fift/lib/ -s {workdir}/{chain}/{sender_id}/send.fift {sender_id} {full_reciever_address} {nonce_int} {amount} 1>/dev/null")
+            full_reciever_address = network +":"+ pub_rec
+            file_base = f"{workdir}{chain}{sender_id}{sender_id}"        
+            os.system(f"{workdir}/liteclient-build/crypto/fift -I {workdir}/lite-client/crypto/fift/lib/ -s {workdir}/{chain}/{sender_id}/send.fift {file_base} {full_reciever_address} {nonce_int} {amount} 1>/dev/null")
             os.system(f"mv {workdir}/send-{pub_sender}-{pub_rec}.boc {workdir}/{chain}/{sender_id}")
 
             _ = subprocess.getoutput(f"{workdir}/cli_exec/last {workdir}")
