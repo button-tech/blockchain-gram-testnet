@@ -181,15 +181,17 @@ def send(content):
             sender_last_tx_hash_before = get_last_tx_hash(pub_sender, network)
            
             if sender_last_tx_hash_before == False:
-                return False
+                 return False
             
             nonce = get_nonce(pub_sender, network)
+
+            nonce_int = int("0x" + nonce, 16)
 
             if create_send_fift(sender_id, pub_rec, pub_sender, amount, nonce, network) != True:
                     return False 
 
             full_reciever_address = network +":"+ pub_rec        
-            os.system(f"{workdir}/liteclient-build/crypto/fift -I {workdir}/lite-client/crypto/fift/lib/ -s {workdir}/{chain}/{sender_id}/send.fift {sender_id} {full_reciever_address} {nonce} {amount} 1>/dev/null")
+            os.system(f"{workdir}/liteclient-build/crypto/fift -I {workdir}/lite-client/crypto/fift/lib/ -s {workdir}/{chain}/{sender_id}/send.fift {sender_id} {full_reciever_address} {nonce_int} {amount} 1>/dev/null")
             os.system(f"mv {workdir}/send-{pub_sender}-{pub_rec}.boc {workdir}/{chain}/{sender_id}")
 
             _ = subprocess.getoutput(f"{workdir}/cli_exec/last {workdir}")
@@ -374,8 +376,8 @@ def create_send_fift(catalog_id, pub_rec, pub_sender, amount, nonce, network="-1
 
    $1 =: file-base
    $2 bounce parse-load-address =: bounce 2=: dest_addr
-    $3 =: seqno
-$4 $>GR =: amount
+    $3 parse-int =: seqno
+    $4 $>GR =: amount
 def? $5 { @' $5 } { "wallet-query" } cond constant savefile
 
 file-base +".addr" load-address
@@ -388,7 +390,7 @@ constant body-cell
 
 ."Transferring " amount .GR ."to account "
 dest_addr 2dup bounce 7 + .Addr ." = " .addr 
-."bounce=" bounce . cr
+."seqno=0x" seqno x. ."bounce=" bounce . cr
 ."Body of transfer message is " body-cell <s csr. cr
   
 // create a message
