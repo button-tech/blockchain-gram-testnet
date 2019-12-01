@@ -10,7 +10,6 @@ Implementation for BUTTON Wallet Bot
 Build and run 
 
 ```
-
 # docker build -f Dockerfile.worker -r username/imagename .
 # sudo docker run -v /mnt/filedir/masterchain:/app/wrappers/scripts/masterchain -v /mnt/filedir/basechain:/app/wrappers/scripts/basechain -e WORKDIR=/app/wrappers/scripts -d -p 80:80 username/imagename
 ```
@@ -22,10 +21,8 @@ Build and run
 2) Then you can build and run
 
 ```
-
 # docker build -f Dockerfile.rr_lb -t username/imagename .
 # docker run username/imagename
-
 ```
 
 ## Warning
