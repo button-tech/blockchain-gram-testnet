@@ -17,21 +17,20 @@ WORKDIR /app/wrappers/scripts
 
 # install dep
 RUN apt-get update && apt-get upgrade -y
-RUN apt-get -y install libssl-dev zlib1g-dev cmake g++ build-essential libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev gperf expect wget
+RUN apt-get -y install ccache libpthread-stubs0-dev libssl-dev zlib1g-dev cmake g++ build-essential libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev libmicrohttpd-dev texlive-full gperf expect wget poppler-utils
 
 # build ton client
-RUN wget https://test.ton.org/ton-test-liteclient-full.tar.xz
-RUN tar -xvf ton-test-liteclient-full.tar.xz
+RUN git clone https://github.com/ton-blockchain/ton.git
+RUN cd ton; git submodule update --init; cd ..
 RUN mkdir liteclient-build
 RUN cp /app/ton/fift_examples/TonUtils2.fif /app/wrappers/scripts/lite-client/crypto/fift/lib
 
 WORKDIR /app/wrappers/scripts/liteclient-build
-RUN cmake /app/wrappers/scripts/lite-client
+RUN cmake /app/wrappers/scripts/ton
 RUN cmake --build . --target lite-client
 RUN cmake --build . --target fift
 RUN wget https://test.ton.org/ton-lite-client-test1.config.json
 
 WORKDIR /app/wrappers/scripts
-
 
 CMD ["/app/wrappers/main"]
